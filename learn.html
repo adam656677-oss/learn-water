@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Adult water education — wells, pumps, aquifers, chemical treatment, motors, and more. Free learning from LearnWater.">
+  <title>Adult Learning — LearnWater</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .learn-hero { padding: 5rem 0 4.5rem; }
+
+    /* Tab navigation — scrollable on mobile */
+    .tab-wrapper {
+      background: var(--white);
+      position: sticky;
+      top: 56px;
+      z-index: 80;
+      border-bottom: 2px solid var(--light);
+      box-shadow: 0 2px 8px rgba(0,119,182,0.06);
+    }
+    .tab-wrapper .container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .tabs { white-space: nowrap; flex-wrap: nowrap; border-bottom: none; }
+    .tab-btn { font-size: 0.9rem; }
+
+    /* Content area */
+    .tab-content { background: var(--white); padding: 3rem 0 4rem; min-height: 60vh; }
+
+    /* Shared panel styles */
+    .panel-intro {
+      max-width: 760px;
+      margin-bottom: 2.5rem;
+    }
+    .panel-intro h2 { margin-bottom: 0.6rem; }
+    .panel-intro p  { color: var(--muted); font-size: 1.05rem; }
+
+    h3.section-h3 {
+      color: var(--primary);
+      margin: 2rem 0 0.75rem;
+      border-left: 4px solid var(--secondary);
+      padding-left: 0.75rem;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+    @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* Definition list cards */
+    .def-list { list-style: none; margin: 1rem 0 1.5rem; }
+    .def-list li {
+      background: var(--gray);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+    .def-list li strong { color: var(--primary); }
+
+    /* Process steps */
+    .steps { counter-reset: step; margin: 1.5rem 0; }
+    .step-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .step-body h4 { margin-bottom: 0.3rem; color: var(--dark); }
+    .step-body p  { margin: 0; color: var(--muted); font-size: 0.93rem; }
+
+    /* Comparison table */
+    .comp-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.92rem; }
+    .comp-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.65rem 1rem;
+      text-align: left;
+    }
+    .comp-table td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--light); }
+    .comp-table tr:nth-child(even) td { background: var(--gray); }
+
+    /* Quick-reference box */
+    .quick-ref {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .qr-item {
+      text-align: center;
+      background: var(--white);
+      border: 2px solid var(--light);
+      border-radius: 12px;
+      padding: 1rem 0.75rem;
+    }
+    .qr-item .qr-num { font-size: 1.6rem; font-weight: 800; color: var(--primary); display: block; }
+    .qr-item p { font-size: 0.8rem; color: var(--muted); margin: 0; }
+
+    /* Sidebar cards */
+    .side-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .side-card {
+      background: linear-gradient(135deg, #e8f4fd, #cae8f8);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .side-card h4 { color: var(--dark); margin-bottom: 0.4rem; }
+    .side-card p  { color: var(--muted); font-size: 0.88rem; margin: 0; }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand">
+      <span class="drop">💧</span> LearnWater
+    </a>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html">Kids Corner</a></li>
+      <li><a href="learn.html" class="active">Learn</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero learn-hero">
+  <div class="container hero-content">
+    <h1>Adult Water Education</h1>
+    <p>Deep-dive resources on water systems, infrastructure, and treatment. Whether you're a homeowner, operator, or curious learner — this is your guide.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="white"/>
+  </svg>
+</section>
+
+<!-- Tab bar (sticky) -->
+<div class="tab-wrapper">
+  <div class="container">
+    <div class="tabs" id="learnTabs" role="tablist">
+      <button class="tab-btn active" onclick="showTab('basics')"  role="tab">💧 Water Basics</button>
+      <button class="tab-btn"        onclick="showTab('wells')"   role="tab">🏗️ Wells</button>
+      <button class="tab-btn"        onclick="showTab('pumps')"   role="tab">⚙️ Pumps</button>
+      <button class="tab-btn"        onclick="showTab('aquifers')" role="tab">🌍 Aquifers</button>
+      <button class="tab-btn"        onclick="showTab('chemicals')" role="tab">🧪 Chemicals</button>
+      <button class="tab-btn"        onclick="showTab('motors')"  role="tab">⚡ Motors</button>
+      <button class="tab-btn"        onclick="showTab('resources')" role="tab">📄 Resources</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tab content -->
+<div class="tab-content">
+  <div class="container">
+
+    <!-- ======================== WATER BASICS ======================== -->
+    <div class="tab-panel active" id="tab-basics">
+      <div class="panel-intro">
+        <h2>💧 Water Basics</h2>
+        <p>Understanding water — where it comes from, what makes it safe, and how it reaches your tap. This is the foundation for everything else in water systems.</p>
+      </div>
+
+      <h3 class="section-h3">The Water Cycle</h3>
+      <p>Water is constantly recycled through evaporation, condensation, precipitation, and collection. This means the water on Earth today is the same water that has always been here — there is no "new" water. Understanding this cycle is critical for conservation and resource planning.</p>
+
+      <div class="two-col">
+        <div>
+          <h3 class="section-h3" style="margin-top:1rem;">Types of Water Sources</h3>
+          <ul class="def-list">
+            <li><strong>Surface Water:</strong> Rivers, lakes, reservoirs, and streams. Susceptible to contamination from runoff, agriculture, and industry but often easier to access and treat.</li>
+            <li><strong>Groundwater:</strong> Water stored below the surface in aquifers. Often naturally filtered but can carry dissolved minerals and requires pumping.</li>
+            <li><strong>Rainwater:</strong> Collected precipitation. Relatively pure but can absorb pollutants from the atmosphere and collection surfaces.</li>
+            <li><strong>Reclaimed Water:</strong> Treated wastewater reused for irrigation, industrial cooling, or groundwater recharge.</li>
+          </ul>
+        </div>
+        <div class="side-cards">
+          <div class="side-card">
+            <h4>🌊 Why Freshwater Is Rare</h4>
+            <p>97% of Earth's water is saltwater. Of the remaining 3%, about 2.1% is frozen in glaciers and ice caps, leaving less than 1% as accessible freshwater. That tiny fraction sustains all land life on Earth.</p>
+          </div>
+          <div class="side-card">
+            <h4>📊 US Water Use by Sector</h4>
+            <p>Thermoelectric power: 38% · Irrigation: 37% · Public supply: 12% · Industrial: 5% · Aquaculture: 4% · Other: 4%</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-h3">Water Quality Parameters</h3>
+      <p>Safe drinking water is defined by hundreds of measurements. The most important categories are:</p>
+      <ul class="def-list">
+        <li><strong>Physical:</strong> Color, turbidity (cloudiness), temperature, taste, and odor. These are the first indicators of a problem.</li>
+        <li><strong>Chemical:</strong> pH, hardness (calcium/magnesium), dissolved solids, nitrates, heavy metals, and organic compounds. Regulated by the EPA's Maximum Contaminant Levels (MCLs).</li>
+        <li><strong>Biological:</strong> Bacteria, viruses, protozoa (like Giardia and Cryptosporidium), and other microorganisms. The primary health risk from untreated water.</li>
+        <li><strong>Radiological:</strong> Naturally occurring radioactive minerals like radium and uranium that can leach into groundwater.</li>
+      </ul>
+
+      <div class="info-box">
+        <h4>🏛️ Safe Drinking Water Act (SDWA)</h4>
+        <p>The EPA's primary law for regulating public drinking water quality. It sets enforceable standards for over 90 contaminants and requires regular testing and public reporting. Public water systems serving more than 25 people are covered by the SDWA.</p>
+      </div>
+
+      <h3 class="section-h3">From Source to Tap — Treatment Overview</h3>
+      <div class="steps">
+        <div class="step-item"><div class="step-num">1</div><div class="step-body"><h4>Intake &amp; Screening</h4><p>Raw water is drawn from the source and large debris is removed with screens and bar racks.</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-body"><h4>Coagulation &amp; Flocculation</h4><p>Chemicals (alum, ferric sulfate) are added to make tiny particles clump together into larger "floc" that can be settled out.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-body"><h4>Sedimentation</h4><p>Water sits in large basins, allowing heavy floc to settle to the bottom.</p></div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-body"><h4>Filtration</h4><p>Water passes through layers of sand, gravel, and sometimes activated carbon or membranes to remove remaining particles and some contaminants.</p></div></div>
+        <div class="step-item"><div class="step-num">5</div><div class="step-body"><h4>Disinfection</h4><p>Chlorine, chloramine, UV, or ozone is used to kill bacteria and viruses before water enters the distribution system.</p></div></div>
+        <div class="step-item"><div class="step-num">6</div><div class="step-body"><h4>Distribution</h4><p>Treated water is pumped through a pressurized pipe network of mains, storage tanks, and service lines to homes and businesses.</p></div></div>
+      </div>
+    </div>
+
+    <!-- ======================== WELLS ======================== -->
+    <div class="tab-panel" id="tab-wells">
+      <div class="panel-intro">
+        <h2>🏗️ Wells</h2>
+        <p>Wells tap groundwater for drinking, irrigation, and industrial use. Understanding well construction and maintenance protects water quality and your investment.</p>
+      </div>
+
+      <h3 class="section-h3">Well Types</h3>
+      <table class="comp-table">
+        <thead><tr><th>Type</th><th>Depth</th><th>Construction</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Dug Well</strong></td><td>&lt; 30 ft</td><td>Hand-dug, large diameter, often stone-lined</td><td>High water table, private use</td></tr>
+          <tr><td><strong>Bored Well</strong></td><td>10–100 ft</td><td>Auger or rotary equipment</td><td>Shallow aquifers, residential</td></tr>
+          <tr><td><strong>Drilled Well</strong></td><td>Up to 1,000+ ft</td><td>Rotary or cable tool rig, steel casing</td><td>Deep aquifers, most common</td></tr>
+          <tr><td><strong>Artesian Well</strong></td><td>Varies</td><td>Taps a confined aquifer under pressure</td><td>Areas with confining layers</td></tr>
+          <tr><td><strong>Jetted Well</strong></td><td>50–100 ft</td><td>High-pressure water to bore a small hole</td><td>Sandy, loose formations</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-h3">Well Anatomy</h3>
+      <ul class="def-list">
+        <li><strong>Well Casing:</strong> The pipe that lines the borehole. Usually steel or PVC. Prevents collapse and keeps surface water from entering the well.</li>
+        <li><strong>Well Screen:</strong> Perforated pipe at the bottom of the casing that allows water in while keeping sand and gravel out.</li>
+        <li><strong>Gravel Pack:</strong> Clean gravel placed around the screen to stabilize the formation and improve flow.</li>
+        <li><strong>Grout / Annular Seal:</strong> Cement or bentonite placed between the casing and borehole wall to prevent surface water contamination.</li>
+        <li><strong>Well Cap:</strong> A tight-fitting cover on top of the casing to keep insects, rodents, and debris out.</li>
+        <li><strong>Static Water Level:</strong> The level where water naturally sits in the well when the pump is off (measured from the surface).</li>
+        <li><strong>Pumping Water Level:</strong> The lower level water drops to when actively pumping. The difference between static and pumping levels is called drawdown.</li>
+      </ul>
+
+      <h3 class="section-h3">Well Development &amp; Testing</h3>
+      <div class="two-col">
+        <div>
+          <p><strong>Development</strong> is the process of cleaning and optimizing a new or rehabilitated well. Methods include surging, air development, and high-velocity water jetting to remove fine particles from the formation.</p>
+          <p><strong>Pump tests</strong> determine the well's yield (gallons per minute), specific capacity, and sustainable pumping rate. They also help characterize the aquifer.</p>
+        </div>
+        <div>
+          <div class="info-box" style="margin-top:0;">
+            <h4>⚠️ Signs of a Problem Well</h4>
+            <p>Sand or grit in water · Sudden changes in taste or smell · Cloudy or colored water · Pressure drops · Air spitting from faucets · Bacteria test failure · Flooding near the well casing</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-h3">Well Disinfection (Shock Chlorination)</h3>
+      <div class="steps">
+        <div class="step-item"><div class="step-num">1</div><div class="step-body"><h4>Calculate Volume</h4><p>Determine the gallons of water in the well (π × r² × depth × 7.48).</p></div></div>
+        <div class="step-item"><div class="step-num">2</div><div class="step-body"><h4>Prepare Chlorine Solution</h4><p>Use unscented household bleach (5.25–8.25% sodium hypochlorite). Target 50–200 ppm chlorine in the well.</p></div></div>
+        <div class="step-item"><div class="step-num">3</div><div class="step-body"><h4>Introduce &amp; Circulate</h4><p>Pour solution into the well and recirculate using a hose for 15–30 minutes to coat the casing walls.</p></div></div>
+        <div class="step-item"><div class="step-num">4</div><div class="step-body"><h4>Contact Time</h4><p>Let chlorinated water sit in the well for 12–24 hours (or run through plumbing for at least 30 minutes).</p></div></div>
+        <div class="step-item"><div class="step-num">5</div><div class="step-body"><h4>Flush &amp; Test</h4><p>Pump water to waste until chlorine is gone, then collect a bacteriological water sample and wait for clear results before using.</p></div></div>
+      </div>
+    </div>
+
+    <!-- ======================== PUMPS ======================== -->
+    <div class="tab-panel" id="tab-pumps">
+      <div class="panel-intro">
+        <h2>⚙️ Pumps</h2>
+        <p>Pumps are the heart of every water system. From tiny residential jet pumps to massive turbine pumps serving cities, understanding how they work helps you choose, operate, and troubleshoot them.</p>
+      </div>
+
+      <h3 class="section-h3">Major Pump Categories</h3>
+      <table class="comp-table">
+        <thead><tr><th>Category</th><th>How It Works</th><th>Common Applications</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Centrifugal</strong></td><td>Impeller spins to create velocity, converts to pressure</td><td>Surface water intakes, booster stations, WTP</td></tr>
+          <tr><td><strong>Submersible</strong></td><td>Motor and pump submerged below water; pushes water up</td><td>Deep wells, lift stations</td></tr>
+          <tr><td><strong>Jet Pump</strong></td><td>Water jet creates suction via venturi effect</td><td>Shallow residential wells (&lt;25 ft)</td></tr>
+          <tr><td><strong>Vertical Turbine</strong></td><td>Multi-stage impellers in column pipe; motor at surface</td><td>Deep wells, large municipal supplies</td></tr>
+          <tr><td><strong>Diaphragm / Positive Displacement</strong></td><td>Reciprocating diaphragm moves fixed volumes</td><td>Chemical dosing (metering pumps)</td></tr>
+          <tr><td><strong>Peristaltic</strong></td><td>Rotating rollers squeeze a flexible tube</td><td>Chemical feed, slurries</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-h3">Key Pump Performance Concepts</h3>
+      <ul class="def-list">
+        <li><strong>Total Dynamic Head (TDH):</strong> The total pressure (in feet) a pump must overcome — the sum of static lift, friction losses, and pressure requirements. The fundamental sizing parameter.</li>
+        <li><strong>Flow Rate (GPM or GPH):</strong> Volume of water moved per unit time. Must match system demand and be within the pump's efficient operating range.</li>
+        <li><strong>BEP (Best Efficiency Point):</strong> The ideal operating point on a pump curve where efficiency is highest and wear is lowest. Operating far from BEP causes heat, vibration, and premature failure.</li>
+        <li><strong>NPSH (Net Positive Suction Head):</strong> The minimum pressure at the pump inlet needed to prevent cavitation (bubbles forming and collapsing). Critical for avoiding pump damage.</li>
+        <li><strong>Pump Curve:</strong> A graph showing how flow and head (pressure) relate for a specific pump. Used with system curves to find the operating point.</li>
+        <li><strong>Specific Speed:</strong> A dimensionless number classifying pump type and impeller geometry based on flow and head. Helps engineers select the right pump for an application.</li>
+      </ul>
+
+      <h3 class="section-h3">Pump Troubleshooting Guide</h3>
+      <div class="two-col">
+        <div>
+          <ul class="def-list">
+            <li><strong>Pump won't start:</strong> Check power, fuses/breakers, motor winding resistance, control panel, pressure switch, float switch.</li>
+            <li><strong>Low flow / low pressure:</strong> Worn impeller, air lock, blocked strainer, check valve failure, inadequate submergence, worn wear rings.</li>
+            <li><strong>Pump cycles frequently (short cycles):</strong> Waterlogged pressure tank, undersized tank, check valve leaking back, leak in system.</li>
+            <li><strong>Excessive noise / vibration:</strong> Cavitation, bearing failure, worn impeller, misalignment, debris in pump, impeller cavitation damage.</li>
+          </ul>
+        </div>
+        <div>
+          <ul class="def-list">
+            <li><strong>Motor overheating:</strong> Overloaded (too much flow), low voltage, poor ventilation, start/stop too frequent, single phasing on 3-phase.</li>
+            <li><strong>Pump runs but no water:</strong> Lost prime, blocked suction, check valve stuck closed, column pipe broken (submersible), air pocket.</li>
+            <li><strong>Seal or packing leaks:</strong> Worn mechanical seal, incorrect packing material, worn shaft sleeve, excessive heat.</li>
+            <li><strong>High energy consumption:</strong> Operating off BEP, worn impeller, partially closed valve, incorrect pump for the system.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h4>🔧 Pump Maintenance Schedule</h4>
+        <p><strong>Monthly:</strong> Check amp draw, bearing temperature, vibration levels, packing/seal leaks, pressure readings.<br>
+        <strong>Annually:</strong> Lubricate bearings, inspect seals/packing, check alignment, review pump curve performance vs. baseline.<br>
+        <strong>Every 3–5 Years:</strong> Pull and inspect impeller, wear rings, shaft seal, bushings; rebuild or replace as needed.</p>
+      </div>
+    </div>
+
+    <!-- ======================== AQUIFERS ======================== -->
+    <div class="tab-panel" id="tab-aquifers">
+      <div class="panel-intro">
+        <h2>🌍 Aquifers</h2>
+        <p>Aquifers are underground layers of rock, sand, or gravel that hold and yield significant quantities of water. They supply about half of all drinking water in the United States.</p>
+      </div>
+
+      <h3 class="section-h3">Aquifer Types</h3>
+      <div class="two-col">
+        <div>
+          <ul class="def-list">
+            <li><strong>Unconfined Aquifer:</strong> The upper surface (water table) is free to rise and fall. Recharged directly from above through precipitation and infiltration. Most common and vulnerable to surface contamination.</li>
+            <li><strong>Confined Aquifer:</strong> Bounded above and below by impermeable layers (aquitards). Water is under pressure — wells drilled here may produce artesian flow. Often deeper and better protected from contamination.</li>
+            <li><strong>Perched Aquifer:</strong> A small, isolated body of groundwater sitting above an impermeable layer, separated from the main water table. Often seasonal and limited in yield.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="side-card" style="background:linear-gradient(135deg,#e0f7fa,#b2ebf2);">
+            <h4>🇺🇸 Major US Aquifer Systems</h4>
+            <p><strong>Ogallala (High Plains):</strong> Stretches across 8 states; supplies 30% of US groundwater irrigation — severely depleted by decades of over-pumping.</p>
+            <p style="margin-top:0.5rem;"><strong>Floridan:</strong> One of the most productive in the world; underlies much of Florida, Georgia, Alabama, and South Carolina.</p>
+            <p style="margin-top:0.5rem;"><strong>Edwards:</strong> Karst limestone aquifer in Texas; primary water source for San Antonio and surrounding area.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-h3">Aquifer Properties</h3>
+      <ul class="def-list">
+        <li><strong>Porosity:</strong> The percentage of the rock or sediment that is open space (pores or fractures). High porosity means more storage potential.</li>
+        <li><strong>Permeability / Hydraulic Conductivity:</strong> How easily water can flow through the material. Sand and gravel are highly permeable; clay is not. Permeability is what matters for well yield.</li>
+        <li><strong>Transmissivity:</strong> Permeability × aquifer thickness. A high transmissivity aquifer can yield large volumes of water over a wide area.</li>
+        <li><strong>Storativity / Storage Coefficient:</strong> The volume of water released per unit area per unit decline in head. Low for confined aquifers (water stored in elastic compression), higher for unconfined.</li>
+        <li><strong>Recharge Rate:</strong> How fast the aquifer is naturally replenished. If pumping exceeds recharge, water levels decline — a condition called overdraft or mining.</li>
+      </ul>
+
+      <h3 class="section-h3">Groundwater Contaminants &amp; Pathways</h3>
+      <table class="comp-table">
+        <thead><tr><th>Contaminant Source</th><th>Typical Pollutants</th><th>Risk Level</th></tr></thead>
+        <tbody>
+          <tr><td>Agricultural fields</td><td>Nitrates, pesticides, herbicides, bacteria</td><td>High (near surface)</td></tr>
+          <tr><td>Underground storage tanks</td><td>Petroleum products (BTEX), MTBE</td><td>High if leaking</td></tr>
+          <tr><td>Landfills &amp; dumps</td><td>Leachate: heavy metals, solvents, organics</td><td>High if unlined</td></tr>
+          <tr><td>Natural geology</td><td>Arsenic, radon, fluoride, iron, manganese</td><td>Moderate (widespread)</td></tr>
+          <tr><td>Septic systems</td><td>Nitrates, pathogens, pharmaceuticals</td><td>Moderate</td></tr>
+          <tr><td>Road salting</td><td>Chloride, sodium</td><td>Low–Moderate</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box">
+        <h4>📉 Groundwater Depletion Warning Signs</h4>
+        <p>Declining static water levels in monitoring wells · Increased pumping costs to maintain yield · Land subsidence in urban or agricultural areas · Saltwater intrusion in coastal aquifers · Stream flow reduction as groundwater baseflow diminishes · Increased pumping time to fill storage tanks</p>
+      </div>
+    </div>
+
+    <!-- ======================== CHEMICALS ======================== -->
+    <div class="tab-panel" id="tab-chemicals">
+      <div class="panel-intro">
+        <h2>🧪 Water Treatment Chemicals</h2>
+        <p>Water treatment uses carefully controlled chemicals to remove contaminants, kill microorganisms, and ensure water remains safe from treatment plant to tap.</p>
+      </div>
+
+      <h3 class="section-h3">Disinfection</h3>
+      <table class="comp-table">
+        <thead><tr><th>Chemical</th><th>Form</th><th>Dose Range</th><th>Pros / Cons</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Chlorine (Cl₂)</strong></td><td>Gas, sodium hypochlorite liquid, calcium hypochlorite granules</td><td>0.2–4 mg/L residual</td><td>✅ Effective, cheap, measurable residual · ⚠️ Forms THMs with organics, taste/odor issues</td></tr>
+          <tr><td><strong>Chloramine (NH₂Cl)</strong></td><td>Formed by combining chlorine + ammonia</td><td>1–3 mg/L residual</td><td>✅ More stable residual, fewer THMs · ⚠️ Less effective against some pathogens, nitrification risk</td></tr>
+          <tr><td><strong>UV Disinfection</strong></td><td>UV light (254 nm wavelength)</td><td>40 mJ/cm² typical</td><td>✅ No chemical byproducts, effective against Cryptosporidium · ⚠️ No residual, turbidity interferes</td></tr>
+          <tr><td><strong>Ozone (O₃)</strong></td><td>Generated on-site, dissolved in water</td><td>1–3 mg/L</td><td>✅ Powerful oxidizer, improves taste/odor · ⚠️ No residual, expensive, forms bromate</td></tr>
+          <tr><td><strong>Chlorine Dioxide (ClO₂)</strong></td><td>Generated on-site from sodium chlorite</td><td>0.8 mg/L max residual</td><td>✅ Effective at higher pH, no THMs · ⚠️ Forms chlorite/chlorate, tight regulatory limit</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-h3">Coagulation &amp; Flocculation Chemicals</h3>
+      <ul class="def-list">
+        <li><strong>Alum (Aluminum Sulfate):</strong> The most widely used coagulant. Lowers pH to form aluminum hydroxide floc at pH 6–8. Inexpensive and effective for turbidity removal.</li>
+        <li><strong>Ferric Sulfate / Ferric Chloride:</strong> Iron-based coagulants effective over a wider pH range. Better for color removal and arsenic co-precipitation. Produces more sludge than alum.</li>
+        <li><strong>Polyaluminum Chloride (PACl):</strong> Pre-hydrolyzed aluminum coagulant. Works at lower doses and wider temperature ranges. Popular for low-turbidity water.</li>
+        <li><strong>Polymers (Polyelectrolytes):</strong> Used as primary coagulants or flocculant aids. Cationic polymers neutralize charge; anionic/nonionic polymers bridge particles to form larger floc.</li>
+      </ul>
+
+      <h3 class="section-h3">pH Adjustment &amp; Corrosion Control</h3>
+      <ul class="def-list">
+        <li><strong>Lime (Ca(OH)₂):</strong> Raises pH. Used for softening (removing calcium and magnesium), corrosion control, and as a coagulant aid.</li>
+        <li><strong>Carbon Dioxide (CO₂):</strong> Lowers pH for recarbonation after lime softening. Controls carbonate scale.</li>
+        <li><strong>Caustic Soda (NaOH):</strong> Strong base for pH adjustment. Fast-acting, no scaling potential but expensive compared to lime.</li>
+        <li><strong>Orthophosphate / Polyphosphate:</strong> Forms a protective film inside pipes to prevent lead and copper from dissolving into water. Required by the Lead and Copper Rule for many systems.</li>
+        <li><strong>Sodium Silicate:</strong> Corrosion inhibitor that coats pipe interiors. Often used in combination with phosphates.</li>
+      </ul>
+
+      <h3 class="section-h3">Regulatory Limits at a Glance</h3>
+      <div class="quick-ref">
+        <div class="qr-item"><span class="qr-num">4.0</span><p>mg/L Max chlorine residual (MCL)</p></div>
+        <div class="qr-item"><span class="qr-num">0.8</span><p>mg/L Max chlorine dioxide residual</p></div>
+        <div class="qr-item"><span class="qr-num">80</span><p>µg/L TTHMs limit (DBP Rule)</p></div>
+        <div class="qr-item"><span class="qr-num">60</span><p>µg/L HAA5 limit (DBP Rule)</p></div>
+        <div class="qr-item"><span class="qr-num">6.5–8.5</span><p>Acceptable pH range for drinking water</p></div>
+        <div class="qr-item"><span class="qr-num">0.015</span><p>mg/L Lead action level (ppb)</p></div>
+      </div>
+
+      <div class="info-box">
+        <h4>⚗️ Chemical Safety in the Utility</h4>
+        <p>All treatment chemicals must be NSF/ANSI 60 certified (suitable for contact with drinking water). Workers must follow SDS (Safety Data Sheet) protocols, use proper PPE, and comply with OSHA standards. Chemical storage areas must be ventilated, spill-contained, and clearly labeled. Secondary containment must hold at least 110% of the largest container volume.</p>
+      </div>
+    </div>
+
+    <!-- ======================== MOTORS ======================== -->
+    <div class="tab-panel" id="tab-motors">
+      <div class="panel-intro">
+        <h2>⚡ Electric Motors in Water Systems</h2>
+        <p>Motors drive pumps, blowers, mixers, and virtually every moving component in a water system. Understanding motor types, sizing, and maintenance prevents costly failures and unplanned outages.</p>
+      </div>
+
+      <h3 class="section-h3">Motor Types Used in Water Applications</h3>
+      <table class="comp-table">
+        <thead><tr><th>Type</th><th>Construction</th><th>Common Use</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Squirrel Cage Induction</strong></td><td>Standard NEMA frames, AC supply</td><td>Surface pumps, blowers, mixers</td><td>Most common, robust, low maintenance</td></tr>
+          <tr><td><strong>Submersible Motor</strong></td><td>Water-cooled, sealed, oil-filled or water-filled</td><td>Well pumps, lift stations, wet pits</td><td>Must be submerged; minimum flow for cooling</td></tr>
+          <tr><td><strong>VFD-Rated Motor</strong></td><td>Reinforced insulation, inverter duty</td><td>Any pump driven by a variable frequency drive</td><td>Essential when using a VFD — standard motors can fail from harmonic heating</td></tr>
+          <tr><td><strong>Premium Efficiency (IE3/NEMA Premium)</strong></td><td>More copper, tighter tolerances</td><td>Booster pumps, large WTP equipment</td><td>Higher upfront cost, lower lifecycle cost</td></tr>
+          <tr><td><strong>Explosion Proof</strong></td><td>Spark-proof enclosure, gasketed</td><td>Chemical rooms, methane-generating facilities</td><td>Required by NEC in hazardous locations</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="section-h3">NEMA Motor Enclosure Types</h3>
+      <ul class="def-list">
+        <li><strong>ODP (Open Drip-Proof):</strong> Ventilation openings angled to prevent drips from entering. For clean, dry, indoor environments.</li>
+        <li><strong>TEFC (Totally Enclosed Fan-Cooled):</strong> No ventilation openings; external fan cools the frame. Best choice for outdoor, dusty, or damp locations — the standard for outdoor pump stations.</li>
+        <li><strong>TENV (Totally Enclosed Non-Ventilated):</strong> Cooled by surface area dissipation. Used in small motors or where airflow is restricted.</li>
+        <li><strong>TEAO (Totally Enclosed Air-Over):</strong> External airflow (from the pump it drives) provides cooling. Common for submersible pump motors and direct-coupled applications.</li>
+      </ul>
+
+      <h3 class="section-h3">Variable Frequency Drives (VFDs)</h3>
+      <p>A VFD (also called an inverter or adjustable speed drive) controls motor speed by varying electrical frequency. In water systems, VFDs allow pumps to modulate flow precisely and save significant energy.</p>
+
+      <div class="two-col">
+        <div>
+          <h4 style="color:var(--dark);margin-bottom:0.75rem;">VFD Energy Savings</h4>
+          <p>The <strong>Affinity Laws</strong> describe the relationship between pump speed, flow, and power:</p>
+          <ul class="def-list">
+            <li><strong>Flow ∝ Speed:</strong> Half speed = half flow</li>
+            <li><strong>Head ∝ Speed²:</strong> Half speed = ¼ the head</li>
+            <li><strong>Power ∝ Speed³:</strong> Half speed = ⅛ the power</li>
+          </ul>
+          <p>This means reducing pump speed to 80% of full speed cuts power consumption to about <strong>51%</strong> — enormous savings on high-run-time systems.</p>
+        </div>
+        <div>
+          <div class="side-card">
+            <h4>⚠️ VFD Installation Considerations</h4>
+            <p>Use VFD-rated motors (inverter duty) · Install input line reactors to reduce harmonics · Maintain proper VFD ventilation (heat generated) · Check minimum speed setting to prevent motor cooling problems · Use shielded cable between VFD and motor to reduce EMI · Protect VFDs from direct water spray</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-h3">Motor Troubleshooting</h3>
+      <ul class="def-list">
+        <li><strong>Motor won't start (hums):</strong> Single phasing on 3-phase supply, failed start capacitor (single-phase), overloaded, or mechanical bind. Check all three legs of voltage at motor terminals.</li>
+        <li><strong>Motor trips overload repeatedly:</strong> Overloaded pump (too much flow), low voltage (&lt;95% of nameplate), high ambient temperature, tight packing, failing bearing.</li>
+        <li><strong>Hot motor / high amp draw:</strong> Operating at high flow (off BEP), low voltage, excessive starts per hour, cooling airflow blocked, failing insulation.</li>
+        <li><strong>Vibration / noise:</strong> Bearing failure (listen for growling), impeller imbalance or cavitation, misalignment, resonance. Measure vibration with a meter; &gt;0.15 in/s RMS is a warning sign.</li>
+        <li><strong>Insulation failure:</strong> Measure winding-to-ground resistance with a megohmmeter. &lt;1 MΩ is a problem; &lt;100 kΩ is critical. Moisture, heat, and aging degrade insulation over time.</li>
+      </ul>
+
+      <div class="info-box">
+        <h4>📋 Motor Nameplate Key Parameters</h4>
+        <p><strong>HP / kW:</strong> Power output · <strong>RPM:</strong> Speed at full load · <strong>Voltage / Hz / Phase:</strong> Supply requirements · <strong>FLA:</strong> Full load amps · <strong>SF (Service Factor):</strong> Multiplier for temporary overloads (1.15 = 15% overload OK short-term) · <strong>Frame:</strong> NEMA physical dimensions · <strong>Insulation Class:</strong> Max winding temperature rating (Class F = 155°C, Class H = 180°C)</p>
+      </div>
+    </div>
+
+    <!-- ======================== RESOURCES / DOWNLOADS ======================== -->
+    <div class="tab-panel" id="tab-resources">
+      <div class="panel-intro">
+        <h2>📄 Resources &amp; Downloads</h2>
+        <p>Official EPA documents and fact sheets on drinking water regulation and safety. Free to download and share.</p>
+      </div>
+
+      <h3 class="section-h3">Safe Drinking Water Act</h3>
+      <ul class="resource-list">
+        <li class="resource-item">
+          <span class="resource-icon">🏛️</span>
+          <div class="resource-body">
+            <h4>Safe Drinking Water Act — Full Legal Text</h4>
+            <p>The complete Title XIV of the Public Health Service Act, as amended, published by the EPA.</p>
+            <a class="resource-link" href="https://www.epa.gov/sites/default/files/2020-05/documents/safe_drinking_water_act-title_xiv_of_public_health_service_act.pdf" target="_blank" rel="noopener noreferrer">Download PDF ↗</a>
+          </div>
+        </li>
+        <li class="resource-item">
+          <span class="resource-icon">📘</span>
+          <div class="resource-body">
+            <h4>Understanding the Safe Drinking Water Act</h4>
+            <p>EPA's plain-language summary explaining what the SDWA covers and how it protects public water systems.</p>
+            <a class="resource-link" href="https://www.epa.gov/sites/default/files/2015-04/documents/epa816f04030.pdf" target="_blank" rel="noopener noreferrer">Download PDF ↗</a>
+          </div>
+        </li>
+        <li class="resource-item">
+          <span class="resource-icon">🔗</span>
+          <div class="resource-body">
+            <h4>EPA Safe Drinking Water Act — Official Hub</h4>
+            <p>EPA's main SDWA page with the latest rules, guidance, and regulatory updates.</p>
+            <a class="resource-link" href="https://www.epa.gov/sdwa" target="_blank" rel="noopener noreferrer">Visit epa.gov/sdwa ↗</a>
+          </div>
+        </li>
+      </ul>
+
+      <h3 class="section-h3">Water Quality &amp; Reporting</h3>
+      <ul class="resource-list">
+        <li class="resource-item">
+          <span class="resource-icon">📊</span>
+          <div class="resource-body">
+            <h4>Consumer Confidence Report — Required Information Summary</h4>
+            <p>EPA's summary of what must be included in an annual water quality report (CCR) sent to customers.</p>
+            <a class="resource-link" href="https://www.epa.gov/sites/default/files/documents/CCR_Required_Info_Summary.pdf" target="_blank" rel="noopener noreferrer">Download PDF ↗</a>
+          </div>
+        </li>
+        <li class="resource-item">
+          <span class="resource-icon">🚰</span>
+          <div class="resource-body">
+            <h4>Lead and Copper Rule — Overview Fact Sheet</h4>
+            <p>A concise EPA fact sheet explaining the Lead and Copper Rule and how it protects drinking water from lead contamination.</p>
+            <a class="resource-link" href="https://www.epa.gov/sites/default/files/2020-12/documents/lcr_overview_fact_sheet_12-21-2020_final.pdf" target="_blank" rel="noopener noreferrer">Download PDF ↗</a>
+          </div>
+        </li>
+        <li class="resource-item">
+          <span class="resource-icon">🧾</span>
+          <div class="resource-body">
+            <h4>Lead and Copper Rule Improvements — General Public Fact Sheet</h4>
+            <p>EPA's latest (2024) fact sheet on Lead and Copper Rule Improvements, including service line inventory requirements.</p>
+            <a class="resource-link" href="https://www.epa.gov/system/files/documents/2024-10/final_lcri_fact-sheet_general_public.pdf" target="_blank" rel="noopener noreferrer">Download PDF ↗</a>
+          </div>
+        </li>
+      </ul>
+
+      <div class="info-box">
+        <h4>📌 A Note on These Documents</h4>
+        <p>All resources on this page link directly to official U.S. Environmental Protection Agency (epa.gov) publications. EPA occasionally updates document URLs — if a link ever breaks, search the title directly on <a href="https://www.epa.gov/sdwa" target="_blank" rel="noopener noreferrer">epa.gov/sdwa</a> to find the current version.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Contact / Footer -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2>Questions About Water Systems?</h2>
+    <p>Have a question about what you've learned, or need support with the WaterOps app? Reach out anytime.</p>
+    <a href="mailto:learnwatertoday@gmail.com" class="contact-email">✉️ learnwatertoday@gmail.com</a>
+    <br><br>
+    <a href="kids.html" class="btn btn-primary" style="margin-right:0.75rem;">Kids Corner 🎈</a>
+    <a href="updates.html" class="btn btn-outline">App Updates 📱</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+  </div>
+</footer>
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  function showTab(id) {
+    // Hide all panels
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    // Deactivate all buttons
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    // Show selected
+    document.getElementById('tab-' + id).classList.add('active');
+    // Activate button
+    event.currentTarget.classList.add('active');
+    // Scroll to content area (below sticky tab bar)
+    const tabContent = document.querySelector('.tab-content');
+    const y = tabContent.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

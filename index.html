@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LearnWater — free water education for kids and adults. Discover how water works, where it comes from, and how we keep it safe.">
+  <title>LearnWater — Discover the World of Water</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Homepage extras */
+    .home-hero { padding: 6rem 0 5rem; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(144,224,239,0.2);
+      color: var(--accent);
+      border: 1px solid rgba(144,224,239,0.4);
+      border-radius: 20px;
+      padding: 0.3rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.25rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .section-nav-cards { padding: 4rem 0; }
+    .nav-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .nav-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); text-decoration: none; }
+
+    .nav-card-top {
+      padding: 2rem 1.5rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+    .nav-card-emoji { font-size: 3rem; }
+    .nav-card-top h3 { color: var(--dark); margin: 0; }
+    .nav-card-top p  { color: var(--muted); margin: 0; font-size: 0.95rem; line-height: 1.5; }
+
+    .nav-card-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--light);
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-card-kids   .nav-card-top { background: linear-gradient(135deg, #fff9e6, #ffeeba); }
+    .nav-card-kids   .nav-card-footer { color: #e67e00; }
+
+    .nav-card-learn  .nav-card-top { background: linear-gradient(135deg, #e8f4fd, #cae8f8); }
+    .nav-card-learn  .nav-card-footer { color: var(--primary); }
+
+    .nav-card-updates .nav-card-top { background: linear-gradient(135deg, #eef9f1, #c8efd4); }
+    .nav-card-updates .nav-card-footer { color: #2a8c4e; }
+
+    .nav-card-support .nav-card-top { background: linear-gradient(135deg, #f3eeff, #ddd5ff); }
+    .nav-card-support .nav-card-footer { color: #6741d9; }
+
+    /* Stats strip */
+    .stats-strip {
+      background: var(--primary);
+      color: var(--white);
+      padding: 2.5rem 0;
+    }
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem 4rem;
+      text-align: center;
+    }
+    .stat-item span { display: block; }
+    .stat-num  { font-size: 2.25rem; font-weight: 800; line-height: 1; }
+    .stat-label{ font-size: 0.9rem; opacity: 0.85; margin-top: 0.25rem; }
+
+    /* About strip */
+    .about-strip { background: var(--gray); padding: 4rem 0; }
+    .about-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .about-cols .icon-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .icon-bubble {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    @media (max-width: 768px) {
+      .about-cols { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand">
+      <span class="drop">💧</span> LearnWater
+    </a>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="kids.html">Kids Corner</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero home-hero">
+  <div class="container hero-content">
+    <div class="hero-badge">🌊 Free Water Education</div>
+    <h1>Discover the World of Water</h1>
+    <p>Your guide to understanding water — from the water cycle in your backyard to the pumps and wells that power your community.</p>
+    <div class="hero-btns">
+      <a href="kids.html" class="btn btn-white">🎉 Kids Corner</a>
+      <a href="learn.html" class="btn btn-outline" style="border-color:var(--accent);color:var(--accent);">📚 Adult Learning</a>
+    </div>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="white"/>
+  </svg>
+</section>
+
+<!-- Quick Stats -->
+<div class="stats-strip">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item">
+        <span class="stat-num">71%</span>
+        <span class="stat-label">of Earth is covered by water</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">3%</span>
+        <span class="stat-label">is freshwater we can use</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">2.5B</span>
+        <span class="stat-label">gallons treated daily in the US</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">6</span>
+        <span class="stat-label">topics to explore in Adult Learning</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Section Navigation Cards -->
+<section class="section-nav-cards">
+  <div class="container">
+    <div class="section-header">
+      <h2>What Would You Like to Explore?</h2>
+      <div class="section-divider"></div>
+      <p>Choose a section below — whether you're a curious kid or a water industry professional, there's something here for you.</p>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- Kids Corner -->
+      <a href="kids.html" class="nav-card nav-card-kids">
+        <div class="nav-card-top">
+          <div class="nav-card-emoji">🎈</div>
+          <h3>Kids Corner</h3>
+          <p>Fun facts, activities, and games about water for young explorers. Learn about the water cycle, conservation, and why water is so amazing!</p>
+        </div>
+        <div class="nav-card-footer">Let's explore! →</div>
+      </a>
+
+      <!-- Adult Learning -->
+      <a href="learn.html" class="nav-card nav-card-learn">
+        <div class="nav-card-top">
+          <div class="nav-card-emoji">🔬</div>
+          <h3>Adult Learning</h3>
+          <p>Dive deep into water systems — wells, pumps, aquifers, chemical treatment, motors, and more. Great for homeowners, operators, and professionals.</p>
+        </div>
+        <div class="nav-card-footer">Start learning →</div>
+      </a>
+
+      <!-- App Updates -->
+      <a href="updates.html" class="nav-card nav-card-updates">
+        <div class="nav-card-top">
+          <div class="nav-card-emoji">📱</div>
+          <h3>App Updates</h3>
+          <p>Stay current with the latest WaterOps app news, feature releases, and improvements for your water operations management.</p>
+        </div>
+        <div class="nav-card-footer">See what's new →</div>
+      </a>
+
+      <!-- Support -->
+      <a href="#contact" class="nav-card nav-card-support">
+        <div class="nav-card-top">
+          <div class="nav-card-emoji">🤝</div>
+          <h3>Support &amp; Contact</h3>
+          <p>Have a question about the WaterOps app or this website? Reach out directly — we're happy to help.</p>
+        </div>
+        <div class="nav-card-footer">Get in touch →</div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- About -->
+<section class="about-strip">
+  <div class="container">
+    <div class="about-cols">
+      <div>
+        <h2>Why Water Education Matters</h2>
+        <div class="section-divider" style="display:block;margin:0.75rem 0;"></div>
+        <p>Water is our most essential resource, yet most people know very little about where it comes from, how it's treated, or the infrastructure that delivers it every day.</p>
+        <p>LearnWater is a free resource created alongside the <strong>WaterOps</strong> app — designed to help communities, professionals, and curious learners understand and appreciate water systems.</p>
+        <a href="learn.html" class="btn btn-primary mt-1">Start Learning Free</a>
+      </div>
+      <div class="icon-stack">
+        <div class="icon-bubble">💧</div>
+        <div class="icon-bubble">🏗️</div>
+        <div class="icon-bubble">🔬</div>
+        <div class="icon-bubble">⚙️</div>
+        <div class="icon-bubble">🌱</div>
+        <div class="icon-bubble">📊</div>
+        <div class="icon-bubble">🏠</div>
+        <div class="icon-bubble">🌊</div>
+        <div class="icon-bubble">🔩</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2>Questions or App Support?</h2>
+    <p>Whether it's a question about this site, the WaterOps app, or water education content — send us a message anytime.</p>
+    <a class="contact-email" href="mailto:learnwatertoday@gmail.com">
+      ✉️ learnwatertoday@gmail.com
+    </a>
+    <br><br>
+    <p style="color:var(--muted);font-size:0.9rem;">We'll do our best to respond within 1–2 business days.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+  </div>
+</footer>
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>

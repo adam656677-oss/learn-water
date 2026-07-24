@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WaterOps app updates, release notes, and news. Stay current with the latest features for water operations management.">
+  <title>App Updates — LearnWater</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .updates-hero { padding: 5rem 0 4.5rem; }
+
+    .updates-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 3rem;
+      align-items: start;
+      padding: 3rem 0 5rem;
+    }
+    @media (max-width: 768px) {
+      .updates-layout { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* Sidebar */
+    .sidebar { position: sticky; top: 80px; }
+    .sidebar-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .sidebar-card h3 { font-size: 1rem; color: var(--dark); margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 0.6rem; }
+    .sidebar-card ul { list-style: none; }
+    .sidebar-card ul li { margin-bottom: 0.4rem; font-size: 0.9rem; }
+    .sidebar-card ul li a { color: var(--muted); display: flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.5rem; border-radius: 6px; transition: color 0.2s, background 0.2s; }
+    .sidebar-card ul li a:hover { color: var(--primary); background: var(--gray); text-decoration: none; }
+
+    .version-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 6px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* Tags */
+    .tag-new     { background: #d1fae5; color: #065f46; }
+    .tag-fix     { background: #fee2e2; color: #991b1b; }
+    .tag-improve { background: #ede9fe; color: #4c1d95; }
+    .tag-update  { background: #fef3c7; color: #92400e; }
+    .tag-feature { background: #dbeafe; color: #1e40af; }
+
+    /* Individual update entries inside a post */
+    .change-list { margin: 1rem 0; list-style: none; }
+    .change-list li {
+      display: flex;
+      gap: 0.65rem;
+      align-items: flex-start;
+      margin-bottom: 0.65rem;
+      font-size: 0.93rem;
+      color: var(--text);
+    }
+    .change-list li::before {
+      content: '→';
+      color: var(--secondary);
+      flex-shrink: 0;
+      font-weight: 700;
+      margin-top: 0.05rem;
+    }
+
+    /* App-download CTA */
+    .app-cta {
+      background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .app-cta h3 { color: #fff; margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .app-cta p  { font-size: 0.9rem; opacity: 0.85; margin-bottom: 1rem; }
+
+    /* Post header */
+    .update-post h3 a { color: var(--dark); }
+    .update-post h3 a:hover { color: var(--primary); text-decoration: none; }
+
+    /* Inline highlight box inside a post */
+    .highlight-note {
+      background: var(--gray);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0 0;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .highlight-note strong { color: var(--dark); }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand">
+      <span class="drop">💧</span> LearnWater
+    </a>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html">Kids Corner</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="updates.html" class="active">Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero updates-hero">
+  <div class="container hero-content">
+    <h1>📱 WaterOps App Updates</h1>
+    <p>Stay current with the latest releases, features, and improvements to the WaterOps water operations management app.</p>
+  </div>
+  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="white"/>
+  </svg>
+</section>
+
+<!-- Main Content -->
+<div class="container">
+  <div class="updates-layout">
+
+    <!-- Posts column -->
+    <main>
+
+      <!-- ======= v2.4 ======= -->
+      <article class="update-post" id="v2-4">
+        <div class="post-meta">
+          <span class="post-tag tag-feature">Feature</span>
+          <span class="post-tag tag-new">New</span>
+          <span class="post-date">July 2026</span>
+          <span class="version-badge">v2.4</span>
+        </div>
+        <h3>Command Center Overhaul &amp; Admin Security</h3>
+        <p>This release brings a significant upgrade to the Water Command Center interface, a hardened admin authentication system, and several reliability improvements based on operator feedback.</p>
+        <ul class="change-list">
+          <li>Rebuilt Water Command Center dashboard with improved layout and faster data rendering for large water systems.</li>
+          <li>New admin authentication: admin code is now securely version-controlled to prevent stale credentials on device upgrades or app reinstalls.</li>
+          <li>Admin code migration automatically resets to the correct credential on first launch — eliminating "wrong code" issues after updates.</li>
+          <li>Improved navigation flow between Water Command Center sections for faster operator workflows.</li>
+          <li>Performance improvements across all dashboard views, especially on older iPhone hardware.</li>
+          <li>Fixed: iPhone physical devices now correctly sync admin credentials that were previously only working in the iOS Simulator.</li>
+        </ul>
+        <div class="highlight-note">
+          <strong>⚠️ Update note:</strong> If you previously had trouble with your admin code on a physical iPhone, this update resolves the issue. After updating, launch the app once and your credentials will be automatically migrated. No manual action needed.
+        </div>
+      </article>
+
+      <!-- ======= v2.3 ======= -->
+      <article class="update-post" id="v2-3">
+        <div class="post-meta">
+          <span class="post-tag tag-improve">Improvement</span>
+          <span class="post-tag tag-fix">Fix</span>
+          <span class="post-date">May 2026</span>
+          <span class="version-badge">v2.3</span>
+        </div>
+        <h3>Reporting Enhancements &amp; Bug Fixes</h3>
+        <p>A focused update addressing reporting accuracy, offline handling, and several bugs reported by water operators in the field.</p>
+        <ul class="change-list">
+          <li>Updated daily water usage report format to match state reporting requirements for small public water systems.</li>
+          <li>Improved offline mode — the app now caches the last 7 days of data for access without an internet connection.</li>
+          <li>Fixed issue where pump run-time totals could show incorrect values after midnight rollover.</li>
+          <li>Fixed: Chemical dosage entry fields now correctly save values entered in mg/L without rounding errors.</li>
+          <li>Improved accuracy of flow rate calculations for systems using variable-speed pump drives (VFDs).</li>
+          <li>Added confirmation dialog before clearing any operational log entries to prevent accidental data loss.</li>
+          <li>Minor UI adjustments to comply with iOS 17 display guidelines.</li>
+        </ul>
+      </article>
+
+      <!-- ======= v2.2 ======= -->
+      <article class="update-post" id="v2-2">
+        <div class="post-meta">
+          <span class="post-tag tag-feature">Feature</span>
+          <span class="post-date">March 2026</span>
+          <span class="version-badge">v2.2</span>
+        </div>
+        <h3>Chemical Treatment Log &amp; Alert System</h3>
+        <p>Introducing a dedicated chemical treatment log and a configurable alert system for water quality parameters — making compliance documentation faster and more reliable.</p>
+        <ul class="change-list">
+          <li>New Chemical Treatment Log: record daily chlorine residual, pH, turbidity, and other parameters with timestamps and operator signatures.</li>
+          <li>Configurable parameter alerts — set thresholds for any water quality value and receive in-app notifications when readings go out of range.</li>
+          <li>Chemical treatment records now auto-generate a monthly summary report in PDF-ready format.</li>
+          <li>Added chlorine decay calculator tool to help operators estimate residuals at distant points in the distribution system.</li>
+          <li>Turbidity trending graph now shows a 30-day rolling view for source water monitoring.</li>
+          <li>Improved data export: all logs can now be exported as CSV for use in spreadsheets or state reporting portals.</li>
+        </ul>
+      </article>
+
+      <!-- ======= v2.1 ======= -->
+      <article class="update-post" id="v2-1">
+        <div class="post-meta">
+          <span class="post-tag tag-improve">Improvement</span>
+          <span class="post-tag tag-fix">Fix</span>
+          <span class="post-date">January 2026</span>
+          <span class="version-badge">v2.1</span>
+        </div>
+        <h3>iPad Layout &amp; Stability Update</h3>
+        <p>Improved layouts for iPad users and addressed several stability issues identified after the v2.0 launch.</p>
+        <ul class="change-list">
+          <li>Full iPad layout optimization — all screens now properly adapt to iPad screen sizes in both portrait and landscape orientations.</li>
+          <li>Split-view support on iPad for viewing the dashboard while entering log entries side-by-side.</li>
+          <li>Fixed crash that could occur when switching between multiple water systems with different configurations.</li>
+          <li>Fixed: date picker in log entry screens now correctly handles month boundaries.</li>
+          <li>Reduced app launch time by approximately 30% through optimized data loading.</li>
+          <li>Improved VoiceOver accessibility labels across all main screens for operators using assistive technology.</li>
+        </ul>
+      </article>
+
+      <!-- ======= v2.0 ======= -->
+      <article class="update-post" id="v2-0">
+        <div class="post-meta">
+          <span class="post-tag tag-new">Major Release</span>
+          <span class="post-date">November 2025</span>
+          <span class="version-badge">v2.0</span>
+        </div>
+        <h3>WaterOps 2.0 — Complete Rebuild</h3>
+        <p>Version 2.0 is a complete rebuild of WaterOps from the ground up, designed for modern iOS and optimized for the unique needs of small and medium public water systems.</p>
+        <ul class="change-list">
+          <li>All-new native iOS interface built with modern Swift and WKWebView for a fast, responsive experience.</li>
+          <li>Water Command Center: a unified dashboard showing system status, pump run times, water levels, and recent alarms at a glance.</li>
+          <li>Multi-well and multi-pump support — manage complex water systems with multiple sources and distribution zones.</li>
+          <li>Operator log redesigned with voice-to-text support for faster field data entry.</li>
+          <li>Built-in reference library with common formulas: flow calculations, dosage math, pump efficiency, and more.</li>
+          <li>Secure admin area with configurable system settings, protected by a PIN-based authentication system.</li>
+          <li>Dark mode support throughout the entire app.</li>
+          <li>iCloud sync for automatic backup of all log data across devices.</li>
+        </ul>
+        <div class="highlight-note">
+          <strong>🎉 Welcome to WaterOps 2.0.</strong> If you're upgrading from version 1.x, your historical log data will be automatically imported on first launch. The import process may take a minute or two depending on your data history.
+        </div>
+      </article>
+
+      <!-- ======= v1.x ======= -->
+      <article class="update-post" id="v1-x">
+        <div class="post-meta">
+          <span class="post-tag tag-update">Archive</span>
+          <span class="post-date">2024 – 2025</span>
+          <span class="version-badge">v1.x</span>
+        </div>
+        <h3>WaterOps 1.x — Original Series</h3>
+        <p>The original WaterOps app established the core workflow for daily water system operations logging. Version 1.x was the foundation that shaped everything in v2.0.</p>
+        <ul class="change-list">
+          <li>v1.5: Added pump hour meter tracking and basic maintenance reminder system.</li>
+          <li>v1.4: Introduced daily operator log with supervisor review capability.</li>
+          <li>v1.3: Added water meter reading input and monthly usage calculation.</li>
+          <li>v1.2: Bug fixes and improved stability for older iPhone models.</li>
+          <li>v1.1: Added support for multiple chemical treatment types in daily log.</li>
+          <li>v1.0: Initial release — basic daily log, pump status tracking, and contact list.</li>
+        </ul>
+      </article>
+
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="app-cta">
+        <h3>📱 Get WaterOps</h3>
+        <p>Available on the App Store for iPhone and iPad. Free to download.</p>
+        <a href="mailto:learnwatertoday@gmail.com" class="btn btn-white" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Contact for Access</a>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>📋 Release History</h3>
+        <ul>
+          <li><a href="#v2-4">v2.4 — July 2026 ★</a></li>
+          <li><a href="#v2-3">v2.3 — May 2026</a></li>
+          <li><a href="#v2-2">v2.2 — March 2026</a></li>
+          <li><a href="#v2-1">v2.1 — January 2026</a></li>
+          <li><a href="#v2-0">v2.0 — November 2025</a></li>
+          <li><a href="#v1-x">v1.x — 2024–2025</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>🔖 Browse by Type</h3>
+        <ul>
+          <li><a href="#v2-4">🆕 New Features</a></li>
+          <li><a href="#v2-3">🔧 Bug Fixes</a></li>
+          <li><a href="#v2-2">⬆️ Improvements</a></li>
+          <li><a href="#v2-0">🚀 Major Releases</a></li>
+        </ul>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>📬 Questions?</h3>
+        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.75rem;">Found a bug or have a feature request? Contact us directly.</p>
+        <a href="mailto:learnwatertoday@gmail.com" style="font-size:0.9rem;font-weight:600;">learnwatertoday@gmail.com</a>
+      </div>
+    </aside>
+
+  </div>
+</div>
+
+<!-- Contact / Footer -->
+<section class="contact-section" id="contact">
+  <div class="container">
+    <h2>App Support &amp; Feedback</h2>
+    <p>Have a question about WaterOps, or want to report an issue? Reach out and we'll get back to you.</p>
+    <a href="mailto:learnwatertoday@gmail.com" class="contact-email">✉️ learnwatertoday@gmail.com</a>
+    <br><br>
+    <a href="learn.html" class="btn btn-primary" style="margin-right:0.75rem;">Adult Learning 🔬</a>
+    <a href="kids.html" class="btn btn-outline">Kids Corner 🎈</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+  </div>
+</footer>
+
+<script>
+  function toggleNav() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+</script>
+
+</body>
+</html>
