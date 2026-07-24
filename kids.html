@@ -3,311 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Kids Corner — games, coloring pages, activities, and videos that teach children about water.">
-  <title>Kids Corner 🎈 — LearnWater</title>
+  <meta name="description" content="Water Explorer Lab — a fun place for kids to play water games, color, take quizzes, and discover everything about water.">
+  <title>Water Explorer Lab 🔬 — LearnWater Kids</title>
   <link rel="stylesheet" href="css/style.css">
-  <style>
-    body { background: #f0f9ff; }
-
-    .kids-hero {
-      background: linear-gradient(135deg, #0096c7 0%, #48cae4 50%, #ade8f4 100%);
-      padding: 4rem 0 5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .kids-hero h1 { color: #fff; font-size: clamp(2.2rem,6vw,3.5rem); margin-bottom: 0.75rem; }
-    .kids-hero p  { color: rgba(255,255,255,0.95); font-size: 1.2rem; max-width: 560px; margin: 0 auto 1.5rem; }
-
-    .bubble-row {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
-    .bubble {
-      background: rgba(255,255,255,0.25);
-      color: #fff;
-      border: 2px solid rgba(255,255,255,0.5);
-      border-radius: 30px;
-      padding: 0.4rem 1.1rem;
-      font-weight: 700;
-      font-size: 0.9rem;
-    }
-
-    .section-nav {
-      background: #e0f2fe;
-      padding: 1rem 0;
-    }
-    .section-nav .quick-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.75rem;
-      font-size: 0.9rem;
-    }
-    .section-nav a {
-      background: #0ea5e9;
-      color: #fff;
-      border-radius: 999px;
-      padding: 0.4rem 1rem;
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .section-nav a:hover { background: #0284c7; }
-
-    .kids-section {
-      padding: 3.5rem 0;
-    }
-    .kids-section:nth-of-type(even) { background: #fff; }
-    .kids-section:nth-of-type(odd)  { background: #eff6ff; }
-
-    .games-grid,
-    .printable-grid,
-    .activity-grid,
-    .video-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.25rem;
-      margin-top: 2rem;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 1.5rem 1.25rem;
-      box-shadow: 0 4px 16px rgba(15, 118, 246, 0.12);
-      border: 2px solid #bfdbfe;
-      position: relative;
-    }
-    .card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.4rem;
-      color: #0f172a;
-    }
-    .card p {
-      font-size: 0.9rem;
-      color: #334155;
-      margin: 0 0 0.75rem;
-    }
-    .card .emoji {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      font-size: 2rem;
-    }
-    .card small {
-      display: block;
-      font-size: 0.78rem;
-      color: #64748b;
-    }
-
-    .card-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    .btn-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.45rem 1rem;
-      border-radius: 999px;
-      border: none;
-      background: #0ea5e9;
-      color: #fff;
-      font-size: 0.85rem;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .btn-pill.secondary {
-      background: #e0f2fe;
-      color: #0f172a;
-    }
-    .btn-pill:hover { background: #0284c7; }
-    .btn-pill.secondary:hover { background: #bfdbfe; }
-
-    .tag-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.5rem;
-    }
-    .tag {
-      font-size: 0.75rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 999px;
-      background: #e0f2fe;
-      color: #0f172a;
-    }
-
-    .info-box {
-      margin-top: 2rem;
-      border-radius: 16px;
-      padding: 1.25rem 1.25rem;
-      background: #e0f2fe;
-      border-left: 4px solid #0ea5e9;
-    }
-    .info-box h4 { margin-bottom: 0.35rem; font-size: 1rem; }
-    .info-box p  { margin: 0; font-size: 0.9rem; }
-
-    .water-cycle-box {
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-      gap: 1.75rem;
-      margin-top: 2rem;
-    }
-    .water-cycle-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-    }
-    .cycle-step {
-      background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
-      border-radius: 16px;
-      padding: 1.5rem 1.25rem;
-      text-align: center;
-      position: relative;
-    }
-    .cycle-step .step-num {
-      position: absolute;
-      top: -12px; left: 50%;
-      transform: translateX(-50%);
-      background: #0077b6;
-      color: #fff;
-      width: 28px; height: 28px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 0.85rem;
-    }
-    .cycle-step .step-emoji { font-size: 2.2rem; margin-bottom: 0.4rem; display: block; }
-    .cycle-step h3 { color: #03045e; font-size: 1.05rem; margin-bottom: 0.4rem; }
-    .cycle-step p  { color: #2c6e8a; font-size: 0.88rem; margin: 0; }
-
-    .cycle-diagram {
-      background: #eff6ff;
-      border-radius: 16px;
-      padding: 1.25rem 1.25rem 1rem;
-      border: 2px dashed #bfdbfe;
-      font-size: 0.9rem;
-      color: #1e293b;
-    }
-    .cycle-diagram ol {
-      margin-left: 1.2rem;
-      margin-top: 0.5rem;
-    }
-    .cycle-diagram li { margin-bottom: 0.4rem; }
-
-    .quiz-section {
-      background: linear-gradient(135deg, #ede9fe, #ddd6fe);
-      padding: 4rem 0;
-    }
-    .quiz-section .section-header h2 { color: #4c1d95; }
-    .quiz-section .section-divider   { background: #8b5cf6; }
-
-    .quiz-box {
-      background: #fff;
-      border-radius: 20px;
-      padding: 2rem;
-      max-width: 680px;
-      margin: 2rem auto 0;
-      box-shadow: 0 8px 30px rgba(139,92,246,0.15);
-    }
-    .quiz-question { display: none; }
-    .quiz-question.active { display: block; animation: fadeIn 0.3s ease; }
-
-    .quiz-q-text {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #4c1d95;
-      margin-bottom: 1.25rem;
-      display: flex;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
-    .q-num {
-      background: #8b5cf6;
-      color: #fff;
-      border-radius: 50%;
-      width: 28px; height: 28px;
-      display: inline-flex;
-      align-items: center; justify-content: center;
-      font-size: 0.8rem;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .quiz-options {
-      display: grid;
-      gap: 0.6rem;
-      margin-bottom: 1.25rem;
-    }
-    .quiz-opt {
-      background: #f5f3ff;
-      border: 2px solid #ddd6fe;
-      border-radius: 10px;
-      padding: 0.7rem 1rem;
-      cursor: pointer;
-      font-size: 0.95rem;
-      text-align: left;
-      transition: background 0.15s, border-color 0.15s;
-      font-family: inherit;
-    }
-    .quiz-opt:hover { background: #ede9fe; border-color: #8b5cf6; }
-    .quiz-opt.correct  { background: #d1fae5; border-color: #10b981; color: #065f46; }
-    .quiz-opt.wrong    { background: #fee2e2; border-color: #ef4444; color: #7f1d1d; }
-    .quiz-opt:disabled { cursor: default; }
-
-    .quiz-feedback {
-      display: none;
-      padding: 0.75rem 1rem;
-      border-radius: 10px;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      font-size: 0.95rem;
-    }
-    .quiz-feedback.show { display: block; animation: fadeIn 0.2s ease; }
-    .quiz-feedback.correct-fb { background: #d1fae5; color: #065f46; }
-    .quiz-feedback.wrong-fb   { background: #fee2e2; color: #7f1d1d; }
-
-    .quiz-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .quiz-score { font-weight: 700; color: #4c1d95; }
-
-    .quiz-result {
-      display: none;
-      text-align: center;
-      padding: 1rem 0;
-    }
-    .quiz-result.show { display: block; animation: fadeIn 0.4s ease; }
-    .result-emoji { font-size: 4rem; display: block; margin-bottom: 0.5rem; }
-    .quiz-result h3 { color: #4c1d95; font-size: 1.5rem; margin-bottom: 0.5rem; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 768px) {
-      .water-cycle-box {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-    @media (max-width: 480px) {
-      .quiz-box { padding: 1.5rem 1rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/kids.css">
 </head>
-<body>
+<body class="kids-body">
 
-<!-- Navigation -->
+<!-- Animated backdrop -->
+<div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
+
+<!-- Main site navigation -->
 <nav class="site-nav">
   <div class="container">
     <a href="index.html" class="nav-brand">
@@ -326,802 +32,147 @@
   </div>
 </nav>
 
+<!-- Kids sub-navigation -->
+<nav class="lab-nav">
+  <div class="lab-nav-inner">
+    <a href="kids.html" class="current">🏠 Explorer HQ</a>
+    <a href="kids-games.html">🎮 Game Lab</a>
+    <a href="kids-color.html">🎨 Coloring Lab</a>
+    <a href="kids-quiz.html">🧠 Quiz Lab</a>
+    <a href="kids-learn.html">🔬 Discovery Lab</a>
+  </div>
+</nav>
+
 <!-- Hero -->
-<section class="kids-hero">
-  <div class="bg-bubbles">
-    <span style="left:5%;width:26px;height:26px;animation-duration:9s;animation-delay:0s;"></span>
-    <span style="left:15%;width:14px;height:14px;animation-duration:6s;animation-delay:1s;"></span>
-    <span style="left:28%;width:34px;height:34px;animation-duration:11s;animation-delay:2s;"></span>
-    <span style="left:42%;width:18px;height:18px;animation-duration:7s;animation-delay:0.5s;"></span>
-    <span style="left:55%;width:22px;height:22px;animation-duration:10s;animation-delay:3s;"></span>
-    <span style="left:68%;width:16px;height:16px;animation-duration:6.5s;animation-delay:1.5s;"></span>
-    <span style="left:78%;width:30px;height:30px;animation-duration:12s;animation-delay:2.5s;"></span>
-    <span style="left:88%;width:20px;height:20px;animation-duration:8s;animation-delay:0.8s;"></span>
-    <span style="left:95%;width:12px;height:12px;animation-duration:7.5s;animation-delay:4s;"></span>
-  </div>
-  <div class="container">
-    <h1>💧 Kids Corner!</h1>
-    <p>Ready to explore the amazing world of water? Let's learn, play, color, and discover together!</p>
-    <div class="bubble-row">
-      <span class="bubble">🎮 Games</span>
-      <span class="bubble">🖍️ Coloring</span>
-      <span class="bubble">🔬 Activities</span>
-      <span class="bubble">🎬 Videos</span>
-      <span class="bubble">📖 Bible Verses</span>
-      <span class="bubble">🧠 Quiz</span>
+<header class="lab-hero">
+  <div class="kids-container">
+    <span class="mascot">🥽</span>
+    <h1>Water Explorer Lab</h1>
+    <p class="lab-sub">Welcome, Explorer! Grab your goggles — you're about to discover how water works, play some seriously fun games, and earn your Water Scientist badge.</p>
+    <div class="lab-chip-row">
+      <span class="lab-chip">🎮 5 Real Games</span>
+      <span class="lab-chip">🎨 Color &amp; Print</span>
+      <span class="lab-chip">🧠 40+ Quiz Questions</span>
+      <span class="lab-chip">🔬 Experiments</span>
+      <span class="lab-chip">📖 Bible Verses</span>
     </div>
   </div>
-  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;">
-    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f0f9ff"/>
-  </svg>
-</section>
-
-<!-- Quick section navigation -->
-<section class="section-nav">
-  <div class="container">
-    <div class="quick-links">
-      <a href="#games">🎮 Play Games</a>
-      <a href="#coloring">🖍️ Coloring Pages</a>
-      <a href="#activities">🔬 Try Activities</a>
-      <a href="#videos">🎬 Watch Videos</a>
-      <a href="#cycle">🌍 Water Cycle</a>
-      <a href="#verses">📖 Bible Verses</a>
-      <a href="#quiz">🧠 Take the Quiz</a>
-    </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f2fbff"/>
+    </svg>
   </div>
-</section>
+</header>
 
-<!-- Bible Verses Section -->
-<section class="verse-section" id="verses">
-  <div class="bg-bubbles">
-    <span style="left:8%;width:20px;height:20px;animation-duration:10s;animation-delay:0s;background:rgba(255,255,255,0.35);"></span>
-    <span style="left:25%;width:14px;height:14px;animation-duration:7s;animation-delay:1.5s;background:rgba(255,255,255,0.35);"></span>
-    <span style="left:60%;width:26px;height:26px;animation-duration:12s;animation-delay:2s;background:rgba(255,255,255,0.35);"></span>
-    <span style="left:80%;width:16px;height:16px;animation-duration:8s;animation-delay:3.5s;background:rgba(255,255,255,0.35);"></span>
-  </div>
-  <div class="container">
-    <div class="section-header">
-      <h2>📖 Words About Water</h2>
-      <div class="section-divider"></div>
-      <p>Water shows up all through the Bible — as a gift, a promise, and a picture of life itself. Here are a few favorite verses to read together.</p>
+<!-- Mission select -->
+<section class="lab-section">
+  <div class="kids-container">
+    <div class="lab-header">
+      <h2>🚀 Choose Your Mission</h2>
+      <div class="lab-rule"></div>
+      <p>Four labs, one big adventure. Pick where you want to start — you can always come back for the others!</p>
     </div>
 
-    <div class="verse-grid">
-      <div class="verse-card">
-        <span class="verse-emoji">🌊</span>
-        <p class="verse-text">"Come, everyone who thirsts, come to the waters..."</p>
-        <span class="verse-ref">Isaiah 55:1 (ESV)</span>
-        <p class="verse-kid-note">Just like a cold drink on a hot day, God invites everyone to come and be filled up.</p>
-      </div>
-      <div class="verse-card">
-        <span class="verse-emoji">💧</span>
-        <p class="verse-text">"...whoever drinks of the water that I will give him will never be thirsty again. The water that I will give him will become in him a spring of water welling up to eternal life."</p>
-        <span class="verse-ref">John 4:14 (ESV)</span>
-        <p class="verse-kid-note">Jesus talked about a special kind of "water" that fills your heart forever — not just your cup!</p>
-      </div>
-      <div class="verse-card">
-        <span class="verse-emoji">🐑</span>
-        <p class="verse-text">"He makes me lie down in green pastures. He leads me beside still waters."</p>
-        <span class="verse-ref">Psalm 23:2 (ESV)</span>
-        <p class="verse-kid-note">A calm, quiet river or pond can remind us that we're cared for and safe.</p>
-      </div>
-      <div class="verse-card">
-        <span class="verse-emoji">🌍</span>
-        <p class="verse-text">"And God said, 'Let the waters under the heavens be gathered together into one place, and let the dry land appear.' ... God called the dry land Earth, and the waters that were gathered together he called Seas."</p>
-        <span class="verse-ref">Genesis 1:9–10 (ESV)</span>
-        <p class="verse-kid-note">On Day 3 of creation, God made oceans, lakes, and rivers — water has been part of the plan since the very beginning!</p>
-      </div>
-      <div class="verse-card">
-        <span class="verse-emoji">✨</span>
-        <p class="verse-text">"Then the angel showed me the river of the water of life, bright as crystal, flowing from the throne of God and of the Lamb."</p>
-        <span class="verse-ref">Revelation 22:1 (ESV)</span>
-        <p class="verse-kid-note">The Bible ends with a picture of the cleanest, brightest river ever — sparkling like crystal!</p>
-      </div>
-      <div class="verse-card">
-        <span class="verse-emoji">⛰️</span>
-        <p class="verse-text">"...and water shall come out of it, and the people will drink."</p>
-        <span class="verse-ref">Exodus 17:6 (ESV)</span>
-        <p class="verse-kid-note">When the people in the desert were thirsty, God provided water right out of a rock — a good reminder that water is a gift, not something to waste.</p>
-      </div>
-    </div>
+    <div class="mission-grid">
+      <a href="kids-games.html" class="mission-card tint-amber">
+        <span class="m-emoji">🎮</span>
+        <h3>Game Lab</h3>
+        <p>Catch clean water drops, connect pipes, hunt down leaks, run a treatment plant, and race the water cycle. Five real games!</p>
+        <span class="mission-go">Start playing →</span>
+      </a>
 
-    <p class="verse-copyright">Scripture quotations are from The ESV® Bible (The Holy Bible, English Standard Version®), copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.</p>
-  </div>
-</section>
+      <a href="kids-color.html" class="mission-card tint-purple">
+        <span class="m-emoji">🎨</span>
+        <h3>Coloring Lab</h3>
+        <p>Color water scenes right on your screen with 24 colors — then print your artwork, or print a blank page for crayons!</p>
+        <span class="mission-go">Start coloring →</span>
+      </a>
 
-<!-- Games section -->
-<section class="kids-section" id="games">
-  <div class="container">
-    <div class="section-header">
-      <h2>🎮 Play & Learn: Water Games</h2>
-      <div class="section-divider"></div>
-      <p>These simple games help kids remember water facts, the water cycle, and ways to save water — all while having fun!</p>
-    </div>
+      <a href="kids-quiz.html" class="mission-card tint-lime">
+        <span class="m-emoji">🧠</span>
+        <h3>Quiz Lab</h3>
+        <p>Three difficulty levels and over 40 questions. Build a streak, earn bonus points, and climb from Drip to Water Scientist.</p>
+        <span class="mission-go">Take the quiz →</span>
+      </a>
 
-    <div class="games-grid">
-      <div class="card">
-        <span class="emoji">🧩</span>
-        <h3>Water Cycle Match-Up</h3>
-        <p>Match each water cycle step (like evaporation, condensation, and precipitation) with its picture or description.</p>
-        <small>Great for: Ages 6–10 · Play it right below!</small>
-        <div class="card-actions">
-          <a class="btn-pill" href="#game-memory">▶️ Play Now</a>
-        </div>
-        <div class="tag-row">
-          <span class="tag">Water Cycle</span>
-          <span class="tag">Science</span>
-          <span class="tag">Memory</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="emoji">🧠</span>
-        <h3>Save It or Waste It!</h3>
-        <p>Read everyday situations and decide: does this SAVE water or WASTE water? Score points for each water-smart choice.</p>
-        <small>Great for: Ages 7–12 · Helps build good habits at home.</small>
-        <div class="card-actions">
-          <a class="btn-pill" href="#game-scenario">▶️ Play Now</a>
-        </div>
-        <div class="tag-row">
-          <span class="tag">Conservation</span>
-          <span class="tag">Home</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="emoji">🃏</span>
-        <h3>Water Fact Flip Cards</h3>
-        <p>Tap a card to flip it over and reveal an amazing water fact. How many can you collect?</p>
-        <small>Great for: Ages 5–10 · Reinforces key water facts through repeated play.</small>
-        <div class="card-actions">
-          <a class="btn-pill" href="#game-flip">▶️ Play Now</a>
-        </div>
-        <div class="tag-row">
-          <span class="tag">Fun Facts</span>
-          <span class="tag">Memory</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="emoji">⚖️</span>
-        <h3>Clean or Polluted?</h3>
-        <p>Sort pictures into “clean water” and “polluted water” groups. Talk about what makes water safe to drink.</p>
-        <small>Great for: Ages 8–12 · Starts conversations about water quality and health.</small>
-        <div class="card-actions">
-          <a class="btn-pill" href="#game-sort">▶️ Play Now</a>
-        </div>
-        <div class="tag-row">
-          <span class="tag">Water Quality</span>
-          <span class="tag">Health</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="emoji">🔤</span>
-        <h3>Water Word Scramble</h3>
-        <p>Unscramble water science vocabulary words — from EVAPORATION to AQUIFER. A great warm-up before the quiz!</p>
-        <small>Great for: Ages 8–13 · Builds water science vocabulary.</small>
-        <div class="card-actions">
-          <a class="btn-pill" href="#game-scramble">▶️ Play Now</a>
-        </div>
-        <div class="tag-row">
-          <span class="tag">Vocabulary</span>
-          <span class="tag">Spelling</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="emoji">🖍️</span>
-        <h3>Make Your Own Cards</h3>
-        <p>Use the water cycle steps and fun facts on this page to design your own homemade matching or trivia cards.</p>
-        <small>Great for: Any age · A fun offline craft activity.</small>
-        <div class="card-actions">
-          <a class="btn-pill secondary" href="#cycle">See Water Cycle Steps</a>
-        </div>
-        <div class="tag-row">
-          <span class="tag">Craft</span>
-          <span class="tag">Offline</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <h4>👩‍🏫 Tip for Adults</h4>
-      <p>Use each game as a quick “warm-up” before talking about the water cycle, conservation, or local water issues. Short, fun activities help kids remember the serious messages.</p>
-    </div>
-
-    <!-- ============ LIVE PLAYABLE GAMES ============ -->
-    <div class="section-header" style="margin-top:3.5rem;">
-      <h2>🕹️ Play Right Now!</h2>
-      <div class="section-divider"></div>
-      <p>Five real games, right here on the page — no downloads, no printing. Just tap and play!</p>
-    </div>
-
-    <div class="games-grid">
-      <!-- Memory match -->
-      <div class="game-card" id="game-memory">
-        <h3>🧩 Water Cycle Memory Match</h3>
-        <p>Flip two cards at a time and find every matching pair of water cycle steps.</p>
-        <div class="memory-grid" id="memoryGrid"></div>
-        <div class="game-status" id="memoryStatus">Moves: 0 · Matches: 0 / 5</div>
-        <div class="game-reset"><button class="btn-pill secondary" onclick="initMemoryGame()">🔄 Restart</button></div>
-      </div>
-
-      <!-- Save it or waste it -->
-      <div class="game-card" id="game-scenario">
-        <h3>💧 Save It or Waste It!</h3>
-        <p>Ten everyday situations — decide fast! Does it SAVE water or WASTE water?</p>
-        <div class="scenario-box">
-          <div class="scenario-text" id="scenarioText">Loading...</div>
-          <div class="scenario-btns">
-            <button class="btn-save" onclick="answerScenario('save')">💧 Saves Water</button>
-            <button class="btn-waste" onclick="answerScenario('waste')">🚿 Wastes Water</button>
-          </div>
-          <div class="scenario-feedback" id="scenarioFeedback"></div>
-          <div class="scenario-stats">
-            <span id="scenarioProgress">Round 1 / 10</span>
-            <span id="scenarioScore">Score: 0</span>
-          </div>
-        </div>
-        <div class="game-reset"><button class="btn-pill secondary" onclick="initScenarioGame()">🔄 Restart</button></div>
-      </div>
-
-      <!-- Clean or polluted sort -->
-      <div class="game-card" id="game-sort">
-        <h3>⚖️ Clean or Polluted?</h3>
-        <p>Look at each one and decide — is it clean water or polluted water?</p>
-        <div class="sort-item-box">
-          <span class="sort-item-emoji" id="sortEmoji">💧</span>
-          <div class="sort-item-label" id="sortLabel">Loading...</div>
-          <div class="sort-btns">
-            <button class="btn-clean" onclick="answerSort('clean')">✅ Clean</button>
-            <button class="btn-polluted" onclick="answerSort('polluted')">❌ Polluted</button>
-          </div>
-        </div>
-        <div class="game-status" id="sortStatus">Round 1 / 10 · Score: 0</div>
-        <div class="game-reset"><button class="btn-pill secondary" onclick="initSortGame()">🔄 Restart</button></div>
-      </div>
-
-      <!-- Fact flip cards -->
-      <div class="game-card" id="game-flip">
-        <h3>🃏 Water Fact Flip Cards</h3>
-        <p>Tap any card to reveal a fun water fact. Try to flip them all!</p>
-        <div class="flip-fact-grid" id="flipGrid"></div>
-        <div class="game-status" id="flipStatus">Revealed: 0 / 8</div>
-      </div>
-
-      <!-- Word scramble -->
-      <div class="game-card" id="game-scramble">
-        <h3>🔤 Water Word Scramble</h3>
-        <p>Unscramble the mixed-up letters to spell a water science word.</p>
-        <div class="scramble-box">
-          <div class="scramble-word" id="scrambleWord">LOADING</div>
-          <div class="scramble-hint" id="scrambleHint">Hint: loading...</div>
-          <div class="scramble-row">
-            <input type="text" id="scrambleInput" placeholder="Type your answer..." autocomplete="off" onkeydown="if(event.key==='Enter'){checkScramble();}">
-            <button onclick="checkScramble()">Check ✓</button>
-            <button onclick="nextScramble()" class="btn-pill secondary" style="background:#e0f2fe;color:#0f172a;">Skip ⏭️</button>
-          </div>
-          <div class="scenario-feedback" id="scrambleFeedback"></div>
-          <div class="scenario-stats"><span id="scrambleProgress">Word 1 / 8</span><span id="scrambleScore">Score: 0</span></div>
-        </div>
-      </div>
+      <a href="kids-learn.html" class="mission-card tint-coral">
+        <span class="m-emoji">🔬</span>
+        <h3>Discovery Lab</h3>
+        <p>The water cycle, amazing facts, at-home experiments, videos, and Bible verses about water — all in one place.</p>
+        <span class="mission-go">Explore now →</span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Coloring pages section -->
-<section class="kids-section" id="coloring">
-  <div class="container">
-    <div class="section-header">
-      <h2>🖍️ Printable Water Coloring Pages</h2>
-      <div class="section-divider"></div>
-      <p>Coloring lets kids slow down and notice details. These page ideas focus on water, animals, and saving water at home.</p>
+<!-- Explorer field guide / quick facts -->
+<section class="lab-section tint">
+  <div class="kids-container">
+    <div class="lab-header">
+      <h2>🧪 Explorer Field Notes</h2>
+      <div class="lab-rule"></div>
+      <p>Every good scientist starts with a few facts. Tap a card to reveal what's underneath!</p>
     </div>
 
-    <div class="printable-grid">
-      <div class="card">
-        <span class="emoji">🌧️</span>
-        <h3>Water Cycle Scene</h3>
-        <p>A big landscape with clouds, rain, rivers, oceans, and plants to show the full water cycle.</p>
-        <small>Includes labels for evaporation, condensation, precipitation, and collection.</small>
-        <div class="card-actions">
-          <button class="btn-pill" onclick="alert('You can create a simple water cycle coloring page using the steps shown below.')">Create This Page</button>
-        </div>
-      </div>
+    <div class="fact-flip-grid" id="hubFactGrid"></div>
 
-      <div class="card">
-        <span class="emoji">🚿</span>
-        <h3>Water Hero Bathroom</h3>
-        <p>A bathroom scene showing a kid turning off the tap, taking a short shower, and fixing a leaky faucet.</p>
-        <small>Great visual reminder for daily water-saving habits.</small>
-        <div class="card-actions">
-          <button class="btn-pill" onclick="alert('Draw your own bathroom scene where the character is saving water in three ways.')">Draw Your Own</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="emoji">🐠</span>
-        <h3>Ocean Life</h3>
-        <p>A page full of fish, coral, turtles, and waves to celebrate oceans and marine life.</p>
-        <small>Use blues and greens to talk about how clean water keeps animals healthy.</small>
-        <div class="card-actions">
-          <button class="btn-pill" onclick="alert('Use the ocean facts on this page to add labels or short messages to your ocean coloring page.')">Add Fun Facts</button>
-        </div>
-      </div>
-
-      <div class="card">
-        <span class="emoji">🌱</span>
-        <h3>Garden Rain Day</h3>
-        <p>A garden with plants, a rain barrel, and a kid watering plants wisely in the morning or evening.</p>
-        <small>Connects rainwater collection and plant watering to conservation.</small>
-        <div class="card-actions">
-          <button class="btn-pill secondary" onclick="alert('Talk about how watering in the morning or evening uses less water than midday.')">Discuss While Coloring</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-box" style="background:#fef9c3;border-left-color:#facc15;">
-      <h4>📄 How to Use These</h4>
-      <p>Print blank paper and sketch simple outlines for kids, or download official coloring pages from trusted education sites. While kids color, read a water fact or ask them how the picture shows water being used or saved.</p>
+    <div class="lab-note amber">
+      <h4>🏅 Explorer Challenge</h4>
+      <p>Can you finish all four labs in one visit? Play a game, color a picture, score at least 8 on a quiz, and try one experiment. Do all four and you've officially earned Junior Water Scientist status!</p>
     </div>
   </div>
 </section>
 
-<!-- Activities section -->
-<section class="kids-section" id="activities">
-  <div class="container">
-    <div class="section-header">
-      <h2>🔬 Try It at Home: Water Activities</h2>
-      <div class="section-divider"></div>
-      <p>Hands-on activities help kids see water in action. Always do these with an adult nearby.</p>
+<!-- Why water matters -->
+<section class="lab-section">
+  <div class="kids-container">
+    <div class="lab-header">
+      <h2>💧 Why Water Explorers Matter</h2>
+      <div class="lab-rule"></div>
+      <p>The water you drink today has been on Earth for millions of years — and people like you help keep it clean.</p>
     </div>
 
-    <div class="activity-grid">
-      <div class="card">
-        <span class="emoji">☀️</span>
-        <h3>Evaporation in the Sun</h3>
-        <p>Place two small cups of water in different spots — one in the sun and one in the shade. Check which one loses more water over a few hours.</p>
-        <small>Talk about how the sun's energy powers evaporation.</small>
-        <div class="card-actions">
-          <button class="btn-pill secondary" onclick="alert('Mark the starting level with a line and compare at the end of the day.')">Observation Tip</button>
-        </div>
+    <div class="discover-grid">
+      <div class="discover-card">
+        <span class="d-emoji">🌍</span>
+        <h3>Water Is Recycled</h3>
+        <p>There is no "new" water. Every drop keeps cycling through oceans, clouds, rivers, and back again — the same water dinosaurs drank!</p>
       </div>
-
-      <div class="card">
-        <span class="emoji">🛁</span>
-        <h3>Mini Water Cycle in a Bag</h3>
-        <p>Pour a little water into a clear zip-top bag, seal it, and tape it to a sunny window. Watch “rain” form inside as water evaporates and condenses.</p>
-        <small>Connect what you see to the water cycle steps.</small>
-        <div class="card-actions">
-          <button class="btn-pill secondary" onclick="alert('Draw the sun, clouds, and rain right on the bag with a marker.')">Draw the Cycle</button>
-        </div>
+      <div class="discover-card">
+        <span class="d-emoji">🚰</span>
+        <h3>Someone Cleans It</h3>
+        <p>Water operators test and treat water every single day so it's safe when it reaches your faucet. It's a real job — maybe yours someday!</p>
       </div>
-
-      <div class="card">
-        <span class="emoji">⚖️</span>
-        <h3>Sink or Float? Water Science</h3>
-        <p>Collect small objects (like a leaf, a rock, a plastic toy, and a coin). Predict whether each will sink or float, then test them in a bowl of water.</p>
-        <small>Talk about density and why some things float (like ice) while others sink.</small>
-        <div class="card-actions">
-          <button class="btn-pill secondary" onclick="alert('Write your predictions first, then compare with what really happened.')">Prediction Chart</button>
-        </div>
+      <div class="discover-card">
+        <span class="d-emoji">🐟</span>
+        <h3>Animals Need It Too</h3>
+        <p>Fish, frogs, birds, and every plant depend on clean water. When we protect water, we protect them too.</p>
       </div>
-
-      <div class="card">
-        <span class="emoji">📋</span>
-        <h3>Home Water Use Checklist</h3>
-        <p>Walk around your home with a checklist and count water-using activities: brushing teeth, washing dishes, laundry, showers, and watering plants.</p>
-        <small>Mark where water could be saved and turn the ideas into a family water-saving plan.</small>
-        <div class="card-actions">
-          <button class="btn-pill secondary" onclick="alert('Circle one change to try for a week, like shorter showers or turning off the tap.')">Family Challenge</button>
-        </div>
+      <div class="discover-card">
+        <span class="d-emoji">🦸</span>
+        <h3>You Can Help Today</h3>
+        <p>Turning off the tap, reporting a leak, and taking shorter showers really adds up. Small habits save thousands of gallons a year.</p>
       </div>
     </div>
 
-    <div class="info-box" style="background:#dcfce7;border-left-color:#22c55e;">
-      <h4>⚠️ Safety Reminder</h4>
-      <p>Always have an adult help set up and clean up experiments. Never drink water that has been used in experiments or touched by anything that might make you sick.</p>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="kids-games.html" class="lab-btn amber">🎮 Let's Play!</a>
+      <a href="kids-learn.html" class="lab-btn ghost" style="margin-left:0.5rem;">🔬 Learn More</a>
     </div>
   </div>
 </section>
 
-<!-- Videos section -->
-<section class="kids-section" id="videos">
-  <div class="container">
-    <div class="section-header">
-      <h2>🎬 Watch & Learn: Water Videos</h2>
-      <div class="section-divider"></div>
-      <p>Short videos can make big ideas easier to see. Ask a grown-up to help you choose and watch these types of water videos.</p>
-    </div>
-
-    <div class="video-grid">
-      <div class="card">
-        <div class="video-embed-wrap">
-          <iframe src="https://www.youtube.com/embed/oaDkph9yQBs" title="NASA: Earth's Water Cycle" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🌍 Earth's Water Cycle</h3>
-        <p>A short official NASA animation showing evaporation, condensation, precipitation, and collection in action.</p>
-        <small>Source: NASA · Great for ages 6+</small>
-      </div>
-
-      <div class="card">
-        <div class="video-embed-wrap">
-          <iframe src="https://www.youtube.com/embed/6yCAPAqXodc" title="How Can I Save Water? - SciShow Kids" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🏡 How Can I Save Water?</h3>
-        <p>SciShow Kids explains simple, real ways to save water every day at home.</p>
-        <small>Source: SciShow Kids (PBS Digital Studios) · Great for ages 5+</small>
-      </div>
-
-      <div class="card">
-        <div class="video-embed-wrap">
-          <iframe src="https://www.youtube.com/embed/qXYbLIEspqE" title="Meet the Ocean's Wildest Animals - Nat Geo Kids" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🐋 Ocean's Wildest Animals</h3>
-        <p>National Geographic Kids explores amazing creatures that depend on clean oceans to survive.</p>
-        <small>Source: Nat Geo Kids · Great for ages 6+</small>
-      </div>
-
-      <div class="card">
-        <div class="video-embed-wrap">
-          <iframe src="https://www.youtube.com/embed/5Ssty1ejoek" title="Where Can We Find Water? - SciShow Kids" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🚰 Where Can We Find Water?</h3>
-        <p>SciShow Kids explores all the places water hides on Earth — and where our drinking water comes from.</p>
-        <small>Source: SciShow Kids (PBS Digital Studios) · Great for ages 5+</small>
-      </div>
-
-      <div class="card">
-        <div class="video-embed-wrap">
-          <iframe src="https://www.youtube.com/embed/WxJoUnK3mVE" title="How Do Water Treatment Plants Work?" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🏭 How Water Treatment Plants Work</h3>
-        <p>A kid-friendly walkthrough of how dirty water becomes clean, safe drinking water.</p>
-        <small>Great for ages 8+ · Watch with an adult and ask questions along the way.</small>
-      </div>
-
-      <div class="card">
-        <span class="emoji">🔎</span>
-        <h3>Want More Videos?</h3>
-        <p>Search for more kid-friendly water videos on trusted education sites or YouTube Kids together with a grown-up.</p>
-        <small>Try searching: "water cycle for kids", "ocean animals for kids", "water conservation for kids".</small>
-        <div class="card-actions">
-          <a class="btn-pill" href="https://www.youtube.com/results?search_query=water+science+for+kids" target="_blank" rel="noopener noreferrer">Find More Videos</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <h4>👪 Watch Together</h4>
-      <p>Always watch new videos with an adult, especially on sites with lots of content. Pause often to ask questions like "What did you notice?" and "How could we save water like that at home?"</p>
+<!-- Grown-ups note -->
+<section class="lab-section tint">
+  <div class="kids-container">
+    <div class="lab-note lime">
+      <h4>👨‍👩‍👧 For Parents &amp; Teachers</h4>
+      <p>Everything in the Water Explorer Lab runs right in the browser — no accounts, no downloads, no ads. Games and quizzes are designed for roughly ages 6–12, and the Discovery Lab includes at-home experiments you can do with basic kitchen supplies. Looking for the adult material? Head to <a href="learn.html">Adult Learning</a> for wells, pumps, treatment chemicals, and official EPA resources.</p>
     </div>
   </div>
 </section>
 
-<!-- Water Cycle section -->
-<section class="kids-section" id="cycle">
-  <div class="container">
-    <div class="section-header">
-      <h2>🌍 The Water Cycle</h2>
-      <div class="section-divider"></div>
-      <p>Water is always on the move! It travels around Earth in a never-ending cycle. Here's how it works:</p>
-    </div>
-
-    <div class="water-cycle-box">
-      <div>
-        <div class="water-cycle-list">
-          <div class="cycle-step">
-            <span class="step-num">1</span>
-            <span class="step-emoji">☀️</span>
-            <h3>Evaporation</h3>
-            <p>The sun heats water in oceans, lakes, and rivers. The water turns into invisible water vapor and rises into the sky.</p>
-          </div>
-          <div class="cycle-step">
-            <span class="step-num">2</span>
-            <span class="step-emoji">☁️</span>
-            <h3>Condensation</h3>
-            <p>As water vapor rises high up, it gets cooler. It turns back into tiny water droplets that form clouds!</p>
-          </div>
-          <div class="cycle-step">
-            <span class="step-num">3</span>
-            <span class="step-emoji">🌧️</span>
-            <h3>Precipitation</h3>
-            <p>When clouds get heavy with water droplets, the water falls back to Earth as rain, snow, sleet, or hail.</p>
-          </div>
-          <div class="cycle-step">
-            <span class="step-num">4</span>
-            <span class="step-emoji">🏔️</span>
-            <h3>Collection</h3>
-            <p>Water collects in oceans, rivers, and lakes — or soaks into the ground to become groundwater. Then the cycle starts again!</p>
-          </div>
-          <div class="cycle-step">
-            <span class="step-num">5</span>
-            <span class="step-emoji">🌱</span>
-            <h3>Transpiration</h3>
-            <p>Plants drink water through their roots and release water vapor through their leaves. Plants help power the water cycle too!</p>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="cycle-diagram">
-          <h3>📝 Try Drawing the Water Cycle</h3>
-          <p>Use these steps to draw your own water cycle picture or poster:</p>
-          <ol>
-            <li>Draw the sun and label it "Evaporation" near an ocean or lake.</li>
-            <li>Draw clouds above and label them "Condensation".</li>
-            <li>Add rain or snow falling from clouds and label it "Precipitation".</li>
-            <li>Draw rivers, lakes, and oceans and label them "Collection".</li>
-            <li>Add plants and label their leaves "Transpiration".</li>
-          </ol>
-          <p>When you're done, color your picture and explain the cycle to a friend or family member.</p>
-        </div>
-        <div class="info-box" style="margin-top:1.5rem;">
-          <h4>🤔 Did You Know?</h4>
-          <p>The same water that dinosaurs drank millions of years ago is still cycling around Earth today! You might be drinking ancient dinosaur water right now! 🦕</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Fun facts section -->
-<section class="kids-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>🌟 Amazing Water Facts!</h2>
-      <div class="section-divider"></div>
-      <p>Water is one of the most incredible things on Earth — here are some fast facts to share.</p>
-    </div>
-
-    <div class="games-grid">
-      <div class="card">
-        <span class="emoji">🌊</span>
-        <h3>Most of Earth is Water</h3>
-        <p>About 71% of Earth's surface is covered by water — but only about 3% is fresh water, and most of that is frozen.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🧬</span>
-        <h3>You Are Mostly Water!</h3>
-        <p>Your body is about 60% water. Your brain, blood, and cells need water to work properly.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🐟</span>
-        <h3>Oceans Are Full of Life</h3>
-        <p>The ocean covers 70% of Earth and holds most of our water. It is home to thousands of known species — and probably millions more.</p>
-      </div>
-      <div class="card">
-        <span class="emoji">🧊</span>
-        <h3>Ice Floats!</h3>
-        <p>Water gets less dense when it freezes, so ice floats on liquid water. This helps fish survive under frozen lakes.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Quiz -->
-<section class="quiz-section" id="quiz">
-  <div class="container">
-    <div class="section-header">
-      <h2>🧠 Water Quiz!</h2>
-      <div class="section-divider" style="background:#8b5cf6;"></div>
-      <p>Test what you've learned! Answer 12 questions and see how much of a water expert you are.</p>
-    </div>
-
-    <div class="quiz-box">
-      <!-- Question 1 -->
-      <div class="quiz-question active" id="q1">
-        <div class="quiz-q-text"><span class="q-num">1</span> What percentage of Earth's surface is covered by water?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q1')">A. About 30%</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q1')">B. About 50%</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q1')">C. About 71%</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q1')">D. About 90%</button>
-        </div>
-        <div class="quiz-feedback" id="fb1"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score1"></span>
-          <button class="btn btn-primary" id="next1" style="display:none;" onclick="showQ('q1','q2')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 2 -->
-      <div class="quiz-question" id="q2">
-        <div class="quiz-q-text"><span class="q-num">2</span> What do we call it when water turns into water vapor and rises into the sky?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q2')">A. Condensation</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q2')">B. Evaporation</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q2')">C. Precipitation</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q2')">D. Transpiration</button>
-        </div>
-        <div class="quiz-feedback" id="fb2"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score2"></span>
-          <button class="btn btn-primary" id="next2" style="display:none;" onclick="showQ('q2','q3')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 3 -->
-      <div class="quiz-question" id="q3">
-        <div class="quiz-q-text"><span class="q-num">3</span> About how much of your body is made of water?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q3')">A. About 25%</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q3')">B. About 40%</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q3')">C. About 60%</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q3')">D. About 80%</button>
-        </div>
-        <div class="quiz-feedback" id="fb3"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score3"></span>
-          <button class="btn btn-primary" id="next3" style="display:none;" onclick="showQ('q3','q4')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 4 -->
-      <div class="quiz-question" id="q4">
-        <div class="quiz-q-text"><span class="q-num">4</span> Why does ice float on water instead of sinking?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q4')">A. Ice is made of air bubbles</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q4')">B. Ice is less dense than liquid water</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q4')">C. Ice is lighter because it is cold</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q4')">D. Ice is made of a different kind of water</button>
-        </div>
-        <div class="quiz-feedback" id="fb4"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score4"></span>
-          <button class="btn btn-primary" id="next4" style="display:none;" onclick="showQ('q4','q5')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 5 -->
-      <div class="quiz-question" id="q5">
-        <div class="quiz-q-text"><span class="q-num">5</span> Which of these helps SAVE water at home?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q5')">A. Leaving the tap on while brushing teeth</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q5')">B. Taking 20-minute showers</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q5')">C. Fixing a dripping faucet</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q5')">D. Running half-empty dishwasher loads</button>
-        </div>
-        <div class="quiz-feedback" id="fb5"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score5"></span>
-          <button class="btn btn-primary" id="next5" style="display:none;" onclick="showQ('q5','q6')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 6 -->
-      <div class="quiz-question" id="q6">
-        <div class="quiz-q-text"><span class="q-num">6</span> What is groundwater?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q6')">A. Water in the clouds</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q6')">B. Water stored underground in soil and rock</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q6')">C. Water in the ocean</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q6')">D. Water inside a plant</button>
-        </div>
-        <div class="quiz-feedback" id="fb6"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score6"></span>
-          <button class="btn btn-primary" id="next6" style="display:none;" onclick="showQ('q6','q7')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 7 -->
-      <div class="quiz-question" id="q7">
-        <div class="quiz-q-text"><span class="q-num">7</span> A well is used to reach which kind of water?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q7')">A. Rainwater only</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q7')">B. Groundwater from an aquifer</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q7')">C. Ocean water</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q7')">D. Water from clouds</button>
-        </div>
-        <div class="quiz-feedback" id="fb7"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score7"></span>
-          <button class="btn btn-primary" id="next7" style="display:none;" onclick="showQ('q7','q8')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 8 -->
-      <div class="quiz-question" id="q8">
-        <div class="quiz-q-text"><span class="q-num">8</span> Which step comes right after evaporation in the water cycle?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q8')">A. Precipitation</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q8')">B. Condensation</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q8')">C. Collection</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q8')">D. Transpiration</button>
-        </div>
-        <div class="quiz-feedback" id="fb8"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score8"></span>
-          <button class="btn btn-primary" id="next8" style="display:none;" onclick="showQ('q8','q9')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 9 -->
-      <div class="quiz-question" id="q9">
-        <div class="quiz-q-text"><span class="q-num">9</span> What is used at a treatment plant to kill germs in water before it reaches your tap?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q9')">A. Sugar</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q9')">B. Chlorine or UV light</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q9')">C. Food coloring</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q9')">D. Sand only</button>
-        </div>
-        <div class="quiz-feedback" id="fb9"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score9"></span>
-          <button class="btn btn-primary" id="next9" style="display:none;" onclick="showQ('q9','q10')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 10 -->
-      <div class="quiz-question" id="q10">
-        <div class="quiz-q-text"><span class="q-num">10</span> Which body of water holds about 97% of all the water on Earth?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q10')">A. Lakes</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q10')">B. Rivers</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q10')">C. Oceans</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q10')">D. Glaciers</button>
-        </div>
-        <div class="quiz-feedback" id="fb10"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score10"></span>
-          <button class="btn btn-primary" id="next10" style="display:none;" onclick="showQ('q10','q11')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 11 -->
-      <div class="quiz-question" id="q11">
-        <div class="quiz-q-text"><span class="q-num">11</span> In the Bible story from Exodus, how did God provide water for thirsty people in the desert?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q11')">A. It rained for 40 days</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q11')">B. Water came out of a rock</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q11')">C. A river changed direction</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q11')">D. Snow melted from a mountain</button>
-        </div>
-        <div class="quiz-feedback" id="fb11"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score11"></span>
-          <button class="btn btn-primary" id="next11" style="display:none;" onclick="showQ('q11','q12')">Next →</button>
-        </div>
-      </div>
-
-      <!-- Question 12 -->
-      <div class="quiz-question" id="q12">
-        <div class="quiz-q-text"><span class="q-num">12</span> Which of these is the BEST way to know your tap water is safe?</div>
-        <div class="quiz-options">
-          <button class="quiz-opt" onclick="answer(this,false,'q12')">A. It looks clear</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q12')">B. It tastes fine</button>
-          <button class="quiz-opt" onclick="answer(this,true,'q12')">C. It's regularly tested by water professionals</button>
-          <button class="quiz-opt" onclick="answer(this,false,'q12')">D. It came out of the ground</button>
-        </div>
-        <div class="quiz-feedback" id="fb12"></div>
-        <div class="quiz-nav">
-          <span class="quiz-score" id="score12"></span>
-          <button class="btn btn-primary" id="next12" style="display:none;" onclick="showResult()">See My Score! 🎉</button>
-        </div>
-      </div>
-
-      <!-- Result -->
-      <div class="quiz-result" id="quizResult">
-        <span class="result-emoji" id="resultEmoji">🏆</span>
-        <h3 id="resultTitle">Amazing!</h3>
-        <p id="resultText"></p>
-        <button class="btn btn-primary mt-1" onclick="restartQuiz()">Try Again 🔄</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Contact / Footer -->
-<section class="contact-section" id="contact">
-  <div class="container">
-    <h2>Great job exploring! 💧</h2>
-    <p>Want to learn more? Check out the Adult Learning section — or ask a grown-up to explore with you!</p>
-    <a href="learn.html" class="btn btn-primary" style="margin-right:0.75rem;">Adult Learning →</a>
-    <a href="mailto:learnwatertoday@gmail.com" class="contact-email" style="display:inline-flex;margin-top:1rem;">✉️ learnwatertoday@gmail.com</a>
-  </div>
-</section>
-
+<!-- Footer -->
 <footer class="site-footer">
   <div class="container">
     <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
@@ -1129,377 +180,28 @@
   </div>
 </footer>
 
+<script src="js/kids-common.js"></script>
 <script>
+  /* Fun facts for the hub flip cards */
+  const hubFacts = [
+    { front: '71%', back: 'About 71% of Earth\'s surface is covered by water!' },
+    { front: '60%', back: 'Your body is roughly 60% water. Your brain is even more!' },
+    { front: '1%', back: 'Less than 1% of Earth\'s water is freshwater we can easily use.' },
+    { front: '3,000', back: 'One dripping faucet can waste over 3,000 gallons in a year.' },
+    { front: '🧊', back: 'Ice floats because frozen water is LESS dense than liquid water.' },
+    { front: '8 gal', back: 'Turning off the tap while brushing teeth can save about 8 gallons a day.' },
+    { front: '🦕', back: 'The water you drank today is the same water that existed with the dinosaurs.' },
+    { front: '97%', back: 'About 97% of all Earth\'s water is salty ocean water.' },
+  ];
+
+  document.addEventListener('DOMContentLoaded', function () {
+    buildBackdrop();
+    buildFlipCards('hubFactGrid', hubFacts);
+  });
+
   function toggleNav() {
     document.getElementById('navLinks').classList.toggle('open');
   }
-
-  let score = 0;
-  const TOTAL_QUIZ_QUESTIONS = 12;
-  const feedbacks = {
-    q1: { correct:'🎉 Correct! About 71% of Earth is covered by water.', wrong:'Not quite — about 71% of Earth is covered by water!' },
-    q2: { correct:'🎉 Right! Evaporation is when water turns to vapor and rises.', wrong:'Not quite — the answer is Evaporation!' },
-    q3: { correct:'🎉 Correct! About 60% of your body is water.', wrong:'Not quite — about 60% of your body is water!' },
-    q4: { correct:'🎉 Great job! Ice is less dense, so it floats on water.', wrong:'Not quite — ice floats because it is less dense than liquid water!' },
-    q5: { correct:'🎉 That\'s right! Fixing a dripping faucet saves thousands of gallons.', wrong:'Not quite — fixing a dripping faucet is a great way to save water!' },
-    q6: { correct:'🎉 Correct! Groundwater is stored underground in soil and rock.', wrong:'Not quite — groundwater is water stored underground in soil and rock!' },
-    q7: { correct:'🎉 Right! Wells reach groundwater in an aquifer.', wrong:'Not quite — wells tap into groundwater stored in an aquifer!' },
-    q8: { correct:'🎉 Correct! Water vapor cools and condenses into clouds next.', wrong:'Not quite — condensation comes right after evaporation!' },
-    q9: { correct:'🎉 Right! Chlorine or UV light kills germs in the water.', wrong:'Not quite — treatment plants use chlorine or UV light to kill germs!' },
-    q10: { correct:'🎉 Correct! Oceans hold about 97% of Earth\'s water.', wrong:'Not quite — oceans hold about 97% of all the water on Earth!' },
-    q11: { correct:'🎉 That\'s right! In Exodus, water came out of a rock for the thirsty people.', wrong:'Not quite — in the story, water came out of a rock!' },
-    q12: { correct:'🎉 Correct! Regular testing by water professionals is the real way to know water is safe.', wrong:'Not quite — looking or tasting fine doesn\'t guarantee water is safe. Regular testing is what really matters!' },
-  };
-
-  function answer(btn, isCorrect, qId) {
-    const opts = btn.closest('.quiz-options').querySelectorAll('.quiz-opt');
-    opts.forEach(o => o.disabled = true);
-
-    const fb = document.getElementById('fb' + qId.replace('q',''));
-    if (isCorrect) {
-      btn.classList.add('correct');
-      score++;
-      fb.textContent = feedbacks[qId].correct;
-      fb.className = 'quiz-feedback show correct-fb';
-    } else {
-      btn.classList.add('wrong');
-      opts.forEach(o => { if (o.onclick && o.onclick.toString().includes('true')) o.classList.add('correct'); });
-      fb.textContent = feedbacks[qId].wrong;
-      fb.className = 'quiz-feedback show wrong-fb';
-    }
-    document.getElementById('next' + qId.replace('q','')).style.display = 'inline-block';
-    document.getElementById('score' + qId.replace('q','')).textContent = 'Score: ' + score + '/' + TOTAL_QUIZ_QUESTIONS;
-  }
-
-  function showQ(current, next) {
-    document.getElementById(current).classList.remove('active');
-    document.getElementById(next).classList.add('active');
-  }
-
-  function showResult() {
-    document.getElementById('q' + TOTAL_QUIZ_QUESTIONS).classList.remove('active');
-    const result = document.getElementById('quizResult');
-    result.classList.add('show');
-    const emoji = document.getElementById('resultEmoji');
-    const title = document.getElementById('resultTitle');
-    const text  = document.getElementById('resultText');
-    if (score === TOTAL_QUIZ_QUESTIONS) {
-      emoji.textContent = '🏆'; title.textContent = 'Perfect Score! You\'re a Water Expert!';
-      text.textContent = 'WOW! ' + score + ' out of ' + TOTAL_QUIZ_QUESTIONS + '! You really know your water facts. Keep it up, Water Hero!';
-    } else if (score >= TOTAL_QUIZ_QUESTIONS * 0.6) {
-      emoji.textContent = '⭐'; title.textContent = 'Great Work!';
-      text.textContent = 'You got ' + score + ' out of ' + TOTAL_QUIZ_QUESTIONS + '! Read back through the facts above and try again to get a perfect score!';
-    } else {
-      emoji.textContent = '💧'; title.textContent = 'Good Try!';
-      text.textContent = 'You got ' + score + ' out of ' + TOTAL_QUIZ_QUESTIONS + '. Water is fascinating — take another look at the facts above and give it another go!';
-    }
-  }
-
-  function restartQuiz() {
-    score = 0;
-    const ids = [];
-    for (let i = 1; i <= TOTAL_QUIZ_QUESTIONS; i++) ids.push('q' + i);
-    ids.forEach(function(id, i) {
-      const el = document.getElementById(id);
-      el.classList.remove('active');
-      el.querySelectorAll('.quiz-opt').forEach(function(o) {
-        o.disabled = false;
-        o.className = 'quiz-opt';
-      });
-      const fbEl = document.getElementById('fb' + (i+1));
-      fbEl.className = 'quiz-feedback';
-      document.getElementById('next' + (i+1)).style.display = 'none';
-      document.getElementById('score' + (i+1)).textContent = '';
-    });
-    document.getElementById('quizResult').classList.remove('show');
-    document.getElementById('q1').classList.add('active');
-  }
-
-  /* =====================================================
-     LIVE GAME 1: Water Cycle Memory Match
-     ===================================================== */
-  const memoryPairs = [
-    { emoji: '☀️', name: 'Evaporation' },
-    { emoji: '☁️', name: 'Condensation' },
-    { emoji: '🌧️', name: 'Precipitation' },
-    { emoji: '🏔️', name: 'Collection' },
-    { emoji: '🌱', name: 'Transpiration' },
-  ];
-  let memoryState = { first: null, second: null, matches: 0, moves: 0, lock: false };
-
-  function shuffleArray(arr) {
-    const a = arr.slice();
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-  function initMemoryGame() {
-    memoryState = { first: null, second: null, matches: 0, moves: 0, lock: false };
-    const deck = shuffleArray(memoryPairs.concat(memoryPairs).map((c, i) => ({ ...c, uid: i })));
-    const grid = document.getElementById('memoryGrid');
-    grid.innerHTML = '';
-    deck.forEach((card, idx) => {
-      const el = document.createElement('div');
-      el.className = 'memory-card';
-      el.dataset.name = card.name;
-      el.dataset.idx = idx;
-      el.innerHTML = '<div class="memory-card-inner">' +
-        '<div class="memory-card-front">💧</div>' +
-        '<div class="memory-card-back">' + card.emoji + '<small>' + card.name + '</small></div>' +
-        '</div>';
-      el.addEventListener('click', () => flipMemoryCard(el));
-      grid.appendChild(el);
-    });
-    updateMemoryStatus();
-  }
-
-  function updateMemoryStatus() {
-    document.getElementById('memoryStatus').textContent = 'Moves: ' + memoryState.moves + ' · Matches: ' + memoryState.matches + ' / ' + memoryPairs.length;
-    if (memoryState.matches === memoryPairs.length) {
-      document.getElementById('memoryStatus').textContent += '  🎉 You matched them all!';
-    }
-  }
-
-  function flipMemoryCard(el) {
-    if (memoryState.lock || el.classList.contains('flipped') || el.classList.contains('matched')) return;
-    el.classList.add('flipped');
-    if (!memoryState.first) {
-      memoryState.first = el;
-      return;
-    }
-    memoryState.second = el;
-    memoryState.lock = true;
-    memoryState.moves++;
-    if (memoryState.first.dataset.name === memoryState.second.dataset.name) {
-      memoryState.first.classList.add('matched');
-      memoryState.second.classList.add('matched');
-      memoryState.matches++;
-      memoryState.first = null; memoryState.second = null; memoryState.lock = false;
-      updateMemoryStatus();
-    } else {
-      setTimeout(() => {
-        memoryState.first.classList.remove('flipped');
-        memoryState.second.classList.remove('flipped');
-        memoryState.first = null; memoryState.second = null; memoryState.lock = false;
-        updateMemoryStatus();
-      }, 800);
-    }
-    updateMemoryStatus();
-  }
-
-  /* =====================================================
-     LIVE GAME 2: Save It or Waste It!
-     ===================================================== */
-  const scenarios = [
-    { text: 'Turning off the tap while you brush your teeth.', answer: 'save' },
-    { text: 'Leaving the hose running while you go answer the door.', answer: 'waste' },
-    { text: 'Fixing a dripping faucet right away.', answer: 'save' },
-    { text: 'Taking a 20-minute shower instead of a short one.', answer: 'waste' },
-    { text: 'Only running the dishwasher when it\'s full.', answer: 'save' },
-    { text: 'Watering the garden in the middle of a hot afternoon.', answer: 'waste' },
-    { text: 'Collecting rainwater in a barrel to water plants.', answer: 'save' },
-    { text: 'Letting the sink run while washing just one dish.', answer: 'waste' },
-    { text: 'Reporting a leaky pipe to a grown-up right away.', answer: 'save' },
-    { text: 'Using a bucket and sponge instead of a running hose to wash the car.', answer: 'save' },
-  ];
-  let scenarioState = { round: 0, score: 0, order: [] };
-
-  function initScenarioGame() {
-    scenarioState = { round: 0, score: 0, order: shuffleArray(scenarios) };
-    document.getElementById('scenarioFeedback').textContent = '';
-    document.getElementById('scenarioFeedback').className = 'scenario-feedback';
-    showScenario();
-  }
-
-  function showScenario() {
-    if (scenarioState.round >= scenarioState.order.length) {
-      document.getElementById('scenarioText').textContent = '🎉 All done! Final score: ' + scenarioState.score + ' / ' + scenarioState.order.length;
-      document.getElementById('scenarioProgress').textContent = 'Finished!';
-      return;
-    }
-    const s = scenarioState.order[scenarioState.round];
-    document.getElementById('scenarioText').textContent = s.text;
-    document.getElementById('scenarioProgress').textContent = 'Round ' + (scenarioState.round + 1) + ' / ' + scenarioState.order.length;
-    document.getElementById('scenarioScore').textContent = 'Score: ' + scenarioState.score;
-    document.getElementById('scenarioFeedback').textContent = '';
-    document.getElementById('scenarioFeedback').className = 'scenario-feedback';
-  }
-
-  function answerScenario(choice) {
-    if (scenarioState.round >= scenarioState.order.length) return;
-    const s = scenarioState.order[scenarioState.round];
-    const fb = document.getElementById('scenarioFeedback');
-    if (choice === s.answer) {
-      scenarioState.score++;
-      fb.textContent = choice === 'save' ? '💧 Yes! That saves water.' : '✅ Right — that wastes water, good catch!';
-      fb.className = 'scenario-feedback good';
-    } else {
-      fb.textContent = s.answer === 'save' ? '💡 Actually, that saves water!' : '💡 Actually, that wastes water!';
-      fb.className = 'scenario-feedback bad';
-    }
-    document.getElementById('scenarioScore').textContent = 'Score: ' + scenarioState.score;
-    scenarioState.round++;
-    setTimeout(showScenario, 1100);
-  }
-
-  /* =====================================================
-     LIVE GAME 3: Clean or Polluted?
-     ===================================================== */
-  const sortItems = [
-    { emoji: '🏞️', label: 'A clear mountain stream', answer: 'clean' },
-    { emoji: '🛢️', label: 'A river with an oil spill floating on top', answer: 'polluted' },
-    { emoji: '🥤', label: 'Filtered water from a treatment plant', answer: 'clean' },
-    { emoji: '🗑️', label: 'A pond full of trash and litter', answer: 'polluted' },
-    { emoji: '🚰', label: 'Water tested and approved for drinking', answer: 'clean' },
-    { emoji: '🏭', label: 'Water with chemical runoff from a factory', answer: 'polluted' },
-    { emoji: '🌧️', label: 'Fresh rainwater collected in a clean barrel', answer: 'clean' },
-    { emoji: '🐄', label: 'A creek with untreated farm waste in it', answer: 'polluted' },
-    { emoji: '🧊', label: 'Melted snow from a clean mountaintop', answer: 'clean' },
-    { emoji: '🧴', label: 'Water with soap and chemicals dumped in it', answer: 'polluted' },
-  ];
-  let sortState = { round: 0, score: 0, order: [] };
-
-  function initSortGame() {
-    sortState = { round: 0, score: 0, order: shuffleArray(sortItems) };
-    showSortItem();
-  }
-
-  function showSortItem() {
-    if (sortState.round >= sortState.order.length) {
-      document.getElementById('sortEmoji').textContent = '🏆';
-      document.getElementById('sortLabel').textContent = 'All done! Final score: ' + sortState.score + ' / ' + sortState.order.length;
-      document.getElementById('sortStatus').textContent = 'Finished! Tap Restart to play again.';
-      return;
-    }
-    const item = sortState.order[sortState.round];
-    document.getElementById('sortEmoji').textContent = item.emoji;
-    document.getElementById('sortLabel').textContent = item.label;
-    document.getElementById('sortStatus').textContent = 'Round ' + (sortState.round + 1) + ' / ' + sortState.order.length + ' · Score: ' + sortState.score;
-  }
-
-  function answerSort(choice) {
-    if (sortState.round >= sortState.order.length) return;
-    const item = sortState.order[sortState.round];
-    if (choice === item.answer) sortState.score++;
-    sortState.round++;
-    showSortItem();
-  }
-
-  /* =====================================================
-     LIVE GAME 4: Water Fact Flip Cards
-     ===================================================== */
-  const flipFacts = [
-    { front: '71%', back: 'About 71% of Earth\'s surface is covered by water!' },
-    { front: '60%', back: 'Your body is about 60% water.' },
-    { front: '1%', back: 'Less than 1% of Earth\'s water is easy-to-reach freshwater.' },
-    { front: '💧×1', back: 'A dripping faucet can waste over 3,000 gallons a year!' },
-    { front: '🧊', back: 'Ice floats because it\'s less dense than liquid water.' },
-    { front: '5 steps', back: 'The water cycle has 5 main steps: evaporation, condensation, precipitation, collection, and transpiration.' },
-    { front: '2 min', back: 'Turning off the tap while brushing your teeth can save up to 8 gallons a day!' },
-    { front: '🦕', back: 'The same water on Earth today is the same water that existed millions of years ago!' },
-  ];
-  let flipRevealed = 0;
-
-  function initFlipGame() {
-    flipRevealed = 0;
-    const grid = document.getElementById('flipGrid');
-    grid.innerHTML = '';
-    shuffleArray(flipFacts).forEach((fact) => {
-      const el = document.createElement('div');
-      el.className = 'flip-fact-card';
-      el.innerHTML = '<div class="flip-fact-inner">' +
-        '<div class="flip-fact-front">' + fact.front + '</div>' +
-        '<div class="flip-fact-back">' + fact.back + '</div>' +
-        '</div>';
-      el.addEventListener('click', () => {
-        if (!el.classList.contains('open')) {
-          el.classList.add('open');
-          flipRevealed++;
-          document.getElementById('flipStatus').textContent = 'Revealed: ' + flipRevealed + ' / ' + flipFacts.length;
-        }
-      });
-      grid.appendChild(el);
-    });
-    document.getElementById('flipStatus').textContent = 'Revealed: 0 / ' + flipFacts.length;
-  }
-
-  /* =====================================================
-     LIVE GAME 5: Water Word Scramble
-     ===================================================== */
-  const scrambleWords = [
-    { word: 'EVAPORATION', hint: 'When water turns into vapor and rises into the sky.' },
-    { word: 'CONDENSATION', hint: 'When water vapor cools and turns into clouds.' },
-    { word: 'PRECIPITATION', hint: 'Rain, snow, sleet, or hail falling from clouds.' },
-    { word: 'AQUIFER', hint: 'An underground layer of rock or sand that holds water.' },
-    { word: 'RESERVOIR', hint: 'A large natural or man-made lake used to store water.' },
-    { word: 'GROUNDWATER', hint: 'Water stored below the ground.' },
-    { word: 'CONSERVATION', hint: 'Using less and saving resources like water.' },
-    { word: 'TRANSPIRATION', hint: 'When plants release water vapor through their leaves.' },
-  ];
-  let scrambleState = { order: [], idx: 0, score: 0, current: '' };
-
-  function scrambleLetters(word) {
-    let s;
-    do { s = shuffleArray(word.split('')).join(''); } while (s === word);
-    return s;
-  }
-
-  function initScrambleGame() {
-    scrambleState = { order: shuffleArray(scrambleWords), idx: 0, score: 0, current: '' };
-    showScramble();
-  }
-
-  function showScramble() {
-    const fb = document.getElementById('scrambleFeedback');
-    fb.textContent = ''; fb.className = 'scenario-feedback';
-    document.getElementById('scrambleInput').value = '';
-    if (scrambleState.idx >= scrambleState.order.length) {
-      document.getElementById('scrambleWord').textContent = '🎉 DONE!';
-      document.getElementById('scrambleHint').textContent = 'Final score: ' + scrambleState.score + ' / ' + scrambleState.order.length + '. Reload the page to play again!';
-      document.getElementById('scrambleProgress').textContent = 'Finished!';
-      return;
-    }
-    const item = scrambleState.order[scrambleState.idx];
-    scrambleState.current = scrambleLetters(item.word);
-    document.getElementById('scrambleWord').textContent = scrambleState.current;
-    document.getElementById('scrambleHint').textContent = 'Hint: ' + item.hint;
-    document.getElementById('scrambleProgress').textContent = 'Word ' + (scrambleState.idx + 1) + ' / ' + scrambleState.order.length;
-    document.getElementById('scrambleScore').textContent = 'Score: ' + scrambleState.score;
-  }
-
-  function checkScramble() {
-    if (scrambleState.idx >= scrambleState.order.length) return;
-    const item = scrambleState.order[scrambleState.idx];
-    const guess = document.getElementById('scrambleInput').value.trim().toUpperCase();
-    const fb = document.getElementById('scrambleFeedback');
-    if (guess === item.word) {
-      scrambleState.score++;
-      fb.textContent = '🎉 Correct! ' + item.word;
-      fb.className = 'scenario-feedback good';
-      document.getElementById('scrambleScore').textContent = 'Score: ' + scrambleState.score;
-      setTimeout(nextScramble, 900);
-    } else {
-      fb.textContent = 'Not quite — try again, or tap Skip!';
-      fb.className = 'scenario-feedback bad';
-    }
-  }
-
-  function nextScramble() {
-    scrambleState.idx++;
-    showScramble();
-  }
-
-  /* Initialize all live games on page load */
-  document.addEventListener('DOMContentLoaded', function () {
-    initMemoryGame();
-    initScenarioGame();
-    initSortGame();
-    initFlipGame();
-    initScrambleGame();
-  });
 </script>
 
 </body>

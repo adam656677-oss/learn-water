@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Coloring Lab — color water science pictures online with 24 colors, then print your artwork or a blank page for crayons.">
+  <title>Coloring Lab 🎨 — Water Explorer Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kids.css">
+</head>
+<body class="kids-body">
+
+<div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><span class="drop">💧</span> LearnWater</a>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html" class="active">Kids Corner</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="lab-nav">
+  <div class="lab-nav-inner">
+    <a href="kids.html">🏠 Explorer HQ</a>
+    <a href="kids-games.html">🎮 Game Lab</a>
+    <a href="kids-color.html" class="current">🎨 Coloring Lab</a>
+    <a href="kids-quiz.html">🧠 Quiz Lab</a>
+    <a href="kids-learn.html">🔬 Discovery Lab</a>
+  </div>
+</nav>
+
+<header class="lab-hero">
+  <div class="kids-container">
+    <span class="mascot">🎨</span>
+    <h1>Coloring Lab</h1>
+    <p class="lab-sub">Pick a color, then tap any part of the picture to fill it in. When you're done, print your masterpiece — or print a blank page and color it with crayons!</p>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f2fbff"/>
+    </svg>
+  </div>
+</header>
+
+<section class="lab-section">
+  <div class="kids-container">
+
+    <!-- Picture picker -->
+    <div class="picture-picker" id="picturePicker">
+      <button class="pic-tab active" data-scene="scene-cycle">🌧️ Water Cycle</button>
+      <button class="pic-tab" data-scene="scene-ocean">🐠 Ocean Life</button>
+      <button class="pic-tab" data-scene="scene-plant">🏭 Treatment Plant</button>
+      <button class="pic-tab" data-scene="scene-home">🏠 Water Hero at Home</button>
+    </div>
+
+    <div class="color-layout">
+
+      <!-- Tools -->
+      <aside class="color-tools">
+        <h4>🎨 Pick a Color</h4>
+        <div class="swatch-grid" id="swatchGrid"></div>
+
+        <div class="current-color-row">
+          <span class="current-color-dot" id="currentColorDot" style="background:#1b98e0;"></span>
+          <span>Painting with <span id="currentColorName">Ocean Blue</span></span>
+        </div>
+
+        <h4>🖌️ Tools</h4>
+        <div class="tool-btn-col">
+          <button class="lab-btn small" onclick="setEraser()">🧽 Eraser (white)</button>
+          <button class="lab-btn small ghost" onclick="clearScene()">🔄 Start Over</button>
+          <button class="lab-btn small lime" onclick="fillRandom()">🎲 Surprise Me!</button>
+        </div>
+
+        <h4 style="margin-top:1.25rem;">🖨️ Print &amp; Save</h4>
+        <div class="tool-btn-col">
+          <button class="lab-btn small amber" onclick="printColored()">🖨️ Print My Picture</button>
+          <button class="lab-btn small ghost" onclick="printBlank()">📄 Print Blank Page</button>
+          <button class="lab-btn small purple" onclick="downloadPNG()">💾 Save as Picture</button>
+        </div>
+
+        <p style="font-size:0.76rem;color:#3d6a86;margin-top:1rem;line-height:1.5;">
+          Tip: "Print Blank Page" gives you clean black-and-white line art — perfect for crayons or markers.
+        </p>
+      </aside>
+
+      <!-- Canvas -->
+      <div class="canvas-stage" id="printArea">
+
+        <!-- ===== SCENE 1: WATER CYCLE ===== -->
+        <svg class="coloring-scene active" id="scene-cycle" viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg">
+          <!-- sky -->
+          <rect class="fillable" x="2" y="2" width="596" height="340" rx="10" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- sun -->
+          <circle class="fillable" cx="512" cy="80" r="46" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <g class="lineart">
+            <line x1="512" y1="14" x2="512" y2="0"/>
+            <line x1="570" y1="26" x2="580" y2="16"/>
+            <line x1="578" y1="80" x2="596" y2="80"/>
+            <line x1="570" y1="134" x2="580" y2="144"/>
+            <line x1="454" y1="26" x2="444" y2="16"/>
+          </g>
+          <!-- big cloud -->
+          <path class="fillable" d="M120,168 C92,168 86,134 110,126 C104,92 148,76 170,100 C184,70 236,72 244,106 C272,102 288,132 268,152 C262,166 250,168 240,168 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- small cloud -->
+          <path class="fillable" d="M330,120 C312,120 308,98 324,93 C320,71 349,61 363,77 C372,58 406,59 411,81 C429,79 439,98 426,111 C422,120 414,120 408,120 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- raindrops -->
+          <path class="fillable" d="M150,190 C150,190 138,206 138,214 a12,12 0 0,0 24,0 C162,206 150,190 150,190 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M192,204 C192,204 180,220 180,228 a12,12 0 0,0 24,0 C204,220 192,204 192,204 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M234,190 C234,190 222,206 222,214 a12,12 0 0,0 24,0 C246,206 234,190 234,190 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M366,150 C366,150 356,164 356,171 a10,10 0 0,0 20,0 C376,164 366,150 366,150 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- mountain back -->
+          <path class="fillable" d="M300,342 L390,196 L470,342 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- mountain front -->
+          <path class="fillable" d="M40,342 L160,180 L232,258 L286,204 L400,342 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- snow cap -->
+          <path class="fillable" d="M160,180 L131,219 L149,212 L165,224 L182,210 L199,218 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- ocean -->
+          <rect class="fillable" x="2" y="342" width="596" height="116" rx="10" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- waves -->
+          <g class="lineart">
+            <path d="M30,378 q22,-14 44,0 t44,0 t44,0"/>
+            <path d="M320,378 q22,-14 44,0 t44,0 t44,0"/>
+            <path d="M90,418 q22,-14 44,0 t44,0 t44,0"/>
+            <path d="M380,418 q22,-14 44,0 t44,0"/>
+          </g>
+          <!-- tree -->
+          <rect class="fillable" x="492" y="286" width="22" height="58" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="503" cy="266" r="42" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- arrows showing the cycle -->
+          <g class="lineart">
+            <path d="M472,214 C455,178 430,160 400,152" stroke-dasharray="8 7"/>
+            <path d="M96,236 C74,272 70,308 82,338" stroke-dasharray="8 7"/>
+          </g>
+          <text class="label-text" x="300" y="34" font-size="22" text-anchor="middle">THE WATER CYCLE</text>
+          <text class="label-text" x="188" y="152" font-size="15" text-anchor="middle">CONDENSATION</text>
+          <text class="label-text" x="192" y="252" font-size="15" text-anchor="middle">PRECIPITATION</text>
+          <text class="label-text" x="480" y="180" font-size="15" text-anchor="middle">EVAPORATION</text>
+          <text class="label-text" x="300" y="440" font-size="16" text-anchor="middle">COLLECTION</text>
+        </svg>
+
+        <!-- ===== SCENE 2: OCEAN LIFE ===== -->
+        <svg class="coloring-scene" id="scene-ocean" viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg">
+          <!-- water -->
+          <rect class="fillable" x="2" y="2" width="596" height="456" rx="10" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- sea floor -->
+          <path class="fillable" d="M2,400 C90,372 150,414 240,392 C330,370 400,412 480,390 C530,377 570,396 598,388 L598,456 L2,456 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- big fish body -->
+          <path class="fillable" d="M180,190 C230,150 320,150 360,192 C320,236 230,236 180,190 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- big fish tail -->
+          <path class="fillable" d="M180,190 L128,152 L142,192 L128,232 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- big fish fin -->
+          <path class="fillable" d="M254,158 L274,120 L296,162 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="336" cy="180" r="9" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- small fish -->
+          <path class="fillable" d="M420,300 C444,280 486,280 506,302 C486,324 444,324 420,300 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M420,300 L396,282 L403,301 L396,320 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="492" cy="295" r="6" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- turtle shell -->
+          <ellipse class="fillable" cx="130" cy="320" rx="56" ry="40" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M186,318 a14,14 0 1,1 0,4 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <g class="lineart">
+            <path d="M104,290 L118,320 L104,350"/>
+            <path d="M156,290 L142,320 L156,350"/>
+            <path d="M118,320 L142,320"/>
+            <path d="M84,346 L70,364 M176,346 L190,364 M84,296 L70,278 M176,296 L190,278"/>
+          </g>
+          <!-- coral -->
+          <path class="fillable" d="M60,398 C56,362 84,362 78,336 C102,346 96,376 106,398 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M500,392 C494,356 522,354 518,326 C544,340 534,372 546,392 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- seaweed -->
+          <path class="fillable" d="M280,398 C268,368 292,352 280,322 C300,336 304,368 300,398 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M330,398 C320,374 340,358 332,336 C348,348 350,374 348,398 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- starfish -->
+          <path class="fillable" d="M410,392 L419,414 L442,414 L424,428 L431,450 L410,437 L389,450 L396,428 L378,414 L401,414 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- bubbles -->
+          <circle class="fillable" cx="380" cy="90" r="14" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="416" cy="60" r="10" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="440" cy="102" r="8" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="96" cy="112" r="12" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="130" cy="80" r="8" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <text class="label-text" x="300" y="42" font-size="22" text-anchor="middle">CLEAN WATER = HAPPY OCEAN</text>
+        </svg>
+
+        <!-- ===== SCENE 3: TREATMENT PLANT ===== -->
+        <svg class="coloring-scene" id="scene-plant" viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg">
+          <rect class="fillable" x="2" y="2" width="596" height="330" rx="10" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="2" y="332" width="596" height="126" rx="10" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- lake / source -->
+          <ellipse class="fillable" cx="82" cy="250" rx="66" ry="34" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <text class="label-text" x="82" y="302" font-size="14" text-anchor="middle">1. SOURCE</text>
+          <!-- pipe 1 -->
+          <rect class="fillable" x="148" y="240" width="46" height="20" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- settling tank -->
+          <rect class="fillable" x="194" y="196" width="86" height="70" rx="8" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <g class="lineart"><path d="M204,244 q18,-12 34,0 t34,0"/></g>
+          <text class="label-text" x="237" y="302" font-size="14" text-anchor="middle">2. SETTLE</text>
+          <!-- pipe 2 -->
+          <rect class="fillable" x="280" y="240" width="40" height="20" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- filter tank -->
+          <rect class="fillable" x="320" y="182" width="86" height="84" rx="8" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <g class="lineart">
+            <line x1="330" y1="212" x2="396" y2="212"/>
+            <line x1="330" y1="232" x2="396" y2="232"/>
+            <circle cx="345" cy="250" r="4"/><circle cx="363" cy="252" r="4"/><circle cx="381" cy="249" r="4"/>
+          </g>
+          <text class="label-text" x="363" y="302" font-size="14" text-anchor="middle">3. FILTER</text>
+          <!-- pipe 3 -->
+          <rect class="fillable" x="406" y="240" width="34" height="20" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- storage tower -->
+          <rect class="fillable" x="452" y="228" width="20" height="70" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="504" y="228" width="20" height="70" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <ellipse class="fillable" cx="488" cy="200" rx="62" ry="42" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <text class="label-text" x="488" y="322" font-size="14" text-anchor="middle">4. STORE</text>
+          <!-- houses -->
+          <rect class="fillable" x="90" y="378" width="80" height="60" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M78,378 L130,340 L182,378 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="118" y="404" width="24" height="34" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="300" y="378" width="80" height="60" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M288,378 L340,340 L392,378 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="328" y="404" width="24" height="34" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- underground main -->
+          <g class="lineart">
+            <line x1="488" y1="298" x2="488" y2="356" stroke-dasharray="9 7"/>
+            <line x1="488" y1="356" x2="130" y2="356" stroke-dasharray="9 7"/>
+          </g>
+          <text class="label-text" x="300" y="40" font-size="21" text-anchor="middle">HOW WATER GETS TO YOUR HOUSE</text>
+          <text class="label-text" x="235" y="452" font-size="14" text-anchor="middle">5. YOUR TAP!</text>
+        </svg>
+
+        <!-- ===== SCENE 4: WATER HERO AT HOME ===== -->
+        <svg class="coloring-scene" id="scene-home" viewBox="0 0 600 460" xmlns="http://www.w3.org/2000/svg">
+          <rect class="fillable" x="2" y="2" width="596" height="456" rx="10" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- counter -->
+          <rect class="fillable" x="40" y="300" width="330" height="26" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="60" y="326" width="290" height="112" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <g class="lineart"><line x1="205" y1="326" x2="205" y2="438"/></g>
+          <circle class="fillable" cx="180" cy="380" r="7" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <circle class="fillable" cx="230" cy="380" r="7" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- sink basin -->
+          <path class="fillable" d="M126,232 L284,232 L268,300 L142,300 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- faucet -->
+          <rect class="fillable" x="196" y="150" width="16" height="50" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <path class="fillable" d="M196,150 C196,120 260,120 260,152 L244,152 C244,138 212,138 212,150 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="168" y="198" width="72" height="14" rx="4" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- one drip only — tap is OFF! -->
+          <path class="fillable" d="M252,168 C252,168 244,180 244,186 a8,8 0 0,0 16,0 C260,180 252,168 252,168 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- water hero kid -->
+          <circle class="fillable" cx="452" cy="180" r="44" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <g class="lineart">
+            <circle cx="437" cy="172" r="4"/><circle cx="467" cy="172" r="4"/>
+            <path d="M434,196 q18,16 36,0"/>
+          </g>
+          <!-- body -->
+          <path class="fillable" d="M414,228 L490,228 L502,344 L402,344 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- cape -->
+          <path class="fillable" d="M490,232 C534,262 536,318 520,352 L494,336 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- arms -->
+          <rect class="fillable" x="376" y="240" width="40" height="16" rx="8" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="488" y="240" width="40" height="16" rx="8" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- legs -->
+          <rect class="fillable" x="414" y="344" width="28" height="76" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <rect class="fillable" x="460" y="344" width="28" height="76" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <!-- droplet badge on chest -->
+          <path class="fillable" d="M452,258 C452,258 436,282 436,294 a16,16 0 0,0 32,0 C468,282 452,258 452,258 Z" fill="#ffffff" stroke="#0d2f47" stroke-width="3"/>
+          <text class="label-text" x="300" y="46" font-size="21" text-anchor="middle">BE A WATER HERO!</text>
+          <text class="label-text" x="205" y="106" font-size="14" text-anchor="middle">TURN IT OFF!</text>
+          <text class="label-text" x="452" y="450" font-size="14" text-anchor="middle">EVERY DROP COUNTS</text>
+        </svg>
+
+      </div>
+    </div>
+
+    <div class="lab-note amber">
+      <h4>🖨️ Printing Tips</h4>
+      <p>When the print window opens, choose "Portrait" and make sure "Background graphics" is turned ON if you want your colors to print. Printing a blank page? Turn background graphics off to save ink!</p>
+    </div>
+
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="kids-games.html" class="lab-btn">🎮 Play Games Next</a>
+      <a href="kids.html" class="lab-btn ghost" style="margin-left:0.5rem;">🏠 Back to HQ</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+  </div>
+</footer>
+
+<script src="js/kids-common.js"></script>
+<script>
+  /* ---------- Color palette ---------- */
+  var PALETTE = [
+    { hex: '#1b98e0', name: 'Ocean Blue' },
+    { hex: '#0b3d63', name: 'Deep Sea' },
+    { hex: '#3ec9f0', name: 'Sky Blue' },
+    { hex: '#a8e8f9', name: 'Ice Blue' },
+    { hex: '#00b894', name: 'Teal' },
+    { hex: '#5fd35f', name: 'Grass Green' },
+    { hex: '#2d7a2d', name: 'Forest Green' },
+    { hex: '#c3f584', name: 'Lime' },
+    { hex: '#ffb703', name: 'Sunshine' },
+    { hex: '#fb8500', name: 'Orange' },
+    { hex: '#ffd166', name: 'Sand' },
+    { hex: '#ff6b6b', name: 'Coral' },
+    { hex: '#e63946', name: 'Red' },
+    { hex: '#ff8fab', name: 'Pink' },
+    { hex: '#9b5de5', name: 'Purple' },
+    { hex: '#6741d9', name: 'Violet' },
+    { hex: '#8d6e63', name: 'Brown' },
+    { hex: '#c9a227', name: 'Gold' },
+    { hex: '#adb5bd', name: 'Gray' },
+    { hex: '#495057', name: 'Slate' },
+    { hex: '#000000', name: 'Black' },
+    { hex: '#ffffff', name: 'White' },
+    { hex: '#fff3cd', name: 'Cream' },
+    { hex: '#d0f4de', name: 'Mint' }
+  ];
+
+  var currentColor = '#1b98e0';
+  var currentName = 'Ocean Blue';
+
+  /* ---------- Build swatches ---------- */
+  function buildSwatches() {
+    var grid = document.getElementById('swatchGrid');
+    grid.innerHTML = '';
+    PALETTE.forEach(function (c, i) {
+      var b = document.createElement('button');
+      b.className = 'swatch' + (i === 0 ? ' active' : '');
+      b.style.background = c.hex;
+      b.title = c.name;
+      b.setAttribute('aria-label', c.name);
+      b.addEventListener('click', function () {
+        currentColor = c.hex;
+        currentName = c.name;
+        document.querySelectorAll('.swatch').forEach(function (s) { s.classList.remove('active'); });
+        b.classList.add('active');
+        document.getElementById('currentColorDot').style.background = c.hex;
+        document.getElementById('currentColorName').textContent = c.name;
+      });
+      grid.appendChild(b);
+    });
+  }
+
+  /* ---------- Wire up fillable regions ---------- */
+  function wireFillables() {
+    document.querySelectorAll('.coloring-scene .fillable').forEach(function (el) {
+      el.addEventListener('click', function () {
+        el.setAttribute('fill', currentColor);
+      });
+    });
+  }
+
+  /* ---------- Scene switching ---------- */
+  function activeScene() {
+    return document.querySelector('.coloring-scene.active');
+  }
+
+  function buildPicker() {
+    document.querySelectorAll('.pic-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.pic-tab').forEach(function (t) { t.classList.remove('active'); });
+        document.querySelectorAll('.coloring-scene').forEach(function (s) { s.classList.remove('active'); });
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.scene).classList.add('active');
+      });
+    });
+  }
+
+  /* ---------- Tools ---------- */
+  function setEraser() {
+    currentColor = '#ffffff';
+    currentName = 'Eraser';
+    document.querySelectorAll('.swatch').forEach(function (s) { s.classList.remove('active'); });
+    document.getElementById('currentColorDot').style.background = '#ffffff';
+    document.getElementById('currentColorName').textContent = 'Eraser (white)';
+  }
+
+  function clearScene() {
+    var svg = activeScene();
+    if (!svg) return;
+    svg.querySelectorAll('.fillable').forEach(function (el) { el.setAttribute('fill', '#ffffff'); });
+  }
+
+  function fillRandom() {
+    var svg = activeScene();
+    if (!svg) return;
+    svg.querySelectorAll('.fillable').forEach(function (el) {
+      var c = PALETTE[Math.floor(Math.random() * (PALETTE.length - 2))];
+      el.setAttribute('fill', c.hex);
+    });
+  }
+
+  /* ---------- Printing ---------- */
+  function printColored() {
+    window.print();
+  }
+
+  function printBlank() {
+    var svg = activeScene();
+    if (!svg) { window.print(); return; }
+    /* Remember current colors, blank them out, print, then restore */
+    var saved = [];
+    svg.querySelectorAll('.fillable').forEach(function (el) {
+      saved.push(el.getAttribute('fill'));
+      el.setAttribute('fill', '#ffffff');
+    });
+    var restore = function () {
+      var i = 0;
+      svg.querySelectorAll('.fillable').forEach(function (el) {
+        el.setAttribute('fill', saved[i] || '#ffffff');
+        i++;
+      });
+      window.removeEventListener('afterprint', restore);
+    };
+    window.addEventListener('afterprint', restore);
+    window.print();
+    /* Fallback for browsers that don't fire afterprint */
+    setTimeout(function () {
+      if (svg.querySelector('.fillable') && svg.querySelector('.fillable').getAttribute('fill') === '#ffffff') {
+        restore();
+      }
+    }, 2500);
+  }
+
+  /* ---------- Download as PNG ---------- */
+  function downloadPNG() {
+    var svg = activeScene();
+    if (!svg) return;
+
+    var clone = svg.cloneNode(true);
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    clone.removeAttribute('class');
+    clone.setAttribute('width', '1200');
+    clone.setAttribute('height', '920');
+    clone.style.display = 'block';
+
+    /* Inline the line-art and label styling so it survives serialization */
+    clone.querySelectorAll('.lineart, .lineart *').forEach(function (el) {
+      if (el.tagName.toLowerCase() !== 'g') {
+        el.setAttribute('fill', 'none');
+      }
+      el.setAttribute('stroke', '#0d2f47');
+      el.setAttribute('stroke-width', '3');
+      el.setAttribute('stroke-linecap', 'round');
+      el.setAttribute('stroke-linejoin', 'round');
+    });
+    clone.querySelectorAll('.label-text').forEach(function (el) {
+      el.setAttribute('fill', '#0d2f47');
+      el.setAttribute('font-family', "'Trebuchet MS', Verdana, sans-serif");
+      el.setAttribute('font-weight', 'bold');
+    });
+
+    var data = new XMLSerializer().serializeToString(clone);
+    var svgBlob = new Blob(['<?xml version="1.0" standalone="no"?>\n' + data], { type: 'image/svg+xml;charset=utf-8' });
+    var url = URL.createObjectURL(svgBlob);
+
+    var img = new Image();
+    img.onload = function () {
+      var canvas = document.createElement('canvas');
+      canvas.width = 1200;
+      canvas.height = 920;
+      var ctx = canvas.getContext('2d');
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+
+      canvas.toBlob(function (blob) {
+        if (!blob) { alert('Sorry — your browser could not save the image. Try the Print button instead!'); return; }
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'my-water-coloring-page.png';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      }, 'image/png');
+    };
+    img.onerror = function () {
+      URL.revokeObjectURL(url);
+      alert('Sorry — your browser could not save the image. Try the Print button instead!');
+    };
+    img.src = url;
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    buildBackdrop();
+    buildSwatches();
+    wireFillables();
+    buildPicker();
+  });
+</script>
+
+</body>
+</html>

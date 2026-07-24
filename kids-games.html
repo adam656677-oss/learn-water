@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Game Lab — five real water science games for kids: Droplet Catcher, Pipe Connect, Leak Detective, Treatment Plant, and Water Cycle Race.">
+  <title>Game Lab 🎮 — Water Explorer Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kids.css">
+</head>
+<body class="kids-body">
+
+<div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><span class="drop">💧</span> LearnWater</a>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html" class="active">Kids Corner</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="lab-nav">
+  <div class="lab-nav-inner">
+    <a href="kids.html">🏠 Explorer HQ</a>
+    <a href="kids-games.html" class="current">🎮 Game Lab</a>
+    <a href="kids-color.html">🎨 Coloring Lab</a>
+    <a href="kids-quiz.html">🧠 Quiz Lab</a>
+    <a href="kids-learn.html">🔬 Discovery Lab</a>
+  </div>
+</nav>
+
+<header class="lab-hero">
+  <div class="kids-container">
+    <span class="mascot">🎮</span>
+    <h1>Game Lab</h1>
+    <p class="lab-sub">Five real games — catch drops, fix pipes, hunt leaks, run a treatment plant, and race the water cycle. Every one teaches you something about water!</p>
+    <div class="lab-chip-row">
+      <a href="#g-catcher" class="lab-chip">💧 Droplet Catcher</a>
+      <a href="#g-pipes" class="lab-chip">🔧 Pipe Connect</a>
+      <a href="#g-leaks" class="lab-chip">🚿 Leak Detective</a>
+      <a href="#g-plant" class="lab-chip">🏭 Treatment Plant</a>
+      <a href="#g-cycle" class="lab-chip">🌍 Cycle Race</a>
+    </div>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f2fbff"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============ GAME 1: DROPLET CATCHER ============ -->
+<section class="lab-section" id="g-catcher">
+  <div class="kids-container">
+    <div class="lab-panel">
+      <h3>💧 Droplet Catcher</h3>
+      <p class="panel-desc">Move your bucket to catch clean water drops. Dodge the pollution — trash and oil will cost you a life! Every 10 drops you level up and things get faster.</p>
+
+      <div class="lab-hud">
+        <span class="hud-pill" id="catchScore">Score: 0</span>
+        <span class="hud-pill lime" id="catchLevel">Level: 1</span>
+        <span class="hud-pill coral" id="catchLives">Lives: ❤️❤️❤️</span>
+        <span class="hud-pill amber" id="catchBest">Best: 0</span>
+      </div>
+
+      <div class="game-stage" id="catchStage">
+        <canvas id="catchCanvas" width="400" height="300"></canvas>
+        <div class="game-overlay" id="catchOverlay">
+          <h4 id="catchOverlayTitle">💧 Droplet Catcher</h4>
+          <p id="catchOverlayText">Use ← → arrow keys, or drag your finger on the game. Catch the blue drops, avoid the trash!</p>
+          <button class="lab-btn amber" onclick="startCatcher()">▶️ Start Game</button>
+        </div>
+      </div>
+
+      <div class="touch-controls">
+        <button class="touch-btn" id="catchLeft" aria-label="Move left">◀️</button>
+        <button class="touch-btn" id="catchRight" aria-label="Move right">▶️</button>
+      </div>
+
+      <div class="lab-note lime">
+        <h4>🔎 What you're learning</h4>
+        <p>Real water operators keep pollution out of the water supply every day. Trash, oil, and chemicals that get into a river or well have to be filtered back out — it's much easier to keep water clean in the first place!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAME 2: PIPE CONNECT ============ -->
+<section class="lab-section tint" id="g-pipes">
+  <div class="kids-container">
+    <div class="lab-panel">
+      <h3>🔧 Pipe Connect</h3>
+      <p class="panel-desc">Tap the pipes to rotate them. Connect the water tower on the left all the way to the house on the right to get the water flowing!</p>
+
+      <div class="lab-hud">
+        <span class="hud-pill" id="pipeMoves">Rotations: 0</span>
+        <span class="hud-pill lime" id="pipeLevelLabel">Puzzle: 1</span>
+        <span class="hud-pill amber" id="pipeStatus">Not connected yet</span>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;flex-wrap:nowrap;">
+        <span style="font-size:2rem;">🗼</span>
+        <div class="pipe-grid" id="pipeGrid"></div>
+        <span style="font-size:2rem;">🏠</span>
+      </div>
+
+      <div class="game-feedback" id="pipeFeedback"></div>
+
+      <div style="text-align:center;margin-top:0.75rem;">
+        <button class="lab-btn ghost small" onclick="newPipePuzzle()">🔄 New Puzzle</button>
+      </div>
+
+      <div class="lab-note">
+        <h4>🔎 What you're learning</h4>
+        <p>Under your streets there's a whole maze of water mains carrying treated water from storage tanks to homes and schools. If even one pipe breaks or gets blocked, the water can't get through — just like in this puzzle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAME 3: LEAK DETECTIVE ============ -->
+<section class="lab-section" id="g-leaks">
+  <div class="kids-container">
+    <div class="lab-panel">
+      <h3>🚿 Leak Detective</h3>
+      <p class="panel-desc">Leaks are springing up all over the house! Tap each one fast to fix it. Every leak you miss wastes gallons of water. You have 45 seconds — how many gallons can you save?</p>
+
+      <div class="lab-hud">
+        <span class="hud-pill" id="leakTime">Time: 45s</span>
+        <span class="hud-pill lime" id="leakSaved">Saved: 0 gal</span>
+        <span class="hud-pill coral" id="leakWasted">Wasted: 0 gal</span>
+        <span class="hud-pill amber" id="leakBest">Best: 0 gal</span>
+      </div>
+
+      <div class="leak-house" id="leakHouse"></div>
+
+      <div class="game-feedback" id="leakFeedback"></div>
+
+      <div style="text-align:center;margin-top:0.9rem;">
+        <button class="lab-btn coral" id="leakStartBtn" onclick="startLeakGame()">▶️ Start Hunting</button>
+      </div>
+
+      <div class="lab-note coral">
+        <h4>🔎 What you're learning</h4>
+        <p>A single dripping faucet can waste more than 3,000 gallons a year — and a running toilet can waste 200 gallons a <em>day</em>. Finding and fixing leaks fast is one of the biggest ways to save water at home.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAME 4: TREATMENT PLANT ============ -->
+<section class="lab-section tint" id="g-plant">
+  <div class="kids-container">
+    <div class="lab-panel">
+      <h3>🏭 Run the Treatment Plant</h3>
+      <p class="panel-desc">You're the operator today! Something shows up in the water — pick the right treatment step to deal with it. Get 10 in a row for a perfect shift.</p>
+
+      <div class="lab-hud">
+        <span class="hud-pill" id="plantRound">Task 1 / 10</span>
+        <span class="hud-pill lime" id="plantScore">Correct: 0</span>
+        <span class="hud-pill amber" id="plantStreak">Streak: 0</span>
+      </div>
+
+      <div class="sorter-item">
+        <span class="sorter-emoji" id="plantEmoji">🍃</span>
+        <span class="sorter-label" id="plantLabel">Loading...</span>
+      </div>
+
+      <div class="sorter-btns" id="plantButtons">
+        <button class="lab-btn small" onclick="answerPlant('screen')">🧹 Screening</button>
+        <button class="lab-btn small purple" onclick="answerPlant('settle')">🪣 Settling</button>
+        <button class="lab-btn small lime" onclick="answerPlant('filter')">🧽 Filtration</button>
+        <button class="lab-btn small coral" onclick="answerPlant('disinfect')">🧪 Disinfection</button>
+      </div>
+
+      <div class="game-feedback" id="plantFeedback"></div>
+
+      <div style="text-align:center;margin-top:0.75rem;">
+        <button class="lab-btn ghost small" onclick="startPlantGame()">🔄 New Shift</button>
+      </div>
+
+      <div class="lab-note lime">
+        <h4>🔎 The four big steps</h4>
+        <p><strong>Screening</strong> catches big stuff like sticks and leaves · <strong>Settling</strong> lets heavy dirt sink to the bottom · <strong>Filtration</strong> strains out tiny particles through sand and carbon · <strong>Disinfection</strong> uses chlorine or UV light to kill germs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GAME 5: WATER CYCLE RACE ============ -->
+<section class="lab-section" id="g-cycle">
+  <div class="kids-container">
+    <div class="lab-panel">
+      <h3>🌍 Water Cycle Race</h3>
+      <p class="panel-desc">Put the water cycle in the right order as fast as you can! Tap the steps in order — the clock is running.</p>
+
+      <div class="lab-hud">
+        <span class="hud-pill" id="cycleTimer">Time: 0.0s</span>
+        <span class="hud-pill lime" id="cycleProgress">Placed: 0 / 5</span>
+        <span class="hud-pill amber" id="cycleBest">Best: —</span>
+      </div>
+
+      <p style="text-align:center;font-weight:800;color:#3d6a86;font-size:0.88rem;margin-bottom:0.4rem;">Your order:</p>
+      <div class="seq-slots" id="cycleSlots"></div>
+
+      <p style="text-align:center;font-weight:800;color:#3d6a86;font-size:0.88rem;margin-bottom:0.4rem;">Tap in the correct order:</p>
+      <div class="seq-pool" id="cyclePool"></div>
+
+      <div class="game-feedback" id="cycleFeedback"></div>
+
+      <div style="text-align:center;margin-top:0.9rem;">
+        <button class="lab-btn ghost small" onclick="startCycleGame()">🔄 Shuffle &amp; Restart</button>
+      </div>
+
+      <div class="lab-note amber">
+        <h4>🔎 What you're learning</h4>
+        <p>The water cycle never stops. Sun heats water into vapor, vapor cools into clouds, clouds drop rain and snow, water collects in oceans and underground — and plants push water back into the air too. Same water, over and over, forever.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lab-section tint">
+  <div class="kids-container" style="text-align:center;">
+    <h2>Great work, Explorer! 🏅</h2>
+    <p style="color:#3d6a86;max-width:560px;margin:0.5rem auto 1.5rem;">Ready for the next mission? Try the Quiz Lab to test what you know, or head to the Coloring Lab to make some art.</p>
+    <a href="kids-quiz.html" class="lab-btn lime">🧠 Take the Quiz</a>
+    <a href="kids-color.html" class="lab-btn purple" style="margin-left:0.5rem;">🎨 Go Color</a>
+    <a href="kids.html" class="lab-btn ghost" style="margin-left:0.5rem;">🏠 Back to HQ</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+  </div>
+</footer>
+
+<script src="js/kids-common.js"></script>
+<script>
+/* =========================================================
+   GAME 1 — DROPLET CATCHER (canvas arcade)
+   ========================================================= */
+var catchCanvas, cctx;
+var catchState = null;
+var catchBest = 0;
+var catchKeys = { left: false, right: false };
+
+function initCatcher() {
+  catchCanvas = document.getElementById('catchCanvas');
+  cctx = catchCanvas.getContext('2d');
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft')  { catchKeys.left = true;  if (catchState && catchState.running) e.preventDefault(); }
+    if (e.key === 'ArrowRight') { catchKeys.right = true; if (catchState && catchState.running) e.preventDefault(); }
+  });
+  document.addEventListener('keyup', function (e) {
+    if (e.key === 'ArrowLeft')  catchKeys.left = false;
+    if (e.key === 'ArrowRight') catchKeys.right = false;
+  });
+
+  var lb = document.getElementById('catchLeft');
+  var rb = document.getElementById('catchRight');
+  function hold(btn, key) {
+    ['pointerdown', 'touchstart'].forEach(function (ev) {
+      btn.addEventListener(ev, function (e) { e.preventDefault(); catchKeys[key] = true; });
+    });
+    ['pointerup', 'pointerleave', 'pointercancel', 'touchend', 'touchcancel'].forEach(function (ev) {
+      btn.addEventListener(ev, function () { catchKeys[key] = false; });
+    });
+  }
+  hold(lb, 'left');
+  hold(rb, 'right');
+
+  /* Drag directly on the game stage */
+  var stage = document.getElementById('catchStage');
+  function dragTo(clientX) {
+    if (!catchState || !catchState.running) return;
+    var rect = catchCanvas.getBoundingClientRect();
+    var rel = (clientX - rect.left) / rect.width;
+    catchState.bucketX = clamp(rel * 400 - catchState.bucketW / 2, 0, 400 - catchState.bucketW);
+  }
+  stage.addEventListener('pointerdown', function (e) { dragTo(e.clientX); });
+  stage.addEventListener('pointermove', function (e) {
+    if (e.buttons > 0 || e.pointerType === 'touch') dragTo(e.clientX);
+  });
+
+  drawCatchIdle();
+}
+
+function drawCatchIdle() {
+  cctx.clearRect(0, 0, 400, 300);
+}
+
+function startCatcher() {
+  document.getElementById('catchOverlay').classList.add('hidden');
+  catchState = {
+    running: true,
+    bucketX: 170, bucketW: 62, bucketH: 26,
+    drops: [],
+    score: 0, lives: 3, level: 1, caught: 0,
+    spawnTimer: 0, spawnEvery: 62,
+    lastTime: performance.now()
+  };
+  updateCatchHUD();
+  requestAnimationFrame(catchLoop);
+}
+
+function updateCatchHUD() {
+  if (!catchState) return;
+  document.getElementById('catchScore').textContent = 'Score: ' + catchState.score;
+  document.getElementById('catchLevel').textContent = 'Level: ' + catchState.level;
+  var hearts = '';
+  for (var i = 0; i < catchState.lives; i++) hearts += '❤️';
+  for (var j = catchState.lives; j < 3; j++) hearts += '🤍';
+  document.getElementById('catchLives').textContent = 'Lives: ' + hearts;
+  document.getElementById('catchBest').textContent = 'Best: ' + catchBest;
+}
+
+function catchLoop(now) {
+  if (!catchState || !catchState.running) return;
+  var dt = Math.min((now - catchState.lastTime) / 16.67, 3);
+  catchState.lastTime = now;
+
+  /* Move bucket */
+  var speed = 5.2 * dt;
+  if (catchKeys.left)  catchState.bucketX -= speed;
+  if (catchKeys.right) catchState.bucketX += speed;
+  catchState.bucketX = clamp(catchState.bucketX, 0, 400 - catchState.bucketW);
+
+  /* Spawn */
+  catchState.spawnTimer += dt;
+  if (catchState.spawnTimer >= catchState.spawnEvery) {
+    catchState.spawnTimer = 0;
+    var badChance = Math.min(0.18 + catchState.level * 0.05, 0.45);
+    var isBad = Math.random() < badChance;
+    catchState.drops.push({
+      x: 18 + Math.random() * 364,
+      y: -20,
+      vy: 1.6 + catchState.level * 0.32 + Math.random() * 0.9,
+      bad: isBad,
+      icon: isBad ? (Math.random() < 0.5 ? '🗑️' : '🛢️') : '💧'
+    });
+  }
+
+  /* Update drops */
+  for (var i = catchState.drops.length - 1; i >= 0; i--) {
+    var d = catchState.drops[i];
+    d.y += d.vy * dt;
+
+    var bx = catchState.bucketX, bw = catchState.bucketW;
+    var by = 300 - catchState.bucketH - 8;
+    if (d.y + 12 >= by && d.y <= by + catchState.bucketH && d.x > bx - 6 && d.x < bx + bw + 6) {
+      if (d.bad) {
+        catchState.lives--;
+        flashStage('#ff6b6b');
+        if (catchState.lives <= 0) { endCatcher(); return; }
+      } else {
+        catchState.score += 10 + (catchState.level - 1) * 2;
+        catchState.caught++;
+        if (catchState.caught % 10 === 0) {
+          catchState.level++;
+          catchState.spawnEvery = Math.max(22, catchState.spawnEvery - 6);
+        }
+      }
+      catchState.drops.splice(i, 1);
+      updateCatchHUD();
+      continue;
+    }
+
+    if (d.y > 320) {
+      /* Missing a clean drop is a small penalty, missing trash is fine */
+      if (!d.bad) catchState.score = Math.max(0, catchState.score - 2);
+      catchState.drops.splice(i, 1);
+      updateCatchHUD();
+    }
+  }
+
+  drawCatcher();
+  requestAnimationFrame(catchLoop);
+}
+
+function drawCatcher() {
+  cctx.clearRect(0, 0, 400, 300);
+
+  /* Ground water line */
+  cctx.fillStyle = 'rgba(11,61,99,0.18)';
+  cctx.fillRect(0, 288, 400, 12);
+
+  /* Drops */
+  cctx.font = '22px serif';
+  cctx.textAlign = 'center';
+  cctx.textBaseline = 'middle';
+  catchState.drops.forEach(function (d) {
+    cctx.fillText(d.icon, d.x, d.y);
+  });
+
+  /* Bucket */
+  var bx = catchState.bucketX, bw = catchState.bucketW, bh = catchState.bucketH;
+  var by = 300 - bh - 8;
+  cctx.fillStyle = '#8d6e63';
+  cctx.beginPath();
+  cctx.moveTo(bx, by);
+  cctx.lineTo(bx + bw, by);
+  cctx.lineTo(bx + bw - 8, by + bh);
+  cctx.lineTo(bx + 8, by + bh);
+  cctx.closePath();
+  cctx.fill();
+  cctx.fillStyle = '#5d4037';
+  cctx.fillRect(bx - 2, by - 5, bw + 4, 6);
+  cctx.strokeStyle = '#3e2723';
+  cctx.lineWidth = 2;
+  cctx.stroke();
+}
+
+function flashStage(color) {
+  var stage = document.getElementById('catchStage');
+  stage.style.boxShadow = 'inset 0 0 0 6px ' + color;
+  setTimeout(function () { stage.style.boxShadow = ''; }, 180);
+}
+
+function endCatcher() {
+  catchState.running = false;
+  if (catchState.score > catchBest) catchBest = catchState.score;
+  updateCatchHUD();
+  var ov = document.getElementById('catchOverlay');
+  document.getElementById('catchOverlayTitle').textContent = '🌊 Game Over!';
+  document.getElementById('catchOverlayText').textContent =
+    'You scored ' + catchState.score + ' points and reached level ' + catchState.level + '. ' +
+    (catchState.score >= 200 ? 'Amazing work, Water Hero!' : 'Try again and beat your best!');
+  ov.querySelector('button').textContent = '🔁 Play Again';
+  ov.classList.remove('hidden');
+  drawCatchIdle();
+}
+
+/* =========================================================
+   GAME 2 — PIPE CONNECT
+   ========================================================= */
+var PIPE_COLS = 5, PIPE_ROWS = 5, PIPE_ENTRY_ROW = 2;
+var pipeCells = [], pipeMoves = 0, pipeLevel = 1, pipeSolved = false;
+
+function opposite(d) { return (d + 2) % 4; }
+
+function rotatedConns(cell) {
+  return cell.base.map(function (d) { return (d + cell.rot) % 4; });
+}
+
+function newPipePuzzle() {
+  pipeMoves = 0;
+  pipeSolved = false;
+  document.getElementById('pipeFeedback').textContent = '';
+  document.getElementById('pipeFeedback').className = 'game-feedback';
+
+  /* Build a guaranteed-solvable path left to right */
+  var conns = {};
+  function addConn(c, r, dirs) {
+    var key = c + ',' + r;
+    if (!conns[key]) conns[key] = [];
+    dirs.forEach(function (d) { if (conns[key].indexOf(d) === -1) conns[key].push(d); });
+  }
+
+  var exitRow = [];
+  exitRow[0] = PIPE_ENTRY_ROW;
+  for (var c = 1; c < PIPE_COLS - 1; c++) exitRow[c] = Math.floor(Math.random() * PIPE_ROWS);
+  exitRow[PIPE_COLS - 1] = PIPE_ENTRY_ROW;
+
+  var entry = PIPE_ENTRY_ROW;
+  for (var col = 0; col < PIPE_COLS; col++) {
+    var ex = exitRow[col];
+    if (entry === ex) {
+      addConn(col, entry, [3, 1]);
+    } else {
+      var step = ex > entry ? 1 : -1;
+      addConn(col, entry, [3, step === 1 ? 2 : 0]);
+      for (var r = entry + step; r !== ex; r += step) {
+        addConn(col, r, [0, 2]);
+      }
+      addConn(col, ex, [step === 1 ? 0 : 2, 1]);
+    }
+    entry = ex;
+  }
+
+  /* Build cell objects */
+  pipeCells = [];
+  for (var rr = 0; rr < PIPE_ROWS; rr++) {
+    for (var cc = 0; cc < PIPE_COLS; cc++) {
+      var key = cc + ',' + rr;
+      var base;
+      if (conns[key]) {
+        base = conns[key].slice().sort();
+      } else {
+        /* Filler piece: random straight or elbow */
+        var fillers = [[0, 2], [1, 3], [0, 1], [1, 2], [2, 3], [0, 3]];
+        base = fillers[Math.floor(Math.random() * fillers.length)];
+      }
+      pipeCells.push({
+        col: cc, row: rr,
+        base: base,
+        rot: Math.floor(Math.random() * 4),
+        onPath: !!conns[key]
+      });
+    }
+  }
+
+  /* Make sure it doesn't start already solved */
+  if (checkPipeSolved()) {
+    pipeCells[0].rot = (pipeCells[0].rot + 1) % 4;
+  }
+
+  renderPipeGrid();
+  updatePipeHUD();
+}
+
+function pipeCellAt(c, r) {
+  if (c < 0 || r < 0 || c >= PIPE_COLS || r >= PIPE_ROWS) return null;
+  return pipeCells[r * PIPE_COLS + c];
+}
+
+function checkPipeSolved() {
+  var start = pipeCellAt(0, PIPE_ENTRY_ROW);
+  if (!start || rotatedConns(start).indexOf(3) === -1) return false;
+
+  var visited = {};
+  var queue = [start];
+  visited['0,' + PIPE_ENTRY_ROW] = true;
+  var reachedEnd = false;
+
+  while (queue.length) {
+    var cell = queue.shift();
+    var cs = rotatedConns(cell);
+    if (cell.col === PIPE_COLS - 1 && cell.row === PIPE_ENTRY_ROW && cs.indexOf(1) !== -1) {
+      reachedEnd = true;
+    }
+    cs.forEach(function (d) {
+      var dc = d === 1 ? 1 : d === 3 ? -1 : 0;
+      var dr = d === 2 ? 1 : d === 0 ? -1 : 0;
+      var nb = pipeCellAt(cell.col + dc, cell.row + dr);
+      if (!nb) return;
+      var k = nb.col + ',' + nb.row;
+      if (visited[k]) return;
+      if (rotatedConns(nb).indexOf(opposite(d)) === -1) return;
+      visited[k] = true;
+      queue.push(nb);
+    });
+  }
+
+  window._pipeFlowSet = visited;
+  return reachedEnd;
+}
+
+function renderPipeGrid() {
+  var grid = document.getElementById('pipeGrid');
+  grid.style.gridTemplateColumns = 'repeat(' + PIPE_COLS + ', 1fr)';
+  grid.innerHTML = '';
+
+  checkPipeSolved();
+  var flow = window._pipeFlowSet || {};
+
+  pipeCells.forEach(function (cell) {
+    var el = document.createElement('div');
+    el.className = 'pipe-cell';
+    if (flow[cell.col + ',' + cell.row]) el.classList.add('flowing');
+
+    var cs = rotatedConns(cell);
+    var paths = '';
+    cs.forEach(function (d) {
+      var pts = d === 0 ? 'M50,50 L50,0' : d === 1 ? 'M50,50 L100,50' : d === 2 ? 'M50,50 L50,100' : 'M50,50 L0,50';
+      paths += '<path class="pipe-path" d="' + pts + '"/>';
+    });
+    el.innerHTML = '<svg viewBox="0 0 100 100">' + paths +
+      '<circle cx="50" cy="50" r="9" class="pipe-path" style="fill:currentColor;stroke-width:0;"/></svg>';
+
+    el.addEventListener('click', function () {
+      if (pipeSolved) return;
+      cell.rot = (cell.rot + 1) % 4;
+      pipeMoves++;
+      renderPipeGrid();
+      updatePipeHUD();
+      if (checkPipeSolved()) {
+        pipeSolved = true;
+        var fb = document.getElementById('pipeFeedback');
+        fb.textContent = '🎉 Water is flowing! Solved in ' + pipeMoves + ' rotations.';
+        fb.className = 'game-feedback good';
+        document.getElementById('pipeStatus').textContent = '💧 Connected!';
+        pipeLevel++;
+        setTimeout(function () {
+          document.getElementById('pipeLevelLabel').textContent = 'Puzzle: ' + pipeLevel;
+        }, 400);
+      }
+    });
+
+    grid.appendChild(el);
+  });
+}
+
+function updatePipeHUD() {
+  document.getElementById('pipeMoves').textContent = 'Rotations: ' + pipeMoves;
+  if (!pipeSolved) document.getElementById('pipeStatus').textContent = 'Not connected yet';
+}
+
+/* =========================================================
+   GAME 3 — LEAK DETECTIVE
+   ========================================================= */
+var LEAK_SPOTS = 12;
+var leakState = null;
+var leakBest = 0;
+var leakIcons = ['🚿', '🚰', '🛁', '🚽', '🧺', '🪣', '🧼', '🫗', '🪠', '🧽', '🚪', '🪟'];
+
+function buildLeakHouse() {
+  var house = document.getElementById('leakHouse');
+  house.innerHTML = '';
+  for (var i = 0; i < LEAK_SPOTS; i++) {
+    var spot = document.createElement('div');
+    spot.className = 'leak-spot';
+    spot.dataset.idx = i;
+    spot.textContent = leakIcons[i];
+    spot.addEventListener('click', function () { fixLeak(this); });
+    house.appendChild(spot);
+  }
+}
+
+function startLeakGame() {
+  buildLeakHouse();
+  leakState = {
+    running: true,
+    time: 45,
+    saved: 0,
+    wasted: 0,
+    active: {},
+    spawnMs: 900
+  };
+  document.getElementById('leakStartBtn').textContent = '🔁 Restart';
+  document.getElementById('leakFeedback').textContent = 'Go! Tap every leak you see!';
+  document.getElementById('leakFeedback').className = 'game-feedback good';
+  updateLeakHUD();
+
+  if (leakState.tick) clearInterval(leakState.tick);
+  leakState.tick = setInterval(function () {
+    leakState.time--;
+    if (leakState.time <= 0) { endLeakGame(); return; }
+    /* Speed up as time runs down */
+    if (leakState.time === 30) leakState.spawnMs = 700;
+    if (leakState.time === 15) leakState.spawnMs = 520;
+    updateLeakHUD();
+  }, 1000);
+
+  leakSpawnLoop();
+}
+
+function leakSpawnLoop() {
+  if (!leakState || !leakState.running) return;
+  var spots = document.querySelectorAll('.leak-spot');
+  var candidates = [];
+  spots.forEach(function (s) {
+    if (!s.classList.contains('leaking')) candidates.push(s);
+  });
+  if (candidates.length) {
+    var pick = candidates[Math.floor(Math.random() * candidates.length)];
+    pick.classList.remove('fixed');
+    pick.classList.add('leaking');
+    var idx = pick.dataset.idx;
+    /* If not fixed in time, it wastes water */
+    leakState.active[idx] = setTimeout(function () {
+      if (pick.classList.contains('leaking')) {
+        pick.classList.remove('leaking');
+        leakState.wasted += 15;
+        updateLeakHUD();
+        var fb = document.getElementById('leakFeedback');
+        fb.textContent = '💦 Missed one! 15 gallons wasted.';
+        fb.className = 'game-feedback bad';
+      }
+    }, 1900);
+  }
+  setTimeout(leakSpawnLoop, leakState.spawnMs);
+}
+
+function fixLeak(el) {
+  if (!leakState || !leakState.running) return;
+  if (!el.classList.contains('leaking')) return;
+  el.classList.remove('leaking');
+  el.classList.add('fixed');
+  var idx = el.dataset.idx;
+  if (leakState.active[idx]) { clearTimeout(leakState.active[idx]); delete leakState.active[idx]; }
+  leakState.saved += 25;
+  updateLeakHUD();
+  var fb = document.getElementById('leakFeedback');
+  fb.textContent = '🔧 Fixed! +25 gallons saved.';
+  fb.className = 'game-feedback good';
+}
+
+function updateLeakHUD() {
+  if (!leakState) return;
+  document.getElementById('leakTime').textContent = 'Time: ' + Math.max(0, leakState.time) + 's';
+  document.getElementById('leakSaved').textContent = 'Saved: ' + leakState.saved + ' gal';
+  document.getElementById('leakWasted').textContent = 'Wasted: ' + leakState.wasted + ' gal';
+  document.getElementById('leakBest').textContent = 'Best: ' + leakBest + ' gal';
+}
+
+function endLeakGame() {
+  leakState.running = false;
+  clearInterval(leakState.tick);
+  Object.keys(leakState.active).forEach(function (k) { clearTimeout(leakState.active[k]); });
+  document.querySelectorAll('.leak-spot').forEach(function (s) { s.classList.remove('leaking'); });
+  if (leakState.saved > leakBest) leakBest = leakState.saved;
+  updateLeakHUD();
+  var fb = document.getElementById('leakFeedback');
+  var msg = '⏰ Time! You saved ' + leakState.saved + ' gallons and wasted ' + leakState.wasted + '. ';
+  msg += leakState.saved > leakState.wasted ? 'Great detective work!' : 'Keep practicing — those leaks are sneaky!';
+  fb.textContent = msg;
+  fb.className = 'game-feedback ' + (leakState.saved > leakState.wasted ? 'good' : 'bad');
+  document.getElementById('leakStartBtn').textContent = '▶️ Play Again';
+}
+
+/* =========================================================
+   GAME 4 — TREATMENT PLANT SORTER
+   ========================================================= */
+var plantItems = [
+  { emoji: '🍃', label: 'Leaves and sticks floating in the intake', answer: 'screen',    why: 'Big debris gets caught by screens right at the start.' },
+  { emoji: '🪵', label: 'A branch drifting toward the pump', answer: 'screen',           why: 'Screening removes large objects before they damage pumps.' },
+  { emoji: '🪨', label: 'Heavy sand and grit in the water', answer: 'settle',            why: 'Heavy particles sink to the bottom in settling basins.' },
+  { emoji: '🟤', label: 'Cloudy water full of clumped-together dirt', answer: 'settle',  why: 'After coagulation, the heavy floc settles out.' },
+  { emoji: '🦠', label: 'Bacteria that could make people sick', answer: 'disinfect',     why: 'Chlorine or UV light kills bacteria and viruses.' },
+  { emoji: '🧫', label: 'Germs and viruses still in the water', answer: 'disinfect',     why: 'Disinfection is the final safety step before distribution.' },
+  { emoji: '✨', label: 'Tiny particles too small to settle', answer: 'filter',          why: 'Sand and carbon filters trap the smallest leftover particles.' },
+  { emoji: '🫧', label: 'Fine cloudiness left after settling', answer: 'filter',         why: 'Filtration polishes the water after settling.' },
+  { emoji: '🥤', label: 'A plastic cup that washed into the reservoir', answer: 'screen', why: 'Trash is caught by the bar screens at the intake.' },
+  { emoji: '🧪', label: 'Water that has been cleared but not made safe yet', answer: 'disinfect', why: 'Clear water can still carry germs — it needs disinfection.' },
+  { emoji: '🌾', label: 'Bits of algae and plant material', answer: 'filter',            why: 'Filters catch fine organic material that got past settling.' },
+  { emoji: '⚫', label: 'Mud that sank to the bottom of the tank', answer: 'settle',      why: 'That is exactly what settling basins are designed to collect.' }
+];
+var plantState = null;
+
+function startPlantGame() {
+  plantState = { order: shuffle(plantItems).slice(0, 10), idx: 0, correct: 0, streak: 0, best: 0, locked: false };
+  showPlantItem();
+}
+
+function showPlantItem() {
+  var fb = document.getElementById('plantFeedback');
+  fb.textContent = ''; fb.className = 'game-feedback';
+  plantState.locked = false;
+
+  if (plantState.idx >= plantState.order.length) {
+    document.getElementById('plantEmoji').textContent = plantState.correct === 10 ? '🏆' : '✅';
+    document.getElementById('plantLabel').textContent =
+      'Shift complete! You got ' + plantState.correct + ' out of 10 right.' +
+      (plantState.correct === 10 ? ' A perfect shift!' : '');
+    document.getElementById('plantRound').textContent = 'Finished!';
+    return;
+  }
+
+  var item = plantState.order[plantState.idx];
+  document.getElementById('plantEmoji').textContent = item.emoji;
+  document.getElementById('plantLabel').textContent = item.label;
+  document.getElementById('plantRound').textContent = 'Task ' + (plantState.idx + 1) + ' / 10';
+  document.getElementById('plantScore').textContent = 'Correct: ' + plantState.correct;
+  document.getElementById('plantStreak').textContent = 'Streak: ' + plantState.streak;
+}
+
+function answerPlant(choice) {
+  if (!plantState || plantState.locked) return;
+  if (plantState.idx >= plantState.order.length) return;
+  plantState.locked = true;
+
+  var item = plantState.order[plantState.idx];
+  var fb = document.getElementById('plantFeedback');
+  if (choice === item.answer) {
+    plantState.correct++;
+    plantState.streak++;
+    fb.textContent = '✅ Correct! ' + item.why;
+    fb.className = 'game-feedback good';
+  } else {
+    plantState.streak = 0;
+    fb.textContent = '❌ Not quite. ' + item.why;
+    fb.className = 'game-feedback bad';
+  }
+  document.getElementById('plantScore').textContent = 'Correct: ' + plantState.correct;
+  document.getElementById('plantStreak').textContent = 'Streak: ' + plantState.streak;
+  plantState.idx++;
+  setTimeout(showPlantItem, 1600);
+}
+
+/* =========================================================
+   GAME 5 — WATER CYCLE RACE
+   ========================================================= */
+var cycleSteps = [
+  { emoji: '☀️', name: 'Evaporation' },
+  { emoji: '☁️', name: 'Condensation' },
+  { emoji: '🌧️', name: 'Precipitation' },
+  { emoji: '🏔️', name: 'Collection' },
+  { emoji: '🌱', name: 'Transpiration' }
+];
+var cycleState = null;
+var cycleBestTime = null;
+
+function startCycleGame() {
+  cycleState = { placed: 0, startTime: null, timerId: null, done: false };
+  var pool = document.getElementById('cyclePool');
+  var slots = document.getElementById('cycleSlots');
+  pool.innerHTML = '';
+  slots.innerHTML = '';
+  document.getElementById('cycleFeedback').textContent = '';
+  document.getElementById('cycleFeedback').className = 'game-feedback';
+  document.getElementById('cycleProgress').textContent = 'Placed: 0 / 5';
+  document.getElementById('cycleTimer').textContent = 'Time: 0.0s';
+
+  shuffle(cycleSteps).forEach(function (step) {
+    var tile = document.createElement('button');
+    tile.className = 'seq-tile';
+    tile.innerHTML = '<span>' + step.emoji + '</span> ' + step.name;
+    tile.dataset.name = step.name;
+    tile.addEventListener('click', function () { placeCycleTile(tile, step); });
+    pool.appendChild(tile);
+  });
+}
+
+function placeCycleTile(tile, step) {
+  if (!cycleState || cycleState.done) return;
+  if (tile.parentElement.id === 'cycleSlots') return;
+
+  if (cycleState.startTime === null) {
+    cycleState.startTime = performance.now();
+    cycleState.timerId = setInterval(function () {
+      var t = (performance.now() - cycleState.startTime) / 1000;
+      document.getElementById('cycleTimer').textContent = 'Time: ' + t.toFixed(1) + 's';
+    }, 100);
+  }
+
+  var expected = cycleSteps[cycleState.placed];
+  var fb = document.getElementById('cycleFeedback');
+
+  if (step.name === expected.name) {
+    tile.classList.add('correct');
+    document.getElementById('cycleSlots').appendChild(tile);
+    cycleState.placed++;
+    document.getElementById('cycleProgress').textContent = 'Placed: ' + cycleState.placed + ' / 5';
+    fb.textContent = '✅ ' + step.name + ' — correct!';
+    fb.className = 'game-feedback good';
+
+    if (cycleState.placed === cycleSteps.length) {
+      cycleState.done = true;
+      clearInterval(cycleState.timerId);
+      var total = (performance.now() - cycleState.startTime) / 1000;
+      if (cycleBestTime === null || total < cycleBestTime) cycleBestTime = total;
+      document.getElementById('cycleBest').textContent = 'Best: ' + cycleBestTime.toFixed(1) + 's';
+      fb.textContent = '🏆 Perfect! You finished the water cycle in ' + total.toFixed(1) + ' seconds!';
+      fb.className = 'game-feedback good';
+    }
+  } else {
+    tile.classList.add('wrong');
+    fb.textContent = '❌ Not yet — the next step is number ' + (cycleState.placed + 1) + '. Think about where water goes next!';
+    fb.className = 'game-feedback bad';
+    setTimeout(function () { tile.classList.remove('wrong'); }, 700);
+  }
+}
+
+/* =========================================================
+   INIT ALL GAMES
+   ========================================================= */
+document.addEventListener('DOMContentLoaded', function () {
+  buildBackdrop();
+  initCatcher();
+  newPipePuzzle();
+  buildLeakHouse();
+  startPlantGame();
+  startCycleGame();
+});
+</script>
+
+</body>
+</html>

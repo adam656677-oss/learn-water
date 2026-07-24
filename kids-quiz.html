@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Quiz Lab — over 40 water science questions for kids across three difficulty levels. Build streaks and earn your Water Scientist rank.">
+  <title>Quiz Lab 🧠 — Water Explorer Lab</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kids.css">
+</head>
+<body class="kids-body">
+
+<div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
+
+<nav class="site-nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><span class="drop">💧</span> LearnWater</a>
+    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html" class="active">Kids Corner</a></li>
+      <li><a href="learn.html">Learn</a></li>
+      <li><a href="updates.html">Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="lab-nav">
+  <div class="lab-nav-inner">
+    <a href="kids.html">🏠 Explorer HQ</a>
+    <a href="kids-games.html">🎮 Game Lab</a>
+    <a href="kids-color.html">🎨 Coloring Lab</a>
+    <a href="kids-quiz.html" class="current">🧠 Quiz Lab</a>
+    <a href="kids-learn.html">🔬 Discovery Lab</a>
+  </div>
+</nav>
+
+<header class="lab-hero">
+  <div class="kids-container">
+    <span class="mascot">🧠</span>
+    <h1>Quiz Lab</h1>
+    <p class="lab-sub">Over 40 questions about water! Pick your level, build a streak for bonus points, and see if you can reach the rank of Water Scientist.</p>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f2fbff"/>
+    </svg>
+  </div>
+</header>
+
+<!-- Level picker -->
+<section class="lab-section" id="levelPickerSection">
+  <div class="kids-container">
+    <div class="lab-header">
+      <h2>🎚️ Choose Your Level</h2>
+      <div class="lab-rule"></div>
+      <p>Each round gives you 12 randomly picked questions — so it's a little different every time you play!</p>
+    </div>
+
+    <div class="level-grid">
+      <button class="level-card" onclick="startQuiz('easy')">
+        <span class="lvl-emoji">💧</span>
+        <h4>Drip Level</h4>
+        <p>Ages 6–8 · Basic water facts and the water cycle</p>
+      </button>
+      <button class="level-card" onclick="startQuiz('medium')">
+        <span class="lvl-emoji">🌊</span>
+        <h4>Splash Level</h4>
+        <p>Ages 8–11 · Treatment, conservation, and science</p>
+      </button>
+      <button class="level-card" onclick="startQuiz('hard')">
+        <span class="lvl-emoji">🔬</span>
+        <h4>Scientist Level</h4>
+        <p>Ages 11+ · Aquifers, wells, and how systems work</p>
+      </button>
+      <button class="level-card" onclick="startQuiz('all')">
+        <span class="lvl-emoji">🎲</span>
+        <h4>Mixed Challenge</h4>
+        <p>Everything mixed together — the ultimate test!</p>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Quiz -->
+<section class="lab-section tint" id="quizSection" style="display:none;">
+  <div class="kids-container">
+    <div class="quiz-shell">
+
+      <div class="quiz-progress-track"><div class="quiz-progress-fill" id="quizProgressFill"></div></div>
+
+      <div class="quiz-meta">
+        <span id="quizCounter">Question 1 of 12</span>
+        <span id="quizScoreLabel">Score: 0</span>
+        <span id="quizStreakLabel">🔥 Streak: 0</span>
+      </div>
+
+      <div id="quizPlay">
+        <span class="quiz-cat-tag" id="quizCatTag">Water Cycle</span>
+        <div class="quiz-q" id="quizQuestion">Loading...</div>
+        <div class="quiz-answers" id="quizAnswers"></div>
+        <div class="quiz-explain" id="quizExplain"></div>
+        <div style="text-align:right;margin-top:1.1rem;">
+          <button class="lab-btn" id="quizNextBtn" style="display:none;" onclick="nextQuestion()">Next →</button>
+        </div>
+      </div>
+
+      <div class="quiz-result-panel" id="quizResult">
+        <span class="rank-badge" id="rankEmoji">🏆</span>
+        <h3 class="rank-title" id="rankTitle">Water Scientist!</h3>
+        <p id="rankText" style="color:#3d6a86;"></p>
+        <div class="lab-hud" style="justify-content:center;margin:1.25rem 0;">
+          <span class="hud-pill lime" id="finalCorrect">Correct: 0</span>
+          <span class="hud-pill amber" id="finalScore">Points: 0</span>
+          <span class="hud-pill coral" id="finalStreak">Best streak: 0</span>
+        </div>
+        <button class="lab-btn amber" onclick="replaySameLevel()">🔁 Play Again</button>
+        <button class="lab-btn ghost" style="margin-left:0.5rem;" onclick="backToLevels()">🎚️ Change Level</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="lab-section">
+  <div class="kids-container" style="text-align:center;">
+    <a href="kids-games.html" class="lab-btn">🎮 Game Lab</a>
+    <a href="kids-learn.html" class="lab-btn purple" style="margin-left:0.5rem;">🔬 Discovery Lab</a>
+    <a href="kids.html" class="lab-btn ghost" style="margin-left:0.5rem;">🏠 Back to HQ</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+  </div>
+</footer>
+
+<script src="js/kids-common.js"></script>
+<script>
+/* =========================================================
+   QUESTION BANK — 45 questions
+   ========================================================= */
+var QUESTIONS = [
+  /* ---------- EASY ---------- */
+  { lvl:'easy', cat:'Earth & Water', q:'About how much of Earth\'s surface is covered by water?', a:['About 30%','About 50%','About 71%','About 95%'], correct:2, why:'About 71% of Earth\'s surface is covered by water — that\'s why it\'s called the Blue Planet!' },
+  { lvl:'easy', cat:'Water Cycle', q:'What is it called when the sun turns water into vapor that rises into the sky?', a:['Condensation','Evaporation','Precipitation','Collection'], correct:1, why:'Evaporation is the sun heating water until it becomes invisible water vapor.' },
+  { lvl:'easy', cat:'Water Cycle', q:'What forms when water vapor cools down high in the sky?', a:['Clouds','Rocks','Wind','Sand'], correct:0, why:'Cooling vapor condenses into tiny droplets that form clouds.' },
+  { lvl:'easy', cat:'Water Cycle', q:'Rain, snow, sleet, and hail are all types of what?', a:['Evaporation','Transpiration','Precipitation','Filtration'], correct:2, why:'Precipitation is any water falling from clouds back to Earth.' },
+  { lvl:'easy', cat:'Your Body', q:'About how much of your body is made of water?', a:['About 20%','About 40%','About 60%','About 95%'], correct:2, why:'Your body is roughly 60% water — your brain is even more!' },
+  { lvl:'easy', cat:'Science', q:'Why does ice float instead of sinking?', a:['It is full of air','Ice is less dense than liquid water','It is colder','It weighs nothing'], correct:1, why:'Water expands when it freezes, so ice is less dense and floats.' },
+  { lvl:'easy', cat:'Conservation', q:'Which of these SAVES water?', a:['Leaving the tap running while brushing','Taking a 20-minute shower','Fixing a dripping faucet','Watering the lawn at noon'], correct:2, why:'A single dripping faucet can waste over 3,000 gallons a year!' },
+  { lvl:'easy', cat:'Earth & Water', q:'Which holds the most water on Earth?', a:['Rivers','Lakes','Oceans','Ponds'], correct:2, why:'Oceans hold about 97% of all the water on Earth.' },
+  { lvl:'easy', cat:'Animals', q:'Why do fish need clean water?', a:['To breathe and stay healthy','To stay warm','To find their way home','They do not need clean water'], correct:0, why:'Fish take oxygen from water through their gills — polluted water makes them sick.' },
+  { lvl:'easy', cat:'Conservation', q:'What should you do if you see water running down the street from a broken pipe?', a:['Play in it','Ignore it','Tell a grown-up so it gets reported','Try to fix it yourself'], correct:2, why:'Reporting leaks quickly helps save thousands of gallons — and keeps you safe.' },
+  { lvl:'easy', cat:'Water Cycle', q:'Where does water go after it rains?', a:['It disappears forever','It collects in oceans, rivers, and underground','It turns into air permanently','It becomes rock'], correct:1, why:'Water collects in oceans, lakes, rivers, and soaks into the ground — then the cycle repeats.' },
+  { lvl:'easy', cat:'Everyday Water', q:'Which uses the MOST water in a typical home?', a:['Toilets and showers','Drinking water','Washing hands','Cooking'], correct:0, why:'Toilets and showers use far more water than drinking or cooking.' },
+  { lvl:'easy', cat:'Science', q:'What are the three states water can be in?', a:['Solid, liquid, gas','Hot, cold, warm','Clean, dirty, salty','Big, medium, small'], correct:0, why:'Ice (solid), water (liquid), and vapor/steam (gas) are all the same H₂O.' },
+  { lvl:'easy', cat:'Earth & Water', q:'Is most of Earth\'s water fresh or salty?', a:['Mostly fresh','Mostly salty','Exactly half and half','Neither'], correct:1, why:'About 97% is salty ocean water — only about 3% is freshwater.' },
+  { lvl:'easy', cat:'Bible & Water', q:'In the book of Genesis, on which day did God separate the waters so dry land appeared?', a:['Day 1','Day 3','Day 5','Day 7'], correct:1, why:'Genesis 1:9–10 describes God gathering the waters and creating dry land on the third day.' },
+
+  /* ---------- MEDIUM ---------- */
+  { lvl:'medium', cat:'Treatment', q:'What is used at a treatment plant to kill germs in drinking water?', a:['Sugar','Chlorine or UV light','Food coloring','Salt'], correct:1, why:'Disinfection with chlorine or ultraviolet light kills bacteria and viruses.' },
+  { lvl:'medium', cat:'Treatment', q:'What is the FIRST step when raw water enters a treatment plant?', a:['Disinfection','Screening out large debris','Bottling','Adding fluoride'], correct:1, why:'Screens catch sticks, leaves, and trash before anything else happens.' },
+  { lvl:'medium', cat:'Groundwater', q:'What is groundwater?', a:['Water in clouds','Water stored underground in soil and rock','Ocean water','Water in a swimming pool'], correct:1, why:'Groundwater fills the spaces between soil, sand, and rock beneath the surface.' },
+  { lvl:'medium', cat:'Groundwater', q:'A well is drilled to reach which kind of water?', a:['Rainwater','Groundwater in an aquifer','Ocean water','Cloud water'], correct:1, why:'Wells tap into aquifers — underground layers that hold water.' },
+  { lvl:'medium', cat:'Water Cycle', q:'What is transpiration?', a:['Rain falling on plants','Plants releasing water vapor through their leaves','Water freezing','Water being filtered'], correct:1, why:'Plants pull water up through roots and release vapor through their leaves.' },
+  { lvl:'medium', cat:'Water Cycle', q:'Which step comes right AFTER evaporation?', a:['Precipitation','Condensation','Collection','Filtration'], correct:1, why:'Vapor rises, cools, and condenses into clouds before it can fall as rain.' },
+  { lvl:'medium', cat:'Conservation', q:'Roughly how much water can turning off the tap while brushing your teeth save each day?', a:['About 1 cup','About 8 gallons','About 100 gallons','None at all'], correct:1, why:'Leaving the tap running can waste around 8 gallons a day per person.' },
+  { lvl:'medium', cat:'Safety', q:'What is the BEST way to know your tap water is safe?', a:['It looks clear','It tastes fine','It is regularly tested by water professionals','It came from underground'], correct:2, why:'Clear water can still carry germs. Regular lab testing is the only reliable way to know.' },
+  { lvl:'medium', cat:'Pollution', q:'Which of these is a common source of water pollution?', a:['Fertilizer runoff from farms','Sunlight','Wind','Clouds'], correct:0, why:'Fertilizer runoff carries nitrates into rivers and groundwater.' },
+  { lvl:'medium', cat:'Treatment', q:'In settling basins, what happens to heavy dirt particles?', a:['They float to the top','They sink to the bottom','They evaporate','They dissolve'], correct:1, why:'Gravity pulls heavy clumps (floc) to the bottom so clean water flows off the top.' },
+  { lvl:'medium', cat:'Everyday Water', q:'A running toilet can waste about how much water per day?', a:['2 gallons','20 gallons','200 gallons','2 gallons per year'], correct:2, why:'A constantly running toilet can waste around 200 gallons a day — fix it fast!' },
+  { lvl:'medium', cat:'Science', q:'What does pH measure in water?', a:['Temperature','How acidic or basic it is','How fast it flows','How much it weighs'], correct:1, why:'pH measures acidity. Drinking water is usually kept between about 6.5 and 8.5.' },
+  { lvl:'medium', cat:'Earth & Water', q:'Less than what percentage of Earth\'s water is freshwater we can easily use?', a:['Less than 1%','About 10%','About 25%','About 50%'], correct:0, why:'Most freshwater is frozen in glaciers, leaving under 1% easily accessible.' },
+  { lvl:'medium', cat:'Bible & Water', q:'In Exodus, how did God provide water for thirsty people in the desert?', a:['It rained for 40 days','Water came out of a rock','A river changed direction','Snow melted from a mountain'], correct:1, why:'Exodus 17:6 describes water coming out of a rock for the thirsty people.' },
+  { lvl:'medium', cat:'Animals', q:'What can happen to a lake if too many nutrients from fertilizer wash into it?', a:['Nothing changes','Algae grows out of control and uses up oxygen','It freezes','It becomes saltwater'], correct:1, why:'Algae blooms use up oxygen, which can kill fish and other water life.' },
+  { lvl:'medium', cat:'Conservation', q:'When is the BEST time to water a garden to lose the least water?', a:['Noon on a hot day','Early morning or evening','During a windstorm','It does not matter'], correct:1, why:'Cooler hours mean less evaporation, so more water reaches the plants.' },
+
+  /* ---------- HARD ---------- */
+  { lvl:'hard', cat:'Aquifers', q:'What is an aquifer?', a:['A type of pump','An underground layer of rock or sand that holds water','A water treatment chemical','A kind of pipe'], correct:1, why:'Aquifers are underground formations that store and yield usable groundwater.' },
+  { lvl:'hard', cat:'Aquifers', q:'What does it mean when an aquifer is "confined"?', a:['It is very small','It is trapped between layers that water cannot easily pass through','It has no water','It is man-made'], correct:1, why:'Confined aquifers sit between impermeable layers, so water inside is under pressure.' },
+  { lvl:'hard', cat:'Wells', q:'What is the "static water level" in a well?', a:['The level when the pump is running','The level when the pump is OFF','The depth of the whole well','The width of the casing'], correct:1, why:'Static level is where water naturally rests when nothing is being pumped.' },
+  { lvl:'hard', cat:'Wells', q:'What is the purpose of a well casing?', a:['To make the well look nice','To keep the hole from collapsing and stop surface water getting in','To heat the water','To measure flow'], correct:1, why:'Casing supports the borehole and seals out contaminated surface water.' },
+  { lvl:'hard', cat:'Treatment', q:'What does coagulation do in water treatment?', a:['Kills bacteria','Makes tiny particles clump into larger ones that can settle','Adds oxygen','Cools the water'], correct:1, why:'Coagulants like alum make small particles stick together into "floc" that settles out.' },
+  { lvl:'hard', cat:'Treatment', q:'Which disinfection method leaves NO residual protection in the pipes?', a:['Chlorine','Chloramine','UV light','Chlorine dioxide'], correct:2, why:'UV kills germs at the plant but leaves nothing behind to protect water in the pipes.' },
+  { lvl:'hard', cat:'Systems', q:'What is a water main?', a:['The main faucet in a house','A large underground pipe that carries water through a community','A storage tank','A type of well'], correct:1, why:'Water mains are the large distribution pipes running beneath streets.' },
+  { lvl:'hard', cat:'Systems', q:'Why are water towers usually built up high?', a:['To be easy to see','Gravity creates water pressure for the whole system','To keep water cold','To catch rain'], correct:1, why:'Elevation creates pressure, so water flows to homes even when pumps are off.' },
+  { lvl:'hard', cat:'Science', q:'What does "turbidity" measure?', a:['How cloudy water is','How cold water is','How fast water flows','How salty water is'], correct:0, why:'Turbidity measures cloudiness from suspended particles — a key water quality test.' },
+  { lvl:'hard', cat:'Aquifers', q:'What happens when water is pumped from an aquifer faster than it is naturally refilled?', a:['The aquifer grows','Water levels decline — this is called overdraft','Nothing changes','The water gets cleaner'], correct:1, why:'Pumping beyond the recharge rate lowers water levels, a serious long-term problem.' },
+  { lvl:'hard', cat:'Pollution', q:'Which naturally occurring substance is sometimes found in groundwater and can be harmful?', a:['Arsenic','Sugar','Oxygen','Chlorophyll'], correct:0, why:'Arsenic occurs naturally in some rock formations and must be treated out.' },
+  { lvl:'hard', cat:'Systems', q:'What is the main reason lead can get into drinking water?', a:['It falls from the sky','Old lead pipes or solder can leach into the water','It comes from rivers','Treatment plants add it'], correct:1, why:'Older service lines and solder can leach lead, which is why corrosion control matters.' },
+  { lvl:'hard', cat:'Careers', q:'What does a water system operator do?', a:['Only fixes broken pipes','Tests, treats, and monitors water to keep it safe every day','Sells bottled water','Designs swimming pools'], correct:1, why:'Operators run treatment, take samples, log data, and keep the system compliant and safe.' },
+  { lvl:'hard', cat:'Conservation', q:'What is reclaimed water usually used for?', a:['Drinking straight from the tap','Irrigation and industrial cooling','Making ice cream','Filling baby bottles'], correct:1, why:'Treated wastewater is commonly reused for irrigation, cooling, and recharging groundwater.' },
+  { lvl:'hard', cat:'Science', q:'Which law sets the national standards for safe drinking water in the United States?', a:['The Clean Air Act','The Safe Drinking Water Act','The Endangered Species Act','The Water Fun Act'], correct:1, why:'The Safe Drinking Water Act (SDWA), enforced by the EPA, sets drinking water standards.' }
+];
+
+/* =========================================================
+   QUIZ ENGINE
+   ========================================================= */
+var ROUND_SIZE = 12;
+var quiz = null;
+
+function startQuiz(level) {
+  var pool = level === 'all' ? QUESTIONS : QUESTIONS.filter(function (q) { return q.lvl === level; });
+  var picked = shuffle(pool).slice(0, Math.min(ROUND_SIZE, pool.length));
+
+  quiz = {
+    level: level,
+    questions: picked,
+    idx: 0,
+    score: 0,
+    correct: 0,
+    streak: 0,
+    bestStreak: 0,
+    answered: false
+  };
+
+  document.getElementById('levelPickerSection').style.display = 'none';
+  document.getElementById('quizSection').style.display = 'block';
+  document.getElementById('quizPlay').style.display = 'block';
+  document.getElementById('quizResult').classList.remove('show');
+  document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  renderQuestion();
+}
+
+function renderQuestion() {
+  var q = quiz.questions[quiz.idx];
+  quiz.answered = false;
+
+  document.getElementById('quizCatTag').textContent = q.cat;
+  document.getElementById('quizQuestion').textContent = q.q;
+  document.getElementById('quizCounter').textContent = 'Question ' + (quiz.idx + 1) + ' of ' + quiz.questions.length;
+  document.getElementById('quizScoreLabel').textContent = 'Score: ' + quiz.score;
+  document.getElementById('quizStreakLabel').textContent = '🔥 Streak: ' + quiz.streak;
+  document.getElementById('quizProgressFill').style.width = ((quiz.idx) / quiz.questions.length * 100) + '%';
+
+  var explain = document.getElementById('quizExplain');
+  explain.className = 'quiz-explain';
+  explain.textContent = '';
+  document.getElementById('quizNextBtn').style.display = 'none';
+
+  var wrap = document.getElementById('quizAnswers');
+  wrap.innerHTML = '';
+
+  /* Shuffle answer order but remember which is correct */
+  var indexed = q.a.map(function (text, i) { return { text: text, isCorrect: i === q.correct }; });
+  shuffle(indexed).forEach(function (opt) {
+    var btn = document.createElement('button');
+    btn.className = 'quiz-answer';
+    btn.textContent = opt.text;
+    btn.addEventListener('click', function () { answerQuestion(btn, opt.isCorrect, q); });
+    wrap.appendChild(btn);
+  });
+}
+
+function answerQuestion(btn, isCorrect, q) {
+  if (quiz.answered) return;
+  quiz.answered = true;
+
+  var buttons = document.querySelectorAll('#quizAnswers .quiz-answer');
+  buttons.forEach(function (b) { b.disabled = true; });
+
+  var explain = document.getElementById('quizExplain');
+
+  if (isCorrect) {
+    btn.classList.add('correct');
+    quiz.correct++;
+    quiz.streak++;
+    if (quiz.streak > quiz.bestStreak) quiz.bestStreak = quiz.streak;
+    var bonus = quiz.streak >= 3 ? (quiz.streak - 2) * 5 : 0;
+    quiz.score += 10 + bonus;
+    explain.className = 'quiz-explain show good';
+    explain.textContent = '🎉 Correct! ' + q.why + (bonus > 0 ? '  (+' + bonus + ' streak bonus!)' : '');
+  } else {
+    btn.classList.add('wrong');
+    quiz.streak = 0;
+    buttons.forEach(function (b) {
+      if (b.textContent === q.a[q.correct]) b.classList.add('correct');
+    });
+    explain.className = 'quiz-explain show bad';
+    explain.textContent = '💡 The answer is "' + q.a[q.correct] + '". ' + q.why;
+  }
+
+  document.getElementById('quizScoreLabel').textContent = 'Score: ' + quiz.score;
+  document.getElementById('quizStreakLabel').textContent = '🔥 Streak: ' + quiz.streak;
+  document.getElementById('quizNextBtn').style.display = 'inline-flex';
+  document.getElementById('quizNextBtn').textContent =
+    (quiz.idx === quiz.questions.length - 1) ? 'See My Rank! 🏅' : 'Next →';
+}
+
+function nextQuestion() {
+  quiz.idx++;
+  if (quiz.idx >= quiz.questions.length) {
+    showQuizResult();
+  } else {
+    renderQuestion();
+  }
+}
+
+function showQuizResult() {
+  document.getElementById('quizPlay').style.display = 'none';
+  document.getElementById('quizProgressFill').style.width = '100%';
+  document.getElementById('quizCounter').textContent = 'Round complete!';
+
+  var panel = document.getElementById('quizResult');
+  panel.classList.add('show');
+
+  var pct = quiz.correct / quiz.questions.length;
+  var emoji, title, text;
+
+  if (pct === 1) {
+    emoji = '🏆'; title = 'PERFECT — Water Scientist!';
+    text = 'A flawless round! You got every single question right. You really know your water.';
+  } else if (pct >= 0.8) {
+    emoji = '🥇'; title = 'Senior Water Explorer';
+    text = 'Excellent work! You have a serious grip on how water works.';
+  } else if (pct >= 0.6) {
+    emoji = '🥈'; title = 'Water Explorer';
+    text = 'Nice job! Review a few facts in the Discovery Lab and try for gold.';
+  } else if (pct >= 0.4) {
+    emoji = '🥉'; title = 'Junior Explorer';
+    text = 'Good start! Head to the Discovery Lab, then come back and beat your score.';
+  } else {
+    emoji = '💧'; title = 'Brand New Drip';
+    text = 'Every scientist starts somewhere! Explore the Discovery Lab and give it another go.';
+  }
+
+  document.getElementById('rankEmoji').textContent = emoji;
+  document.getElementById('rankTitle').textContent = title;
+  document.getElementById('rankText').textContent = text;
+  document.getElementById('finalCorrect').textContent = 'Correct: ' + quiz.correct + ' / ' + quiz.questions.length;
+  document.getElementById('finalScore').textContent = 'Points: ' + quiz.score;
+  document.getElementById('finalStreak').textContent = 'Best streak: ' + quiz.bestStreak;
+}
+
+function replaySameLevel() {
+  startQuiz(quiz.level);
+}
+
+function backToLevels() {
+  document.getElementById('quizSection').style.display = 'none';
+  document.getElementById('levelPickerSection').style.display = 'block';
+  document.getElementById('levelPickerSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  buildBackdrop();
+});
+</script>
+
+</body>
+</html>
