@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Adult water education — wells, pumps, aquifers, chemical treatment, motors, and more. Free learning from LearnWater.">
   <title>Adult Learning — LearnWater</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/style.css">
   <style>
     .learn-hero { padding: 5rem 0 4.5rem; }
@@ -155,13 +156,13 @@
 <div class="tab-wrapper">
   <div class="container">
     <div class="tabs" id="learnTabs" role="tablist">
-      <button class="tab-btn active" onclick="showTab('basics')"  role="tab">💧 Water Basics</button>
-      <button class="tab-btn"        onclick="showTab('wells')"   role="tab">🏗️ Wells</button>
-      <button class="tab-btn"        onclick="showTab('pumps')"   role="tab">⚙️ Pumps</button>
-      <button class="tab-btn"        onclick="showTab('aquifers')" role="tab">🌍 Aquifers</button>
-      <button class="tab-btn"        onclick="showTab('chemicals')" role="tab">🧪 Chemicals</button>
-      <button class="tab-btn"        onclick="showTab('motors')"  role="tab">⚡ Motors</button>
-      <button class="tab-btn"        onclick="showTab('resources')" role="tab">📄 Resources</button>
+      <button class="tab-btn active" onclick="showTab('basics', this)"  role="tab">💧 Water Basics</button>
+      <button class="tab-btn"        onclick="showTab('wells', this)"   role="tab">🏗️ Wells</button>
+      <button class="tab-btn"        onclick="showTab('pumps', this)"   role="tab">⚙️ Pumps</button>
+      <button class="tab-btn"        onclick="showTab('aquifers', this)" role="tab">🌍 Aquifers</button>
+      <button class="tab-btn"        onclick="showTab('chemicals', this)" role="tab">🧪 Chemicals</button>
+      <button class="tab-btn"        onclick="showTab('motors', this)"  role="tab">⚡ Motors</button>
+      <button class="tab-btn"        onclick="showTab('resources', this)" role="tab">📄 Resources</button>
     </div>
   </div>
 </div>
@@ -605,15 +606,15 @@
     document.getElementById('navLinks').classList.toggle('open');
   }
 
-  function showTab(id) {
+  function showTab(id, btn) {
     // Hide all panels
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     // Deactivate all buttons
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     // Show selected
     document.getElementById('tab-' + id).classList.add('active');
-    // Activate button
-    event.currentTarget.classList.add('active');
+    // Activate button — passed explicitly rather than relying on global `event`
+    if (btn) btn.classList.add('active');
     // Scroll to content area (below sticky tab bar)
     const tabContent = document.querySelector('.tab-content');
     const y = tabContent.getBoundingClientRect().top + window.scrollY - 100;

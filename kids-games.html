@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Game Lab — five real water science games for kids: Droplet Catcher, Pipe Connect, Leak Detective, Treatment Plant, and Water Cycle Race.">
   <title>Game Lab 🎮 — Water Explorer Lab</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/kids.css">
 </head>
@@ -627,10 +628,24 @@ function buildLeakHouse() {
   }
 }
 
+/* leakRun increments on every restart so any orphaned loop from a previous
+   round exits instead of doubling the spawn rate and the countdown. */
+var leakRun = 0;
+var leakTickId = null;
+
 function startLeakGame() {
+  /* Tear down the previous round completely before starting a new one */
+  leakRun++;
+  var myRun = leakRun;
+  if (leakTickId) { clearInterval(leakTickId); leakTickId = null; }
+  if (leakState && leakState.active) {
+    Object.keys(leakState.active).forEach(function (k) { clearTimeout(leakState.active[k]); });
+  }
+
   buildLeakHouse();
   leakState = {
     running: true,
+    run: myRun,
     time: 45,
     saved: 0,
     wasted: 0,
@@ -642,8 +657,8 @@ function startLeakGame() {
   document.getElementById('leakFeedback').className = 'game-feedback good';
   updateLeakHUD();
 
-  if (leakState.tick) clearInterval(leakState.tick);
-  leakState.tick = setInterval(function () {
+  leakTickId = setInterval(function () {
+    if (!leakState || leakState.run !== myRun) return;
     leakState.time--;
     if (leakState.time <= 0) { endLeakGame(); return; }
     /* Speed up as time runs down */
@@ -652,11 +667,11 @@ function startLeakGame() {
     updateLeakHUD();
   }, 1000);
 
-  leakSpawnLoop();
+  leakSpawnLoop(myRun);
 }
 
-function leakSpawnLoop() {
-  if (!leakState || !leakState.running) return;
+function leakSpawnLoop(myRun) {
+  if (!leakState || !leakState.running || leakState.run !== myRun) return;
   var spots = document.querySelectorAll('.leak-spot');
   var candidates = [];
   spots.forEach(function (s) {
@@ -669,6 +684,7 @@ function leakSpawnLoop() {
     var idx = pick.dataset.idx;
     /* If not fixed in time, it wastes water */
     leakState.active[idx] = setTimeout(function () {
+      if (!leakState || leakState.run !== myRun) return;
       if (pick.classList.contains('leaking')) {
         pick.classList.remove('leaking');
         leakState.wasted += 15;
@@ -679,7 +695,7 @@ function leakSpawnLoop() {
       }
     }, 1900);
   }
-  setTimeout(leakSpawnLoop, leakState.spawnMs);
+  setTimeout(function () { leakSpawnLoop(myRun); }, leakState.spawnMs);
 }
 
 function fixLeak(el) {
@@ -706,7 +722,7 @@ function updateLeakHUD() {
 
 function endLeakGame() {
   leakState.running = false;
-  clearInterval(leakState.tick);
+  if (leakTickId) { clearInterval(leakTickId); leakTickId = null; }
   Object.keys(leakState.active).forEach(function (k) { clearTimeout(leakState.active[k]); });
   document.querySelectorAll('.leak-spot').forEach(function (s) { s.classList.remove('leaking'); });
   if (leakState.saved > leakBest) leakBest = leakState.saved;
@@ -802,6 +818,8 @@ var cycleState = null;
 var cycleBestTime = null;
 
 function startCycleGame() {
+  /* Clear any timer still running from a previous round */
+  if (cycleState && cycleState.timerId) clearInterval(cycleState.timerId);
   cycleState = { placed: 0, startTime: null, timerId: null, done: false };
   var pool = document.getElementById('cyclePool');
   var slots = document.getElementById('cycleSlots');
