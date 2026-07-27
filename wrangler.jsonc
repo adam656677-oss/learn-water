@@ -1,7 +1,7 @@
 {
   // LearnWater — static site deployed to Cloudflare Workers
   // Serves the HTML/CSS/JS in this repo as static assets.
-  "name": "learn-water",
+  "name": "learnwater",
   "compatibility_date": "2026-07-27",
   "assets": {
     "directory": "./",
