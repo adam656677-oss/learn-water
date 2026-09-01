@@ -1,205 +1,861 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Water Explorer Lab — a fun place for kids to play water games, color, take quizzes, and discover everything about water.">
-  <title>Water Explorer Lab 🔬 — LearnWater Kids</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/kids.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Water Explorer Lab — LearnWater Kids</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/kids.css">
+<style>
+/* ── Greg Kid AI ─────────────────────────────────────── */
+#greg-bubble{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#greg-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#1b98e0,#072a45);border:4px solid #ffb703;box-shadow:0 6px 20px rgba(0,0,0,.3);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:2rem;animation:bob 2.6s ease-in-out infinite;transition:transform .2s}
+#greg-avatar:hover{transform:scale(1.12)}
+#greg-chat{display:none;width:310px;background:#fff;border-radius:20px;box-shadow:0 12px 40px rgba(7,42,69,.25);border:3px solid #1b98e0;overflow:hidden;animation:popIn .25s ease}
+#greg-chat-header{background:linear-gradient(135deg,#072a45,#1b98e0);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;font-weight:900;font-size:1rem}
+#greg-chat-header span{font-size:1.5rem}
+#greg-messages{height:220px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f2fbff}
+.gmsg-greg{background:#1b98e0;color:#fff;border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:.88rem;max-width:85%;line-height:1.45;animation:popIn .2s ease}
+.gmsg-user{background:#ffb703;color:#072a45;border-radius:14px 14px 4px 14px;padding:8px 12px;font-size:.88rem;max-width:85%;align-self:flex-end;line-height:1.45}
+#greg-input-row{display:flex;gap:6px;padding:10px;border-top:2px solid #d8f6fd;background:#fff}
+#greg-input{flex:1;border:2px solid #3ec9f0;border-radius:999px;padding:7px 12px;font-size:.88rem;outline:none;font-family:inherit}
+#greg-send{background:#1b98e0;color:#fff;border:none;border-radius:999px;padding:7px 14px;font-weight:900;cursor:pointer;font-size:.9rem}
+#greg-send:hover{background:#1782c2}
+/* ── Badge System ────────────────────────────────────── */
+#badge-bar{background:rgba(255,255,255,.92);border-bottom:3px solid #ffd166;padding:10px 0;text-align:center;position:sticky;top:56px;z-index:89;backdrop-filter:blur(6px)}
+.badge-row{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;max-width:900px;margin:0 auto;padding:0 1rem}
+.badge-item{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:transform .15s}
+.badge-item:hover{transform:scale(1.12)}
+.badge-icon{font-size:1.9rem;filter:grayscale(1) opacity(.35);transition:filter .4s}
+.badge-icon.earned{filter:none;animation:popIn .4s ease}
+.badge-label{font-size:.65rem;font-weight:800;color:#3d6a86;text-align:center;max-width:56px;line-height:1.2}
+/* ── Greg Welcome Panel ──────────────────────────────── */
+#greg-welcome{background:linear-gradient(135deg,#072a45 0%,#1b98e0 60%,#3ec9f0 100%);border-radius:20px;padding:1.6rem 1.4rem;margin:1.5rem auto;max-width:860px;color:#fff;display:flex;gap:1.2rem;align-items:flex-start;box-shadow:0 8px 30px rgba(7,42,69,.3)}
+#greg-welcome .gw-face{font-size:3.4rem;flex-shrink:0;animation:bob 2.8s ease-in-out infinite}
+#greg-welcome h3{color:#ffb703;margin-bottom:.3rem;font-size:1.15rem}
+#greg-welcome p{margin:0;font-size:.93rem;opacity:.95;line-height:1.55}
+/* ── Junior Scientist Challenge ──────────────────────── */
+#challenge-tracker{background:#fff;border:3px solid #ffd166;border-radius:20px;padding:1.4rem;margin:1.5rem auto;max-width:860px}
+#challenge-tracker h3{color:#072a45;margin-bottom:1rem;font-size:1.1rem;display:flex;align-items:center;gap:.5rem}
+.challenge-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.8rem}
+.ch-step{background:#f2fbff;border:2.5px solid #a8e8f9;border-radius:14px;padding:1rem .9rem;text-align:center;transition:all .3s;cursor:pointer}
+.ch-step.done{background:#e5fbe5;border-color:#5fd35f}
+.ch-step .ch-emoji{font-size:2rem;display:block;margin-bottom:.4rem}
+.ch-step h4{font-size:.88rem;color:#072a45;margin-bottom:.2rem}
+.ch-step p{font-size:.76rem;color:#3d6a86;margin:0}
+.ch-step.done h4{color:#1f6b1f}
+#challenge-complete{display:none;text-align:center;padding:1rem;background:linear-gradient(135deg,#ffd166,#ffb703);border-radius:14px;margin-top:1rem}
+#challenge-complete h4{font-size:1.2rem;color:#4a3000;margin-bottom:.3rem}
+/* ── Confetti canvas ─────────────────────────────────── */
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none}
+@keyframes popIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
 </head>
 <body class="kids-body">
 
 <!-- Animated backdrop -->
-<div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
+<div class="lab-backdrop" aria-hidden="true">
+  <div class="bub" style="left:8%;width:28px;height:28px;animation-duration:9s;animation-delay:0s"></div>
+  <div class="bub" style="left:22%;width:18px;height:18px;animation-duration:12s;animation-delay:2s"></div>
+  <div class="bub" style="left:45%;width:36px;height:36px;animation-duration:10s;animation-delay:4s"></div>
+  <div class="bub" style="left:68%;width:22px;height:22px;animation-duration:8s;animation-delay:1s"></div>
+  <div class="bub" style="left:82%;width:30px;height:30px;animation-duration:14s;animation-delay:3s"></div>
+  <div class="drifter" style="top:20%;animation-duration:28s;animation-delay:0s">💧</div>
+  <div class="drifter" style="top:55%;animation-duration:35s;animation-delay:7s">🌊</div>
+  <div class="drifter" style="top:75%;animation-duration:24s;animation-delay:14s">🐟</div>
+  <div class="ray" style="left:18%;animation-duration:11s"></div>
+  <div class="ray" style="left:55%;animation-duration:15s;animation-delay:4s"></div>
+  <div class="ray" style="left:80%;animation-duration:9s;animation-delay:2s"></div>
+</div>
 
-<!-- Main site navigation -->
-<nav class="site-nav">
+<!-- Main nav -->
+<nav class="site-nav" role="navigation" aria-label="Main">
   <div class="container">
-    <a href="index.html" class="nav-brand">
-      <span class="drop">💧</span> LearnWater
-    </a>
-    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="index.html" class="nav-brand">💧 <span>LearnWater</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="kids.html" class="active">Kids Corner</a></li>
-      <li><a href="learn.html">Learn</a></li>
-      <li><a href="updates.html">Updates</a></li>
-      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="kids.html" class="active">🧒 Kids Lab</a></li>
+      <li><a href="adult-learning-center.html">🎓 Adult Learning</a></li>
     </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
-<!-- Kids sub-navigation -->
-<nav class="lab-nav">
+<!-- Badge bar -->
+<div id="badge-bar">
+  <div class="badge-row" id="badgeRow">
+    <div class="badge-item" data-badge="game" title="Play a game">
+      <div class="badge-icon" id="b-game">🎮</div>
+      <div class="badge-label">Game Player</div>
+    </div>
+    <div class="badge-item" data-badge="color" title="Color a picture">
+      <div class="badge-icon" id="b-color">🎨</div>
+      <div class="badge-label">Artist</div>
+    </div>
+    <div class="badge-item" data-badge="quiz" title="Score 8+ on quiz">
+      <div class="badge-icon" id="b-quiz">🧠</div>
+      <div class="badge-label">Quiz Ace</div>
+    </div>
+    <div class="badge-item" data-badge="learn" title="Visit Discovery Lab">
+      <div class="badge-icon" id="b-learn">🔬</div>
+      <div class="badge-label">Explorer</div>
+    </div>
+    <div class="badge-item" data-badge="streak3" title="Answer 3 in a row">
+      <div class="badge-icon" id="b-streak3">🔥</div>
+      <div class="badge-label">3 Streak</div>
+    </div>
+    <div class="badge-item" data-badge="streak5" title="Answer 5 in a row">
+      <div class="badge-icon" id="b-streak5">⚡</div>
+      <div class="badge-label">5 Streak</div>
+    </div>
+    <div class="badge-item" data-badge="perfect" title="Get a perfect quiz score">
+      <div class="badge-icon" id="b-perfect">🏆</div>
+      <div class="badge-label">Perfect!</div>
+    </div>
+    <div class="badge-item" data-badge="scientist" title="Complete all 4 challenges">
+      <div class="badge-icon" id="b-scientist">🥼</div>
+      <div class="badge-label">Jr. Scientist</div>
+    </div>
+  </div>
+</div>
+
+<!-- Hero -->
+<header class="lab-hero">
+  <div class="kids-container">
+    <div class="mascot">🧒</div>
+    <h1>Water Explorer Lab</h1>
+    <p class="lab-sub">Games · Quizzes · Experiments · Discovery · Bible Verses<br>
+    <strong style="color:#ffd166">Your guide Greg is here to help you every step of the way!</strong></p>
+    <div class="lab-chip-row">
+      <span class="lab-chip">🎓 Free Forever</span>
+      <span class="lab-chip">🚫 No Ads</span>
+      <span class="lab-chip">📱 Works on Any Device</span>
+      <span class="lab-chip">🏅 Earn Badges</span>
+    </div>
+  </div>
+  <div class="wave-divider">
+    <svg viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,60 L0,60Z" fill="#f2fbff"/>
+    </svg>
+  </div>
+</header>
+
+<!-- Greg Welcome Panel -->
+<div class="kids-container">
+  <div id="greg-welcome">
+    <div class="gw-face">🧒</div>
+    <div>
+      <h3>Hey! I'm Greg — your Water Science buddy! 👋</h3>
+      <p>I'm a kid just like you, and water science is my favorite thing EVER! 💧 I'll be right here to help you explore, answer your questions, cheer you on, and make sure learning is super fun. Click the <strong style="color:#ffd166">💬 chat button</strong> in the corner anytime you want to talk. Let's go on an adventure together!</p>
+    </div>
+  </div>
+
+  <!-- Junior Scientist Challenge Tracker -->
+  <div id="challenge-tracker">
+    <h3>🏆 Junior Water Scientist Challenge</h3>
+    <div class="challenge-steps">
+      <div class="ch-step" id="ch-game" onclick="markChallenge('game')">
+        <span class="ch-emoji">🎮</span>
+        <h4>Play a Game</h4>
+        <p>Try any game in the Game Lab</p>
+      </div>
+      <div class="ch-step" id="ch-color" onclick="markChallenge('color')">
+        <span class="ch-emoji">🎨</span>
+        <h4>Color a Picture</h4>
+        <p>Create water art in the Color Lab</p>
+      </div>
+      <div class="ch-step" id="ch-quiz" onclick="markChallenge('quiz')">
+        <span class="ch-emoji">🧠</span>
+        <h4>Score 8+ on a Quiz</h4>
+        <p>Take the Quiz Lab challenge</p>
+      </div>
+      <div class="ch-step" id="ch-learn" onclick="markChallenge('learn')">
+        <span class="ch-emoji">🔬</span>
+        <h4>Try an Experiment</h4>
+        <p>Do a real science experiment</p>
+      </div>
+    </div>
+    <div id="challenge-complete">
+      <h4>🥼 YOU ARE AN OFFICIAL JUNIOR WATER SCIENTIST! 🥼</h4>
+      <p style="color:#4a3000;margin:0;font-size:.9rem">You completed all 4 challenges — that's amazing! Greg is SO proud of you! 🎉</p>
+    </div>
+  </div>
+</div>
+
+<!-- Sub-nav -->
+<nav class="lab-nav" aria-label="Kids section">
   <div class="lab-nav-inner">
-    <a href="kids.html" class="current">🏠 Explorer HQ</a>
-    <a href="kids-games.html">🎮 Game Lab</a>
-    <a href="kids-color.html">🎨 Coloring Lab</a>
+    <a href="kids.html" class="current">🏠 HQ</a>
+    <a href="kids-games.html">🎮 Games</a>
+    <a href="kids-color.html">🎨 Coloring</a>
     <a href="kids-quiz.html">🧠 Quiz Lab</a>
     <a href="kids-learn.html">🔬 Discovery Lab</a>
   </div>
 </nav>
 
-<!-- Hero -->
-<header class="lab-hero">
-  <div class="kids-container">
-    <span class="mascot">🥽</span>
-    <h1>Water Explorer Lab</h1>
-    <p class="lab-sub">Welcome, Explorer! Grab your goggles — you're about to discover how water works, play some seriously fun games, and earn your Water Scientist badge.</p>
-    <div class="lab-chip-row">
-      <span class="lab-chip">🎮 5 Real Games</span>
-      <span class="lab-chip">🎨 Color &amp; Print</span>
-      <span class="lab-chip">🧠 40+ Quiz Questions</span>
-      <span class="lab-chip">🔬 Experiments</span>
-      <span class="lab-chip">📖 Bible Verses</span>
-    </div>
-  </div>
-  <div class="wave-divider">
-    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f2fbff"/>
-    </svg>
-  </div>
-</header>
-
-<!-- Mission select -->
-<section class="lab-section">
+<!-- ── MISSION CARDS ───────────────────────────────────── -->
+<section class="lab-section" id="missions">
   <div class="kids-container">
     <div class="lab-header">
-      <h2>🚀 Choose Your Mission</h2>
-      <div class="lab-rule"></div>
+      <h2>🗺️ Choose Your Mission</h2>
       <p>Four labs, one big adventure. Pick where you want to start — you can always come back for the others!</p>
+      <div class="lab-rule"></div>
     </div>
-
     <div class="mission-grid">
-      <a href="kids-games.html" class="mission-card tint-amber">
+      <a href="kids-games.html" class="mission-card tint-amber" onclick="awardBadge('game')">
         <span class="m-emoji">🎮</span>
         <h3>Game Lab</h3>
         <p>Catch clean water drops, connect pipes, hunt down leaks, run a treatment plant, and race the water cycle. Five real games!</p>
         <span class="mission-go">Start playing →</span>
       </a>
-
-      <a href="kids-color.html" class="mission-card tint-purple">
+      <a href="kids-color.html" class="mission-card tint-lime" onclick="awardBadge('color')">
         <span class="m-emoji">🎨</span>
-        <h3>Coloring Lab</h3>
+        <h3>Color Lab</h3>
         <p>Color water scenes right on your screen with 24 colors — then print your artwork, or print a blank page for crayons!</p>
         <span class="mission-go">Start coloring →</span>
       </a>
-
-      <a href="kids-quiz.html" class="mission-card tint-lime">
+      <a href="kids-quiz.html" class="mission-card">
         <span class="m-emoji">🧠</span>
         <h3>Quiz Lab</h3>
-        <p>Three difficulty levels and over 40 questions. Build a streak, earn bonus points, and climb from Drip to Water Scientist.</p>
+        <p>Four difficulty levels and over 100 questions per level. Build a streak, earn bonus points, and climb from Water Drop to Water Scientist!</p>
         <span class="mission-go">Take the quiz →</span>
       </a>
-
-      <a href="kids-learn.html" class="mission-card tint-coral">
+      <a href="kids-learn.html" class="mission-card tint-coral" onclick="awardBadge('learn')">
         <span class="m-emoji">🔬</span>
         <h3>Discovery Lab</h3>
-        <p>The water cycle, amazing facts, at-home experiments, videos, and Bible verses about water — all in one place.</p>
+        <p>The water cycle, amazing facts, at-home experiments, embedded videos, and Bible verses about water — all in one place.</p>
         <span class="mission-go">Explore now →</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- Explorer field guide / quick facts -->
+<!-- ── FACT FLIP CARDS ─────────────────────────────────── -->
 <section class="lab-section tint">
   <div class="kids-container">
     <div class="lab-header">
-      <h2>🧪 Explorer Field Notes</h2>
-      <div class="lab-rule"></div>
+      <h2>🤯 Did You Know?</h2>
       <p>Every good scientist starts with a few facts. Tap a card to reveal what's underneath!</p>
+      <div class="lab-rule"></div>
     </div>
-
-    <div class="fact-flip-grid" id="hubFactGrid"></div>
-
-    <div class="lab-note amber">
-      <h4>🏅 Explorer Challenge</h4>
-      <p>Can you finish all four labs in one visit? Play a game, color a picture, score at least 8 on a quiz, and try one experiment. Do all four and you've officially earned Junior Water Scientist status!</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.2rem">
+      <div class="flip-fact" onclick="this.classList.toggle('flipped')" style="cursor:pointer;perspective:600px;min-height:140px">
+        <div style="position:relative;width:100%;height:140px;transform-style:preserve-3d;transition:transform .5s" class="ff-inner">
+          <div style="position:absolute;inset:0;backface-visibility:hidden;background:#1b98e0;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.5rem">❓</div>
+          <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);background:#fff;border:3px solid #3ec9f0;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:1rem;text-align:center;font-size:.88rem;font-weight:700;color:#072a45">The water in your glass has been on Earth for over 3 BILLION years! 💧</div>
+        </div>
+      </div>
+      <div class="flip-fact" onclick="this.classList.toggle('flipped')" style="cursor:pointer;perspective:600px;min-height:140px">
+        <div style="position:relative;width:100%;height:140px;transform-style:preserve-3d;transition:transform .5s" class="ff-inner">
+          <div style="position:absolute;inset:0;backface-visibility:hidden;background:#ffb703;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.5rem">❓</div>
+          <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);background:#fff;border:3px solid #ffd166;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:1rem;text-align:center;font-size:.88rem;font-weight:700;color:#4a3000">Ice floats because water gets LESS dense when it freezes — most things get more dense! 🧊</div>
+        </div>
+      </div>
+      <div class="flip-fact" onclick="this.classList.toggle('flipped')" style="cursor:pointer;perspective:600px;min-height:140px">
+        <div style="position:relative;width:100%;height:140px;transform-style:preserve-3d;transition:transform .5s" class="ff-inner">
+          <div style="position:absolute;inset:0;backface-visibility:hidden;background:#9b5de5;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.5rem">❓</div>
+          <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);background:#fff;border:3px solid #d5bdf5;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:1rem;text-align:center;font-size:.88rem;font-weight:700;color:#3d0080">Some spiders and insects can walk ON TOP of water because of surface tension! 🕷️</div>
+        </div>
+      </div>
+      <div class="flip-fact" onclick="this.classList.toggle('flipped')" style="cursor:pointer;perspective:600px;min-height:140px">
+        <div style="position:relative;width:100%;height:140px;transform-style:preserve-3d;transition:transform .5s" class="ff-inner">
+          <div style="position:absolute;inset:0;backface-visibility:hidden;background:#5fd35f;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.5rem">❓</div>
+          <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);background:#fff;border:3px solid #a8e6a1;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:1rem;text-align:center;font-size:.88rem;font-weight:700;color:#1f6b1f">Scientists found water on Mars, Jupiter's moon Europa, and even inside comets! 🚀</div>
+        </div>
+      </div>
+      <div class="flip-fact" onclick="this.classList.toggle('flipped')" style="cursor:pointer;perspective:600px;min-height:140px">
+        <div style="position:relative;width:100%;height:140px;transform-style:preserve-3d;transition:transform .5s" class="ff-inner">
+          <div style="position:absolute;inset:0;backface-visibility:hidden;background:#ff6b6b;border-radius:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:2.5rem">❓</div>
+          <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);background:#fff;border:3px solid #ffc2c2;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:1rem;text-align:center;font-size:.88rem;font-weight:700;color:#7a0000">Your body is about 60% water — that means more than half of YOU is water! 💦</div>
+        </div>
+      </div>
     </div>
+    <style>.flip-fact.flipped .ff-inner{transform:rotateY(180deg)}</style>
   </div>
 </section>
 
-<!-- Why water matters -->
-<section class="lab-section">
+<!-- ── GAMES ───────────────────────────────────────────── -->
+<section class="lab-section" id="games">
   <div class="kids-container">
     <div class="lab-header">
-      <h2>💧 Why Water Explorers Matter</h2>
+      <h2>🎮 Game Lab</h2>
+      <p>Five real games that make water science fun! Every game you play earns you a badge.</p>
       <div class="lab-rule"></div>
-      <p>The water you drink today has been on Earth for millions of years — and people like you help keep it clean.</p>
     </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.4rem">
 
-    <div class="discover-grid">
-      <div class="discover-card">
-        <span class="d-emoji">🌍</span>
-        <h3>Water Is Recycled</h3>
-        <p>There is no "new" water. Every drop keeps cycling through oceans, clouds, rivers, and back again — the same water dinosaurs drank!</p>
+      <!-- Catch the Drops -->
+      <div class="lab-panel">
+        <h3>💧 Catch the Drops</h3>
+        <p class="panel-desc">Click the falling water drops before they hit the ground! Don't let a single drop be wasted!</p>
+        <div id="drop-game-area" style="background:#e8fbff;border:2px solid #3ec9f0;border-radius:14px;height:200px;position:relative;overflow:hidden;cursor:crosshair">
+          <div id="drop-score-hud" style="position:absolute;top:8px;left:10px;font-weight:900;font-size:.9rem;color:#072a45;z-index:5">Score: <span id="dg-score">0</span> | Misses: <span id="dg-miss">0</span>/5</div>
+          <div id="drop-msg" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#072a45;text-align:center;padding:1rem">Press Start to catch water drops!</div>
+        </div>
+        <div style="display:flex;gap:.6rem;margin-top:.8rem">
+          <button class="lab-btn amber" onclick="startDropGame()">▶ Start</button>
+          <button class="lab-btn ghost" onclick="resetDropGame()">↺ Reset</button>
+        </div>
       </div>
-      <div class="discover-card">
-        <span class="d-emoji">🚰</span>
-        <h3>Someone Cleans It</h3>
-        <p>Water operators test and treat water every single day so it's safe when it reaches your faucet. It's a real job — maybe yours someday!</p>
-      </div>
-      <div class="discover-card">
-        <span class="d-emoji">🐟</span>
-        <h3>Animals Need It Too</h3>
-        <p>Fish, frogs, birds, and every plant depend on clean water. When we protect water, we protect them too.</p>
-      </div>
-      <div class="discover-card">
-        <span class="d-emoji">🦸</span>
-        <h3>You Can Help Today</h3>
-        <p>Turning off the tap, reporting a leak, and taking shorter showers really adds up. Small habits save thousands of gallons a year.</p>
-      </div>
-    </div>
 
-    <div style="text-align:center;margin-top:2.5rem;">
-      <a href="kids-games.html" class="lab-btn amber">🎮 Let's Play!</a>
-      <a href="kids-learn.html" class="lab-btn ghost" style="margin-left:0.5rem;">🔬 Learn More</a>
+      <!-- Water Cycle Race -->
+      <div class="lab-panel">
+        <h3>🌀 Water Cycle Race</h3>
+        <p class="panel-desc">Arrange the water cycle steps in the correct order as fast as you can!</p>
+        <div id="cycle-race" style="background:#f2fbff;border:2px solid #3ec9f0;border-radius:14px;padding:1rem;min-height:160px">
+          <div id="cycle-race-inner"></div>
+          <div id="cycle-feedback" style="font-weight:900;color:#072a45;margin-top:.6rem;min-height:1.4rem;text-align:center"></div>
+        </div>
+        <div style="display:flex;gap:.6rem;margin-top:.8rem">
+          <button class="lab-btn" onclick="startCycleRace()">▶ Start Race</button>
+          <button class="lab-btn ghost" onclick="startCycleRace()">↺ New Round</button>
+        </div>
+      </div>
+
+      <!-- Water Word Scramble -->
+      <div class="lab-panel">
+        <h3>🔤 Water Word Scramble</h3>
+        <p class="panel-desc">Unscramble the water science word! Type your answer and hit Check.</p>
+        <div style="background:#f2fbff;border:2px solid #3ec9f0;border-radius:14px;padding:1rem;text-align:center">
+          <div id="scramble-word" style="font-size:2rem;font-weight:900;letter-spacing:.3rem;color:#072a45;margin-bottom:.8rem">?????</div>
+          <div id="scramble-hint" style="font-size:.83rem;color:#3d6a86;margin-bottom:.8rem">Hint: —</div>
+          <input id="scramble-input" type="text" placeholder="Your answer..." style="border:2px solid #3ec9f0;border-radius:999px;padding:.5rem 1rem;font-size:.95rem;width:80%;outline:none;text-transform:uppercase" oninput="this.value=this.value.toUpperCase()">
+          <div id="scramble-result" style="font-weight:900;margin-top:.6rem;min-height:1.3rem;color:#072a45"></div>
+        </div>
+        <div style="display:flex;gap:.6rem;margin-top:.8rem">
+          <button class="lab-btn lime" onclick="checkScramble()">✔ Check</button>
+          <button class="lab-btn ghost" onclick="newScramble()">→ New Word</button>
+        </div>
+      </div>
+
+      <!-- True or False -->
+      <div class="lab-panel">
+        <h3>✅ Water True or False</h3>
+        <p class="panel-desc">Is the statement true or false? Build your streak and see how many you can get right!</p>
+        <div style="background:#f2fbff;border:2px solid #3ec9f0;border-radius:14px;padding:1rem;text-align:center;min-height:130px">
+          <div id="tf-streak" style="font-size:.82rem;font-weight:900;color:#3d6a86;margin-bottom:.6rem">Streak: <span id="tf-streak-num">0</span> 🔥</div>
+          <div id="tf-question" style="font-size:1rem;font-weight:700;color:#072a45;line-height:1.5;margin-bottom:1rem">Press Start to begin!</div>
+          <div style="display:flex;gap:.8rem;justify-content:center">
+            <button class="lab-btn lime" id="tf-true" onclick="answerTF(true)" disabled>👍 TRUE</button>
+            <button class="lab-btn coral" id="tf-false" onclick="answerTF(false)" disabled>👎 FALSE</button>
+          </div>
+          <div id="tf-result" style="font-weight:900;margin-top:.6rem;min-height:1.3rem"></div>
+        </div>
+        <button class="lab-btn amber" style="margin-top:.8rem" onclick="startTF()">▶ Start</button>
+      </div>
+
+      <!-- Memory Match -->
+      <div class="lab-panel" style="grid-column:span 2">
+        <h3>🧩 Water Memory Match</h3>
+        <p class="panel-desc">Flip the cards and match the water science pairs! Find all 8 matches to win.</p>
+        <div id="memory-board" style="display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;max-width:440px;margin:0 auto"></div>
+        <div id="memory-status" style="text-align:center;font-weight:900;color:#072a45;margin-top:.8rem">Press Start to play!</div>
+        <button class="lab-btn purple" style="margin-top:.8rem" onclick="initMemory()">▶ Start / Restart</button>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- Grown-ups note -->
+<!-- ── COLORING LAB ────────────────────────────────────── -->
+<section class="lab-section tint" id="coloring">
+  <div class="kids-container">
+    <div class="lab-header">
+      <h2>🎨 Color Lab</h2>
+      <p>Pick a color and click any area to paint it. Create your masterpiece, then print it out!</p>
+      <div class="lab-rule"></div>
+    </div>
+    <div class="color-layout">
+      <div class="color-tools">
+        <h4>🎨 Your Colors</h4>
+        <div class="swatch-grid" id="swatchGrid"></div>
+        <div style="margin-bottom:.6rem">
+          <label style="font-size:.8rem;font-weight:800;color:#3d6a86;display:block;margin-bottom:.3rem">Custom Color</label>
+          <input type="color" id="customColor" value="#1b98e0" style="width:100%;height:32px;border:none;cursor:pointer;border-radius:8px">
+        </div>
+        <div style="font-size:.8rem;font-weight:800;color:#3d6a86;margin-bottom:.5rem">Current: <span id="currentColorSwatch" style="display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid #072a45;vertical-align:middle;background:#1b98e0"></span></div>
+        <button class="lab-btn lime small" style="width:100%;margin-bottom:.5rem" onclick="printColoring()">🖨️ Print Art</button>
+        <button class="lab-btn ghost small" style="width:100%" onclick="clearColoring()">🗑️ Clear All</button>
+      </div>
+      <div>
+        <svg id="coloringSvg" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;border:3px solid #3ec9f0;border-radius:16px;background:#fff;cursor:crosshair">
+          <!-- Sky -->
+          <rect id="sky" x="0" y="0" width="500" height="200" fill="#caf0f8" stroke="#1b98e0" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- Sun -->
+          <circle id="sun" cx="420" cy="55" r="38" fill="#ffb703" stroke="#fb8500" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- Sun rays -->
+          <g id="sunrays" onclick="paintRegion(this)" style="cursor:pointer">
+            <line x1="420" y1="8" x2="420" y2="0" stroke="#fb8500" stroke-width="3"/>
+            <line x1="455" y1="20" x2="465" y2="12" stroke="#fb8500" stroke-width="3"/>
+            <line x1="472" y1="55" x2="482" y2="55" stroke="#fb8500" stroke-width="3"/>
+            <line x1="455" y1="90" x2="465" y2="98" stroke="#fb8500" stroke-width="3"/>
+            <line x1="385" y1="20" x2="375" y2="12" stroke="#fb8500" stroke-width="3"/>
+          </g>
+          <!-- Cloud 1 -->
+          <g id="cloud1" onclick="paintRegion(this)" style="cursor:pointer">
+            <ellipse cx="130" cy="60" rx="55" ry="32" fill="#ffffff" stroke="#b0d8f0" stroke-width="2"/>
+            <ellipse cx="100" cy="70" rx="35" ry="22" fill="#ffffff" stroke="#b0d8f0" stroke-width="2"/>
+            <ellipse cx="160" cy="70" rx="38" ry="22" fill="#ffffff" stroke="#b0d8f0" stroke-width="2"/>
+          </g>
+          <!-- Cloud 2 -->
+          <g id="cloud2" onclick="paintRegion(this)" style="cursor:pointer">
+            <ellipse cx="310" cy="40" rx="44" ry="26" fill="#ffffff" stroke="#b0d8f0" stroke-width="2"/>
+            <ellipse cx="285" cy="50" rx="28" ry="18" fill="#ffffff" stroke="#b0d8f0" stroke-width="2"/>
+            <ellipse cx="335" cy="50" rx="30" ry="18" fill="#ffffff" stroke="#b0d8f0" stroke-width="2"/>
+          </g>
+          <!-- Rain drops -->
+          <g id="raindrops" onclick="paintRegion(this)" style="cursor:pointer">
+            <ellipse cx="105" cy="104" rx="4" ry="7" fill="#1b98e0" stroke="#0077b6" stroke-width="1"/>
+            <ellipse cx="118" cy="112" rx="4" ry="7" fill="#1b98e0" stroke="#0077b6" stroke-width="1"/>
+            <ellipse cx="131" cy="104" rx="4" ry="7" fill="#1b98e0" stroke="#0077b6" stroke-width="1"/>
+            <ellipse cx="144" cy="112" rx="4" ry="7" fill="#1b98e0" stroke="#0077b6" stroke-width="1"/>
+          </g>
+          <!-- Ground -->
+          <rect id="ground" x="0" y="200" width="500" height="50" fill="#5fd35f" stroke="#3ba53b" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- River -->
+          <path id="river" d="M0,290 Q80,270 160,285 Q240,300 320,280 Q400,260 500,275 L500,330 Q400,310 320,325 Q240,345 160,330 Q80,315 0,335Z" fill="#3ec9f0" stroke="#1b98e0" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- Hills -->
+          <ellipse id="hill1" cx="80" cy="210" rx="100" ry="45" fill="#a8e6a1" stroke="#5fd35f" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <ellipse id="hill2" cx="420" cy="215" rx="110" ry="50" fill="#a8e6a1" stroke="#5fd35f" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- Tree trunk -->
+          <rect id="trunk" x="235" y="185" width="20" height="50" fill="#8B5E3C" stroke="#5c3520" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- Tree -->
+          <ellipse id="tree" cx="245" cy="165" rx="40" ry="38" fill="#5fd35f" stroke="#3ba53b" stroke-width="2" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- Fish -->
+          <g id="fish" onclick="paintRegion(this)" style="cursor:pointer">
+            <ellipse cx="200" cy="305" rx="22" ry="11" fill="#ff8fab" stroke="#cc4b77" stroke-width="1.5"/>
+            <polygon points="222,305 234,296 234,314" fill="#ff8fab" stroke="#cc4b77" stroke-width="1.5"/>
+            <circle cx="193" cy="302" r="3" fill="#072a45"/>
+          </g>
+          <!-- Treatment plant building -->
+          <g id="plant" onclick="paintRegion(this)" style="cursor:pointer">
+            <rect x="340" y="150" width="70" height="55" fill="#e0e8f0" stroke="#7090b0" stroke-width="2"/>
+            <rect x="360" y="130" width="30" height="25" fill="#d0dce8" stroke="#7090b0" stroke-width="2"/>
+            <circle cx="375" cy="115" r="10" fill="#3ec9f0" stroke="#1b98e0" stroke-width="2"/>
+          </g>
+          <!-- Pipe -->
+          <rect id="pipe" x="340" y="200" width="160" height="10" fill="#9b5de5" stroke="#7440b8" stroke-width="1.5" onclick="paintRegion(this)" style="cursor:pointer"/>
+          <!-- Water tower -->
+          <g id="tower" onclick="paintRegion(this)" style="cursor:pointer">
+            <rect x="55" y="145" width="10" height="65" fill="#aaa" stroke="#888" stroke-width="1.5"/>
+            <rect x="40" y="145" width="10" height="65" fill="#aaa" stroke="#888" stroke-width="1.5"/>
+            <ellipse cx="55" cy="145" rx="22" ry="13" fill="#1b98e0" stroke="#0077b6" stroke-width="2"/>
+            <rect x="33" y="132" width="44" height="15" rx="4" fill="#1b98e0" stroke="#0077b6" stroke-width="2"/>
+          </g>
+          <!-- Labels -->
+          <text x="415" y="18" text-anchor="middle" font-size="10" fill="#fb8500" font-weight="bold">☀️ SUN</text>
+          <text x="250" y="378" text-anchor="middle" font-size="10" fill="#0077b6" font-weight="bold">🌊 TAP AN AREA TO COLOR IT!</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER NOTE ────────────────────────────────────── -->
 <section class="lab-section tint">
   <div class="kids-container">
-    <div class="lab-note lime">
-      <h4>👨‍👩‍👧 For Parents &amp; Teachers</h4>
-      <p>Everything in the Water Explorer Lab runs right in the browser — no accounts, no downloads, no ads. Games and quizzes are designed for roughly ages 6–12, and the Discovery Lab includes at-home experiments you can do with basic kitchen supplies. Looking for the adult material? Head to <a href="learn.html">Adult Learning</a> for wells, pumps, treatment chemicals, and official EPA resources.</p>
+    <div class="lab-note">
+      <h4>👨‍👩‍👧 For Parents & Teachers</h4>
+      <p>Everything in the Water Explorer Lab runs right in the browser — no accounts, no downloads, no ads. Games and quizzes are designed for roughly ages 6–12. Looking for adult material? <a href="adult-learning-center.html">Head to Adult Learning</a> for official water operator training.</p>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- Site footer -->
 <footer class="site-footer">
-  <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
-    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
-  </div>
+  <p>© 2026 LearnWater · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a> · Free education for everyone 💧</p>
 </footer>
 
-<script src="js/kids-common.js"></script>
+<!-- ── GREG CHAT BUBBLE ────────────────────────────────── -->
+<div id="greg-bubble">
+  <div id="greg-chat">
+    <div id="greg-chat-header">
+      <span>🧒</span>
+      <div>
+        <div style="font-weight:900">Greg</div>
+        <div style="font-size:.72rem;opacity:.85">Your Water Science Buddy!</div>
+      </div>
+      <button onclick="toggleGreg()" style="margin-left:auto;background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;font-size:.9rem">✕</button>
+    </div>
+    <div id="greg-messages">
+      <div class="gmsg-greg">Hey! I'm Greg! 👋 I'm a kid who LOVES water science! Ask me anything — what is the water cycle? How does a treatment plant work? What's surface tension? I'll explain it in a way that's super easy to understand! 💧</div>
+    </div>
+    <div id="greg-input-row">
+      <input id="greg-input" type="text" placeholder="Ask Greg anything..." onkeydown="if(event.key==='Enter')sendGreg()">
+      <button id="greg-send" onclick="sendGreg()">Send</button>
+    </div>
+  </div>
+  <div id="greg-avatar" onclick="toggleGreg()" title="Chat with Greg!">🧒</div>
+</div>
+
+<!-- Confetti canvas -->
+<canvas id="confetti-canvas"></canvas>
+
 <script>
-  /* Fun facts for the hub flip cards */
-  const hubFacts = [
-    { front: '71%', back: 'About 71% of Earth\'s surface is covered by water!' },
-    { front: '60%', back: 'Your body is roughly 60% water. Your brain is even more!' },
-    { front: '1%', back: 'Less than 1% of Earth\'s water is freshwater we can easily use.' },
-    { front: '3,000', back: 'One dripping faucet can waste over 3,000 gallons in a year.' },
-    { front: '🧊', back: 'Ice floats because frozen water is LESS dense than liquid water.' },
-    { front: '8 gal', back: 'Turning off the tap while brushing teeth can save about 8 gallons a day.' },
-    { front: '🦕', back: 'The water you drank today is the same water that existed with the dinosaurs.' },
-    { front: '97%', back: 'About 97% of all Earth\'s water is salty ocean water.' },
-  ];
+// ── Nav toggle ──────────────────────────────────────────
+document.getElementById('navToggle').addEventListener('click',()=>{
+  document.getElementById('navLinks').classList.toggle('open');
+});
 
-  document.addEventListener('DOMContentLoaded', function () {
-    buildBackdrop();
-    buildFlipCards('hubFactGrid', hubFacts);
+// ── Badge & Challenge System ────────────────────────────
+const BADGES=['game','color','quiz','learn','streak3','streak5','perfect','scientist'];
+let earned=JSON.parse(localStorage.getItem('kidsEarned')||'[]');
+let challenges=JSON.parse(localStorage.getItem('kidsChallenges')||'{}');
+
+function awardBadge(b){
+  if(earned.includes(b))return;
+  earned.push(b);
+  localStorage.setItem('kidsEarned',JSON.stringify(earned));
+  const el=document.getElementById('b-'+b);
+  if(el){el.classList.add('earned');launchConfetti();}
+  // Check scientist badge
+  if(['game','color','quiz','learn'].every(x=>earned.includes(x))&&!earned.includes('scientist')){
+    setTimeout(()=>awardBadge('scientist'),600);
+  }
+}
+function markChallenge(k){
+  challenges[k]=true;
+  localStorage.setItem('kidsChallenges',JSON.stringify(challenges));
+  document.getElementById('ch-'+k).classList.add('done');
+  awardBadge(k);
+  if(['game','color','quiz','learn'].every(x=>challenges[x])){
+    document.getElementById('challenge-complete').style.display='block';
+    launchConfetti();
+  }
+}
+function refreshBadges(){
+  earned.forEach(b=>{const el=document.getElementById('b-'+b);if(el)el.classList.add('earned');});
+  Object.keys(challenges).forEach(k=>{const el=document.getElementById('ch-'+k);if(el&&challenges[k])el.classList.add('done');});
+  if(['game','color','quiz','learn'].every(x=>challenges[x]))
+    document.getElementById('challenge-complete').style.display='block';
+}
+refreshBadges();
+
+// ── Confetti ────────────────────────────────────────────
+function launchConfetti(){
+  const canvas=document.getElementById('confetti-canvas');
+  canvas.style.display='block';
+  canvas.width=window.innerWidth;canvas.height=window.innerHeight;
+  const ctx=canvas.getContext('2d');
+  const pieces=Array.from({length:80},()=>({
+    x:Math.random()*canvas.width,y:Math.random()*-200,
+    r:Math.random()*8+4,c:['#ffb703','#1b98e0','#5fd35f','#ff6b6b','#9b5de5'][Math.floor(Math.random()*5)],
+    s:Math.random()*3+2,rot:Math.random()*360,spin:Math.random()*6-3
+  }));
+  let frame=0;
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pieces.forEach(p=>{
+      ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.rot*Math.PI/180);
+      ctx.fillStyle=p.c;ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r);ctx.restore();
+      p.y+=p.s;p.rot+=p.spin;
+    });
+    frame++;
+    if(frame<120)requestAnimationFrame(draw);
+    else{ctx.clearRect(0,0,canvas.width,canvas.height);canvas.style.display='none';}
+  }
+  draw();
+}
+
+// ── GAME 1: Catch the Drops ─────────────────────────────
+let dropInterval,dropScore=0,dropMiss=0,dropRunning=false;
+function startDropGame(){
+  if(dropRunning)return;
+  dropRunning=true;dropScore=0;dropMiss=0;
+  document.getElementById('drop-msg').style.display='none';
+  updateDropHUD();
+  dropInterval=setInterval(spawnDrop,900);
+  awardBadge('game');markChallenge('game');
+}
+function updateDropHUD(){
+  document.getElementById('dg-score').textContent=dropScore;
+  document.getElementById('dg-miss').textContent=dropMiss;
+}
+function spawnDrop(){
+  if(dropMiss>=5){endDropGame();return;}
+  const area=document.getElementById('drop-game-area');
+  const d=document.createElement('div');
+  d.textContent='💧';d.style.cssText=`position:absolute;top:-30px;left:${10+Math.random()*80}%;font-size:${1.4+Math.random()}rem;transition:top ${1.2+Math.random()*.8}s linear;cursor:pointer;user-select:none;z-index:3`;
+  area.appendChild(d);
+  d.addEventListener('click',()=>{dropScore++;updateDropHUD();d.textContent='✨';setTimeout(()=>d.remove(),200);});
+  setTimeout(()=>{d.style.top='200px';},50);
+  setTimeout(()=>{if(d.parentNode){dropMiss++;updateDropHUD();d.remove();if(dropMiss>=5)endDropGame();}},2200);
+}
+function endDropGame(){
+  clearInterval(dropInterval);dropRunning=false;
+  const msg=document.getElementById('drop-msg');
+  msg.style.display='flex';
+  msg.textContent=`Game over! You caught ${dropScore} drops! ${dropScore>=10?'🏆 Amazing!':dropScore>=5?'👍 Great!':'Keep trying!'}`;
+  if(dropScore>=10)awardBadge('perfect');
+}
+function resetDropGame(){
+  clearInterval(dropInterval);dropRunning=false;dropScore=0;dropMiss=0;
+  document.getElementById('drop-msg').style.display='flex';
+  document.getElementById('drop-msg').textContent='Press Start to catch water drops!';
+  updateDropHUD();
+  document.querySelectorAll('#drop-game-area div:not(#drop-score-hud):not(#drop-msg)').forEach(d=>d.remove());
+}
+
+// ── GAME 2: Water Cycle Race ────────────────────────────
+const CYCLE_STEPS=[
+  {label:'☀️ Evaporation',order:0},
+  {label:'☁️ Condensation',order:1},
+  {label:'🌧️ Precipitation',order:2},
+  {label:'🏞️ Collection',order:3},
+  {label:'🌿 Transpiration',order:4}
+];
+let cycleOrder=[],cycleDrag=null;
+function startCycleRace(){
+  const inner=document.getElementById('cycle-race-inner');
+  inner.innerHTML='';
+  document.getElementById('cycle-feedback').textContent='Drag to reorder, then check!';
+  cycleOrder=[...CYCLE_STEPS].sort(()=>Math.random()-.5);
+  cycleOrder.forEach((s,i)=>{
+    const d=document.createElement('div');
+    d.textContent=s.label;d.draggable=true;d.dataset.idx=i;
+    d.style.cssText='background:#fff;border:2px solid #3ec9f0;border-radius:10px;padding:.5rem .9rem;margin:.3rem 0;cursor:grab;font-weight:700;font-size:.9rem;user-select:none;transition:background .2s';
+    d.addEventListener('dragstart',e=>{cycleDrag=i;d.style.opacity='.5';});
+    d.addEventListener('dragend',()=>{d.style.opacity='1';});
+    d.addEventListener('dragover',e=>{e.preventDefault();d.style.background='#d8f6fd';});
+    d.addEventListener('dragleave',()=>d.style.background='#fff');
+    d.addEventListener('drop',e=>{
+      e.preventDefault();d.style.background='#fff';
+      const from=cycleDrag,to=i;
+      [cycleOrder[from],cycleOrder[to]]=[cycleOrder[to],cycleOrder[from]];
+      startCycleRace();
+    });
+    inner.appendChild(d);
   });
-</script>
+  const btn=document.createElement('button');
+  btn.textContent='✔ Check Order';btn.className='lab-btn small';btn.style.marginTop='.5rem';
+  btn.onclick=()=>{
+    const correct=cycleOrder.every((s,i)=>s.order===i);
+    const fb=document.getElementById('cycle-feedback');
+    if(correct){fb.textContent='🎉 Perfect order! You know the water cycle!';fb.style.color='#1f6b1f';launchConfetti();awardBadge('perfect');}
+    else{fb.textContent='Not quite — try again! Hint: Sun→Cloud→Rain→River→Plants';fb.style.color='#a33';}
+  };
+  inner.appendChild(btn);
+}
 
+// ── GAME 3: Word Scramble ───────────────────────────────
+const SCRAMBLE_WORDS=[
+  {word:'EVAPORATION',hint:'Water turning into vapor from heat'},
+  {word:'CONDENSATION',hint:'Water vapor becoming clouds'},
+  {word:'PRECIPITATION',hint:'Rain, snow, sleet, or hail falling'},
+  {word:'AQUIFER',hint:'Underground layer that holds water'},
+  {word:'TURBIDITY',hint:'How cloudy the water looks'},
+  {word:'CHLORINE',hint:'Chemical used to disinfect water'},
+  {word:'FILTRATION',hint:'Removing particles by passing through a filter'},
+  {word:'WATERSHED',hint:'Area of land that drains to a river or lake'},
+  {word:'TREATMENT',hint:'Making water safe to drink'},
+  {word:'GROUNDWATER',hint:'Water found underground'},
+  {word:'RESERVOIR',hint:'Large lake that stores water supply'},
+  {word:'SANITATION',hint:'Keeping things clean and safe for health'}
+];
+let currentScramble={};
+function newScramble(){
+  const s=SCRAMBLE_WORDS[Math.floor(Math.random()*SCRAMBLE_WORDS.length)];
+  currentScramble=s;
+  const arr=s.word.split('').sort(()=>Math.random()-.5);
+  document.getElementById('scramble-word').textContent=arr.join('');
+  document.getElementById('scramble-hint').textContent='Hint: '+s.hint;
+  document.getElementById('scramble-input').value='';
+  document.getElementById('scramble-result').textContent='';
+}
+function checkScramble(){
+  const ans=document.getElementById('scramble-input').value.trim().toUpperCase();
+  const res=document.getElementById('scramble-result');
+  if(ans===currentScramble.word){
+    res.textContent='🎉 Correct! Great job!';res.style.color='#1f6b1f';launchConfetti();
+    setTimeout(newScramble,1500);
+  } else {
+    res.textContent='Not quite — keep trying!';res.style.color='#a33';
+  }
+}
+newScramble();
+
+// ── GAME 4: True or False ───────────────────────────────
+const TF_QUESTIONS=[
+  {q:'Water covers about 71% of the Earth\'s surface.',a:true},
+  {q:'Ice sinks in water because it is denser.',a:false},
+  {q:'The water cycle has no beginning or end.',a:true},
+  {q:'Humans can survive longer without food than without water.',a:true},
+  {q:'Chlorine is added to drinking water to make it taste better.',a:false},
+  {q:'Aquifers are underground layers that store water.',a:true},
+  {q:'About 97% of Earth\'s water is fresh water.',a:false},
+  {q:'Transpiration is when plants release water vapor.',a:true},
+  {q:'Water boils at 100°C (212°F) at sea level.',a:true},
+  {q:'Surface tension lets some insects walk on water.',a:true},
+  {q:'Most of the world\'s fresh water is locked in glaciers.',a:true},
+  {q:'Water is made of two oxygen atoms and one hydrogen atom.',a:false},
+  {q:'Groundwater never moves underground.',a:false},
+  {q:'A water molecule is written H2O.',a:true},
+  {q:'Drinking salt water will quench your thirst.',a:false},
+];
+let tfIdx=0,tfScore=0,tfStreak=0,tfRunning=false;
+function startTF(){
+  tfIdx=0;tfScore=0;tfStreak=0;tfRunning=true;
+  const q=TF_QUESTIONS.sort(()=>Math.random()-.5);
+  window._tfQ=q;
+  document.getElementById('tf-true').disabled=false;
+  document.getElementById('tf-false').disabled=false;
+  showTF();
+}
+function showTF(){
+  const q=window._tfQ[tfIdx];
+  document.getElementById('tf-question').textContent=q?q.q:'Quiz complete!';
+  document.getElementById('tf-result').textContent='';
+  document.getElementById('tf-streak-num').textContent=tfStreak;
+}
+function answerTF(ans){
+  if(!tfRunning||!window._tfQ)return;
+  const q=window._tfQ[tfIdx];
+  const res=document.getElementById('tf-result');
+  if(ans===q.a){
+    tfStreak++;tfScore++;res.textContent='✅ Correct! +1';res.style.color='#1f6b1f';
+    if(tfStreak>=3)awardBadge('streak3');
+    if(tfStreak>=5)awardBadge('streak5');
+  } else {
+    tfStreak=0;res.textContent='❌ Nope! It was '+(q.a?'TRUE':'FALSE');res.style.color='#a33';
+  }
+  document.getElementById('tf-streak-num').textContent=tfStreak;
+  tfIdx++;
+  if(tfIdx>=window._tfQ.length){
+    tfRunning=false;
+    document.getElementById('tf-question').textContent=`Done! Score: ${tfScore}/${window._tfQ.length} 🎉`;
+    document.getElementById('tf-true').disabled=true;
+    document.getElementById('tf-false').disabled=true;
+    if(tfScore===window._tfQ.length)awardBadge('perfect');
+  } else {
+    setTimeout(showTF,900);
+  }
+}
+
+// ── GAME 5: Memory Match ─────────────────────────────────
+const MEMORY_PAIRS=[
+  {a:'💧 Water',b:'H₂O'},
+  {a:'☀️ Evaporation',b:'Heat → Vapor'},
+  {a:'☁️ Cloud',b:'Condensation'},
+  {a:'🌧️ Rain',b:'Precipitation'},
+  {a:'🏞️ River',b:'Collection'},
+  {a:'🔬 Turbidity',b:'Cloudiness'},
+  {a:'💚 Chlorine',b:'Disinfection'},
+  {a:'🌿 Plants',b:'Transpiration'},
+];
+let memFlipped=[],memMatched=0,memLocked=false;
+function initMemory(){
+  memFlipped=[];memMatched=0;memLocked=false;
+  const board=document.getElementById('memory-board');
+  board.innerHTML='';
+  document.getElementById('memory-status').textContent='Find all 8 matches!';
+  const cards=[];
+  MEMORY_PAIRS.forEach((p,i)=>{
+    cards.push({text:p.a,id:i});cards.push({text:p.b,id:i});
+  });
+  cards.sort(()=>Math.random()-.5);
+  cards.forEach((c,idx)=>{
+    const el=document.createElement('div');
+    el.className='memory-card';el.dataset.pair=c.id;el.dataset.text=c.text;
+    el.innerHTML=`<div class="memory-card-inner"><div class="memory-card-front" style="background:linear-gradient(135deg,#1b98e0,#072a45);color:#fff;font-size:1.4rem">💦</div><div class="memory-card-back" style="background:#fff;border:2px solid #3ec9f0;border-radius:12px;font-size:.78rem;font-weight:700;color:#072a45;text-align:center;padding:.3rem">${c.text}</div></div>`;
+    el.addEventListener('click',()=>flipMemory(el));
+    board.appendChild(el);
+  });
+}
+function flipMemory(el){
+  if(memLocked||el.classList.contains('flipped')||el.classList.contains('matched'))return;
+  el.classList.add('flipped');
+  memFlipped.push(el);
+  if(memFlipped.length===2){
+    memLocked=true;
+    if(memFlipped[0].dataset.pair===memFlipped[1].dataset.pair){
+      memFlipped.forEach(c=>c.classList.add('matched'));
+      memMatched++;memFlipped=[];memLocked=false;
+      if(memMatched===8){document.getElementById('memory-status').textContent='🏆 You matched them all! Amazing!';launchConfetti();awardBadge('perfect');}
+      else document.getElementById('memory-status').textContent=`${memMatched}/8 matched! Keep going!`;
+    } else {
+      setTimeout(()=>{memFlipped.forEach(c=>c.classList.remove('flipped'));memFlipped=[];memLocked=false;},1000);
+    }
+  }
+}
+
+// ── COLORING ────────────────────────────────────────────
+const SWATCHES=['#1b98e0','#3ec9f0','#072a45','#ffb703','#5fd35f','#ff6b6b','#9b5de5','#ff8fab','#fb8500','#ffd166','#a8e8f9','#d8f6fd','#fff','#0d2f47','#3ba53b','#cc4b4b','#7440b8','#5c3520','#888','#ffd8a8','#e5fbe5','#ffecec','#f2fbff','#1a2433'];
+let currentColor='#1b98e0';
+function buildSwatches(){
+  const g=document.getElementById('swatchGrid');
+  SWATCHES.forEach(c=>{
+    const b=document.createElement('button');
+    b.style.cssText=`background:${c};border-radius:50%;border:2px solid rgba(0,0,0,.12);cursor:pointer;padding:0;aspect-ratio:1`;
+    b.onclick=()=>{currentColor=c;document.getElementById('currentColorSwatch').style.background=c;};
+    g.appendChild(b);
+  });
+}
+buildSwatches();
+document.getElementById('customColor').addEventListener('input',e=>{
+  currentColor=e.target.value;document.getElementById('currentColorSwatch').style.background=currentColor;
+});
+function paintRegion(el){el.style.fill=currentColor;awardBadge('color');markChallenge('color');}
+function clearColoring(){
+  document.querySelectorAll('#coloringSvg [id]').forEach(el=>{
+    const orig={'sky':'#caf0f8','sun':'#ffb703','ground':'#5fd35f','river':'#3ec9f0','hill1':'#a8e6a1','hill2':'#a8e6a1','trunk':'#8B5E3C','tree':'#5fd35f','pipe':'#9b5de5'};
+    if(orig[el.id])el.style.fill=orig[el.id];
+  });
+}
+function printColoring(){
+  const svgEl=document.getElementById('coloringSvg');
+  const svgData=new XMLSerializer().serializeToString(svgEl);
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head><title>My Water Art</title><style>body{margin:0;background:#fff;display:flex;justify-content:center;padding:20px}svg{max-width:100%;height:auto}@media print{button{display:none}}</style></head><body>${svgData}<br><button onclick="window.print()">🖨️ Print</button></body></html>`);
+  win.document.close();
+}
+
+// ── Greg Kid AI ─────────────────────────────────────────
+function toggleGreg(){
+  const chat=document.getElementById('greg-chat');
+  chat.style.display=chat.style.display==='none'||!chat.style.display?'block':'none';
+  if(chat.style.display==='block')document.getElementById('greg-input').focus();
+}
+function sendGreg(){
+  const input=document.getElementById('greg-input');
+  const msg=input.value.trim();if(!msg)return;
+  addGregMsg(msg,'user');input.value='';
+  setTimeout(()=>addGregMsg(gregRespond(msg),'greg'),400);
+}
+function addGregMsg(text,who){
+  const box=document.getElementById('greg-messages');
+  const d=document.createElement('div');
+  d.className=who==='greg'?'gmsg-greg':'gmsg-user';d.textContent=text;
+  box.appendChild(d);box.scrollTop=box.scrollHeight;
+}
+function gregRespond(q){
+  const ql=q.toLowerCase();
+  if(ql.includes('water cycle')||ql.includes('cycle'))return "Oh, I love the water cycle! ☀️ First, the sun heats water and it evaporates into vapor. Then it condenses into clouds. Then it falls as rain or snow — that's precipitation! Then it collects in rivers and lakes and the whole thing starts over. It's like water's never-ending road trip! 🌧️";
+  if(ql.includes('evaporation')||ql.includes('evaporate'))return "Evaporation is when the sun heats water so much it turns into invisible vapor and floats up into the sky! ☀️ It's like magic — you can't see it happening, but it happens to puddles ALL the time after rain!";
+  if(ql.includes('cloud')||ql.includes('condensation'))return "Clouds are made of super tiny water droplets! ☁️ When water vapor rises high up, it gets cold and turns back into droplets — that's called condensation. Billions of tiny drops stick together and make a cloud!";
+  if(ql.includes('rain')||ql.includes('precipitation'))return "Precipitation means any water that falls from the sky! 🌧️ That's rain, snow, sleet, and hail. When clouds get heavy with water droplets, gravity pulls them down. Without precipitation, we'd have no fresh water to drink!";
+  if(ql.includes('chlorine')||ql.includes('disinfect'))return "Chlorine is a chemical that water treatment plants add to kill germs! 🧪 It's the same reason swimming pools smell that way. Just a tiny bit keeps the water safe for millions of people to drink every day!";
+  if(ql.includes('aquifer'))return "An aquifer is like a giant underground sponge! 💦 It's rock or sand underground that's soaked with water. We drill wells down into aquifers to pump water up. Some aquifers took thousands of years to fill up!";
+  if(ql.includes('turbidity')||ql.includes('cloudy')||ql.includes('murky'))return "Turbidity is how cloudy or murky water looks! 🌫️ Clean water should be super clear. When turbidity is high, it means there's dirt, algae, or other stuff floating in it. Water operators test turbidity every day!";
+  if(ql.includes('surface tension'))return "Surface tension is like an invisible skin on water! 🕷️ Water molecules hold onto each other SO tightly that the top of water acts almost like a stretchy film. That's how some spiders and water striders walk on water!";
+  if(ql.includes('filter')||ql.includes('filtration'))return "Filtration is like passing water through a giant strainer! 🪣 Water flows through layers of sand, gravel, and charcoal. Each layer catches different sized particles. By the end, the water is much cleaner — but it still needs disinfection too!";
+  if(ql.includes('treatment plant')||ql.includes('treat water'))return "Water treatment plants are SO cool! 🏭 First they add chemicals to clump dirt together, then they settle out, then they filter it through sand and gravel, then add chlorine to kill germs. Clean water comes out the other end!";
+  if(ql.includes('ice')||ql.includes('float'))return "Here's a cool science fact — ice floats because water EXPANDS when it freezes! 🧊 Most things get smaller when they freeze, but water gets bigger. That makes ice less dense than liquid water, so it floats. That's why fish can survive under a frozen pond!";
+  if(ql.includes('body')||ql.includes('human')||ql.includes('percent'))return "Your body is about 60% water! 💦 Your blood is mostly water, your brain is 75% water, and even your bones are 30% water! That's why you need to drink water every single day. If you feel tired or have a headache, sometimes you're just thirsty!";
+  if(ql.includes('game')||ql.includes('play'))return "The Game Lab is SO fun! 🎮 You can catch water drops, race the water cycle order, unscramble water words, play True or False, and do the memory match game! Play them all to earn your Game Player badge!";
+  if(ql.includes('badge')||ql.includes('earn'))return "Badges are awesome! 🏅 You can earn them by playing games 🎮, coloring 🎨, taking the quiz 🧠, exploring the discovery lab 🔬, getting answer streaks 🔥⚡, getting a perfect score 🏆, and completing all 4 challenges to become a Junior Water Scientist 🥼!";
+  if(ql.includes('quiz'))return "Head to the Quiz Lab for some awesome water science questions! 🧠 There are 4 levels — Beginner, Intermediate, Advanced, and Mixed. Over 100 questions total so you'll get different ones every time! Try to build a streak for bonus badges!";
+  if(ql.includes('bible')||ql.includes('verse')||ql.includes('god'))return "There are so many awesome Bible verses about water! 📖 My favorite is John 4:14 where Jesus talks about 'living water' that fills your heart forever. Water shows up all through the Bible as a gift and a symbol of life. Check the Discovery Lab for lots of verses!";
+  if(ql.includes('experiment'))return "The experiments in Discovery Lab are SO cool! 🔬 You can make a water cycle in a bag, build a mini water filter, make flowers change color, test surface tension with a penny, and more! Just make sure you have a grown-up help you!";
+  if(ql.includes('hello')||ql.includes('hi')||ql.includes('hey'))return "Hey hey hey!! 👋 I'm Greg, your water science buddy! I'm SO excited you're here. Ask me ANYTHING about water — I love answering questions and making science easy to understand. What do you want to learn today? 💧";
+  if(ql.includes('thank')||ql.includes('thanks'))return "You're SO welcome! 😊 That's what I'm here for! Learning together is the best. Keep asking questions — that's what scientists do! Is there anything else about water you want to know? 💧";
+  if(ql.includes('favorite')||ql.includes('best'))return "My favorite water fact is that the water you're drinking right now might have once been inside a DINOSAUR! 🦕 Because water keeps cycling forever, the same water molecules have been around for billions of years. How crazy is that?!";
+  return "That's a great question! 🤔 I might not know everything yet, but here's what I do know: water is the most amazing thing on Earth! 💧 It covers 71% of our planet, it's inside every living thing, and without it nothing could survive. Want to try the quiz or Discovery Lab to learn even more?";
+}
+
+// Init cycle race
+startCycleRace();
+</script>
 </body>
 </html>
