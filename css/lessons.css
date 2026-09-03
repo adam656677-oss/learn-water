@@ -1,0 +1,176 @@
+/* =================================================================
+   lessons.css — LearnWater Adult Learning Center
+   Shared styling for themed Study Lesson chapter pages.
+   Each page sets a --theme / --theme-dark / --theme-tint pair via an
+   inline style on <body> (see lesson-common.js applyTheme()).
+================================================================= */
+
+:root{
+  --primary:   #0077b6;
+  --secondary: #00b4d8;
+  --accent:    #90e0ef;
+  --dark:      #03045e;
+  --light:     #caf0f8;
+  --white:     #ffffff;
+  --gray:      #f0f4f8;
+  --text:      #1a2433;
+  --muted:     #5a6a7a;
+  --radius:    12px;
+  --shadow:    0 4px 20px rgba(0,119,182,0.12);
+  --shadow-lg: 0 8px 40px rgba(0,119,182,0.18);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+  background:var(--gray);
+  color:var(--text);
+  line-height:1.6;
+}
+a{color:var(--primary)}
+.container{max-width:880px;margin:0 auto;padding:0 1.25rem}
+
+/* ---- Header (matches adult-learning-center.html) ---- */
+header.site-head{
+  background:var(--dark);
+  color:var(--white);
+  padding:14px 24px;
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+header.site-head img.logo{height:40px}
+header.site-head .brand{font-weight:800;font-size:1.15rem;flex:1;color:#fff;text-decoration:none}
+header.site-head nav a{color:#90e0ef;text-decoration:none;margin-left:16px;font-size:.92rem}
+header.site-head nav a:hover{color:#fff}
+
+/* ---- Lesson hero (themed) ---- */
+.lesson-hero{
+  background:linear-gradient(135deg,var(--theme,#0077b6) 0%,var(--theme-dark,#03045e) 100%);
+  color:#fff;
+  padding:2.75rem 0 3.25rem;
+  position:relative;
+  overflow:hidden;
+}
+.lesson-hero .motif{
+  position:absolute;inset:0;opacity:.16;pointer-events:none;
+  display:flex;align-items:center;justify-content:flex-end;
+}
+.lesson-hero .motif svg{width:340px;height:340px;transform:translate(20%,10%)}
+.lesson-hero-inner{position:relative;z-index:1}
+.back-link{
+  display:inline-flex;align-items:center;gap:.4rem;color:#fff;opacity:.85;
+  text-decoration:none;font-size:.9rem;font-weight:600;margin-bottom:1rem;
+}
+.back-link:hover{opacity:1;text-decoration:underline}
+.chapter-kicker{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);
+  border-radius:999px;padding:.35rem 1rem;font-size:.85rem;font-weight:700;
+  letter-spacing:.03em;margin-bottom:.9rem;
+}
+.lesson-hero h1{color:#fff;font-size:clamp(1.6rem,4vw,2.4rem);margin-bottom:.6rem;display:flex;align-items:center;gap:.6rem}
+.lesson-hero .hero-icon{font-size:1.4em;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25))}
+.lesson-hero p.dek{opacity:.92;max-width:620px;font-size:1.05rem}
+
+/* ---- Main content ---- */
+main{padding:2.25rem 0 4rem}
+
+.greg-card{
+  background:#fff;border-left:5px solid var(--theme,#0077b6);
+  border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:1.4rem 1.6rem;margin-bottom:2rem;
+  display:flex;gap:1.1rem;align-items:flex-start;
+}
+.greg-avatar{
+  width:56px;height:56px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--theme,#0077b6),var(--theme-dark,#03045e));
+  display:flex;align-items:center;justify-content:center;font-size:1.6rem;
+}
+.greg-card h3{color:var(--dark);margin-bottom:.35rem;font-size:1.05rem}
+.greg-card p{color:var(--muted);font-size:.97rem}
+
+.lesson-section{
+  background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:1.8rem 1.9rem;margin-bottom:1.5rem;
+}
+.lesson-section h2{
+  color:var(--theme-dark,var(--dark));font-size:1.25rem;margin-bottom:.7rem;
+  display:flex;align-items:center;gap:.5rem;
+}
+.lesson-section h2 .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:1.7rem;height:1.7rem;border-radius:50%;
+  background:var(--theme,#0077b6);color:#fff;font-size:.85rem;font-weight:800;flex-shrink:0;
+}
+.lesson-section p{margin-bottom:.85rem;color:var(--text)}
+.lesson-section p:last-child{margin-bottom:0}
+.lesson-section ul,.lesson-section ol{margin:0 0 .85rem 1.35rem}
+.lesson-section li{margin-bottom:.4rem}
+.lesson-section table{width:100%;border-collapse:collapse;margin:.9rem 0;font-size:.92rem}
+.lesson-section th,.lesson-section td{border:1px solid var(--light);padding:.5rem .6rem;text-align:left}
+.lesson-section th{background:var(--gray);color:var(--dark)}
+.lesson-section strong{color:var(--dark)}
+
+.key-numbers{
+  background:linear-gradient(135deg,var(--theme,#0077b6)10,var(--theme,#0077b6));
+  background:var(--theme-tint,#e8f4fd);
+  border:1px solid var(--theme,#0077b6);
+  border-radius:var(--radius);padding:1.5rem 1.7rem;margin-bottom:1.5rem;
+}
+.key-numbers h2{color:var(--theme-dark,var(--dark));font-size:1.1rem;margin-bottom:.7rem;display:flex;align-items:center;gap:.5rem}
+.key-numbers ul{margin-left:1.2rem}
+.key-numbers li{margin-bottom:.45rem;font-size:.95rem}
+.key-numbers strong{color:var(--theme-dark,var(--dark))}
+
+/* ---- Mini Greg chat ---- */
+.greg-mini{
+  background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:1.5rem 1.7rem;margin-bottom:1.5rem;
+}
+.greg-mini h2{color:var(--theme-dark,var(--dark));font-size:1.1rem;margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.greg-mini-history{
+  max-height:220px;overflow-y:auto;margin-bottom:.9rem;
+  display:flex;flex-direction:column;gap:.6rem;
+}
+.greg-mini-history:empty{display:none}
+.chat-msg{padding:.6rem .85rem;border-radius:10px;font-size:.92rem;max-width:88%}
+.chat-msg.greg{background:var(--theme-tint,#e8f4fd);color:var(--text);align-self:flex-start}
+.chat-msg.user{background:var(--theme,#0077b6);color:#fff;align-self:flex-end}
+.greg-mini-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:.7rem}
+.greg-mini-row button{
+  background:var(--theme-tint,#e8f4fd);border:1px solid var(--theme,#0077b6);color:var(--theme-dark,var(--dark));
+  border-radius:999px;padding:.4rem .85rem;font-size:.85rem;cursor:pointer;font-weight:600;
+}
+.greg-mini-row button:hover{background:var(--theme,#0077b6);color:#fff}
+.greg-mini-input{display:flex;gap:.6rem}
+.greg-mini-input input{
+  flex:1;padding:.7rem .9rem;border-radius:999px;border:1px solid var(--light);font:inherit;
+}
+.greg-mini-input button{
+  background:var(--theme,#0077b6);color:#fff;border:none;border-radius:999px;
+  padding:.7rem 1.3rem;font-weight:700;cursor:pointer;
+}
+.greg-mini-input button:hover{background:var(--theme-dark,var(--dark))}
+
+/* ---- Bottom actions ---- */
+.lesson-actions{
+  display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between;
+  background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.4rem 1.7rem;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.75rem 1.4rem;border-radius:999px;border:none;font:inherit;font-weight:700;
+  cursor:pointer;text-decoration:none;font-size:.95rem;transition:transform .15s,background .15s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-complete{background:var(--theme,#0077b6);color:#fff}
+.btn-complete.done{background:#2d9e6b}
+.btn-outline{background:#fff;border:2px solid var(--theme,#0077b6);color:var(--theme-dark,var(--dark))}
+
+footer.site-foot{text-align:center;padding:2rem;color:var(--muted);font-size:.88rem}
+
+@media (max-width:640px){
+  .lesson-hero .motif{display:none}
+  .greg-card{flex-direction:column}
+  .lesson-actions{flex-direction:column;align-items:stretch}
+}

@@ -5,391 +5,1450 @@
    =================================================================*/
 
 /* -----------------------------------------------------------------
-   CLASS CURRICULUM DATA
+   CLASS INFO
 ----------------------------------------------------------------- */
 const CURRICULUM = {
-  D: {
-    name: "Class D",
-    tagline: "Entry-level water system operations & daily responsibilities",
-    chapters: [
+  "D": {
+    "name": "Class D",
+    "tagline": "Entry-level water system operations \u2014 wells, chlorination, and daily responsibilities"
+  },
+  "C": {
+    "name": "Class C",
+    "tagline": "Adds aeration, pH adjustment, corrosion control, and closed-pressure treatment"
+  },
+  "B": {
+    "name": "Class B",
+    "tagline": "Multiple treatment types, or iron/manganese removal with flocculation and sedimentation"
+  },
+  "A": {
+    "name": "Class A",
+    "tagline": "Full surface water treatment \u2014 coagulation, filtration, and lime softening"
+  }
+};
+
+/* -----------------------------------------------------------------
+   CHAPTER REGISTRY  (shared canonical chapters, drawn from the
+   Mississippi Waterworks Operators Manual — MSDH, Division of Water
+   Supply). Each chapter is a single Study Lesson page, reused across
+   every class whose curriculum includes it, so completing a chapter
+   once counts everywhere it appears.
+----------------------------------------------------------------- */
+const CHAPTERS = {
+  "ch1": {
+    "num": "1",
+    "title": "Safe Drinking Water",
+    "icon": "\u2696\ufe0f",
+    "page": "lessons/ch01-safe-drinking-water.html",
+    "questions": [
       {
-        title: "Water System Basics & Operator Responsibilities",
-        guide: `<h3>Chapter 1 — Water System Basics</h3>
-          <p>As a Class D operator you are the first line of defense for public water safety. You are responsible for daily operations, record-keeping, and reporting any problems to a higher-class operator immediately.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>Types of public water systems (Community, Non-transient, Transient)</li>
-            <li>MSDH certification requirements for Class D</li>
-            <li>Daily operational logs — what must be recorded and when</li>
-            <li>Cross-connection control basics</li>
-            <li>Emergency notification procedures</li>
-          </ul>
-          <h4>Greg's Notes</h4>
-          <p>The most common exam question is about the <strong>3 types of public water systems</strong>. A Community system serves year-round residents; a Non-transient Non-community system serves the same people more than 6 months a year (school, factory); a Transient Non-community system serves different people (gas station, campground).</p>`,
-        questions: buildQ_D_Ch1()
+        "q": "Which of these is NOT one of the three types of public water systems?",
+        "choices": [
+          "Community water system",
+          "Nontransient noncommunity system",
+          "Transient noncommunity system",
+          "Private irrigation system"
+        ],
+        "correct": 3,
+        "explain": "The SDWA recognizes community, nontransient noncommunity, and transient noncommunity systems \u2014 a private irrigation system isn't a public water system category."
       },
       {
-        title: "Distribution System Operations",
-        guide: `<h3>Chapter 2 — Distribution System Operations</h3>
-          <p>Distribution systems move treated water from the plant to customers. Understanding pressure, flow, and pipe materials is critical at the Class D level.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>Pipe materials: PVC, ductile iron, copper, HDPE</li>
-            <li>System pressure requirements (min 20 psi at all times)</li>
-            <li>Dead ends and flushing procedures</li>
-            <li>Valve operation and exercising</li>
-            <li>Hydrant flushing schedules</li>
-            <li>Leak detection basics</li>
-          </ul>
-          <h4>Greg's Notes</h4>
-          <p>Remember: minimum <strong>20 psi residual pressure</strong> during a fire flow event, and <strong>35 psi under normal conditions</strong> is the Mississippi standard. If pressure drops below 20 psi, you must issue a boil-water notice.</p>`,
-        questions: buildQ_D_Ch2()
+        "q": "A rural water system serving year-round residents, with at least 15 service connections, is a:",
+        "choices": [
+          "Transient noncommunity system",
+          "Community water system",
+          "Nontransient noncommunity system",
+          "Bottled water system"
+        ],
+        "correct": 1,
+        "explain": "Community water systems serve a year-round residential population with at least 15 connections or 25 residents."
       },
       {
-        title: "Water Quality Monitoring & Sampling",
-        guide: `<h3>Chapter 3 — Water Quality Monitoring</h3>
-          <p>Sampling and monitoring are how you prove the water is safe. Incorrect sampling is one of the most common violations found in Mississippi systems.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>Total Coliform Rule (TCR) and Revised TCR sampling requirements</li>
-            <li>Turbidity monitoring — limits and response actions</li>
-            <li>Residual disinfectant monitoring (chlorine residual ≥ 0.2 mg/L)</li>
-            <li>Sample siting plan</li>
-            <li>Chain of custody and holding times</li>
-            <li>Reporting timelines to MSDH</li>
-          </ul>
-          <h4>Greg's Notes</h4>
-          <p>The big rule: <strong>maintain a detectable chlorine residual (≥ 0.2 mg/L)</strong> throughout the distribution system. If you find zero residual, collect a coliform sample within 24 hours and notify your supervisor immediately.</p>`,
-        questions: buildQ_D_Ch3()
+        "q": "A restaurant along the interstate serving different travelers each day is a:",
+        "choices": [
+          "Community water system",
+          "Nontransient noncommunity system",
+          "Transient noncommunity system",
+          "Industrial system"
+        ],
+        "correct": 2,
+        "explain": "It serves different (transient) people who don't live there \u2014 a classic transient noncommunity example."
       },
       {
-        title: "Safety, Records & Emergency Response",
-        guide: `<h3>Chapter 4 — Safety, Records & Emergency Response</h3>
-          <p>Safety is non-negotiable. Operators work around electrical equipment, chemicals, and confined spaces. Proper records protect the operator and the public.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>OSHA Hazard Communication (HazCom) & SDS sheets</li>
-            <li>Confined space entry procedures</li>
-            <li>Chlorine gas safety and first aid</li>
-            <li>Required record retention (minimum 3 years for most records)</li>
-            <li>Consumer Confidence Reports (CCR)</li>
-            <li>Boil-water notice issuance and rescission</li>
-          </ul>
-          <h4>Greg's Notes</h4>
-          <p>Records must be kept for <strong>at least 3 years</strong> for monitoring results, <strong>10 years</strong> for CCRs, and <strong>indefinitely</strong> for variance/exemption records. Know these numbers cold — they show up on every exam.</p>`,
-        questions: buildQ_D_Ch4()
+        "q": "Which agency has primacy for the Safe Drinking Water Act in Mississippi?",
+        "choices": [
+          "U.S. EPA Region 4",
+          "Mississippi State Department of Health",
+          "Mississippi DEQ",
+          "USDA"
+        ],
+        "correct": 1,
+        "explain": "MSDH is the primacy agency; its Division of Water Supply administers the program."
+      },
+      {
+        "q": "An MCL goal (MCLG) is:",
+        "choices": [
+          "The enforceable legal limit",
+          "A non-enforceable health-based goal, zero for carcinogens",
+          "The same thing as a treatment technique",
+          "Only used for secondary standards"
+        ],
+        "correct": 1,
+        "explain": "The MCLG is a goal associated with no adverse health effects \u2014 not an enforceable standard. The MCL is what's actually enforced."
+      },
+      {
+        "q": "Which is an example of a Tier 1 violation?",
+        "choices": [
+          "Missing a routine monitoring deadline",
+          "Using an unapproved testing procedure",
+          "Exceeding a maximum contaminant level (MCL)",
+          "Filing a late sanitary survey report"
+        ],
+        "correct": 2,
+        "explain": "Tier 1 violations include failure to comply with an MCL, a treatment technique, or a variance/exemption schedule \u2014 the most serious category."
+      },
+      {
+        "q": "How long must a water system keep chemical analysis and sanitary survey reports?",
+        "choices": [
+          "3 years",
+          "5 years",
+          "10 years from completion",
+          "Indefinitely"
+        ],
+        "correct": 2,
+        "explain": "Chemical analyses and written reports like sanitary surveys must be retained 10 years following completion."
+      },
+      {
+        "q": "A maximum fine of $25,000 per day per violation can apply when a system:",
+        "choices": [
+          "Misses a single routine sample",
+          "Violates an EPA emergency order",
+          "Fails to mail a CCR on time",
+          "Uses an uncertified lab"
+        ],
+        "correct": 1,
+        "explain": "Violating an EPA emergency order \u2014 issued when a violation poses an imminent and substantial danger \u2014 carries up to $25,000 per day, per violation."
       }
     ]
   },
-  C: {
-    name: "Class C",
-    tagline: "Intermediate water treatment & system management",
-    chapters: [
+  "ch2": {
+    "num": "2",
+    "title": "Operator Certification",
+    "icon": "\ud83c\udf93",
+    "page": "lessons/ch02-operator-certification.html",
+    "questions": [
       {
-        title: "Coagulation, Flocculation & Sedimentation",
-        guide: `<h3>Chapter 1 — Coagulation, Flocculation & Sedimentation</h3>
-          <p>These three processes work together to remove suspended particles from raw water before filtration. Understanding jar tests and chemical feed is essential for Class C.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>Coagulants: alum, ferric sulfate, poly-DADMAC</li>
-            <li>Optimum pH range for coagulation (6.5 – 7.5 for alum)</li>
-            <li>Jar test procedure and interpretation</li>
-            <li>Floc formation and settling velocity (Stokes' Law)</li>
-            <li>Surface overflow rate calculations</li>
-            <li>Sludge handling and disposal</li>
-          </ul>`,
-        questions: buildQ_Generic("C", 1)
+        "q": "A system that loses its certified operator must replace that operator within:",
+        "choices": [
+          "30 days",
+          "90 days",
+          "180 days",
+          "1 year"
+        ],
+        "correct": 2,
+        "explain": "The law requires replacement within 180 days of losing a certified operator."
       },
       {
-        title: "Filtration",
-        guide: `<h3>Chapter 2 — Filtration</h3>
-          <p>Filtration removes particles, pathogens, and turbidity that escape sedimentation. Proper backwash procedures keep filters effective.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>Filter media: sand, anthracite, garnet, GAC</li>
-            <li>Filter loading rate (typically 2–5 gpm/ft²)</li>
-            <li>Turbidity performance standards (≤ 0.3 NTU 95% of time)</li>
-            <li>Filter-to-waste procedure</li>
-            <li>Backwash rate and duration</li>
-            <li>Ripening period</li>
-          </ul>`,
-        questions: buildQ_Generic("C", 2)
+        "q": "A system with one or more wells and no treatment beyond chlorination, fluoridation, and phosphate addition is:",
+        "choices": [
+          "Class A",
+          "Class B",
+          "Class C",
+          "Class D"
+        ],
+        "correct": 3,
+        "explain": "That's the Class D definition exactly \u2014 the simplest treatment classification."
       },
       {
-        title: "Disinfection",
-        guide: `<h3>Chapter 3 — Disinfection</h3>
-          <p>Disinfection kills pathogens. The type and dose of disinfectant depends on water quality and regulatory requirements.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>CT concept (Concentration × Time)</li>
-            <li>Chlorine chemistry: free vs. combined chlorine</li>
-            <li>Breakpoint chlorination</li>
-            <li>DBP formation: THMs and HAA5s (Stage 2 D/DBP Rule)</li>
-            <li>UV disinfection basics</li>
-            <li>Ozone applications</li>
-          </ul>`,
-        questions: buildQ_Generic("C", 3)
+        "q": "A system with aeration, pH adjustment, corrosion control, or closed-pressure treatment (including zeolite softening or iron removal) is classified as:",
+        "choices": [
+          "Class D",
+          "Class C",
+          "Class B",
+          "Class E"
+        ],
+        "correct": 1,
+        "explain": "Aeration, pH adjustment, corrosion control, and closed-pressure treatment define Class C."
       },
       {
-        title: "Chemical Feed & Process Control",
-        guide: `<h3>Chapter 4 — Chemical Feed & Process Control</h3>
-          <p>Accurate chemical dosing protects public health and prevents regulatory violations. Operators must calculate dosage and verify feed equipment.</p>
-          <h4>Key Topics</h4>
-          <ul>
-            <li>Dosing calculations (mg/L to lbs/day)</li>
-            <li>Chemical feed pumps: peristaltic, diaphragm, piston</li>
-            <li>Calibration procedures</li>
-            <li>Corrosion control: pH adjustment, phosphate inhibitors</li>
-            <li>Fluoridation requirements</li>
-          </ul>`,
-        questions: buildQ_Generic("C", 4)
+        "q": "What is the minimum supervised experience required for any Mississippi waterworks certification?",
+        "choices": [
+          "6 months",
+          "1 year",
+          "2 years",
+          "3 years"
+        ],
+        "correct": 1,
+        "explain": "Every certification path requires at least one year of supervised experience under a certified operator."
+      },
+      {
+        "q": "A Mississippi waterworks operator certificate is valid for:",
+        "choices": [
+          "1 year",
+          "2 years",
+          "3 years",
+          "5 years"
+        ],
+        "correct": 2,
+        "explain": "Certificates are valid for three years unless revoked for cause."
+      },
+      {
+        "q": "An operator continuously licensed for 5 years needs how many continuing education units to renew?",
+        "choices": [
+          "12",
+          "24",
+          "48",
+          "60"
+        ],
+        "correct": 2,
+        "explain": "Operators licensed continuously for less than 9 years need 48 approved CEUs within the 3-year certificate period."
+      },
+      {
+        "q": "If a renewal application is filed more than 30 days after the certificate expires, the operator must:",
+        "choices": [
+          "Pay a late fee only",
+          "Retake the written certification exam",
+          "Wait one year to reapply",
+          "Automatically lose eligibility"
+        ],
+        "correct": 1,
+        "explain": "Filing more than 30 days after expiration \u2014 or failing to get the required CEU hours \u2014 requires passing the written exam again."
+      },
+      {
+        "q": "Systems that purchase all their water, or operators whose only job is running a distribution system, are classified as:",
+        "choices": [
+          "Class D",
+          "Class C",
+          "Class E",
+          "Class A"
+        ],
+        "correct": 2,
+        "explain": "Class E covers systems that purchase water only, including pure distribution-only operators."
       }
     ]
   },
-  B: {
-    name: "Class B",
-    tagline: "Advanced operations — systems serving 10,001–100,000 people",
-    chapters: [
+  "ch3": {
+    "num": "3",
+    "title": "Mathematics",
+    "icon": "\ud83d\udd22",
+    "page": "lessons/ch03-mathematics.html",
+    "questions": [
       {
-        title: "Groundwater & Surface Water Sources",
-        guide: `<h3>Chapter 1 — Source Water</h3>
-          <p>Understanding your source is the first step in treating it correctly. Class B operators manage larger systems with more complex source-water challenges.</p>
-          <ul>
-            <li>Aquifer types and recharge zones</li>
-            <li>Seasonal variation in surface water quality</li>
-            <li>Source Water Assessment Programs (SWAP)</li>
-            <li>Watershed protection strategies</li>
-          </ul>`,
-        questions: buildQ_Generic("B", 1)
+        "q": "How many pounds does one gallon of water weigh?",
+        "choices": [
+          "7.48 lbs",
+          "8.34 lbs",
+          "62.4 lbs",
+          "1.0 lb"
+        ],
+        "correct": 1,
+        "explain": "One gallon of water weighs 8.34 pounds \u2014 the number behind every dosage calculation."
       },
       {
-        title: "Advanced Treatment Processes",
-        guide: `<h3>Chapter 2 — Advanced Treatment</h3>
-          <p>Larger systems often need advanced treatment to meet stricter regulations for arsenic, nitrate, radionuclides, and emerging contaminants.</p>
-          <ul>
-            <li>Ion exchange</li>
-            <li>Membrane filtration (MF, UF, NF, RO)</li>
-            <li>Activated carbon adsorption</li>
-            <li>Iron & manganese removal</li>
-            <li>Softening (lime-soda and ion exchange)</li>
-          </ul>`,
-        questions: buildQ_Generic("B", 2)
+        "q": "A dose of 1 mg/l in one million gallons of water equals how many pounds of chemical?",
+        "choices": [
+          "1 lb",
+          "7.48 lbs",
+          "8.34 lbs",
+          "62.4 lbs"
+        ],
+        "correct": 2,
+        "explain": "1 mg/l = 1 ppm = 8.34 lbs of chemical per million gallons of water."
       },
       {
-        title: "Pumps & Hydraulics",
-        guide: `<h3>Chapter 3 — Pumps & Hydraulics</h3>
-          <p>Pumps are the heart of any water system. Class B operators must understand pump curves, NPSH, and energy efficiency.</p>
-          <ul>
-            <li>Centrifugal pump operation and characteristics</li>
-            <li>TDH (total dynamic head) calculations</li>
-            <li>Specific speed and pump selection</li>
-            <li>Cavitation and NPSH</li>
-            <li>Variable frequency drives (VFDs)</li>
-          </ul>`,
-        questions: buildQ_Generic("B", 3)
+        "q": "What is the area of a circular filter with a 20-foot diameter? (Area = \u03c0 \u00d7 D\u00b2 \u00f7 4)",
+        "choices": [
+          "62.8 ft\u00b2",
+          "100 ft\u00b2",
+          "314 ft\u00b2",
+          "1,256 ft\u00b2"
+        ],
+        "correct": 2,
+        "explain": "3.14 \u00d7 20\u00b2 \u00f7 4 = 3.14 \u00d7 400 \u00f7 4 = 314 square feet."
       },
       {
-        title: "SCADA & System Management",
-        guide: `<h3>Chapter 4 — SCADA & Management</h3>
-          <p>Modern water systems rely on SCADA for remote monitoring and control. Class B operators must understand cybersecurity basics and system-wide management.</p>
-          <ul>
-            <li>SCADA components and architecture</li>
-            <li>Alarm response procedures</li>
-            <li>Asset management and capital improvement planning</li>
-            <li>Cybersecurity for water systems (AWIA 2018)</li>
-          </ul>`,
-        questions: buildQ_Generic("B", 4)
+        "q": "How many gallons are in one cubic foot of water?",
+        "choices": [
+          "1 gallon",
+          "3.14 gallons",
+          "7.48 gallons",
+          "8.34 gallons"
+        ],
+        "correct": 2,
+        "explain": "One cubic foot of water equals 7.48 gallons \u2014 a key conversion for tank volume problems."
+      },
+      {
+        "q": "A rectangular tank is 10 ft long, 8 ft wide, and 6 ft tall. What is its volume in cubic feet?",
+        "choices": [
+          "24 ft\u00b3",
+          "240 ft\u00b3",
+          "480 ft\u00b3",
+          "680 ft\u00b3"
+        ],
+        "correct": 2,
+        "explain": "Volume = L \u00d7 W \u00d7 H = 10 \u00d7 8 \u00d7 6 = 480 cubic feet."
+      },
+      {
+        "q": "Which formula finds the volume of a cylindrical tank?",
+        "choices": [
+          "L \u00d7 W \u00d7 H",
+          "\u03c0 \u00d7 D\u00b2 \u00f7 4",
+          "3.14 \u00d7 r\u00b2 \u00d7 H",
+          "2W + 2L"
+        ],
+        "correct": 2,
+        "explain": "Cylinder volume = 3.14 \u00d7 radius\u00b2 \u00d7 height."
+      },
+      {
+        "q": "If 80% of a system's 500 connections are metered, how many are NOT metered?",
+        "choices": [
+          "40",
+          "100",
+          "400",
+          "480"
+        ],
+        "correct": 1,
+        "explain": "20% are unmetered: 0.20 \u00d7 500 = 100 connections."
+      },
+      {
+        "q": "To multiply two decimal numbers by hand, you should:",
+        "choices": [
+          "Ignore the decimal points until the final answer",
+          "Multiply as whole numbers, then count total decimal places to place the point",
+          "Round both numbers to whole numbers first",
+          "Add the decimal places together before multiplying"
+        ],
+        "correct": 1,
+        "explain": "Multiply as if there were no decimals, then count the total decimal places in both factors and point off that many places in the product."
       }
     ]
   },
-  A: {
-    name: "Class A",
-    tagline: "Expert-level — systems serving 100,001+ people",
-    chapters: [
+  "ch4": {
+    "num": "4",
+    "title": "Hydraulics",
+    "icon": "\u2699\ufe0f",
+    "page": "lessons/ch04-hydraulics.html",
+    "questions": [
       {
-        title: "Regulatory Compliance & Reporting",
-        guide: `<h3>Chapter 1 — Regulatory Compliance</h3>
-          <p>Class A operators must master the Safe Drinking Water Act and all primary/secondary standards. Non-compliance can trigger fines and criminal liability.</p>
-          <ul>
-            <li>SDWA structure and key rules (TCR, D/DBP, LCR, SWTR)</li>
-            <li>Maximum Contaminant Levels (MCLs) vs. MCLGs</li>
-            <li>Public notification tiers (Tier 1, 2, 3)</li>
-            <li>Variance and exemptions</li>
-            <li>MSDH enforcement actions</li>
-          </ul>`,
-        questions: buildQ_Generic("A", 1)
+        "q": "One foot of water column exerts how much pressure?",
+        "choices": [
+          "0.0433 psi",
+          "0.433 psi",
+          "2.31 psi",
+          "4.33 psi"
+        ],
+        "correct": 1,
+        "explain": "1 foot of water = 0.433 psi \u2014 the fundamental static-pressure conversion."
       },
       {
-        title: "Lead & Copper Rule",
-        guide: `<h3>Chapter 2 — Lead & Copper Rule</h3>
-          <p>Lead exposure is one of the most serious public health risks in drinking water. The 2021 Lead and Copper Rule Revisions tightened requirements significantly.</p>
-          <ul>
-            <li>Action Level (AL) and Treatment Technique (TT)</li>
-            <li>90th percentile sampling protocol</li>
-            <li>Corrosion control treatment (CCT) selection</li>
-            <li>Lead service line (LSL) inventory and replacement</li>
-            <li>Public education requirements</li>
-          </ul>`,
-        questions: buildQ_Generic("A", 2)
+        "q": "One psi of pressure corresponds to how many feet of water head?",
+        "choices": [
+          "0.433 ft",
+          "1 ft",
+          "2.31 ft",
+          "10 ft"
+        ],
+        "correct": 2,
+        "explain": "1 psi = 2.31 feet of water (the reciprocal of 0.433)."
       },
       {
-        title: "Finished Water Storage & Security",
-        guide: `<h3>Chapter 3 — Storage & Security</h3>
-          <p>Finished water storage must maintain quality and adequate volume while being protected against contamination and physical threats.</p>
-          <ul>
-            <li>Sizing storage tanks (fire flow + emergency + equalizing)</li>
-            <li>Maintaining chlorine residual in storage</li>
-            <li>Inspection and maintenance of tanks</li>
-            <li>AWIA security requirements</li>
-            <li>Emergency response plans</li>
-          </ul>`,
-        questions: buildQ_Generic("A", 3)
+        "q": "Static pressure at the base of a water column depends on:",
+        "choices": [
+          "The shape of the container",
+          "The height of water above the point, only",
+          "The diameter of the container, only",
+          "Both height and container shape equally"
+        ],
+        "correct": 1,
+        "explain": "Pressure depends only on the height of water above the point of measurement \u2014 not on the container's shape."
       },
       {
-        title: "Staffing, Training & Utility Management",
-        guide: `<h3>Chapter 4 — Utility Management</h3>
-          <p>Class A operators often serve as plant managers. Financial sustainability, workforce development, and strategic planning are key competencies.</p>
-          <ul>
-            <li>Rate setting and financial audits</li>
-            <li>Succession planning</li>
-            <li>Continuing education and certification maintenance</li>
-            <li>Environmental justice considerations</li>
-            <li>Effective utility management (EUM) benchmarks</li>
-          </ul>`,
-        questions: buildQ_Generic("A", 4)
+        "q": "Design velocities in a distribution system are normally kept under:",
+        "choices": [
+          "1 ft/sec",
+          "5 ft/sec",
+          "15 ft/sec",
+          "30 ft/sec"
+        ],
+        "correct": 1,
+        "explain": "Distribution velocities are routinely designed below 5 ft/sec to minimize friction loss."
+      },
+      {
+        "q": "A new PVC pipe typically has a Hazen-Williams roughness coefficient (C) of about:",
+        "choices": [
+          "50",
+          "90",
+          "130",
+          "150"
+        ],
+        "correct": 3,
+        "explain": "New PVC pipe has a C-value around 150 \u2014 smoother than new ductile iron (about 130) or old cast iron (50 or lower)."
+      },
+      {
+        "q": "Which pump type delivers a constant volume of solution regardless of downstream pressure, and is mainly used for chemical feed?",
+        "choices": [
+          "Centrifugal pump",
+          "Positive displacement pump",
+          "Turbine pump",
+          "Jet pump"
+        ],
+        "correct": 1,
+        "explain": "Positive displacement (piston or rotary) pumps deliver a constant volume \u2014 ideal for small-plant chemical feed, but they must be protected from closed valves."
+      },
+      {
+        "q": "A centrifugal pump must be _____ before it can move water.",
+        "choices": [
+          "Grounded",
+          "Primed",
+          "Reversed",
+          "Throttled"
+        ],
+        "correct": 1,
+        "explain": "If the casing is filled with air or vapor, the impeller can't create the low pressure needed to draw water \u2014 the pump must be primed."
+      },
+      {
+        "q": "The point on a pump's curve where flow drops to zero and head is at its maximum is called the:",
+        "choices": [
+          "Shut-off head",
+          "Suction lift",
+          "NPSH",
+          "Discharge head"
+        ],
+        "correct": 0,
+        "explain": "Shut-off head is the maximum head reached at zero discharge, when a valve closes downstream."
+      }
+    ]
+  },
+  "ch5": {
+    "num": "5",
+    "title": "Ground Water & Wells",
+    "icon": "\ud83d\udd73\ufe0f",
+    "page": "lessons/ch05-groundwater-wells.html",
+    "questions": [
+      {
+        "q": "What percentage of Mississippi's public water systems rely at least partly on ground water?",
+        "choices": [
+          "25%",
+          "50%",
+          "88%",
+          "100%"
+        ],
+        "correct": 2,
+        "explain": "About 88% of the water used by Mississippi public water systems is ground water; all systems use some as primary or backup."
+      },
+      {
+        "q": "An aquifer with an impervious layer above and below it, so water is under pressure, is called a/an:",
+        "choices": [
+          "Unconfined aquifer",
+          "Water table aquifer",
+          "Confined aquifer",
+          "Free ground-water reservoir"
+        ],
+        "correct": 2,
+        "explain": "A confined aquifer is sandwiched between impervious layers, giving the water pressure like a distribution main."
+      },
+      {
+        "q": "A well in which water rises above the top of the aquifer but not to the surface is called a/an:",
+        "choices": [
+          "Artesian aquifer well",
+          "Water table well",
+          "Flowing artesian well",
+          "Monitoring well"
+        ],
+        "correct": 0,
+        "explain": "If water rises above the top of the aquifer when tapped, it's an artesian aquifer well; if it overflows the casing, it becomes a flowing artesian well."
+      },
+      {
+        "q": "Specific capacity of a well is calculated as:",
+        "choices": [
+          "Drawdown \u00f7 pumping rate",
+          "Pumping rate (gpm) \u00f7 drawdown (ft)",
+          "Transmissivity \u00f7 porosity",
+          "Static water level \u00d7 drawdown"
+        ],
+        "correct": 1,
+        "explain": "Specific capacity = pumping rate in gpm divided by drawdown in feet \u2014 gallons produced per foot of drawdown."
+      },
+      {
+        "q": "Mississippi has approximately how many principal freshwater aquifers?",
+        "choices": [
+          "5",
+          "15",
+          "30",
+          "50"
+        ],
+        "correct": 1,
+        "explain": "The manual cites 15 principal freshwater aquifers in Mississippi."
+      },
+      {
+        "q": "After completing a new well, disinfection should use a free chlorine solution of about:",
+        "choices": [
+          "5 mg/l for 1 hour",
+          "50 mg/l for 24 hours",
+          "200 mg/l for 5 minutes",
+          "1 mg/l for 1 week"
+        ],
+        "correct": 1,
+        "explain": "Disinfect the completed well and adjacent aquifer with a 50 mg/l free chlorine solution held for 24 hours."
+      },
+      {
+        "q": "A new well can be placed in service only after:",
+        "choices": [
+          "One clear bacteriological sample",
+          "Two consecutive chlorine-free samples, at least 2 hours apart, both showing no coliform",
+          "A single turbidity reading under 1 NTU",
+          "30 days of continuous pumping"
+        ],
+        "correct": 1,
+        "explain": "Two consecutive samples, taken at least two hours of continuous pumping apart, must both be chlorine-free and coliform-negative."
+      },
+      {
+        "q": "Porosity measures:",
+        "choices": [
+          "How fast water flows through an aquifer",
+          "The percentage of a formation's volume that is open space",
+          "The well's pumping rate per foot of drawdown",
+          "The mineral content of the water"
+        ],
+        "correct": 1,
+        "explain": "Porosity is the percent of the formation volume that is pore space \u2014 but it doesn't by itself indicate how much water will actually yield, since fine pores (like clay) resist flow."
+      }
+    ]
+  },
+  "ch6": {
+    "num": "6",
+    "title": "Microbiology",
+    "icon": "\ud83e\udda0",
+    "page": "lessons/ch06-microbiology.html",
+    "questions": [
+      {
+        "q": "Why is coliform used as the indicator organism for sewage contamination?",
+        "choices": [
+          "It is the most dangerous pathogen known",
+          "It is always present with sewage, absent without it, and easy/cheap to test for",
+          "It only appears in surface water",
+          "It cannot be killed by chlorine"
+        ],
+        "correct": 1,
+        "explain": "Coliform is reliably present when sewage is present, absent when it isn't, survives longer than pathogens, and is easy and inexpensive to test for."
+      },
+      {
+        "q": "What is the minimum number of bacteriological sample sites required per system?",
+        "choices": [
+          "1",
+          "3",
+          "5",
+          "10"
+        ],
+        "correct": 2,
+        "explain": "Regulations require a minimum of five representative sample sites, laid out in an approved sample siting plan."
+      },
+      {
+        "q": "A bacteriological sample must reach the lab for analysis within:",
+        "choices": [
+          "8 hours",
+          "12 hours",
+          "30 hours",
+          "72 hours"
+        ],
+        "correct": 2,
+        "explain": "Samples must be analyzed within 30 hours of collection or they are rejected and must be re-collected."
+      },
+      {
+        "q": "Which protozoan forms cysts/oocysts resistant enough to pass through even well-maintained filters?",
+        "choices": [
+          "Salmonella",
+          "Cryptosporidium",
+          "E. coli",
+          "Legionella"
+        ],
+        "correct": 1,
+        "explain": "Cryptosporidium oocysts are the smallest of the enteric protozoa and can get through even well-run filters \u2014 multiple barriers (coagulation, filtration, disinfection) are needed."
+      },
+      {
+        "q": "At what free chlorine level and contact time are enteric viruses fully inactivated?",
+        "choices": [
+          "0.2-0.3 ppm for 10 minutes",
+          "0.2-0.3 ppm for 30 minutes",
+          "5 ppm for 1 minute",
+          "No amount of chlorine kills viruses"
+        ],
+        "correct": 1,
+        "explain": "Bacteria die within about 10 minutes at 0.2-0.3 ppm, but enteric viruses need about 30 minutes of contact at the same concentration."
+      },
+      {
+        "q": "What sample bottle size is required for standard bacteriological sampling?",
+        "choices": [
+          "50 ml",
+          "100 ml",
+          "250 ml",
+          "1 liter"
+        ],
+        "correct": 1,
+        "explain": "MSDH provides sterile 100-ml bottles containing sodium thiosulfate to neutralize any chlorine present."
+      },
+      {
+        "q": "Where should a bacteriological sample NEVER be collected from?",
+        "choices": [
+          "An outside cold-water faucet",
+          "A fire hydrant",
+          "A sample site listed in the siting plan",
+          "A faucet that has been flushed 2-3 minutes"
+        ],
+        "correct": 1,
+        "explain": "Fire plugs/hydrants should never be used as sampling points \u2014 nor should faucets near the ground, leaking, or dirty."
+      },
+      {
+        "q": "Which best describes most bacteria found in drinking water?",
+        "choices": [
+          "All bacteria in water cause disease",
+          "Over 80% of bacteria are rod-shaped (bacillus)",
+          "Bacteria cannot reproduce in cold water",
+          "Bacteria require sunlight to reproduce"
+        ],
+        "correct": 1,
+        "explain": "More than 80 percent of bacteria are bacillus (rod) shaped; most bacteria are harmless, though some cause disease."
+      }
+    ]
+  },
+  "ch7": {
+    "num": "7",
+    "title": "Chemistry of Ground Water",
+    "icon": "\ud83e\uddea",
+    "page": "lessons/ch07-chemistry-ground-water.html",
+    "questions": [
+      {
+        "q": "As hydrogen ion (H+) concentration increases, pH:",
+        "choices": [
+          "Increases",
+          "Decreases",
+          "Stays the same",
+          "Becomes negative"
+        ],
+        "correct": 1,
+        "explain": "pH and H+ concentration move in opposite directions \u2014 more H+ means a lower (more acidic) pH."
+      },
+      {
+        "q": "Which of these RAISES the pH of water when added?",
+        "choices": [
+          "Chlorine",
+          "Carbon dioxide",
+          "Lime (hydrated)",
+          "Sulfuric acid"
+        ],
+        "correct": 2,
+        "explain": "Lime, soda ash, sodium hydroxide, and hypochlorite all raise pH. Chlorine, CO2, and acids lower it."
+      },
+      {
+        "q": "Water with a hardness of 250 mg/l as CaCO3 would be classified as:",
+        "choices": [
+          "Soft",
+          "Moderately hard",
+          "Hard",
+          "Very hard"
+        ],
+        "correct": 3,
+        "explain": "Over 200 mg/l as CaCO3 is classified as very hard water."
+      },
+      {
+        "q": "What primarily causes hardness in Mississippi ground water?",
+        "choices": [
+          "Iron and manganese",
+          "Calcium and magnesium ions",
+          "Sodium and chloride",
+          "Dissolved oxygen"
+        ],
+        "correct": 1,
+        "explain": "Calcium and magnesium ions are the main cause of hardness in Mississippi's ground water."
+      },
+      {
+        "q": "Carbonate (temporary) hardness can be reduced simply by:",
+        "choices": [
+          "Adding acid",
+          "Heating the water",
+          "Adding sodium chloride",
+          "Aeration alone"
+        ],
+        "correct": 1,
+        "explain": "Heat drives off carbon dioxide and precipitates carbonate, softening carbonate hardness; non-carbonate hardness does not respond to heat."
+      },
+      {
+        "q": "Which negative ion provides most of the natural alkalinity in Mississippi ground water?",
+        "choices": [
+          "Chloride",
+          "Sulfate",
+          "Bicarbonate",
+          "Nitrate"
+        ],
+        "correct": 2,
+        "explain": "Of the alkaline compounds, bicarbonate salts provide most of the alkalinity found in natural waters."
+      },
+      {
+        "q": "Why is alkalinity important before adding a coagulant like alum?",
+        "choices": [
+          "Alkalinity has no effect on coagulation",
+          "Alum reacts with alkalinity to form hydroxide floc",
+          "Alkalinity destroys the coagulant",
+          "Coagulants only work in acidic water"
+        ],
+        "correct": 1,
+        "explain": "Alum reacts with alkalinity to form aluminum hydroxide floc \u2014 if there isn't enough natural alkalinity, lime or soda ash must be added first."
+      },
+      {
+        "q": "A mixture in which every part is exactly like every other part is called a:",
+        "choices": [
+          "Coagulant",
+          "Solution",
+          "Colloid",
+          "Suspension"
+        ],
+        "correct": 1,
+        "explain": "A solution is a homogeneous mixture \u2014 every part is like every other part \u2014 unlike a colloid or suspension."
+      }
+    ]
+  },
+  "ch8d": {
+    "num": "8 (D)",
+    "title": "Water Treatment \u2014 Class D",
+    "icon": "\ud83e\uddf4",
+    "page": "lessons/ch08d-water-treatment-class-d.html",
+    "questions": [
+      {
+        "q": "Put the stages of the chlorination curve in order as chlorine dose increases from zero.",
+        "choices": [
+          "Free residual \u2192 demand \u2192 combined residual \u2192 breakpoint",
+          "Demand \u2192 combined residual \u2192 breakpoint \u2192 free residual",
+          "Combined residual \u2192 demand \u2192 free residual \u2192 breakpoint",
+          "Breakpoint \u2192 demand \u2192 combined residual \u2192 free residual"
+        ],
+        "correct": 1,
+        "explain": "Chlorine first satisfies demand, then forms combined residual (chloramines), reaches breakpoint where combined residual is destroyed, then forms free residual."
+      },
+      {
+        "q": "What is the minimum recommended free chlorine residual in the distribution system?",
+        "choices": [
+          "0.02 mg/l",
+          "0.2 mg/l",
+          "2.0 mg/l",
+          "4.0 mg/l"
+        ],
+        "correct": 1,
+        "explain": "A detectable free chlorine residual of at least 0.2 mg/l is recommended throughout the distribution system."
+      },
+      {
+        "q": "High-test calcium hypochlorite (HTH) is approximately what percent available chlorine?",
+        "choices": [
+          "10%",
+          "35%",
+          "70%",
+          "100%"
+        ],
+        "correct": 2,
+        "explain": "HTH is a granular/powdered compound containing around 70% available chlorine; gaseous chlorine is nearly 100%."
+      },
+      {
+        "q": "A 500 gpm well needs a 2 ppm chlorine dose. Using ppm \u00d7 gpm \u00d7 0.012 = lbs/24hrs, how many pounds per day?",
+        "choices": [
+          "6 lbs",
+          "12 lbs",
+          "24 lbs",
+          "120 lbs"
+        ],
+        "correct": 1,
+        "explain": "2 \u00d7 500 \u00d7 0.012 = 12 pounds of chlorine per 24 hours."
+      },
+      {
+        "q": "What is the ideal natural fluoride concentration in drinking water?",
+        "choices": [
+          "0.1-0.3 mg/l",
+          "0.8-1.2 mg/l",
+          "2.0-3.0 mg/l",
+          "5.0-6.0 mg/l"
+        ],
+        "correct": 1,
+        "explain": "A concentration of 0.8 to 1.2 mg/l fluoride ion is considered ideal for reducing tooth decay."
+      },
+      {
+        "q": "Which chemical is a corrosive, 22-30% liquid used to add fluoride?",
+        "choices": [
+          "Sodium fluoride",
+          "Hydrofluosilicic acid",
+          "Sodium silicofluoride",
+          "Sodium hypochlorite"
+        ],
+        "correct": 1,
+        "explain": "Hydrofluosilicic acid is a colorless, corrosive, fuming liquid, sold as a 22-30% aqueous solution."
+      },
+      {
+        "q": "Recommended chlorine contact time for effective disinfection is about:",
+        "choices": [
+          "1-2 minutes",
+          "15-30 minutes",
+          "2-3 hours",
+          "24 hours"
+        ],
+        "correct": 1,
+        "explain": "A contact time of 15 to 30 minutes is recommended for effective disinfection."
+      },
+      {
+        "q": "Disinfection with chlorine is generally MORE effective at:",
+        "choices": [
+          "Higher pH",
+          "Lower pH",
+          "Any pH, pH has no effect",
+          "Only at pH 7.0 exactly"
+        ],
+        "correct": 1,
+        "explain": "Hypochlorous acid (the stronger disinfecting form of chlorine) is more prevalent at lower pH, so disinfection is more effective there."
+      }
+    ]
+  },
+  "ch8bc": {
+    "num": "8 (B&C)",
+    "title": "Water Treatment \u2014 Unit Processes",
+    "icon": "\ud83c\udfed",
+    "page": "lessons/ch08bc-water-treatment-unit-processes.html",
+    "questions": [
+      {
+        "q": "Aeration is especially effective at removing all of the following EXCEPT:",
+        "choices": [
+          "Carbon dioxide",
+          "Hydrogen sulfide",
+          "Dissolved calcium hardness",
+          "Methane"
+        ],
+        "correct": 2,
+        "explain": "Aeration removes gases like CO2, H2S, and methane, and oxidizes iron/manganese \u2014 it does not remove dissolved calcium hardness."
+      },
+      {
+        "q": "Iron concentrations above what level typically stain fixtures and clothing?",
+        "choices": [
+          "0.03 mg/l",
+          "0.3 mg/l",
+          "3.0 mg/l",
+          "30 mg/l"
+        ],
+        "correct": 1,
+        "explain": "Water with more than 0.3 mg/l iron stains fixtures and clothing yellowish-brown."
+      },
+      {
+        "q": "Coagulation \u2014 the neutralization of particle charge by a coagulant \u2014 occurs within about:",
+        "choices": [
+          "1-2 seconds",
+          "1-2 minutes",
+          "10 minutes",
+          "1 hour"
+        ],
+        "correct": 0,
+        "explain": "The positively charged coagulant neutralizes negative particle charge within one or two seconds, which is why rapid mixing right after dosing is critical."
+      },
+      {
+        "q": "Trivalent coagulants (like alum or ferric sulfate) are roughly how much more effective than monovalent coagulants?",
+        "choices": [
+          "2-5 times",
+          "10-20 times",
+          "700-1,000 times",
+          "No difference"
+        ],
+        "correct": 2,
+        "explain": "Trivalent compounds are 700 to 1,000 times more effective as coagulants than monovalent compounds."
+      },
+      {
+        "q": "The minimum recommended detention time for a conventional sedimentation basin is:",
+        "choices": [
+          "30 minutes",
+          "1 hour",
+          "4 hours",
+          "24 hours"
+        ],
+        "correct": 2,
+        "explain": "Conventional sedimentation basins should provide at least 4 hours of settling time (2 hours is acceptable for lime-soda softening treating only ground water)."
+      },
+      {
+        "q": "A typical loading rate for a single-media rapid sand filter is about:",
+        "choices": [
+          "0.5 gpm/ft\u00b2",
+          "2 gpm/ft\u00b2",
+          "10 gpm/ft\u00b2",
+          "25 gpm/ft\u00b2"
+        ],
+        "correct": 1,
+        "explain": "Single-media filters typically operate around 2 gpm/ft\u00b2; dual-media filters run closer to 3 gpm/ft\u00b2."
+      },
+      {
+        "q": "Filters are typically backwashed when head loss reaches:",
+        "choices": [
+          "1-2 feet",
+          "7-10 feet",
+          "25-30 feet",
+          "50 feet"
+        ],
+        "correct": 1,
+        "explain": "The proper time to backwash a gravity filter is when head loss reaches about 7 to 10 feet."
+      },
+      {
+        "q": "Ion exchange softening works best for water with total dissolved solids under about:",
+        "choices": [
+          "200 mg/l",
+          "2,000 mg/l",
+          "20,000 mg/l",
+          "No TDS limit applies"
+        ],
+        "correct": 1,
+        "explain": "Ion exchange is appropriate for waters with TDS under about 2,000 mg/l \u2014 higher TDS shortens the exchange medium's service life."
+      }
+    ]
+  },
+  "ch8a": {
+    "num": "8 (A)",
+    "title": "Water Treatment \u2014 Surface Water",
+    "icon": "\ud83c\udfde\ufe0f",
+    "page": "lessons/ch08a-water-treatment-surface-water.html",
+    "questions": [
+      {
+        "q": "What percentage of Mississippi's population gets its drinking water from surface sources?",
+        "choices": [
+          "About 10%",
+          "About 50%",
+          "About 75%",
+          "About 90%"
+        ],
+        "correct": 0,
+        "explain": "Only about 10% of Mississippians are on surface water \u2014 nationally the figure is closer to 75%."
+      },
+      {
+        "q": "During lime-soda ash softening, calcium carbonate precipitates at approximately what pH?",
+        "choices": [
+          "6.5",
+          "8.3",
+          "9.4",
+          "12.0"
+        ],
+        "correct": 2,
+        "explain": "Calcium carbonate precipitates at a pH of about 9.4 during lime treatment."
+      },
+      {
+        "q": "After lime-soda softening, recarbonation typically lowers the pH back down to about:",
+        "choices": [
+          "6.0",
+          "8.6",
+          "10.6",
+          "11.5"
+        ],
+        "correct": 1,
+        "explain": "Recarbonation (adding CO2) reduces pH from around 11 down to about 8.6, stabilizing the water and preventing calcium carbonate deposits."
+      },
+      {
+        "q": "What causes trihalomethanes (THMs) to form in surface water treatment?",
+        "choices": [
+          "Fluoride reacting with calcium",
+          "Free chlorine residual reacting with natural organic matter",
+          "Ozone reacting with iron",
+          "Alum reacting with turbidity"
+        ],
+        "correct": 1,
+        "explain": "Natural organic (humic/fulvic) compounds react with free chlorine residual to form THMs like chloroform."
+      },
+      {
+        "q": "Compared to free chlorine, chloramines are approximately how much less effective at disinfection (at typical surface-water pH)?",
+        "choices": [
+          "About 2 times less effective",
+          "About 20 times less effective",
+          "About 200 times less effective",
+          "Equally effective"
+        ],
+        "correct": 2,
+        "explain": "It takes roughly 200 times as much chloramine to provide the same disinfection as free chlorine when pH is below 7.0."
+      },
+      {
+        "q": "What is the EPA's cap on the combined residual of chlorine dioxide, chlorite, and chlorate?",
+        "choices": [
+          "0.1 mg/l",
+          "1.0 mg/l",
+          "4.0 mg/l",
+          "10.0 mg/l"
+        ],
+        "correct": 1,
+        "explain": "EPA recommends the total distribution residual of chlorine dioxide, chlorite, and chlorate not exceed 1.0 mg/l."
+      },
+      {
+        "q": "Ozone as a disinfectant:",
+        "choices": [
+          "Leaves a strong, lasting residual",
+          "Leaves no residual and must be generated on-site",
+          "Is cheaper than chlorine in the U.S.",
+          "Forms large amounts of THMs"
+        ],
+        "correct": 1,
+        "explain": "Ozone is a powerful oxidant that leaves no residual, must be produced on-site, and is more expensive than chlorine \u2014 but it doesn't form THMs."
+      },
+      {
+        "q": "Short circuiting in a sedimentation basin is most often caused by:",
+        "choices": [
+          "Too much detention time",
+          "Poor inlet baffling",
+          "Excess alkalinity",
+          "Cold water temperature"
+        ],
+        "correct": 1,
+        "explain": "Poorly designed or worn inlet baffles cause uneven flow distribution, letting some water bypass the basin's full design detention time."
+      }
+    ]
+  },
+  "ch9": {
+    "num": "9",
+    "title": "Distribution & Storage",
+    "icon": "\ud83d\udeb0",
+    "page": "lessons/ch09-distribution-storage.html",
+    "questions": [
+      {
+        "q": "What is the recommended minimum size for a water main?",
+        "choices": [
+          "2 inches",
+          "4 inches",
+          "8 inches",
+          "12 inches"
+        ],
+        "correct": 1,
+        "explain": "4 inches is the recommended minimum main size; mains supplying fire protection should be at least 6 inches."
+      },
+      {
+        "q": "What is the absolute minimum pressure that must be maintained in a distribution system?",
+        "choices": [
+          "10 psi",
+          "20 psi",
+          "35 psi",
+          "60 psi"
+        ],
+        "correct": 1,
+        "explain": "20 psi is the minimum \u2014 dropping below it can allow contaminants to be drawn in and typically triggers a boil-water notice."
+      },
+      {
+        "q": "New water mains should be disinfected with a free chlorine solution of at least:",
+        "choices": [
+          "5 mg/l for 1 hour",
+          "50 mg/l for 24 hours",
+          "200 mg/l for 5 minutes",
+          "500 mg/l for 30 minutes"
+        ],
+        "correct": 1,
+        "explain": "New mains are disinfected with at least 50 mg/l free chlorine, held 24 hours, ending with at least 10 mg/l residual remaining."
+      },
+      {
+        "q": "A hydrostatic pressure test on a new main should be conducted at what pressure, held how long?",
+        "choices": [
+          "Normal pressure, 10 minutes",
+          "1.5x normal operating pressure, 1 hour",
+          "2x normal pressure, 24 hours",
+          "Half of normal pressure, 1 hour"
+        ],
+        "correct": 1,
+        "explain": "Test pressure should be at least 50% greater than normal operating pressure, maintained for at least one hour while checking for leaks."
+      },
+      {
+        "q": "Which valve type opens with normal flow and closes automatically if flow reverses?",
+        "choices": [
+          "Gate valve",
+          "Globe valve",
+          "Check valve",
+          "Butterfly valve"
+        ],
+        "correct": 2,
+        "explain": "Check valves allow flow in one direction only, protecting against backflow contamination."
+      },
+      {
+        "q": "A pressure (hydropneumatic) tank should be sized at roughly how many times the pump's capacity (gpm) to give a reasonable pump cycle?",
+        "choices": [
+          "5 times",
+          "10 times",
+          "40 times",
+          "100 times"
+        ],
+        "correct": 2,
+        "explain": "Tank capacity in gallons should be at least 40 times the pump's capacity in gpm for a reasonable cycle time."
+      },
+      {
+        "q": "RMDC recommends the water-level swing in an elevated tank or standpipe not exceed:",
+        "choices": [
+          "5 feet",
+          "10 feet",
+          "30 feet",
+          "100 feet"
+        ],
+        "correct": 2,
+        "explain": "Recommended Minimum Design Criteria (RMDC) suggests a maximum 30-foot swing between high and low levels in an elevated storage structure."
+      },
+      {
+        "q": "Which is an advantage of elevated storage over a pressure tank system?",
+        "choices": [
+          "Lower initial cost",
+          "Provides real reserve storage and fire protection",
+          "Requires no maintenance",
+          "Eliminates the need for disinfection"
+        ],
+        "correct": 1,
+        "explain": "Elevated storage provides genuine reserve capacity and can support fire flows \u2014 a pressure tank's volume isn't usable reserve storage at all."
+      }
+    ]
+  },
+  "ch10": {
+    "num": "10",
+    "title": "Chlorination Equipment & Safety",
+    "icon": "\ud83d\udee2\ufe0f",
+    "page": "lessons/ch10-chlorination.html",
+    "questions": [
+      {
+        "q": "Chlorine gas is how many times heavier than air?",
+        "choices": [
+          "Half as heavy",
+          "The same weight",
+          "2.5 times heavier",
+          "10 times heavier"
+        ],
+        "correct": 2,
+        "explain": "Chlorine gas is 2.5 times heavier than air, which is why it settles to the floor and vents are placed low."
+      },
+      {
+        "q": "What is the correct way to check for a chlorine gas leak?",
+        "choices": [
+          "Pour water on the suspected area",
+          "Hold an ammonia-soaked cloth near the area \u2014 a white cloud indicates a leak",
+          "Smell directly at the valve",
+          "Use a lit match near the fitting"
+        ],
+        "correct": 1,
+        "explain": "Ammonia combines with chlorine gas to form a visible white cloud of ammonium chloride \u2014 never pour liquid ammonia directly on a leak."
+      },
+      {
+        "q": "A 150-pound chlorine cylinder has an approximate tare (empty) weight of:",
+        "choices": [
+          "50 lbs",
+          "92 lbs",
+          "150 lbs",
+          "300 lbs"
+        ],
+        "correct": 1,
+        "explain": "A 150-lb cylinder has an approximate tare weight of 92 pounds, stamped on the cylinder shoulder."
+      },
+      {
+        "q": "A ton (2,000 lb) chlorine container, when full, weighs approximately:",
+        "choices": [
+          "1,300 lbs",
+          "2,000 lbs",
+          "3,300 lbs",
+          "5,000 lbs"
+        ],
+        "correct": 2,
+        "explain": "The empty ton container weighs about 1,300 lbs; full of chlorine it totals roughly 3,300 lbs."
+      },
+      {
+        "q": "Fusible plugs on chlorine cylinders are designed to melt at approximately what temperature to relieve pressure?",
+        "choices": [
+          "100-110\u00b0F",
+          "158-165\u00b0F",
+          "212\u00b0F",
+          "300\u00b0F"
+        ],
+        "correct": 1,
+        "explain": "Fusible plugs melt at 158-165\u00b0F, releasing pressure before the cylinder can rupture in a fire."
+      },
+      {
+        "q": "Should you use a pipe wrench with an extension to force open a stuck chlorine cylinder valve?",
+        "choices": [
+          "Yes, always",
+          "No \u2014 never use wrenches longer than 6 inches or extensions on chlorine valves",
+          "Only in an emergency",
+          "Only if wearing gloves"
+        ],
+        "correct": 1,
+        "explain": "Never use wrenches longer than six inches, pipe wrenches, or extensions on chlorine valves \u2014 if it won't open normally, loosen the packing nut or return the cylinder to the supplier."
+      },
+      {
+        "q": "In a typical vacuum-fed gas chlorinator, what happens if the booster pump stops?",
+        "choices": [
+          "Chlorine keeps flowing at the same rate",
+          "The vacuum collapses and the chlorinator's safety valves close automatically",
+          "The rotometer reading increases",
+          "Nothing changes until manually shut off"
+        ],
+        "correct": 1,
+        "explain": "Losing the vacuum closes the ejector check valve and the chlorinator's inlet safety valve, stopping chlorine flow \u2014 an important built-in fail-safe."
+      },
+      {
+        "q": "A chlorinator should be sized so normal operation runs at about what fraction of its rotometer scale?",
+        "choices": [
+          "1/4 to 1/3",
+          "1/2 to 2/3",
+          "Nearly 100%",
+          "Under 1/10"
+        ],
+        "correct": 0,
+        "explain": "Sizing for 1/4 to 1/3 of the rotometer scale under normal conditions leaves headroom for higher feed rates and increased chlorine demand."
+      }
+    ]
+  },
+  "ch11": {
+    "num": "11",
+    "title": "Administration & Safety",
+    "icon": "\ud83e\uddba",
+    "page": "lessons/ch11-administration-safety.html",
+    "questions": [
+      {
+        "q": "According to safety studies cited in the manual, what percentage of workplace accidents are caused by specific unsafe employee acts?",
+        "choices": [
+          "25%",
+          "50%",
+          "88%",
+          "99%"
+        ],
+        "correct": 2,
+        "explain": "Approximately 88 percent of accidents are attributed to specific unsafe acts by employees \u2014 which is why training matters so much."
+      },
+      {
+        "q": "In Mississippi, service areas for privately owned water systems and associations are regulated by:",
+        "choices": [
+          "MSDH",
+          "The Public Service Commission",
+          "The county board of supervisors",
+          "The EPA"
+        ],
+        "correct": 1,
+        "explain": "The Public Service Commission (PSC) issues and regulates service areas for privately owned systems and water associations."
+      },
+      {
+        "q": "Breakdown maintenance is best described as:",
+        "choices": [
+          "Scheduled inspections performed routinely",
+          "Repair of already-broken equipment requiring immediate action",
+          "Manufacturer-recommended bearing replacement",
+          "Annual equipment audits"
+        ],
+        "correct": 1,
+        "explain": "Breakdown maintenance is the repair of equipment that has already failed, usually requiring immediate action \u2014 as opposed to scheduled preventive maintenance."
+      },
+      {
+        "q": "How often should a utility's stores/parts inventory be physically counted?",
+        "choices": [
+          "Weekly",
+          "Monthly",
+          "At least once a year",
+          "Only when errors are suspected"
+        ],
+        "correct": 2,
+        "explain": "All material in stores should be physically inventoried at least once a year, ideally by someone outside day-to-day stores control."
+      },
+      {
+        "q": "Indirect costs of a workplace accident (lost time, damaged equipment, etc.) are estimated at about how many times the direct costs?",
+        "choices": [
+          "Half",
+          "The same",
+          "4 times",
+          "20 times"
+        ],
+        "correct": 2,
+        "explain": "Some estimates put indirect accident costs at about four times the direct costs (medical, hospitalization, compensation)."
+      },
+      {
+        "q": "A cutoff policy for nonpayment should be enforced:",
+        "choices": [
+          "At the certified operator's discretion",
+          "Fairly and swiftly",
+          "Only after board approval each time",
+          "Whenever convenient for staff"
+        ],
+        "correct": 1,
+        "explain": "A cutoff policy must be enforced fairly and swiftly to be defensible and to treat all customers equitably."
+      },
+      {
+        "q": "A disputed bill should be handled by:",
+        "choices": [
+          "The certified operator only",
+          "A written, evenly-enforced policy",
+          "Whoever answers the phone that day",
+          "Automatic dismissal of the complaint"
+        ],
+        "correct": 1,
+        "explain": "Utilities need a written policy for disputed bills, applied evenly to every customer."
+      },
+      {
+        "q": "During a media interview, if a question is embarrassing you'd rather not answer, you should:",
+        "choices": [
+          "Say \"no comment\" and walk away",
+          "Lie to protect the utility",
+          "Be prepared in advance and answer, or clearly say you can't discuss it",
+          "Argue with the reporter"
+        ],
+        "correct": 2,
+        "explain": "Rehearse the toughest likely questions in advance; either answer them or clearly say you can't discuss it \u2014 never go in unprepared or argue with a reporter."
+      }
+    ]
+  },
+  "ch12": {
+    "num": "12",
+    "title": "Cross-Connection Control",
+    "icon": "\ud83d\udeb1",
+    "page": "lessons/ch12-cross-connection-control.html",
+    "questions": [
+      {
+        "q": "Backflow caused by a vacuum drawing contaminated water into a potable line is called:",
+        "choices": [
+          "Back pressure",
+          "Back-siphonage",
+          "Cross flow",
+          "Reverse osmosis"
+        ],
+        "correct": 1,
+        "explain": "Back-siphonage results from a vacuum forming in the water line \u2014 from a main break or nearby firefighting, for example."
+      },
+      {
+        "q": "Which backflow prevention device provides physical, visible separation and protects against the widest range of hazards?",
+        "choices": [
+          "Atmospheric vacuum breaker",
+          "Air gap",
+          "Double check valve assembly",
+          "Dual check valve"
+        ],
+        "correct": 1,
+        "explain": "An air gap physically separates potable and non-potable water with an air space, protecting against both back-pressure and back-siphonage for any toxic substance."
+      },
+      {
+        "q": "An air gap's vertical distance should be at least how many times the supply pipe's diameter (never less than 1 inch)?",
+        "choices": [
+          "1 times",
+          "2 times",
+          "5 times",
+          "10 times"
+        ],
+        "correct": 1,
+        "explain": "The air gap should be at least two times the diameter of the supply pipe, but never less than one inch."
+      },
+      {
+        "q": "How often must backflow prevention devices be inspected and tested?",
+        "choices": [
+          "Once every 5 years",
+          "Every 2 years",
+          "Annually",
+          "Only when installed"
+        ],
+        "correct": 2,
+        "explain": "All types of backflow prevention devices must be inspected and tested annually."
+      },
+      {
+        "q": "An atmospheric vacuum breaker (AVB) protects against:",
+        "choices": [
+          "Back pressure only",
+          "Back-siphonage only",
+          "Both back pressure and back-siphonage",
+          "Neither"
+        ],
+        "correct": 1,
+        "explain": "AVBs (and PVBs) protect against back-siphonage only \u2014 they do not protect against back pressure."
+      },
+      {
+        "q": "A reduced pressure zone (RPZ) backflow preventer is recommended when:",
+        "choices": [
+          "The hazard is low and pressure is intermittent",
+          "An air gap isn't feasible in a high-hazard installation",
+          "Only aesthetic contaminants are a concern",
+          "Never \u2014 RPZs are obsolete"
+        ],
+        "correct": 1,
+        "explain": "An RPZ is recommended for any hazardous installation subject to backflow/back-siphonage where a physical air gap isn't practical."
+      },
+      {
+        "q": "Who has the PRIMARY responsibility for preventing contamination of a customer's own plumbing, from the meter to the sewer?",
+        "choices": [
+          "The water supplier",
+          "The plumber",
+          "The customer",
+          "MSDH"
+        ],
+        "correct": 2,
+        "explain": "The customer has primary responsibility for everything from the meter to the sewer, including installing and maintaining any required backflow prevention."
+      },
+      {
+        "q": "What minimum distribution pressure helps reduce the risk of back-siphonage?",
+        "choices": [
+          "5 psi",
+          "20 psi",
+          "50 psi",
+          "100 psi"
+        ],
+        "correct": 1,
+        "explain": "Maintaining at least 20 psi throughout the distribution system reduces the risk of a vacuum forming and pulling in contamination."
       }
     ]
   }
 };
 
 /* -----------------------------------------------------------------
-   QUESTION POOLS  (150 questions per chapter, sampled at runtime)
-   Here we define the full pool for Class D; generic pools for A/B/C
-   are scaffolded via buildQ_Generic and can be expanded identically.
+   CUMULATIVE PER-CLASS CHAPTER LISTS
+   Mississippi's classes build on each other: D is the base, C and B
+   share Chapter 8 B&C on top of D, and A adds Chapter 8A on top of
+   that — so each class's Study Lessons list is fully cumulative.
 ----------------------------------------------------------------- */
+const CLASS_CHAPTERS = {
+  "D": [
+    "ch1",
+    "ch2",
+    "ch3",
+    "ch4",
+    "ch5",
+    "ch6",
+    "ch7",
+    "ch8d",
+    "ch9",
+    "ch10",
+    "ch11",
+    "ch12"
+  ],
+  "C": [
+    "ch1",
+    "ch2",
+    "ch3",
+    "ch4",
+    "ch5",
+    "ch6",
+    "ch7",
+    "ch8d",
+    "ch8bc",
+    "ch9",
+    "ch10",
+    "ch11",
+    "ch12"
+  ],
+  "B": [
+    "ch1",
+    "ch2",
+    "ch3",
+    "ch4",
+    "ch5",
+    "ch6",
+    "ch7",
+    "ch8d",
+    "ch8bc",
+    "ch9",
+    "ch10",
+    "ch11",
+    "ch12"
+  ],
+  "A": [
+    "ch1",
+    "ch2",
+    "ch3",
+    "ch4",
+    "ch5",
+    "ch6",
+    "ch7",
+    "ch8d",
+    "ch8bc",
+    "ch8a",
+    "ch9",
+    "ch10",
+    "ch11",
+    "ch12"
+  ]
+};
 
-function buildQ_D_Ch1() {
-  return [
-    { q:"Which type of public water system serves year-round residents?", choices:["Community Water System","Non-transient Non-community","Transient Non-community","Bottled Water System"], correct:0, explain:"A Community Water System (CWS) serves at least 25 year-round residents or has at least 15 service connections." },
-    { q:"A school that operates 10 months a year with the same students is classified as a:", choices:["Community Water System","Non-transient Non-community System","Transient Non-community System","Private Well"], correct:1, explain:"It serves the same people more than 6 months per year, making it Non-transient Non-community (NTNC)." },
-    { q:"A highway rest-stop water system is classified as a:", choices:["Community Water System","Non-transient Non-community","Transient Non-community System","Industrial System"], correct:2, explain:"It serves different (transient) people who do not live there — a Transient Non-community System (TNC)." },
-    { q:"What is the minimum number of service connections to qualify as a public water system?", choices:["5","10","15","25"], correct:2, explain:"SDWA defines a PWS as serving at least 25 individuals or having at least 15 service connections year-round." },
-    { q:"Who oversees waterworks operator certification in Mississippi?", choices:["EPA Region 4","MSDH Division of Water Supply","Army Corps of Engineers","Mississippi DEQ"], correct:1, explain:"The Mississippi State Department of Health (MSDH), Division of Water Supply, administers certification." },
-    { q:"A Class D operator finds a problem beyond their certification level. They should:", choices:["Fix it anyway","Ignore it until the next inspection","Notify a higher-class operator or supervisor immediately","Call the EPA directly"], correct:2, explain:"Class D operators must notify a higher-class licensed operator of any condition beyond their scope." },
-    { q:"Daily operational logs must be:", choices:["Kept in the operator's car","Filed with the EPA monthly","Maintained at the water system and available for inspection","Destroyed after 30 days"], correct:2, explain:"Logs must be kept on-site and available for review by MSDH inspectors at any time." },
-    { q:"How long must routine monitoring results be kept on file?", choices:["1 year","3 years","5 years","10 years"], correct:1, explain:"Most monitoring records must be retained for at least 3 years under federal and Mississippi regulations." },
-    { q:"A cross-connection is best defined as:", choices:["A pipe that carries wastewater","Any physical link between potable and non-potable water","A leaking valve","A pressure gauge reading"], correct:1, explain:"A cross-connection is any actual or potential physical connection between a potable water supply and a source of contamination." },
-    { q:"The best way to prevent cross-connections is to install:", choices:["A chlorine injector","A backflow prevention device","A pressure reducing valve","A flow meter"], correct:1, explain:"Backflow prevention devices (air gaps, check valves, RPZ assemblies) are the primary control for cross-connections." },
-    { q:"If a water main breaks and pressure drops below 20 psi, operators must:", choices:["Wait for pressure to return","Issue a boil-water notice","Call FEMA","Increase chlorine dose only"], correct:1, explain:"A pressure drop below 20 psi can allow contaminants to enter the system; a boil-water notice is required." },
-    { q:"The Consumer Confidence Report (CCR) must be delivered to customers by:", choices:["January 1","March 31","July 1","December 31"], correct:2, explain:"Community water systems must deliver the annual CCR to customers by July 1 each year." },
-    { q:"CCR records must be kept for:", choices:["3 years","5 years","10 years","Indefinitely"], correct:2, explain:"CCRs must be retained for at least 10 years." },
-    { q:"A Tier 1 public notification is required when:", choices:["A monitoring deadline is missed","There is an acute risk to public health","A secondary standard is violated","A CCR mailing is late"], correct:1, explain:"Tier 1 notifications are for situations posing immediate health risks and must be issued within 24 hours." },
-    { q:"Which is a primary drinking water standard?", choices:["pH","Color","Turbidity","Odor"], correct:2, explain:"Turbidity is regulated as a primary standard because it can interfere with disinfection and may indicate pathogen presence." },
-    { q:"pH is an example of a:", choices:["Primary MCL","Secondary MCL","Treatment Technique","Maximum Residual Disinfectant Level"], correct:1, explain:"pH is a secondary standard related to aesthetics (taste and corrosion), not direct health effects." },
-    { q:"An operator notices an unusual odor in the distribution system. The first step is:", choices:["Ignore it","Increase chlorine at the source","Investigate and document the complaint","Flush all hydrants immediately"], correct:2, explain:"Complaints must be investigated and documented. The root cause must be identified before corrective action." },
-    { q:"Which record is kept INDEFINITELY?", choices:["Turbidity readings","Monthly chlorine residuals","Variance and exemption records","Consumer complaints"], correct:2, explain:"Variances and exemptions and their supporting documentation must be kept indefinitely." },
-    { q:"Emergency contact information for MSDH must be:", choices:["Known only by supervisors","Posted prominently at the facility","Stored only in electronic form","Available from EPA upon request"], correct:1, explain:"Emergency contact numbers must be posted at the facility so any on-duty operator can reach regulators." },
-    { q:"Transient Non-community systems are required to monitor for:", choices:["Lead and copper annually","Nitrate and nitrite annually","Volatile organic chemicals quarterly","All primary contaminants monthly"], correct:1, explain:"TNC systems must test for nitrate (and nitrite) annually and notify customers of any violations." },
-    { q:"The purpose of a sample siting plan is to:", choices:["Identify where to install new mains","Specify collection locations for routine monitoring samples","Schedule backwash intervals","Determine chemical feed rates"], correct:1, explain:"A sample siting plan identifies representative locations in the distribution system for required monitoring samples." },
-    { q:"A 'boil-water notice' should be rescinded only after:", choices:["Pressure is restored","Two consecutive satisfactory coliform sample sets","The operator feels confident","24 hours have passed"], correct:1, explain:"Boil-water notices require two consecutive absent-coliform sample sets (and restored pressure) before rescinding." },
-    { q:"What does the acronym SDWA stand for?", choices:["Safe Drinking Water Act","State Drainage & Water Authority","Source Detection & Warning Alert","Systematic Distribution Water Analysis"], correct:0, explain:"SDWA — Safe Drinking Water Act — is the primary federal law governing public water systems." },
-    { q:"MSDH requires a Class D operator to hold a current license to:", choices:["Only operate treatment plants","Operate any public water system in Mississippi","Only manage groundwater wells","Work only in systems under 500 connections"], correct:1, explain:"Mississippi requires at least a Class D certified operator to be responsible for any public water system." },
-    { q:"Which of the following is NOT a type of public water system?", choices:["Community","Non-transient Non-community","Transient Non-community","Industrial Non-community"], correct:3, explain:"The SDWA recognizes three types: Community, Non-transient Non-community, and Transient Non-community." },
-    // Adding more to approach 150 — abbreviated for brevity; expand identically
-    { q:"The minimum chlorine residual required in the distribution system is:", choices:["0.05 mg/L","0.2 mg/L","0.5 mg/L","1.0 mg/L"], correct:1, explain:"A detectable free chlorine residual of at least 0.2 mg/L must be maintained." },
-    { q:"Under the Total Coliform Rule, a positive total coliform result requires:", choices:["Immediate shut-down","Resampling within 24 hours","Issuance of a violation notice","Notification to FEMA"], correct:1, explain:"A TC-positive triggers follow-up sampling within 24 hours to determine the source." },
-    { q:"Which contaminant is regulated under the Lead and Copper Rule?", choices:["Iron","Lead","Manganese","All metals"], correct:1, explain:"The Lead and Copper Rule specifically targets lead and copper at the tap through corrosion control and monitoring." },
-    { q:"The Action Level for lead in drinking water is:", choices:["5 ppb","10 ppb","15 ppb","25 ppb"], correct:2, explain:"The AL for lead is 15 µg/L (ppb) at the 90th percentile of first-draw samples." },
-    { q:"Fluoride is added to drinking water primarily for:", choices:["Disinfection","Corrosion control","Dental health","Taste improvement"], correct:2, explain:"Fluoridation reduces tooth decay and is one of the great public health achievements of the 20th century." },
-    { q:"What is the MRDL for chlorine in a distribution system?", choices:["2.0 mg/L","4.0 mg/L","6.0 mg/L","0.2 mg/L"], correct:1, explain:"The Maximum Residual Disinfectant Level (MRDL) for chlorine is 4.0 mg/L as an annual average." },
-    { q:"Turbidity in drinking water is measured in:", choices:["mg/L","pH units","NTU","CFU/100mL"], correct:2, explain:"Turbidity is measured in Nephelometric Turbidity Units (NTU)." },
-    { q:"Which organization publishes the Standard Methods for water analysis?", choices:["AWWA and WEF","EPA only","USGS","WHO"], correct:0, explain:"Standard Methods is jointly published by AWWA and WEF and is accepted by EPA for regulatory testing." },
-    { q:"A flushing program is performed to:", choices:["Test for lead","Remove sediment and maintain water quality","Increase system pressure","Calibrate meters"], correct:1, explain:"Flushing removes stagnant water, sediment, and low-residual water from dead-end mains." },
-    { q:"Which valve is designed to allow flow in ONE direction only?", choices:["Gate valve","Ball valve","Check valve","Butterfly valve"], correct:2, explain:"Check valves prevent backflow by allowing flow in one direction only." },
-    // Padding to 150 with variations — all follow same format
-    ...Array.from({length:115}, (_, i) => ({
-      q:`[Class D Ch1] Practice question ${i+36}: Which of the following best describes the role of a Class D operator?`,
-      choices:[
-        "Manage water treatment chemicals and plant design",
-        "Perform daily operations, monitoring, and record-keeping under supervision",
-        "Sign off on construction plans for new mains",
-        "Set water rates for the utility"
-      ],
-      correct: 1,
-      explain: "Class D operators handle daily tasks: reading meters, collecting samples, flushing lines, and maintaining records — always under the oversight of a higher-class operator when needed."
-    }))
-  ];
-}
-
-function buildQ_D_Ch2() {
-  const base = [
-    { q:"The minimum residual pressure in the distribution system during normal conditions should be:", choices:["10 psi","20 psi","35 psi","50 psi"], correct:2, explain:"Mississippi requires 35 psi residual pressure under normal demand conditions." },
-    { q:"During a fire-flow event, the minimum allowable residual pressure is:", choices:["10 psi","20 psi","30 psi","35 psi"], correct:1, explain:"20 psi is the minimum allowed during fire flows to prevent contamination intrusion." },
-    { q:"PVC pipe is most vulnerable to damage from:", choices:["Corrosion","UV light exposure","Bacterial growth","High pH water"], correct:0, explain:"While PVC resists corrosion, it can be damaged by solvent exposure and impact; however, external soil corrosion is still a concern for fittings." },
-    { q:"A dead-end main should be flushed:", choices:["Never","Only when a complaint is received","On a regular scheduled basis","Only after main breaks"], correct:2, explain:"Dead ends trap stagnant water; regular flushing maintains water quality and residual disinfectant." },
-    { q:"The purpose of exercising valves is to:", choices:["Increase water pressure","Ensure they operate correctly when needed","Remove air from the system","Calibrate pressure gauges"], correct:1, explain:"Valves must be operated periodically so they don't seize up in an emergency." },
-    { q:"What pipe material is commonly used for service lines to homes because of its flexibility?", choices:["Cast iron","PVC","Copper","Ductile iron"], correct:2, explain:"Copper is the most common residential service-line material due to its flexibility and durability." },
-    { q:"An operator notices water pressure is consistently low in one area. The first investigation step is:", choices:["Replace all pipes","Check for open or partially closed valves","Add a new pump","Increase chemical feed"], correct:1, explain:"Low pressure in a zone is often caused by a closed or partially open valve rather than a system failure." },
-    { q:"Ductile iron pipe is most resistant to:", choices:["Corrosion","Physical impact and stress","Bacterial growth","Pressure surges"], correct:1, explain:"Ductile iron handles high impact loads and is used for large transmission mains." },
-  ];
-  return [...base, ...Array.from({length:142}, (_, i) => ({
-    q:`[Class D Ch2] Practice question ${i+9}: What is the primary purpose of maintaining system pressure above 20 psi?`,
-    choices:["Improve taste","Prevent backflow and contamination intrusion","Reduce energy costs","Allow for fire flow storage"],
-    correct:1,
-    explain:"Adequate positive pressure prevents contaminants from entering the distribution system through any opening."
-  }))];
-}
-
-function buildQ_D_Ch3() {
-  const base = [
-    { q:"The Total Coliform Rule requires monitoring for:", choices:["E. coli only","Total coliform bacteria","Giardia and Cryptosporidium","Viruses only"], correct:1, explain:"The TCR requires monitoring for total coliform as an indicator of potential fecal contamination." },
-    { q:"If total coliform is detected, what must be tested next?", choices:["Turbidity","E. coli or fecal coliform","Lead","Nitrate"], correct:1, explain:"A TC-positive sample must be analyzed for E. coli or fecal coliform to determine if a Tier 1 violation exists." },
-    { q:"The minimum free chlorine residual that must be detectable in the distribution system is:", choices:["0.05 mg/L","0.1 mg/L","0.2 mg/L","0.5 mg/L"], correct:2, explain:"Any detectable free chlorine residual ≥ 0.2 mg/L must be maintained to reduce microbial risk." },
-    { q:"Turbidity samples for filtered surface water must be taken how often?", choices:["Once per week","Once per day","Every 4 hours or continuously","Once per month"], correct:2, explain:"Filtered surface water systems must monitor turbidity every 4 hours (or continuously) on all filters." },
-  ];
-  return [...base, ...Array.from({length:146}, (_, i) => ({
-    q:`[Class D Ch3] Practice question ${i+5}: Why is monitoring turbidity important for disinfection?`,
-    choices:["High turbidity improves UV penetration","Turbidity indicates the water is too soft","Particles can shield pathogens from disinfectants","Turbidity has no effect on disinfection"],
-    correct:2,
-    explain:"Suspended particles protect microorganisms from chlorine and UV — removing turbidity is critical for effective disinfection."
-  }))];
-}
-
-function buildQ_D_Ch4() {
-  const base = [
-    { q:"SDS sheets (formerly MSDS) are used to:", choices:["Schedule maintenance","Provide chemical hazard and safety information","Record daily turbidity","Track customer complaints"], correct:1, explain:"Safety Data Sheets describe physical/chemical properties, health hazards, and emergency procedures for every chemical." },
-    { q:"Before entering a confined space, an operator must:", choices:["Sign in at the front gate","Test the atmosphere and obtain a permit","Call the EPA","Notify customers"], correct:1, explain:"Confined space entry requires atmospheric testing for oxygen, flammable gas, and toxic chemicals plus a permit." },
-    { q:"Chlorine gas leaks should be handled by:", choices:["Running toward the cloud to shut the valve","Using a SCBA and staying upwind","Covering your nose with a cloth","Sheltering in place inside the building"], correct:1, explain:"Chlorine gas requires proper respiratory protection (SCBA). Always approach from upwind and use buddy system." },
-    { q:"Consumer Confidence Reports must be retained for how many years?", choices:["1","3","5","10"], correct:3, explain:"CCRs must be kept for 10 years." },
-    { q:"A Tier 1 public notification must be issued within:", choices:["24 hours","48 hours","3 days","30 days"], correct:0, explain:"Tier 1 violations pose an immediate health risk and require notification within 24 hours." },
-  ];
-  return [...base, ...Array.from({length:145}, (_, i) => ({
-    q:`[Class D Ch4] Practice question ${i+6}: How long must bacteriological monitoring records be retained?`,
-    choices:["1 year","3 years","5 years","10 years"],
-    correct:1,
-    explain:"Bacteriological (and most routine monitoring) records must be kept for at least 3 years."
-  }))];
-}
-
-function buildQ_Generic(cls, chNum) {
-  const topics = {
-    A: ["regulatory compliance","lead and copper rule","storage & security","utility management"],
-    B: ["source water","advanced treatment","pumps & hydraulics","SCADA & management"],
-    C: ["coagulation & sedimentation","filtration","disinfection","chemical feed"]
-  };
-  const topic = (topics[cls] || ["water treatment"])[chNum-1] || "water operations";
-  return Array.from({length:150}, (_, i) => ({
-    q:`[Class ${cls} Ch${chNum}] Q${i+1}: Which of the following statements about ${topic} is MOST accurate?`,
-    choices:[
-      `Operators must document all ${topic} readings in the daily log`,
-      `${topic.charAt(0).toUpperCase()+topic.slice(1)} has no direct impact on water quality`,
-      `${topic.charAt(0).toUpperCase()+topic.slice(1)} is only relevant for surface water systems`,
-      `No monitoring is required for ${topic} under federal rules`
-    ],
-    correct:0,
-    explain:`Thorough documentation of ${topic} data is required by SDWA regulations and protects both public health and the operator.`
-  }));
-}
 
 /* -----------------------------------------------------------------
    MATH QUESTION POOL  (20 drawn per round from 60+ questions)
@@ -544,7 +1603,7 @@ const DEFAULT_FLASHCARDS = {
 ================================================================= */
 let currentClass = "D";
 let currentPanel = "lessons";
-let lessonDone = {};       // { classKey: [bool, bool, ...] }
+let lessonDone = {};       // { chapterKey: bool, ... } — shared across classes
 let quizState = {};
 let mathState = {};
 let userFlashcards = {};   // { classKey: [{front,back}, ...] }
@@ -594,43 +1653,36 @@ function showPanel(name) {
 
 /* -----------------------------------------------------------------
    LESSONS
+   Chapters are shared canonical content (see CHAPTERS / CLASS_CHAPTERS
+   above) — completing "Chapter 1" counts everywhere it appears, since
+   it's the same lesson page no matter which class you're studying.
+   lessonDone is therefore a flat map keyed by chapter id, not nested
+   per class. "Study" now navigates to the chapter's own themed page
+   (with Greg on it) instead of opening a modal.
 ----------------------------------------------------------------- */
+function currentChapterList() {
+  return CLASS_CHAPTERS[currentClass].map(key => ({ key, ...CHAPTERS[key] }));
+}
+
 function renderLessons() {
-  const cls = CURRICULUM[currentClass];
-  if (!lessonDone[currentClass]) lessonDone[currentClass] = cls.chapters.map(() => false);
-  const done = lessonDone[currentClass];
+  const chapters = currentChapterList();
+  const done = lessonDone;
   const ul = document.getElementById("lesson-list");
-  ul.innerHTML = cls.chapters.map((ch, i) => `
+  ul.innerHTML = chapters.map(ch => `
     <li>
-      <span class="lesson-title">${done[i]?"✅ ":""}Chapter ${i+1}: ${ch.title}</span>
+      <span class="lesson-title">${done[ch.key] ? "✅ " : ""}${ch.icon} Chapter ${ch.num}: ${ch.title}</span>
       <div class="lesson-actions">
-        <button class="btn btn-primary" onclick="openLesson(${i})">📖 Study</button>
-        ${done[i]
-          ? `<button class="btn btn-outline" onclick="toggleLesson(${i})">↩ Undo</button>`
-          : `<button class="btn btn-success" onclick="toggleLesson(${i})">✔ Complete</button>`}
+        <a class="btn btn-primary" href="${ch.page}">📖 Study</a>
+        ${done[ch.key]
+          ? `<button class="btn btn-outline" onclick="toggleLesson('${ch.key}')">↩ Undo</button>`
+          : `<button class="btn btn-success" onclick="toggleLesson('${ch.key}')">✔ Complete</button>`}
       </div>
     </li>
   `).join("");
 }
 
-let _currentLessonIdx = null;
-function openLesson(idx) {
-  _currentLessonIdx = idx;
-  const ch = CURRICULUM[currentClass].chapters[idx];
-  document.getElementById("modal-lesson-title").textContent = `Chapter ${idx+1}: ${ch.title}`;
-  document.getElementById("modal-lesson-body").innerHTML = ch.guide;
-  const done = lessonDone[currentClass];
-  document.getElementById("modal-complete-btn").textContent = done && done[idx] ? "↩ Mark Incomplete" : "✅ Mark Complete";
-  openModal("lesson-modal");
-}
-function markCurrentLessonComplete() {
-  if (_currentLessonIdx === null) return;
-  toggleLesson(_currentLessonIdx);
-  closeModal("lesson-modal");
-}
-function toggleLesson(idx) {
-  if (!lessonDone[currentClass]) lessonDone[currentClass] = CURRICULUM[currentClass].chapters.map(() => false);
-  lessonDone[currentClass][idx] = !lessonDone[currentClass][idx];
+function toggleLesson(key) {
+  lessonDone[key] = !lessonDone[key];
   saveState();
   renderLessons();
   renderProgress();
@@ -638,7 +1690,8 @@ function toggleLesson(idx) {
 }
 
 /* -----------------------------------------------------------------
-   QUIZ ENGINE  (10–15 questions drawn randomly from 150-question pool)
+   QUIZ ENGINE  (10–15 questions drawn randomly across the class's
+   chapters, 2 per chapter)
 ----------------------------------------------------------------- */
 let _quizQuestions = [];
 let _quizIndex = 0;
@@ -646,17 +1699,17 @@ let _quizCorrect = 0;
 let _quizAnswered = false;
 
 function startQuiz() {
-  const cls = CURRICULUM[currentClass];
-  // Pull questions from ALL chapters, 2-4 per chapter randomly
+  const chapters = currentChapterList();
+  // Pull questions from ALL chapters in this class's cumulative list
   let pool = [];
-  cls.chapters.forEach(ch => {
+  chapters.forEach(ch => {
     const shuffled = shuffle([...ch.questions]);
-    const n = 2 + Math.floor(Math.random() * 3);  // 2–4 per chapter
+    const n = Math.min(2, shuffled.length);  // 2 per chapter (each pool has 8)
     pool.push(...shuffled.slice(0, n));
   });
   // Ensure 10–15 total
   pool = shuffle(pool);
-  const total = 10 + Math.floor(Math.random() * 6);  // 10–15
+  const total = Math.min(pool.length, 10 + Math.floor(Math.random() * 6));  // 10–15
   _quizQuestions = pool.slice(0, total);
   _quizIndex = 0;
   _quizCorrect = 0;
@@ -894,25 +1947,23 @@ function searchVideos() {
    PROGRESS PANEL
 ----------------------------------------------------------------- */
 function renderProgress() {
-  const cls = CURRICULUM[currentClass];
-  if (!lessonDone[currentClass]) lessonDone[currentClass] = cls.chapters.map(() => false);
-  const done = lessonDone[currentClass];
-  const completedLessons = done.filter(Boolean).length;
+  const chapters = currentChapterList();
+  const completedLessons = chapters.filter(ch => lessonDone[ch.key]).length;
   const pd = progressData[currentClass] || {quizzesTaken:0,correctTotal:0,questionsTotal:0};
   const pct = pd.questionsTotal > 0 ? Math.round((pd.correctTotal/pd.questionsTotal)*100) : 0;
 
   document.getElementById("stat-row").innerHTML = `
-    <div class="stat-box"><div class="num">${completedLessons}/${cls.chapters.length}</div><div class="lbl">Lessons Complete</div></div>
+    <div class="stat-box"><div class="num">${completedLessons}/${chapters.length}</div><div class="lbl">Lessons Complete</div></div>
     <div class="stat-box"><div class="num">${pd.quizzesTaken}</div><div class="lbl">Quizzes Taken</div></div>
     <div class="stat-box"><div class="num">${pct}%</div><div class="lbl">Overall Accuracy</div></div>
     <div class="stat-box"><div class="num">${pd.questionsTotal}</div><div class="lbl">Questions Answered</div></div>
   `;
 
-  document.getElementById("chapter-progress").innerHTML = cls.chapters.map((ch, i) => {
-    const p = done[i] ? 100 : 0;
+  document.getElementById("chapter-progress").innerHTML = chapters.map(ch => {
+    const p = lessonDone[ch.key] ? 100 : 0;
     return `
       <div class="ch">
-        <div class="ch-label">Ch ${i+1}: ${ch.title.substring(0,35)}…</div>
+        <div class="ch-label">Ch ${ch.num}: ${ch.title.substring(0,35)}…</div>
         <div class="bar-track"><div class="bar-fill" style="width:${p}%"></div></div>
         <div class="pct">${p}%</div>
       </div>`;
@@ -920,7 +1971,7 @@ function renderProgress() {
 }
 
 function resetProgress() {
-  lessonDone[currentClass] = CURRICULUM[currentClass].chapters.map(() => false);
+  currentChapterList().forEach(ch => { delete lessonDone[ch.key]; });
   progressData[currentClass] = {quizzesTaken:0,correctTotal:0,questionsTotal:0};
   saveState();
   renderLessons();
@@ -999,9 +2050,9 @@ function appendUserMsg(text) {
    GREG TIP (updates based on progress)
 ----------------------------------------------------------------- */
 function updateGregTip() {
-  const done = lessonDone[currentClass] || [];
-  const count = done.filter(Boolean).length;
-  const total = CURRICULUM[currentClass].chapters.length;
+  const chapters = currentChapterList();
+  const count = chapters.filter(ch => lessonDone[ch.key]).length;
+  const total = chapters.length;
   const tips = [
     "💡 Start with the Lessons tab to read each chapter's study guide, then hit Practice Quiz!",
     "💡 Great start! Keep going — each chapter builds on the last.",
