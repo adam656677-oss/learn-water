@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Study for your Mississippi water operator license (Class A–D) with Greg, your AI instructor — lessons, quizzes, math practice, and flashcards." />
+  <title>Adult Learning Center – LearnWater</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── BASE RESET & FONTS ─────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:    #0077b6;
+      --teal:    #00b4d8;
+      --dark:    #023e8a;
+      --light:   #f0f8ff;
+      --white:   #ffffff;
+      --gray:    #555;
+      --success: #2d9e6b;
+      --warn:    #e07b00;
+      --radius:  10px;
+    }
+    body { font-family: 'Segoe UI', sans-serif; background: #e8f4fd; color: #222; }
+
+    /* ── TOP NAV ────────────────────────────────────────── */
+    header { background: var(--dark); color: var(--white); padding: 14px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    header img.logo { height: 44px; }
+    header h1 { font-size: 1.35rem; flex: 1; }
+    header nav a { color: #90e0ef; text-decoration: none; margin-left: 18px; font-size: .9rem; }
+    header nav a:hover { color: var(--white); }
+
+    /* ── CLASS SELECTOR BAR ─────────────────────────────── */
+    .class-bar { background: var(--blue); padding: 14px 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .class-bar label { color: var(--white); font-weight: 600; font-size: 1rem; }
+    .class-bar select { padding: 8px 14px; border-radius: var(--radius); border: none; font-size: 1rem; background: var(--white); color: var(--dark); font-weight: 700; cursor: pointer; }
+    .class-bar .greg-btn { margin-left: auto; background: #00b4d8; color: var(--white); border: none; border-radius: var(--radius); padding: 9px 18px; font-size: .95rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .2s; }
+    .class-bar .greg-btn:hover { background: #023e8a; }
+
+    /* ── MAIN LAYOUT ────────────────────────────────────── */
+    .main-wrap { max-width: 1100px; margin: 28px auto; padding: 0 20px; }
+
+    /* ── GREG PANEL ─────────────────────────────────────── */
+    #greg-panel { background: var(--white); border-left: 5px solid var(--teal); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 26px; display: flex; gap: 18px; align-items: flex-start; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+    .greg-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg,#0077b6,#00b4d8); display: flex; align-items: center; justify-content: center; font-size: 2rem; flex-shrink: 0; }
+    .greg-speech { flex: 1; }
+    .greg-speech h3 { color: var(--dark); margin-bottom: 6px; }
+    .greg-speech p { color: var(--gray); line-height: 1.6; }
+    .greg-speech .greg-tip { margin-top: 10px; background: #e8f4fd; border-radius: 8px; padding: 10px 14px; font-size: .9rem; color: var(--dark); }
+
+    /* ── TOOL BUTTONS (Learning Tools) ──────────────────── */
+    .tools-section h2 { color: var(--dark); margin-bottom: 14px; font-size: 1.2rem; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin-bottom: 30px; }
+    .tool-btn { background: var(--white); border: 2px solid var(--teal); border-radius: var(--radius); padding: 18px 14px; text-align: center; cursor: pointer; transition: all .2s; display: flex; flex-direction: column; align-items: center; gap: 10px; font-weight: 600; color: var(--dark); font-size: .95rem; box-shadow: 0 2px 6px rgba(0,0,0,.06); }
+    .tool-btn .tool-icon { font-size: 2rem; }
+    .tool-btn:hover { background: var(--blue); color: var(--white); border-color: var(--blue); transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,119,182,.25); }
+    .tool-btn.active { background: var(--blue); color: var(--white); border-color: var(--blue); }
+
+    /* ── CONTENT PANELS ──────────────────────────────────── */
+    .panel { display: none; background: var(--white); border-radius: var(--radius); padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.08); margin-bottom: 28px; }
+    .panel.active { display: block; }
+    .panel h2 { color: var(--dark); margin-bottom: 16px; }
+
+    /* ── LESSONS PANEL ───────────────────────────────────── */
+    .lesson-list { list-style: none; }
+    .lesson-list li { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #e0eef8; gap: 12px; }
+    .lesson-list li:last-child { border-bottom: none; }
+    .lesson-title { font-weight: 600; color: var(--dark); flex: 1; }
+    .lesson-actions { display: flex; gap: 10px; }
+    .btn { padding: 7px 16px; border-radius: 8px; border: none; cursor: pointer; font-size: .88rem; font-weight: 600; transition: background .2s; }
+    .btn-primary { background: var(--blue); color: var(--white); }
+    .btn-primary:hover { background: var(--dark); }
+    .btn-success { background: var(--success); color: var(--white); }
+    .btn-success:hover { background: #217a52; }
+    .btn-outline { background: transparent; border: 2px solid var(--blue); color: var(--blue); }
+    .btn-outline:hover { background: var(--blue); color: var(--white); }
+
+    /* ── LESSON MODAL ────────────────────────────────────── */
+    .modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-backdrop.open { display: flex; }
+    .modal { background: var(--white); border-radius: var(--radius); max-width: 780px; width: 95%; max-height: 88vh; overflow-y: auto; padding: 32px; position: relative; }
+    .modal-close { position: absolute; top: 14px; right: 18px; font-size: 1.5rem; background: none; border: none; cursor: pointer; color: var(--gray); }
+    .modal h2 { color: var(--dark); margin-bottom: 14px; }
+    .modal p { line-height: 1.7; color: #333; margin-bottom: 12px; }
+    .modal ul { padding-left: 20px; margin-bottom: 12px; }
+    .modal ul li { line-height: 1.7; }
+
+    /* ── QUIZ PANEL ──────────────────────────────────────── */
+    .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .score-badge { background: var(--dark); color: var(--white); border-radius: 20px; padding: 6px 18px; font-weight: 700; }
+    .progress-bar { background: #d0e8f5; border-radius: 20px; height: 10px; margin-bottom: 20px; }
+    .progress-fill { background: var(--teal); border-radius: 20px; height: 10px; transition: width .4s; }
+    .question-text { font-size: 1.15rem; font-weight: 600; color: var(--dark); margin-bottom: 18px; line-height: 1.5; }
+    .choices { list-style: none; display: grid; gap: 10px; }
+    .choices li button { width: 100%; text-align: left; padding: 13px 18px; border-radius: 8px; border: 2px solid #c8dff0; background: var(--white); font-size: .97rem; cursor: pointer; transition: all .2s; }
+    .choices li button:hover:not(:disabled) { border-color: var(--blue); background: #e8f4fd; }
+    .choices li button.correct { border-color: var(--success); background: #d4f7e7; }
+    .choices li button.wrong   { border-color: #e74c3c; background: #fde8e8; }
+    .explanation { margin-top: 16px; background: #fffbe6; border-left: 4px solid var(--warn); padding: 12px 16px; border-radius: 6px; font-size: .95rem; display: none; }
+    .quiz-nav { margin-top: 20px; display: flex; gap: 12px; }
+    .math-input-wrap { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+    .math-input-wrap input { padding: 10px 14px; border-radius: 8px; border: 2px solid #c8dff0; font-size: 1rem; width: 160px; }
+
+    /* ── FLASHCARD PANEL ─────────────────────────────────── */
+    .fc-controls { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+    .fc-controls input, .fc-controls textarea { padding: 9px 13px; border-radius: 8px; border: 2px solid #c8dff0; font-size: .93rem; font-family: inherit; }
+    .fc-controls input { width: 220px; }
+    .fc-controls textarea { width: 280px; resize: vertical; }
+    .fc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; }
+    .flashcard { perspective: 800px; height: 150px; cursor: pointer; }
+    .flashcard-inner { position: relative; width: 100%; height: 100%; transition: transform .5s; transform-style: preserve-3d; }
+    .flashcard.flipped .flashcard-inner { transform: rotateY(180deg); }
+    .fc-front, .fc-back { position: absolute; inset: 0; border-radius: var(--radius); backface-visibility: hidden; display: flex; align-items: center; justify-content: center; padding: 14px; text-align: center; font-weight: 600; font-size: .95rem; }
+    .fc-front { background: linear-gradient(135deg,#0077b6,#00b4d8); color: var(--white); }
+    .fc-back  { background: #e8f4fd; color: var(--dark); transform: rotateY(180deg); border: 2px solid var(--teal); }
+    .fc-delete { position: absolute; top: 6px; right: 8px; background: rgba(0,0,0,.25); border: none; border-radius: 50%; width: 24px; height: 24px; color: var(--white); cursor: pointer; font-size: .8rem; display: none; z-index: 2; }
+    .flashcard:hover .fc-delete { display: block; }
+    .print-hint { font-size: .85rem; color: var(--gray); margin-top: 10px; }
+    @media print {
+      .tools-section, .class-bar, header, .greg-panel, #greg-panel, .modal-backdrop, .print-hint, .fc-controls, .fc-delete { display: none !important; }
+      .fc-front, .fc-back { position: static; transform: none !important; backface-visibility: visible; border: 1px solid #999; page-break-inside: avoid; }
+      .fc-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+      .flashcard-inner { transform: none !important; }
+    }
+
+    /* ── VIDEO PANEL ─────────────────────────────────────── */
+    .video-search-bar { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .video-search-bar input { flex: 1; min-width: 220px; padding: 10px 14px; border-radius: 8px; border: 2px solid #c8dff0; font-size: .97rem; }
+    .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+    .video-card { border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.1); background: var(--white); transition: transform .2s; }
+    .video-card:hover { transform: translateY(-4px); }
+    .video-thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+    .video-card-body { padding: 12px; }
+    .video-card-body h4 { font-size: .97rem; color: var(--dark); margin-bottom: 6px; }
+    .video-card-body p  { font-size: .85rem; color: var(--gray); }
+    .video-card-body a  { display: inline-block; margin-top: 8px; background: #ff0000; color: var(--white); padding: 6px 14px; border-radius: 6px; text-decoration: none; font-size: .87rem; font-weight: 600; }
+    .video-card-body a:hover { background: #cc0000; }
+
+    /* ── PROGRESS PANEL ──────────────────────────────────── */
+    .progress-panel .stat-row { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+    .stat-box { flex: 1; min-width: 140px; background: var(--blue); color: var(--white); border-radius: var(--radius); padding: 18px; text-align: center; }
+    .stat-box .num { font-size: 2rem; font-weight: 800; }
+    .stat-box .lbl { font-size: .87rem; opacity: .85; }
+    .chapter-progress { margin-top: 10px; }
+    .chapter-progress .ch { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .chapter-progress .ch-label { min-width: 200px; font-weight: 600; color: var(--dark); font-size: .9rem; }
+    .chapter-progress .bar-track { flex: 1; background: #d0e8f5; border-radius: 20px; height: 12px; }
+    .chapter-progress .bar-fill  { background: var(--teal); height: 12px; border-radius: 20px; transition: width .5s; }
+    .chapter-progress .pct { min-width: 40px; text-align: right; font-size: .87rem; color: var(--gray); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 600px) {
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .quiz-header { flex-direction: column; gap: 8px; }
+      .fc-controls { flex-direction: column; }
+    }
+
+    /* ── QUIZ RESULTS ─────────────────────────────────────  */
+    #quiz-result { text-align: center; padding: 20px; }
+    #quiz-result .result-score { font-size: 3rem; font-weight: 900; color: var(--blue); margin: 10px 0; }
+    #quiz-result .result-msg { font-size: 1.1rem; color: var(--gray); }
+    #quiz-result .btn { margin-top: 16px; }
+
+    /* ── GREG CHAT MODAL ──────────────────────────────────── */
+    #greg-chat-modal .modal { max-width: 520px; }
+    .greg-chat-history { max-height: 300px; overflow-y: auto; border: 1px solid #d0e8f5; border-radius: 8px; padding: 12px; margin-bottom: 12px; background: #f8fcff; }
+    .chat-msg { margin-bottom: 10px; }
+    .chat-msg.greg span { background: var(--blue); color: var(--white); display: inline-block; padding: 8px 12px; border-radius: 14px 14px 14px 0; font-size: .92rem; max-width: 90%; }
+    .chat-msg.user span { background: #d0e8f5; display: inline-block; padding: 8px 12px; border-radius: 14px 14px 0 14px; font-size: .92rem; max-width: 90%; text-align: right; float: right; clear: both; }
+    .chat-input-row { display: flex; gap: 8px; }
+    .chat-input-row input { flex: 1; padding: 9px 13px; border-radius: 8px; border: 2px solid #c8dff0; font-size: .95rem; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════ -->
+<header>
+  <img src="logo.png" class="logo" alt="LearnWater" onerror="this.style.display='none'" />
+  <h1>💧 LearnWater — Adult Learning Center</h1>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="kids.html">Kids Corner</a>
+    <a href="updates.html">Updates</a>
+    <a href="mailto:learnwatertoday@gmail.com">Contact</a>
+  </nav>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLASS SELECTOR BAR
+════════════════════════════════════════════════════════════ -->
+<div class="class-bar">
+  <label for="class-select">📋 Select Your License Class:</label>
+  <select id="class-select">
+    <option value="D">Class D</option>
+    <option value="C">Class C</option>
+    <option value="B">Class B</option>
+    <option value="A">Class A</option>
+  </select>
+  <button class="greg-btn" onclick="openGregChat()">
+    🧑‍🏫 Talk to Greg
+  </button>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════════════════════════ -->
+<div class="main-wrap">
+
+  <!-- GREG WELCOME PANEL -->
+  <div id="greg-panel">
+    <div class="greg-avatar" title="Greg – Your AI Instructor">🧑‍🏫</div>
+    <div class="greg-speech">
+      <h3>Hi, I'm Greg — your personal water operator instructor!</h3>
+      <p>I'm here to walk you through every chapter, explain tough concepts, and make sure you feel confident before exam day. This site is 100% free because <strong>everyone deserves a great education</strong>.</p>
+      <div class="greg-tip" id="greg-tip">
+        💡 <strong>Greg's Tip:</strong> Start with the Lessons tab to read each chapter's study guide, then hit Practice Quiz to test yourself with fresh questions every time!
+      </div>
+    </div>
+  </div>
+
+  <!-- ── YOUR LEARNING TOOLS ──────────────────────────────── -->
+  <div class="tools-section">
+    <h2>🛠️ Your Learning Tools</h2>
+    <div class="tools-grid">
+      <button class="tool-btn" onclick="showPanel('lessons')">
+        <span class="tool-icon">📖</span> Study Lessons
+      </button>
+      <button class="tool-btn" onclick="showPanel('quiz')">
+        <span class="tool-icon">🧠</span> Practice Quiz
+      </button>
+      <button class="tool-btn" onclick="showPanel('math')">
+        <span class="tool-icon">🔢</span> Math Practice
+      </button>
+      <button class="tool-btn" onclick="showPanel('flashcards')">
+        <span class="tool-icon">🗂️</span> Flash Cards
+      </button>
+      <button class="tool-btn" onclick="showPanel('videos')">
+        <span class="tool-icon">▶️</span> YouTube Videos
+      </button>
+      <button class="tool-btn" onclick="showPanel('progress')">
+        <span class="tool-icon">📊</span> My Progress
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PANEL: LESSONS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="panel-lessons" class="panel active">
+    <h2 id="lessons-title">📖 Class D — Study Lessons</h2>
+    <p style="color:var(--gray);margin-bottom:18px;">Click <strong>Study</strong> to read the full guide. Mark each lesson complete as you go. Greg will update his tip after every completion!</p>
+    <ul class="lesson-list" id="lesson-list"></ul>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PANEL: PRACTICE QUIZ
+  ══════════════════════════════════════════════════════════ -->
+  <div id="panel-quiz" class="panel">
+    <h2 id="quiz-title">🧠 Practice Quiz — Class D</h2>
+    <p style="color:var(--gray);margin-bottom:16px;">Each round draws <strong>10–15 random questions</strong> from a pool of 150 per chapter — you'll never see the exact same quiz twice!</p>
+    <div id="quiz-area">
+      <div class="quiz-header">
+        <span id="q-counter" style="font-weight:600;color:var(--dark);">Question 1 of 12</span>
+        <span class="score-badge" id="score-badge">Score: 0 / 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="quiz-progress" style="width:0%"></div></div>
+      <div class="question-text" id="question-text">Loading…</div>
+      <ul class="choices" id="choices-list"></ul>
+      <div class="explanation" id="explanation"></div>
+      <div class="quiz-nav">
+        <button class="btn btn-primary" id="next-btn" onclick="nextQuestion()" style="display:none">Next Question →</button>
+      </div>
+    </div>
+    <div id="quiz-result" style="display:none">
+      <p>Quiz Complete! 🎉</p>
+      <div class="result-score" id="result-score">0 / 12</div>
+      <div class="result-msg" id="result-msg"></div>
+      <button class="btn btn-primary" onclick="startQuiz()">🔄 Retake (New Questions)</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PANEL: MATH PRACTICE
+  ══════════════════════════════════════════════════════════ -->
+  <div id="panel-math" class="panel">
+    <h2>🔢 Math Practice — 20 Questions Per Round</h2>
+    <p style="color:var(--gray);margin-bottom:16px;">Water operator math: flow rates, chemical dosing, tank volumes, and more. A fresh set every time!</p>
+    <div id="math-area">
+      <div class="quiz-header">
+        <span id="m-counter" style="font-weight:600;color:var(--dark);">Question 1 of 20</span>
+        <span class="score-badge" id="m-score-badge">Score: 0 / 0</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="math-progress" style="width:0%"></div></div>
+      <div class="question-text" id="math-question-text">Loading…</div>
+      <div class="math-input-wrap">
+        <input type="number" id="math-answer" placeholder="Your answer…" step="any" />
+        <button class="btn btn-primary" onclick="checkMath()">Check</button>
+      </div>
+      <div class="explanation" id="math-explanation"></div>
+      <div class="quiz-nav">
+        <button class="btn btn-outline" id="math-next-btn" onclick="nextMath()" style="display:none">Next →</button>
+      </div>
+    </div>
+    <div id="math-result" style="display:none;text-align:center;padding:20px">
+      <p>Math Round Complete! 🔢</p>
+      <div class="result-score" id="math-result-score">0 / 20</div>
+      <div class="result-msg" id="math-result-msg"></div>
+      <button class="btn btn-primary" onclick="startMath()">🔄 New Round</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PANEL: FLASHCARDS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="panel-flashcards" class="panel">
+    <h2>🗂️ Flash Cards</h2>
+    <p style="color:var(--gray);margin-bottom:14px;">Click any card to flip it. Add your own cards, then print them all out to study anywhere!</p>
+    <div class="fc-controls">
+      <input type="text" id="fc-front-input" placeholder="Front (term or question)" />
+      <textarea id="fc-back-input" rows="2" placeholder="Back (answer or definition)"></textarea>
+      <button class="btn btn-primary" onclick="addFlashcard()">➕ Add Card</button>
+      <button class="btn btn-outline" onclick="window.print()">🖨️ Print All Cards</button>
+      <button class="btn btn-outline" onclick="loadDefaultFlashcards()">📂 Load Class Cards</button>
+    </div>
+    <p class="print-hint">💡 Tip: Use your browser's Print function (Ctrl+P / ⌘+P) — only the cards will print.</p>
+    <div class="fc-grid" id="fc-grid"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PANEL: YOUTUBE VIDEOS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="panel-videos" class="panel">
+    <h2>▶️ YouTube Video Library</h2>
+    <p style="color:var(--gray);margin-bottom:14px;">Search for any water operator topic or browse curated videos for your class. Greg picks the best ones!</p>
+    <div class="video-search-bar">
+      <input type="text" id="video-search" placeholder="Search e.g. 'disinfection Class D', 'flow rate formula'…" onkeydown="if(event.key==='Enter')searchVideos()" />
+      <button class="btn btn-primary" onclick="searchVideos()">🔍 Search YouTube</button>
+      <button class="btn btn-outline" onclick="loadCuratedVideos()">⭐ Greg's Picks</button>
+    </div>
+    <div class="video-grid" id="video-grid"></div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PANEL: MY PROGRESS
+  ══════════════════════════════════════════════════════════ -->
+  <div id="panel-progress" class="panel progress-panel">
+    <h2>📊 My Progress</h2>
+    <div class="stat-row" id="stat-row"></div>
+    <h3 style="color:var(--dark);margin-bottom:14px;">Chapter Completion</h3>
+    <div class="chapter-progress" id="chapter-progress"></div>
+    <button class="btn btn-outline" style="margin-top:18px" onclick="if(confirm('Reset all progress?')){resetProgress();}">🗑️ Reset Progress</button>
+  </div>
+
+</div><!-- /main-wrap -->
+
+<!-- ══════════════════════════════════════════════════════════
+     LESSON MODAL
+════════════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="lesson-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('lesson-modal')">✕</button>
+    <h2 id="modal-lesson-title">Lesson</h2>
+    <div id="modal-lesson-body"></div>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-success" id="modal-complete-btn" onclick="markCurrentLessonComplete()">✅ Mark Complete</button>
+      <button class="btn btn-outline" onclick="closeModal('lesson-modal')">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     GREG CHAT MODAL
+════════════════════════════════════════════════════════════ -->
+<div class="modal-backdrop" id="greg-chat-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('greg-chat-modal')">✕</button>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+      <div class="greg-avatar" style="width:52px;height:52px;font-size:1.5rem">🧑‍🏫</div>
+      <div><strong style="color:var(--dark);font-size:1.1rem">Greg — Your Water Operator Instructor</strong><br><small style="color:var(--gray)">Ask me anything about your class material!</small></div>
+    </div>
+    <div class="greg-chat-history" id="greg-chat-history"></div>
+    <div class="chat-input-row">
+      <input type="text" id="greg-input" placeholder="Ask Greg a question…" onkeydown="if(event.key==='Enter')sendToGreg()" />
+      <button class="btn btn-primary" onclick="sendToGreg()">Send</button>
+    </div>
+  </div>
+</div>
+
+<script src="adult-learning-center.js"></script>
+</body>
+</html>
