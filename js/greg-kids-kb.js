@@ -382,7 +382,104 @@
     { id: "favorite-fact", q: "What's your favorite water fact?",
       k: ["favorite:6", "favourite:6", "coolest fact:6", "best fact:6", "your favorite:7"],
       a: "My favorite fact: the water in your glass might have been **dinosaur drinking water**! 🦕 Water keeps cycling for billions of years, so every sip is super old. Pretty wild, right?",
-      rel: ["old-water", "water-cycle", "earth-water"] }
+      rel: ["old-water", "water-cycle", "earth-water"] },
+    /* ---------------- Added with the Word Lab ---------------- */
+    { id: "word-lab-help", q: "What is the Word Lab?",
+      k: ["word lab:8", "word match:7", "word of the day:7", "dictionary:6", "glossary:6", "water words:6", "word wizard:7", "vocabulary:5"],
+      a: "The **Word Lab** is a water dictionary for explorers! 📖 It has **150+ water words** with pictures, how to say each one, and an example. Tap ⭐ on the words you know to build your collection, check the **Word of the Day**, and play **Word Match** to earn the **Word Wizard** badge! You can ask me too, like: “What does evaporation mean?”",
+      rel: ["games-help", "badges-help", "water-cycle"] },
+    { id: "drought", q: "What is a drought?",
+      k: ["drought*:8", "no rain:6", "dry spell:7", "not enough rain:7", "dried up:5", "lake dry:5"],
+      a: "A **drought** is a long stretch of time with much less rain than normal. 🏜️ Lakes and rivers shrink, soil dries out and cracks, and crops can't grow well. Droughts can last for weeks, months, or even years! During a drought, towns may ask everyone to save water, like taking shorter showers and watering lawns less.",
+      rel: ["save-water", "precipitation", "flood-safety"] },
+    { id: "fog", q: "What is fog?",
+      k: ["fog*:7", "misty:6", "mist:6", "cloud on the ground:8", "cloud touch* the ground:8"],
+      a: "Fog is a **cloud that touches the ground**! 🌫️ It forms when the air near the ground cools off and its water vapor condenses into billions of tiny droplets. That's why fog shows up on cool mornings, especially near rivers and lakes, and then disappears when the sun warms things up.",
+      rel: ["condensation", "clouds", "humidity"] },
+    { id: "humidity", q: "Why does summer feel so sticky?",
+      k: ["humid*:8", "sticky:7", "muggy:7", "water in the air:6", "moisture in the air:6"],
+      a: "That's **humidity**, the amount of water vapor floating in the air! 💦 On humid days your sweat can't evaporate as fast, so it stays on your skin and you feel sticky and hot. Mississippi summers are famous for high humidity. Desert air is dry, with low humidity.",
+      rel: ["sweat", "evaporation", "fog"] },
+    { id: "hurricanes", q: "How do hurricanes form?",
+      k: ["hurricane*:7", "how do hurricanes form:8", "eye of the storm:7", "tropical storm*:7", "cyclone*:6", "typhoon*:6"],
+      a: "A **hurricane** is a giant spinning storm that forms over **warm ocean water**. 🌀 Warm, wet air rises, more air rushes in, and Earth's spin makes the whole storm twist. The calm center is called the **eye**. Hurricanes bring super-strong winds, big waves, and heavy rain that can flood towns. In the Atlantic, hurricane season runs from **June 1 to November 30**, so families make a plan and listen to weather alerts.",
+      rel: ["flood-safety", "thunderstorms", "oceans"] },
+    { id: "geysers", q: "How do geysers work?",
+      k: ["geyser*:8", "old faithful:8", "yellowstone:7", "hot spring*:7", "water shoot* up:6"],
+      a: "A **geyser** is a hot spring that shoots water and steam into the air! ♨️ Deep underground, hot rocks heat water trapped in narrow cracks. When it gets hot enough, some of the water flashes into steam, and WHOOSH, it blasts out of the ground. **Old Faithful** in Yellowstone National Park erupts about every hour and a half, and Yellowstone has about half of all the geysers on Earth!",
+      rel: ["groundwater", "boiling", "states-of-matter"] },
+    { id: "tides", q: "What causes tides?",
+      k: ["tide*:7", "high tide:8", "low tide:8", "moon pull*:7", "what causes tides:8"],
+      a: "**Tides** are the slow rise and fall of the ocean along the shore. 🌙 The **Moon's gravity** pulls on the ocean and makes it bulge, and as Earth spins, beaches move in and out of those bulges. Many beaches get two high tides and two low tides a day, but some places, including much of the Gulf Coast, get just one of each!",
+      rel: ["oceans", "waves", "space-water"] },
+    { id: "waves", q: "What makes ocean waves?",
+      k: ["wave*:6", "what makes waves:8", "why are there waves:8", "surfing:5", "surfer*:5", "tsunami*:7", "breaking wave*:7"],
+      a: "Most ocean **waves** are made by **wind** blowing across the water. 🌊 The wind pushes the surface, and the energy travels across the sea, while the water itself mostly bobs up and down in place! When a wave reaches shallow water near the beach, it slows down, gets taller, and **breaks**. Giant waves called **tsunamis** are different: underwater earthquakes cause them.",
+      rel: ["tides", "oceans", "hurricanes"] },
+    { id: "erosion", q: "What is erosion?",
+      k: ["erosion:8", "erode*:7", "wear* away:6", "grand canyon:8", "canyon*:6"],
+      a: "**Erosion** is when water, wind, or ice slowly wears away rock and soil and carries it somewhere else. 🏜️ Rivers are amazing at it: the **Colorado River** carved the **Grand Canyon** over millions of years! Plant roots help hold soil in place, which is why planting trees and grass helps stop erosion.",
+      rel: ["rivers", "glaciers", "watershed"] },
+    { id: "dams", q: "What does a dam do?",
+      k: ["dam:7", "dams:7", "hydropower:8", "hydroelectric*:8", "beaver*:7", "reservoir*:6", "turbine*:5"],
+      a: "A **dam** is a wall built across a river to hold back water. 🧱 The lake behind it is called a **reservoir**, which can store drinking water, help control floods, and water farms. Some dams make electricity: water rushing through spins giant **turbines**, and that's **hydropower**! Beavers build their own dams out of sticks and mud to make safe ponds for their homes. 🦫",
+      rel: ["rivers", "lakes-freeze", "flood-safety"] },
+    { id: "ph-kids", q: "What is pH?",
+      k: ["ph:8", "acid*:6", "base:5", "neutral:6", "sour:5", "lemon juice:5", "vinegar:5"],
+      a: "**pH** tells you if something is an **acid** or a **base**, on a scale from **0 to 14**. 🧪 Pure water is **7**, right in the middle (neutral). Lemon juice and vinegar are acids with low numbers, and they taste sour. Soap and baking soda are bases with high numbers. Water operators check pH every day, because water that's too acidic can eat away at pipes!",
+      rel: ["water-operator", "universal-solvent", "experiments"] },
+    { id: "molecules", q: "What are atoms and molecules?",
+      k: ["atom*:7", "molecule*:7", "hydrogen:6", "oxygen:4", "tiny pieces:5"],
+      a: "Everything is made of super tiny pieces called **atoms**. ⚛️ When atoms stick together, they make a **molecule**. A water molecule is **two hydrogen atoms + one oxygen atom**, which is why scientists write it **H₂O**! Water molecules are SO small that one drop holds more of them than there are stars in our galaxy.",
+      rel: ["h2o", "states-of-matter", "surface-tension"] },
+    { id: "salt-ice", q: "Why do we put salt on icy roads?",
+      k: ["salt on ice:8", "salt on road*:8", "salt melt*:8", "road salt:8", "icy road*:7", "salt ice:7"],
+      a: "Salt makes ice melt at a **lower temperature**! 🧂 Plain water freezes at **32°F**, but salty water has to get even colder before it freezes. So when trucks spread salt on icy roads, the ice turns back into slushy water, even when it's below freezing. It's also why the salty ocean doesn't freeze as easily as a lake.",
+      rel: ["ice", "salt-water", "states-of-matter"] },
+    { id: "boats-float", q: "How do big boats float?",
+      k: ["boat* float*:8", "ship* float*:8", "how do boats float:8", "buoyan*:8", "why do ships float:8", "steel float:6"],
+      a: "Boats float thanks to **buoyancy**! 🚢 When a boat sits in water, it pushes some water out of the way, and the water pushes back up with a force equal to the weight of the water that was moved. A boat's hollow shape moves a LOT of water, so that upward push can hold up even a giant steel ship. Squash the same steel into a ball and it would sink!",
+      rel: ["density", "ice", "experiments"] },
+    { id: "scientific-method", q: "How do scientists solve mysteries?",
+      k: ["scientific method:8", "hypothes*:8", "how do scientists:7", "science steps:7", "observe:5", "observation*:5"],
+      a: "Scientists solve mysteries step by step! 🔬\n1. **Ask a question**, like: does salt water freeze slower?\n2. Make a **hypothesis**, a smart guess.\n3. Do an **experiment** to test it.\n4. **Observe** and write down what happens.\n5. Decide what it means, and share it!\nEven when a guess is wrong, you learned something. That's science!",
+      rel: ["experiments", "water-scientists", "salt-ice"] },
+    { id: "rain-garden", q: "What are rain barrels and rain gardens?",
+      k: ["rain barrel*:8", "rain garden*:8", "catch rain*:7", "collect rain*:7", "rainwater:4"],
+      a: "Two cool ways to use rain! 🌧️\n🛢️ A **rain barrel** catches rain from your roof's gutters so you can water plants later. Free water!\n🌼 A **rain garden** is planted in a low spot where rain from roofs and driveways collects. The plants and soil soak it up, so less dirty runoff rushes into storm drains and creeks. Butterflies love them too!",
+      rel: ["save-water", "storm-drains", "collection"] },
+    { id: "water-footprint", q: "What is a water footprint?",
+      k: ["water footprint:8", "footprint:6", "t-shirt:6", "tshirt:6", "hidden water:7", "virtual water:7", "water to make:6"],
+      a: "Your **water footprint** is all the water it takes to make the things you use, eat, and wear. 👣 It takes about **700 gallons** of water to grow the cotton and make one T-shirt, and about **37 gallons** to grow the beans for one cup of a grown-up's coffee! Using things longer, wasting less food, and recycling all shrink your water footprint.",
+      rel: ["save-water", "home-water-use", "plants-need-water"] },
+    { id: "world-water-day", q: "What is World Water Day?",
+      k: ["world water day:8", "march 22:8", "water day:6", "united nations:5"],
+      a: "**World Water Day** is **March 22** every year! 🌍 The United Nations started it in 1993 to help people everywhere learn about fresh water, and to remember that billions of people still don't have safe water at home. Your class could celebrate by making posters, testing water-saving ideas, or finding out where your town's water comes from!",
+      rel: ["save-water", "fresh-water", "earth-water"] },
+    { id: "hard-water", q: "What is hard water?",
+      k: ["hard water:8", "soft water:7", "white spots:7", "water softener*:7", "calcium:5", "magnesium:5", "soap scum:6"],
+      a: "**Hard water** has lots of dissolved minerals, mostly **calcium and magnesium**, picked up as water travels through rocks. 🫧 It's safe to drink, but it can leave **white spots** on dishes, crusty scale in kettles, and make soap harder to lather. Soft water has fewer minerals. Some homes use a **water softener** to swap those minerals out.",
+      rel: ["universal-solvent", "groundwater", "treatment-plant"] },
+    { id: "cloudy-tap-water", q: "Why is my tap water cloudy?",
+      k: ["cloudy water:8", "water cloudy:8", "water is cloudy:8", "milky water:8", "milky:6", "white water:6", "tap water cloudy:8", "bubbles in my water:7", "cloudy tap:8"],
+      a: "If a glass of tap water looks milky or white, it's usually just **tiny air bubbles**! 🫧 Water in pipes is under pressure, which squeezes extra air into it. When it comes out of the faucet, the bubbles escape. Watch closely: the glass clears from the **bottom up** in a minute or two. If it stays cloudy or looks brown, tell a grown-up so they can call the water company.",
+      rel: ["turbidity", "water-pipes", "safe-to-drink"] },
+    { id: "tap-vs-bottled", q: "Is tap water or bottled water better?",
+      k: ["bottled water:8", "is tap water safe:8", "tap water safe:8", "bottle* or tap:8", "tap or bottle*:8", "water bottle*:5", "plastic bottle*:5"],
+      a: "Both can be safe! 💧 In the U.S., your water system tests **tap water** under EPA rules, and **bottled water** follows FDA rules. Tap water costs **less than a penny a gallon**, and it doesn't make plastic trash. A reusable bottle filled from the tap is a win for your wallet AND the planet! 🌎",
+      rel: ["safe-to-drink", "plastic", "drink-water"] },
+    { id: "wrinkly-fingers", q: "Why do my fingers get wrinkly in the bath?",
+      k: ["wrinkl*:8", "prune*:6", "pruney:7", "fingers bath:6", "fingers in water:7"],
+      a: "After a long bath your fingers get wrinkly, and your **body does it on purpose**! 🛁 Your nerves tell tiny blood vessels in your fingertips to shrink, which pulls the skin into wrinkles. Scientists think the wrinkles may work like **tire treads** to help you grip wet, slippery things. They go away soon after you dry off.",
+      rel: ["body-water", "sweat", "swim-safety"] },
+    { id: "biggest-lakes", q: "What is the biggest lake in the world?",
+      k: ["biggest lake*:8", "largest lake*:8", "deepest lake*:8", "great lakes:7", "lake superior:8", "caspian:8", "baikal:8"],
+      a: "The **Caspian Sea**, between Europe and Asia, is the biggest lake in the world, but it's salty! 🌊 The biggest **freshwater** lake by area is **Lake Superior**, one of America's Great Lakes. The deepest lake, **Lake Baikal** in Russia, is more than a mile deep and holds more fresh water than all five Great Lakes combined!",
+      rel: ["lakes-freeze", "fresh-water", "longest-river"] },
+    { id: "longest-river", q: "What is the longest river in the world?",
+      k: ["longest river*:8", "nile:8", "amazon:8", "biggest river*:7", "largest river*:7"],
+      a: "The **Nile** in Africa and the **Amazon** in South America are the two longest rivers on Earth, each about **4,000 miles** long! 🌍 Scientists still argue about which one wins, because it's tricky to say exactly where a river starts. The Amazon carries the MOST water by far. In the U.S., the Missouri and Mississippi rivers together make one of the longest river systems in the world.",
+      rel: ["mississippi-river", "rivers", "biggest-lakes"] }
   ];
 
   /* ---------------- Fun facts, jokes, quiz ---------------- */
@@ -482,11 +579,67 @@
     return null;
   }
 
+
+  /* ---------------- Word Lab words (js/glossary-kids.js) ----------------
+     Greg explains any Word Lab word, unless one of his own answers is
+     already about it, and checks the words again before giving up. */
+  function kwNorm(s) { return global.GregEngine.normalize(String(s || '').replace(/₂/g, '2')).replace(/^(?:a|an|the)\s+/, ''); }
+  function kwStem(n) { return n.split(' ').map(global.GregEngine.stem).join(' '); }
+  var KW = null;
+  function kwIndex() {
+    if (KW) return KW;
+    KW = { exact: {}, stem: {} };
+    (global.KIDS_WORDS || []).forEach(function (w) {
+      var n = kwNorm(w[0]), st = kwStem(n);
+      if (!KW.exact[n]) KW.exact[n] = w;
+      if (!KW.stem[st]) KW.stem[st] = w;
+    });
+    return KW;
+  }
+  function kwLookup(text) {
+    var ix = kwIndex(), n = kwNorm(text);
+    return n ? ix.exact[n] || ix.stem[kwStem(n)] || null : null;
+  }
+  /* A near-miss spelling, like “evaperation” */
+  function kwFuzzy(text) {
+    var ix = kwIndex(), n = kwNorm(text), best = null, bestD = 9;
+    if (n.length < 5 || n.split(' ').length > 2) return null;
+    var max = n.length >= 9 ? 2 : 1;
+    Object.keys(ix.exact).forEach(function (k) {
+      if (Math.abs(k.length - n.length) > max) return;
+      var d = global.GregEngine.editDistance(n, k, max);
+      if (d <= max && d < bestD) { best = ix.exact[k]; bestD = d; }
+    });
+    return best;
+  }
+  function wordReply(w, lead, related) {
+    return {
+      text: (lead || '') + w[1] + ' **' + w[0] + '**' + (w[2] ? ' (say it: “' + w[2] + '”)' : '') + '\n' + w[3] + '\n💡 **Example:** ' + w[4],
+      chips: (related || []).concat(['Quiz me!', 'What is the Word Lab?', 'Tell me a fun fact']).slice(0, 3),
+      id: 'word'
+    };
+  }
+  function wordSkill(raw, norm, state, api) {
+    if (!global.KIDS_WORDS) return null;
+    var t = global.GregEngine.defTarget(raw), n = kwNorm(t.term);
+    if (!n || n.split(' ').length > 5) return null;
+    var w = kwLookup(t.term);
+    if (!w || api.isAbout(t.term, [n, kwNorm(w[0])])) return null;
+    state.last = null;
+    /* Point to Greg's closest full answer, if he has one */
+    var near = api.rank(w[0]).filter(function (r) { return r.s >= 12; }).slice(0, 1).map(function (r) { return r.e.q; });
+    return wordReply(w, '', near);
+  }
+
   global.GREG_KIDS = {
     entries: E,
     facts: FACTS,
     starterChips: ["What is the water cycle?", "Why does ice float?", "Tell me a fun fact", "Quiz me!"],
     fallback: function (raw, sugg) {
+      if (global.KIDS_WORDS) {
+        var t = global.GregEngine.defTarget(raw), w = kwLookup(t.term) || kwFuzzy(t.term);
+        if (w) return wordReply(w, 'Did you mean this word? ', sugg.slice(0, 1));
+      }
       return {
         text: "Hmm, that's a tricky one — I'm not sure yet! 🤔 I'm best at water questions: rain, oceans, ice, clean water, saving water, and water animals." + (sugg.length ? " Did you mean one of these?" : " Try one of these!"),
         chips: sugg.length ? sugg : ["What is the water cycle?", "Tell me a fun fact", "Quiz me!"]
@@ -496,7 +649,7 @@
       var G = global.GregEngine;
       return G.create({
         entries: E,
-        skills: [G.skills.kidSafety, quizSkill, smallTalk],
+        skills: [G.skills.kidSafety, quizSkill, smallTalk, wordSkill],
         fallback: global.GREG_KIDS.fallback,
         starterChips: global.GREG_KIDS.starterChips,
         moreLabel: 'Tell me more!',

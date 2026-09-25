@@ -138,7 +138,7 @@
   }
 
   /* ================= TABS ================= */
-  var TABS = ['lessons', 'quiz', 'math', 'cards', 'videos', 'progress'];
+  var TABS = ['lessons', 'quiz', 'math', 'cards', 'glossary', 'videos', 'progress'];
   var current = 'lessons';
   function showTab(name, opts) {
     if (TABS.indexOf(name) === -1) name = 'lessons';
@@ -152,6 +152,7 @@
     });
     if (name === 'progress') renderProgress();
     if (name === 'cards') renderCards();
+    if (name === 'glossary') { glChapterOptions(); renderGlossary(); }
     if (!(opts && opts.keepHash)) {
       try { history.replaceState(null, '', '#' + name); } catch (e) { /* file:// or sandboxed */ }
     }
@@ -181,11 +182,19 @@
       if (qz) { e.preventDefault(); quizChapter(qz.dataset.quiz); }
     });
   }
-  /* Deep links: #quiz, #math, #cards, #quiz:ch3, #cards:ch5 */
+  /* Deep links: #quiz, #math, #cards, #quiz:ch3, #cards:ch5, #glossary:ch5, #glossary:turbidity */
   function fromHash() {
     var h = (location.hash || '').replace('#', ''), parts = h.split(':');
     if (TABS.indexOf(parts[0]) === -1) return false;
     if (parts[0] === 'quiz' && parts[1] && CUR.chapters[parts[1]]) { quizChapter(parts[1]); return true; }
+    if (parts[0] === 'glossary' && parts[1] && window.LW_GLOSSARY) {
+      if (CUR.chapters[parts[1]]) {
+        /* #glossary:ch5 opens the glossary filtered to one chapter */
+        gl.ch = parts[1]; gl.q = ''; $('glQuery').value = '';
+        showTab('glossary', { keepHash: true, scroll: true });
+      } else glShow(decodeURIComponent(parts[1]));
+      return true;
+    }
     if (parts[0] === 'cards' && parts[1] && CUR.chapters[parts[1]]) { fc.deck = parts[1]; }
     showTab(parts[0], { keepHash: true, scroll: true });
     return true;
@@ -693,6 +702,186 @@
     });
   }
 
+  /* ================= GLOSSARY ================= */
+  var gl = { q: '', ch: 'all', items: null, bySlug: {}, timer: 0 };
+  var FOLD = { '₀': '0', '₁': '1', '₂': '2', '₃': '3', '₄': '4', '₅': '5', '₆': '6', '₇': '7', '₈': '8', '₉': '9', '²': '2', '³': '3',
+    '⁺': '+', '⁻': '-', 'µ': 'u', 'μ': 'u', '‘': "'", '’': "'", '“': '"', '”': '"', '–': '-', '—': '-', '×': 'x' };
+  /* Lowercase and plain-ASCII the text one character at a time, so a match
+     found in the folded copy sits at the same position in the original */
+  function fold(s) {
+    var out = '';
+    for (var i = 0; i < s.length; i++) {
+      var c = s.charAt(i), m = FOLD[c];
+      if (m === undefined) { m = c.toLowerCase(); if (m.length !== 1) m = c; }
+      out += m;
+    }
+    return out;
+  }
+  function glItems() {
+    if (gl.items) return gl.items;
+    gl.items = (window.LW_GLOSSARY || []).map(function (g, i) {
+      var key = fold(g[0]).replace(/^[^a-z0-9]+/, '');
+      return {
+        i: i, term: g[0], def: g[1], key: key,
+        chs: String(g[2] || '').split(/\s+/).filter(function (c) { return CUR.chapters[c]; }),
+        fTerm: fold(g[0]), fDef: fold(g[1]), fAka: g[3] ? fold(g[3]).split('|') : [],
+        letter: /^[a-z]/.test(key) ? key.charAt(0).toUpperCase() : '#'
+      };
+    }).sort(function (a, b) { return a.key < b.key ? -1 : a.key > b.key ? 1 : 0; });
+    gl.items.forEach(function (it) {
+      var s = it.fTerm.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''), n = 2, base = s;
+      while (gl.bySlug[s]) s = base + '-' + n++;
+      it.slug = s;
+      gl.bySlug[s] = it;
+    });
+    return gl.items;
+  }
+  function glInChapter(it) {
+    if (gl.ch === 'all') return true;
+    var ids = gl.ch === 'class' ? CUR.classChapters[st.cls] : [gl.ch];
+    return it.chs.some(function (c) { return ids.indexOf(c) !== -1; });
+  }
+  /* 3+ = the term itself matches, 1–2 = only its definition mentions it */
+  function glScore(it, q, qw) {
+    if (it.fTerm.indexOf(q) === 0 || it.fAka.indexOf(q) !== -1) return 5;
+    if (q.length < 2) return 0;
+    if (it.fTerm.indexOf(q) !== -1) return 4;
+    if (it.fAka.some(function (a) { return a.indexOf(q) !== -1; })) return 3;
+    if (q.length < 3) return 0;
+    if (it.fDef.indexOf(q) !== -1) return 2;
+    var all = it.fTerm + ' ' + it.fAka.join(' ') + ' ' + it.fDef;
+    return qw.length > 1 && qw.every(function (w) { return all.indexOf(w) !== -1; }) ? 1 : 0;
+  }
+  function glMark(text, ftext, needles) {
+    var on = [], out = '', run = '', cur = 0;
+    needles.forEach(function (n) {
+      for (var at = ftext.indexOf(n); n && at !== -1; at = ftext.indexOf(n, at + n.length)) for (var k = at; k < at + n.length; k++) on[k] = 1;
+    });
+    for (var i = 0; i <= text.length; i++) {
+      var v = i < text.length ? (on[i] ? 1 : 0) : -1;
+      if (v !== cur) { out += cur === 1 ? '<mark>' + esc(run) + '</mark>' : esc(run); run = ''; cur = v; }
+      if (i < text.length) run += text.charAt(i);
+    }
+    return out;
+  }
+  function glInMine(it) { return myCards().some(function (c) { return c.front === it.term; }); }
+  var GL_ASK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M9.3 8.3a2.7 2.7 0 1 1 3.4 2.6c-.5.2-.7.6-.7 1.1M12 14.2h.01" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+  var GL_CARD = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="13" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.9"/><path d="M7 4h11a2 2 0 0 1 2 2v11" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path class="gl-plus" d="M9.5 10.5v6M6.5 13.5h6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/><path class="gl-tick" d="M6.5 13.6l2.2 2.2 4-4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function glItemHTML(it, needles) {
+    var tags = it.chs.map(function (id) {
+      var c = CUR.chapters[id];
+      return '<a class="gl-ch" href="' + esc(c.page) + '" style="--c:' + c.theme.c + ';--t:' + c.theme.t + '" aria-label="' + esc(chName(c)) + ' lesson">Ch ' + esc(c.num) + '</a>';
+    }).join('');
+    return '<div class="gl-item" id="term-' + it.slug + '" tabindex="-1">' +
+      '<dt><span class="gl-term">' + glMark(it.term, it.fTerm, needles) + '</span><span class="gl-tags">' + tags + '</span></dt>' +
+      '<dd><p>' + glMark(it.def, it.fDef, needles) + '</p><span class="gl-acts">' +
+      '<button class="gl-act" type="button" data-gl-ask="' + it.slug + '" title="Ask Greg" aria-label="Ask Greg about ' + esc(it.term) + '">' + GL_ASK + '</button>' +
+      '<button class="gl-act gl-card" type="button" data-gl-card="' + it.slug + '" title="Keep in my flash cards" aria-pressed="' + glInMine(it) + '" aria-label="Keep ' + esc(it.term) + ' in my flash cards">' + GL_CARD + '</button>' +
+      '</span></dd></div>';
+  }
+  function glChapterOptions() {
+    var sel = $('glChapter'), items = glItems();
+    function count(ids) { return items.filter(function (it) { return it.chs.some(function (c) { return ids.indexOf(c) !== -1; }); }).length; }
+    var classIds = CUR.classChapters[st.cls], allIds = Object.keys(CUR.chapters);
+    var html = '<option value="all">All ' + allIds.length + ' chapters (' + items.length + ' terms)</option>';
+    if (classIds.length < allIds.length) html += '<option value="class">' + esc(CUR.classes[st.cls].name) + ' chapters (' + count(classIds) + ')</option>';
+    html += allIds.map(function (id) { return '<option value="' + id + '">' + esc(chShort(CUR.chapters[id])) + ' (' + count([id]) + ')</option>'; }).join('');
+    sel.innerHTML = html;
+    if (![].some.call(sel.options, function (o) { return o.value === gl.ch; })) gl.ch = 'all';
+    sel.value = gl.ch;
+  }
+  function renderGlossary() {
+    var items = glItems().filter(glInChapter), q = fold(gl.q.trim()).replace(/\s+/g, ' ');
+    var box = $('glResults'), az = $('glAZ'), count = $('glCount'), scope = gl.ch === 'all' ? '' : gl.ch === 'class' ? ' in ' + CUR.classes[st.cls].name + ' chapters' : ' in ' + chName(CUR.chapters[gl.ch]);
+    if (!q) {
+      var groups = {}, letters = [];
+      items.forEach(function (it) { if (!groups[it.letter]) { groups[it.letter] = []; letters.push(it.letter); } groups[it.letter].push(it); });
+      az.hidden = false;
+      az.innerHTML = ['#'].concat('ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')).map(function (L) {
+        var n = groups[L] ? groups[L].length : 0;
+        return '<button type="button" data-gl-letter="' + L + '"' + (n ? ' aria-label="' + (L === '#' ? 'Numbers' : L) + ', ' + n + ' terms"' : ' disabled aria-label="' + (L === '#' ? 'Numbers' : L) + ', no terms"') + '>' + L + '</button>';
+      }).join('');
+      count.textContent = 'Showing ' + (gl.ch === 'all' ? 'all ' : '') + items.length + ' terms' + scope + '.';
+      box.innerHTML = letters.map(function (L) {
+        var id = 'gl-' + (L === '#' ? '0' : L);
+        return '<section class="gl-group" id="' + id + '" aria-labelledby="' + id + 'h"><h3 class="gl-letter" id="' + id + 'h" tabindex="-1"><span>' + (L === '#' ? '0–9' : L) + '</span><small>' + groups[L].length + (groups[L].length === 1 ? ' term' : ' terms') + '</small></h3>' +
+          '<dl class="gl-list">' + groups[L].map(function (it) { return glItemHTML(it, []); }).join('') + '</dl></section>';
+      }).join('');
+      return;
+    }
+    az.hidden = true;
+    var qw = q.split(' ').filter(function (w) { return w.length > 1; });
+    var needles = [q].concat(qw.length > 1 ? qw : []);
+    var terms = [], mentions = [];
+    items.forEach(function (it) {
+      var s = glScore(it, q, qw);
+      if (s >= 3) terms.push({ it: it, s: s }); else if (s) mentions.push({ it: it, s: s });
+    });
+    terms.sort(function (a, b) { return b.s - a.s || (a.it.key < b.it.key ? -1 : 1); });
+    var shown = '“' + gl.q.trim() + '”';
+    count.textContent = terms.length || mentions.length
+      ? terms.length + (terms.length === 1 ? ' term matches ' : ' terms match ') + shown + (mentions.length ? ', and ' + mentions.length + ' more ' + (mentions.length === 1 ? 'definition mentions' : 'definitions mention') + ' it' : '') + scope + '.'
+      : 'No terms match ' + shown + scope + '.';
+    function group(title, list) {
+      return '<section class="gl-group"><h3 class="gl-sub">' + esc(title) + '</h3><dl class="gl-list">' +
+        list.map(function (x) { return glItemHTML(x.it, needles); }).join('') + '</dl></section>';
+    }
+    box.innerHTML = (terms.length ? group('Terms', terms) : '') +
+      (mentions.length ? group(terms.length ? 'Also mentioned in these definitions' : 'Mentioned in these definitions', mentions) : '') +
+      (terms.length || mentions.length ? '' : '<div class="empty-note">Nothing in the glossary for ' + esc(shown) + '. <button class="btn btn-soft btn-sm" type="button" data-gl-askq>Ask Greg instead</button></div>');
+  }
+  function glShow(slug) {
+    glItems();
+    var it = gl.bySlug[slug];
+    gl.q = ''; $('glQuery').value = '';
+    if (it && !glInChapter(it)) { gl.ch = 'all'; $('glChapter').value = 'all'; }
+    showTab('glossary', { keepHash: true });
+    var el = it && $('term-' + it.slug);
+    if (!el) return;
+    el.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+    el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    el.focus({ preventScroll: true });
+  }
+  function initGlossary() {
+    if (!window.LW_GLOSSARY) { $('tab-glossary').hidden = true; return; }
+    $('glQuery').placeholder = 'Search ' + glItems().length + ' terms, like “RPZ”, “drawdown”, or “CT value”';
+    $('glQuery').addEventListener('input', function () {
+      var v = this.value;
+      clearTimeout(gl.timer);
+      gl.timer = setTimeout(function () { gl.q = v; renderGlossary(); }, 110);
+    });
+    $('glQuery').addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && this.value) { e.preventDefault(); this.value = ''; gl.q = ''; renderGlossary(); }
+    });
+    $('glChapter').addEventListener('change', function () { gl.ch = this.value; renderGlossary(); });
+    $('glAZ').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-gl-letter]');
+      if (!b || b.disabled) return;
+      var g = $('gl-' + (b.dataset.glLetter === '#' ? '0' : b.dataset.glLetter));
+      if (!g) return;
+      g.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+      g.querySelector('.gl-letter').focus({ preventScroll: true });
+    });
+    $('glResults').addEventListener('click', function (e) {
+      var ask = e.target.closest('[data-gl-ask]'), add = e.target.closest('[data-gl-card]');
+      if (ask) { openGreg('What does “' + gl.bySlug[ask.dataset.glAsk].term + '” mean?'); return; }
+      if (e.target.closest('[data-gl-askq]')) { openGreg('What is ' + gl.q.trim() + '?'); return; }
+      if (add) {
+        var it = gl.bySlug[add.dataset.glCard], mine = myCards(), on = glInMine(it);
+        if (on) st.mine[st.cls] = mine.filter(function (c) { return c.front !== it.term; });
+        else mine.push({ front: it.term, back: it.def });
+        save('mine');
+        renderDeckSelect();
+        add.setAttribute('aria-pressed', on ? 'false' : 'true');
+      }
+    });
+    $('glPrint').addEventListener('click', function () {
+      document.body.classList.add('print-glossary');
+      window.print();
+    });
+    window.addEventListener('afterprint', function () { document.body.classList.remove('print-glossary'); });
+  }
+
   /* ================= VIDEOS ================= */
   var vidTopic = 'all';
   function classVideos() {
@@ -780,7 +969,7 @@
     document.body.classList.add('drawer-open');
     if (!chat) {
       chat = GregAdultUI.mount($('gregChat'), {
-        intro: "Hi, I'm Greg. I know all 14 chapters of the operators manual. Ask about a rule, a process, or a number, or give me values and I'll work the formula, like “lbs/day for 2.5 mg/L at 1.2 MGD.” I can also search EPA, NRWA, and MsRWA for you. Just start with **search**.",
+        intro: "Hi, I'm Greg. I know all 14 chapters of the operators manual. Ask about a rule, a process, or a number, or give me values and I'll work the formula, like “lbs/day for 2.5 mg/L at 1.2 MGD.” I can define any of 400+ glossary terms, and I can search EPA, NRWA, and MsRWA for you. Just start with **define** or **search**.",
         chips: HERO_CHIPS[st.cls].concat(['Search MsRWA for certification classes'])
       });
     }
@@ -819,6 +1008,7 @@
     renderClass(); renderRail(); renderTip(); renderLessons();
     renderQuizScope(true); renderMathTopics(); renderVideos();
     if (current === 'cards') renderCards(); else renderDeckSelect();
+    if (current === 'glossary') { glChapterOptions(); renderGlossary(); }
     if (current === 'progress') renderProgress();
   }
   document.addEventListener('DOMContentLoaded', function () {
@@ -833,7 +1023,7 @@
         });
       });
     })();
-    initTabs(); initLessons(); initQuiz(); initMath(); initCards(); initVideos(); initProgress(); initGreg();
+    initTabs(); initLessons(); initQuiz(); initMath(); initCards(); initGlossary(); initVideos(); initProgress(); initGreg();
     renderAll();
     fromHash();
     window.addEventListener('hashchange', fromHash);

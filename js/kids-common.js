@@ -127,6 +127,7 @@ var KidsBadges = (function () {
     { id: 'traveler',  icon: '🌍', name: 'Water Cycle Traveler', how: "Collect all 8 stamps in Drop's Journey" },
     { id: 'leak',      icon: '🔧', name: 'Leak Stopper',        how: 'Save 300+ gallons in Leak Detective' },
     { id: 'pipes',     icon: '🚰', name: 'Pipe Pro',            how: 'Solve 3 Pipe Connect puzzles' },
+    { id: 'words',     icon: '📖', name: 'Word Wizard',         how: 'Get 4 of 5 right in Word Match' },
     { id: 'scientist', icon: '🥼', name: 'Jr. Water Scientist', how: 'Earn Game Player, Artist, Quiz Ace, and Experimenter' }
   ];
   var CORE = ['game', 'color', 'quiz', 'learn'];

@@ -231,6 +231,8 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
    SECTIONS
    ========================================================== */
 .lab-section { padding: 3.5rem 0; position: relative; z-index: 2; }
+/* Anchor jumps land below the sticky site nav and lab tabs */
+.lab-section[id] { scroll-margin-top: calc(var(--nav-h, 64px) + 54px); }
 .lab-section.tint { background: rgba(255,255,255,.78); border-top: 2px dashed rgba(11,42,74,.14); border-bottom: 2px dashed rgba(11,42,74,.14); }
 .lab-header { text-align: center; margin-bottom: 2.25rem; }
 .lab-header h2 { margin-bottom: .35rem; }
@@ -254,7 +256,7 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
 .lab-panel > h3 { display: flex; align-items: center; gap: .55rem; margin-bottom: .35rem; font-size: 1.5rem; }
 .lab-panel > .panel-desc { color: var(--k-ink-2); margin-bottom: 1.1rem; }
 
-.mission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+.mission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
 .mission-card {
   display: flex; flex-direction: column; position: relative; overflow: hidden;
   padding: 1.5rem 1.35rem 1.35rem; color: inherit; text-decoration: none;
@@ -270,7 +272,7 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
 .mission-card h3 { margin-bottom: .35rem; }
 .mission-card p { color: var(--k-ink-2); font-size: .98rem; margin-bottom: 1rem; flex: 1; }
 .mission-go {
-  align-self: flex-start; font-family: var(--k-display); font-weight: 800;
+  align-self: flex-start; font-family: var(--k-display); font-weight: 800; white-space: nowrap;
   background: var(--k-ink); color: #fff; border-radius: 999px; padding: .25rem .9rem;
 }
 .mission-card .m-status {
@@ -285,6 +287,8 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
 .mission-card.tint-lime   { background: linear-gradient(180deg, #fff 70%, var(--k-lime-w)); }
 .mission-card.tint-purple { background: linear-gradient(180deg, #fff 70%, var(--k-grape-w)); }
 .mission-card.tint-coral  { background: linear-gradient(180deg, #fff 70%, var(--k-coral-w)); }
+.mission-card.tint-cyan   .m-emoji { background: var(--k-wash); }
+.mission-card.tint-cyan   { background: linear-gradient(180deg, #fff 70%, var(--k-wash)); }
 
 /* ==========================================================
    BUTTONS — chunky arcade style
@@ -894,6 +898,178 @@ body.kids-body .video-links a { color: var(--k-blue); }
    PRINT — every kids page prints clean; the Coloring Lab
    prints only the picture (or a blank copy of it)
    ========================================================== */
+/* ==========================================================
+   WORD LAB — kid dictionary, word of the day, Word Match
+   ========================================================== */
+.g-cycle   { --gc: var(--k-cyan);    --gw: var(--k-wash); }
+.g-weather { --gc: var(--k-sky);     --gw: #eef9fe; }
+.g-earth   { --gc: var(--k-lime);    --gw: var(--k-lime-w); }
+.g-life    { --gc: var(--k-coral);   --gw: var(--k-coral-w); }
+.g-science { --gc: var(--k-grape-l); --gw: var(--k-grape-w); }
+.g-clean   { --gc: #4aa8e0;          --gw: #e4f2fb; }
+.g-save    { --gc: var(--k-amber);   --gw: var(--k-amber-w); }
+.g-mine    { --gc: var(--k-amber);   --gw: var(--k-note); }
+
+.speak-btn { display: none !important; }
+body.can-speak .speak-btn { display: inline-flex !important; }
+
+/* Word of the day */
+.wotd-card {
+  position: relative; overflow: hidden; max-width: 920px; margin: 0 auto;
+  display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 1.75rem; align-items: center;
+  background: #fff; border: var(--k-line); border-radius: 28px; box-shadow: var(--k-pop-lg);
+  padding: 2.1rem 2.1rem 1.8rem;
+}
+.wotd-card::before {
+  content: ''; position: absolute; inset: 0 0 auto 0; height: 14px; border-bottom: var(--k-line);
+  background: repeating-linear-gradient(135deg, var(--gc) 0 14px, #fff 14px 22px);
+}
+.wotd-emoji {
+  width: 150px; height: 150px; display: grid; place-items: center; font-size: 4.8rem;
+  border: var(--k-line); border-radius: 50%; box-shadow: var(--k-pop);
+  background: radial-gradient(circle at 35% 30%, #fff, var(--gw) 58%, var(--gc));
+  animation: bob 3.4s ease-in-out infinite;
+}
+.wotd-tag { font-family: var(--k-hand); font-size: 1.2rem; color: var(--k-ink-2); }
+body.kids-body .wotd-word { font-size: clamp(2.2rem, 6vw, 3.3rem); margin: .1rem 0 .3rem; }
+.wotd-say {
+  display: inline-block; font-family: var(--k-hand); font-size: 1.3rem; line-height: 1.3;
+  background: var(--k-note); border: 2px dashed rgba(11,42,74,.35); border-radius: 10px; padding: 0 .65rem; transform: rotate(-1deg);
+}
+.wotd-def { font-size: 1.15rem; line-height: 1.55; margin: .9rem 0 .45rem; }
+.wotd-ex { color: var(--k-ink-2); margin: 0 0 1.15rem; }
+.wotd-ex .hand, .wc-ex .hand { font-size: 1.15em; color: var(--k-blue); }
+.wotd-actions { display: flex; flex-wrap: wrap; gap: .55rem; }
+.lab-btn.wotd-star { background: #fff; }
+.lab-btn.wotd-star[aria-pressed="true"] { background: var(--k-lime); }
+
+/* Finder tools */
+.word-tools { display: grid; gap: 1rem; }
+.word-search { position: relative; }
+.word-search .ws-icon { position: absolute; left: 1.05rem; top: 50%; transform: translateY(-50%); font-size: 1.25rem; pointer-events: none; }
+.word-search input {
+  width: 100%; font: inherit; font-size: 1.15rem; color: var(--k-ink); background: #fff;
+  padding: .8rem 1.1rem .8rem 3rem; border: var(--k-line); border-radius: 999px; box-shadow: inset 0 3px 0 rgba(11,42,74,.06);
+}
+.word-search input:focus { outline: 3px solid var(--k-amber); outline-offset: 2px; }
+.word-groups { display: flex; flex-wrap: wrap; gap: .5rem; }
+.wg-chip {
+  display: inline-flex; align-items: center; gap: .35rem; cursor: pointer;
+  background: #fff; color: var(--k-ink); border: 2px solid var(--k-ink); border-radius: 999px;
+  padding: .35rem .85rem; font-family: var(--k-display); font-weight: 700; font-size: .95rem;
+  box-shadow: 0 3px 0 var(--k-ink); transition: transform .1s, box-shadow .1s, background .15s;
+}
+.wg-chip b { font-family: var(--k-body); font-size: .76rem; background: var(--k-wash); border: 1.5px solid rgba(11,42,74,.3); border-radius: 999px; padding: 0 .42rem; }
+.wg-chip:hover { transform: translateY(-2px); box-shadow: 0 5px 0 var(--k-ink); }
+.wg-chip[aria-pressed="true"] { background: var(--gc, var(--k-cyan)); transform: translateY(2px); box-shadow: 0 1px 0 var(--k-ink); }
+.wg-chip[aria-pressed="true"] b { background: #fff; }
+.word-az { display: flex; flex-wrap: wrap; gap: 4px; }
+.word-az button {
+  width: 34px; height: 36px; cursor: pointer; background: #fff; color: var(--k-ink);
+  border: 2px solid var(--k-ink); border-radius: 10px; font-family: var(--k-display); font-weight: 800; font-size: 1rem;
+}
+.word-az button:hover:not(:disabled) { background: var(--k-wash); }
+.word-az button[aria-pressed="true"] { background: var(--k-amber); box-shadow: inset 0 3px 0 rgba(0,0,0,.12); }
+.word-az button:disabled { opacity: .28; cursor: default; border-style: dashed; }
+
+/* Collection meter */
+.word-collect { background: #fff; border: 2px dashed rgba(11,42,74,.3); border-radius: 18px; padding: .9rem 1.15rem; margin-bottom: 1.1rem; }
+.wc-meter-row { display: flex; align-items: center; gap: .6rem 1rem; flex-wrap: wrap; }
+.wc-meter-row strong { font-family: var(--k-display); font-size: 1.15rem; }
+.wc-cheer { margin: .3rem 0 0; font-size: 1.15rem; color: var(--k-ink-2); }
+.word-count { font-weight: 700; color: var(--k-ink-2); margin: 0 0 .9rem; }
+
+/* Word cards */
+.word-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.15rem; }
+.word-card {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; gap: .55rem;
+  background: #fff; border: var(--k-line); border-radius: 20px; box-shadow: var(--k-pop-sm);
+  padding: 1.35rem 1.1rem 1rem; transition: transform .12s, box-shadow .12s;
+}
+.word-card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 9px; background: var(--gc); border-bottom: 2px solid var(--k-ink); }
+.word-card:hover { transform: translate(-1px, -2px); box-shadow: var(--k-pop); }
+.word-card.known { background: linear-gradient(180deg, #fff 55%, var(--k-note)); }
+.wc-top { display: flex; align-items: center; gap: .7rem; }
+.wc-emoji {
+  width: 54px; height: 54px; flex-shrink: 0; display: grid; place-items: center; font-size: 1.8rem;
+  border: var(--k-line); border-radius: 16px; background: var(--gw);
+}
+.wc-head { flex: 1; min-width: 0; }
+body.kids-body .wc-word { font-size: 1.3rem; margin: 0; overflow-wrap: anywhere; }
+.wc-say { display: block; font-family: var(--k-hand); font-size: 1.05rem; color: var(--k-blue); line-height: 1.25; }
+.wc-star {
+  width: 44px; height: 44px; flex-shrink: 0; display: grid; place-items: center; cursor: pointer;
+  background: #fff; border: 2px dashed rgba(11,42,74,.4); border-radius: 50%; font-size: 1.3rem; line-height: 1;
+  transition: transform .15s;
+}
+.wc-star[aria-pressed="false"] { filter: grayscale(1); opacity: .55; }
+.wc-star:hover { transform: scale(1.1) rotate(-8deg); opacity: 1; }
+.wc-star[aria-pressed="true"] { border: 2px solid var(--k-ink); background: var(--k-amber-w); animation: starPop .35s ease; }
+@keyframes starPop { 0% { transform: scale(.7); } 60% { transform: scale(1.2) rotate(10deg); } 100% { transform: none; } }
+.wc-def { margin: 0; font-size: 1rem; line-height: 1.5; }
+.wc-ex {
+  margin: 0; font-size: .92rem; line-height: 1.45; color: var(--k-ink-2);
+  background: var(--k-paper); border-left: 4px solid var(--gc); border-radius: 4px 10px 10px 4px; padding: .45rem .65rem;
+}
+.wc-actions { display: flex; align-items: center; gap: .4rem; margin-top: auto; padding-top: .3rem; }
+.wc-group { margin-right: auto; font-size: .8rem; font-weight: 700; color: var(--k-ink-2); }
+.wc-btn {
+  display: inline-flex; align-items: center; gap: .3rem; min-height: 36px; cursor: pointer;
+  background: var(--k-wash); color: var(--k-ink); border: 2px solid var(--k-ink); border-radius: 999px;
+  padding: .25rem .7rem; font-family: var(--k-display); font-weight: 700; font-size: .88rem;
+}
+.wc-btn:hover { background: var(--k-sky); }
+.word-empty { grid-column: 1 / -1; text-align: center; padding: 2rem 1rem; background: #fff; border: 2px dashed rgba(11,42,74,.3); border-radius: 20px; }
+.word-empty span { display: block; font-size: 2.6rem; }
+.word-empty p { font-size: 1.1rem; margin: .4rem 0 .9rem; }
+
+/* Word Match */
+.match-panel { max-width: 780px; margin: 0 auto; }
+.match-start, .match-result { text-align: center; }
+.match-big { display: block; font-size: 3.4rem; line-height: 1; margin-bottom: .4rem; }
+.match-start > p { font-size: 1.1rem; }
+.match-note { font-size: 1.2rem; color: var(--k-coral-d); margin: .9rem 0 0; }
+.match-clue {
+  background: var(--k-note); border: 2px solid rgba(11,42,74,.35); border-radius: 6px 18px 6px 18px;
+  box-shadow: 3px 4px 0 rgba(11,42,74,.15); padding: 1rem 1.2rem; margin: .4rem 0 1rem;
+}
+.mc-label { display: block; font-size: 1.3rem; color: var(--k-ink-2); }
+.match-clue p { font-size: 1.2rem; font-weight: 700; line-height: 1.45; margin: .15rem 0 .6rem; outline: none; }
+.match-choices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+.match-choice {
+  display: flex; flex-direction: column; align-items: center; gap: .3rem; cursor: pointer;
+  background: #fff; color: var(--k-ink); border: var(--k-line); border-radius: 18px; box-shadow: 0 4px 0 var(--k-ink);
+  padding: .9rem .6rem; font-family: var(--k-display); font-weight: 800; font-size: 1.1rem; line-height: 1.15;
+  transition: transform .1s, box-shadow .1s;
+}
+.match-choice .mch-emoji { font-size: 2.2rem; }
+.match-choice:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 0 var(--k-ink); }
+.match-choice:disabled { cursor: default; }
+.match-choice.correct { background: var(--k-lime-w); border-color: var(--k-lime-d); animation: popIn .3s ease; }
+.match-choice.wrong { background: var(--k-coral-w); animation: shake .35s; }
+.match-choice:disabled:not(.correct):not(.wrong) { opacity: .5; }
+.match-result h3 { outline: none; }
+.match-review { list-style: none; padding: 0; margin: 1.1rem 0; display: grid; gap: .5rem; text-align: left; }
+.match-review li { display: flex; gap: .6rem; align-items: flex-start; background: #fff; border: 2px solid rgba(11,42,74,.25); border-radius: 14px; padding: .6rem .8rem; font-size: .95rem; line-height: 1.4; }
+.match-review li.ok { background: var(--k-lime-w); }
+.match-review li.miss { background: var(--k-coral-w); }
+.match-review b { font-family: var(--k-display); margin-right: .2rem; }
+@media (max-width: 640px) {
+  .wotd-card { grid-template-columns: 1fr; text-align: center; padding: 1.8rem 1.1rem 1.4rem; gap: 1rem; }
+  .wotd-emoji { margin: 0 auto; width: 112px; height: 112px; font-size: 3.6rem; }
+  .wotd-actions { justify-content: center; }
+  .match-choices { grid-template-columns: 1fr; }
+  .match-choice { flex-direction: row; justify-content: flex-start; gap: .75rem; text-align: left; }
+  .match-choice .mch-emoji { font-size: 1.8rem; }
+  .word-groups { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; }
+  .wg-chip { justify-content: center; padding: .35rem .5rem; font-size: .86rem; white-space: nowrap; }
+  .wg-chip b { display: none; }
+  .word-az { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 4px; }
+  .word-az::-webkit-scrollbar { display: none; }
+  .word-az button { flex-shrink: 0; }
+}
+
+
 @media print {
   body.kids-body { background: #fff !important; }
   .lab-backdrop, .site-nav, .lab-nav, .site-footer, .skip-link, .no-print,
@@ -909,6 +1085,19 @@ body.kids-body .video-links a { color: var(--k-blue); }
   body.coloring-page.print-blank #printArea { display: none !important; }
   body.coloring-page.print-blank #printBlankArea { display: block !important; }
   #printBlankArea .coloring-scene { display: block !important; width: 100%; height: auto; }
+  body.words-page.print-words .lab-hero, body.words-page.print-words #today, body.words-page.print-words #match,
+  body.words-page.print-words #parents, body.words-page.print-words .word-tools, body.words-page.print-words .word-collect,
+  body.words-page.print-words .lab-header p, body.words-page.print-words .lab-rule { display: none !important; }
+  body.words-page.print-words #words { padding: 0 !important; background: none !important; border: 0 !important; }
+  body.words-page.print-words .lab-header { margin-bottom: .6rem; }
+  body.words-page.print-words .word-grid { grid-template-columns: 1fr 1fr; gap: 6px 12px; }
+  body.words-page.print-words .word-card { box-shadow: none; border: 1.5px solid #999; border-radius: 10px; padding: .45rem .6rem; gap: .2rem; break-inside: avoid; background: #fff; }
+  body.words-page.print-words .word-card::before, body.words-page.print-words .wc-star, body.words-page.print-words .wc-actions { display: none !important; }
+  body.words-page.print-words .wc-emoji { width: 32px; height: 32px; font-size: 1.05rem; border-width: 1.5px; border-radius: 9px; }
+  body.words-page.print-words .wc-word { font-size: 1.02rem; }
+  body.words-page.print-words .wc-say { font-size: .85rem; }
+  body.words-page.print-words .wc-def { font-size: .82rem; line-height: 1.35; }
+  body.words-page.print-words .wc-ex { font-size: .75rem; padding: .15rem .4rem; }
   @page { margin: .5in; }
 }
 
@@ -934,5 +1123,5 @@ body.kids-body .site-footer a { color: var(--k-amber); }
 }
 @media (prefers-reduced-motion: reduce) {
   .lab-backdrop { display: none; }
-  .mascot, .wiggle, .pulse, .wave-divider svg, .rank-badge, .hq-greg .greg-figure { animation: none !important; }
+  .mascot, .wiggle, .pulse, .wave-divider svg, .rank-badge, .hq-greg .greg-figure, .wotd-emoji, .wc-star, .match-choice { animation: none !important; }
 }

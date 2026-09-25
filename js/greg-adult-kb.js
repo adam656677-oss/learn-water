@@ -14,7 +14,7 @@
     /* ---------------- Using the site / studying ---------------- */
     { id: "greg-intro", q: "What can you help me with?",
       k: ["help:2", "what can you do:4", "how do you work", "who are you:3", "what do you know", "topics"],
-      a: "I'm Greg, your LearnWater instructor. I can explain anything in the 14 chapters of the Mississippi Waterworks Operators Manual — regulations, certification, math, hydraulics, wells, microbiology, chemistry, treatment, distribution, chlorination, safety, and cross-connection control.\n\nI also work problems. Try **“lbs/day for 2.5 mg/l at 1.5 mgd”**, **“50 psi in feet”**, **“specific capacity 300 gpm 20 ft drawdown”**, or **“volume of a tank 20 ft diameter 30 ft tall.”**\n\nI can also **search EPA, NRWA, and MsRWA** for you. Try **“search EPA for lead service lines”** or **“search MsRWA for certification classes.”**",
+      a: "I'm Greg, your LearnWater instructor. I can explain anything in the 14 chapters of the Mississippi Waterworks Operators Manual — regulations, certification, math, hydraulics, wells, microbiology, chemistry, treatment, distribution, chlorination, safety, and cross-connection control.\n\nI also work problems. Try **“lbs/day for 2.5 mg/l at 1.5 mgd”**, **“50 psi in feet”**, **“specific capacity 300 gpm 20 ft drawdown”**, or **“volume of a tank 20 ft diameter 30 ft tall.”**\n\nI know **400+ glossary terms** too. Ask **“define turbidity”** or **“what does RPZ mean?”**\n\nI can also **search EPA, NRWA, and MsRWA** for you. Try **“search EPA for lead service lines”** or **“search MsRWA for certification classes.”**",
       rel: ["study-plan", "site-search", "pounds-formula"] },
     { id: "study-plan", q: "How should I study for my license exam?",
       k: ["study:3", "study plan:4", "prepare:3", "prep", "how to pass:4", "pass the exam:4", "where do i start:4", "start studying"],
@@ -26,7 +26,7 @@
       rel: ["math-tips", "conversions", "study-plan"] },
     { id: "site-quiz", q: "How does the practice quiz work?",
       k: ["practice quiz:4", "quiz work*:4", "how many questions:3", "question bank", "new questions", "retry missed:3"],
-      a: "Pick **10, 15, or 25 questions**. A round spreads them across every chapter in your class, and the answer choices are shuffled every time. There are **182 questions** in all, about 13 per chapter, written from the manual. Choose one chapter in the **Chapters** menu to drill just that chapter, or pick **My weakest chapters**. At the end you'll see a chapter-by-chapter breakdown, every miss with its explanation, and a **Retry the ones I missed** button. Each lesson page also has a quick 5-question check.",
+      a: "Pick **10, 15, or 25 questions**. A round spreads them across every chapter in your class, and the answer choices are shuffled every time. There are **224 questions** in all, 16 per chapter, written from the manual. Choose one chapter in the **Chapters** menu to drill just that chapter, or pick **My weakest chapters**. At the end you'll see a chapter-by-chapter breakdown, every miss with its explanation, and a **Retry the ones I missed** button. Each lesson page also has a quick 5-question check.",
       rel: ["study-plan", "site-progress"] },
     { id: "site-progress", q: "How do I see my weak areas?",
       k: ["my progress:4", "weak area*:4", "weak chapter*:4", "accuracy:3", "track*:2", "score*:2", "how am i doing:4"],
@@ -34,7 +34,7 @@
       rel: ["study-plan", "site-quiz"] },
     { id: "site-cards", q: "How do the flash cards work?",
       k: ["flash card*:4", "flashcard*:4", "cards:2", "memorize:2", "my own cards:4", "print cards:3"],
-      a: "Open **Flash Cards**. Greg's deck for your class has about 110 to 130 cards covering every chapter's key numbers and terms. Tap a card to flip it, then press **I know this** to drop it from the rotation or **Study again** to keep it. Pick one chapter from the **Deck** menu to focus, use **List view** to scan them all, or **Print** a sheet. You can add your own cards too. They're saved in this browser.",
+      a: "Open **Flash Cards**. Greg's deck for your class has about 150 to 175 cards covering every chapter's key numbers and terms. Tap a card to flip it, then press **I know this** to drop it from the rotation or **Study again** to keep it. Pick one chapter from the **Deck** menu to focus, use **List view** to scan them all, or **Print** a sheet. You can add your own cards too. They're saved in this browser.",
       rel: ["study-plan", "site-math"] },
     { id: "site-math", q: "How does Math Practice work?",
       k: ["math practice:4", "math drill*:4", "practice problem*:3", "worked solution*:3", "formula sheet:4"],
@@ -728,11 +728,113 @@
     { id: "backflow-testing", q: "How often are backflow devices tested?",
       k: ["test* annually:7", "annual test*:7", "backflow test*:7", "tester*:6", "certified tester*:7", "test cock*:6", "how often test*:6"],
       a: "Testable assemblies (RPZ, double check, PVB) must be tested **when installed and at least annually** — and after any repair or relocation — by a **certified backflow tester**. Keep the records, follow up on failed tests fast, and track due dates in your cross-connection program. Air gaps get inspected to make sure no one has defeated them.",
+      more: "Typical passing values in common test procedures: **RPZ** relief valve opens at **2 psid or more** and the first check holds at least **5 psid**, with the second check tight; **double check** valves each hold at least **1 psid**; a **PVB** air inlet opens at **1 psid or more** and its check holds at least 1 psid. Repair and retest a failed assembly right away.",
       rel: ["ccc-program", "rpz", "dcva"] },
     { id: "ccc-program", q: "What does a cross-connection control program include?",
       k: ["cross connection control program:7", "ccc program:7", "backflow program:7", "survey*:3", "containment:7", "isolation:5", "premise*:4", "ordinance:6", "whose responsibility:6", "who is responsible:6", "responsib*:4"],
       a: "Responsibilities per the manual:\n• **Water supplier** — source to the meter: survey for hazards, educate the public, require protection, keep pressure at 20 psi or more.\n• **Customer** — the meter onward: install, test, and maintain required devices at their own expense.\n• **Plumber** — the first line of defense, catching cross-connections during installation.\n• **MSDH** — enforces the rules.\nA solid program has a legal ordinance or policy, **containment** at the service connection (plus isolation inside high-hazard premises), device records, and annual testing.",
-      rel: ["backflow-testing", "device-selection", "cross-connection"] }
+      rel: ["backflow-testing", "device-selection", "cross-connection"] },
+    /* ---------------- Added with the expanded lessons ---------------- */
+    { id: "site-glossary", q: "Is there a glossary of water terms?",
+      k: ["glossary:7", "dictionary:6", "definitions:6", "all the terms:6", "vocabulary:6", "terms list:6", "word list:5", "key terms:5"],
+      a: "Yes. Open the **Glossary** tab in the Learning Center for **400+ terms** from all 14 chapters, in plain language. Search a word or an abbreviation, filter to one chapter, jump by letter, or add a term to your flash cards. Every lesson also lists its **key terms** near the end.\n\nYou can ask me too: **“define turbidity”** or **“what does RPZ mean?”**",
+      rel: ["site-cards", "study-plan", "greg-intro"] },
+    { id: "rules-overview", q: "Which federal rules does my water system follow?",
+      k: ["which rules:7", "what rules:6", "rules apply:7", "federal rules:6", "drinking water rules:6", "list of rules:7", "major rules:7", "regulations apply:6"],
+      a: "The rules that drive daily work:\n• **Revised Total Coliform Rule** — routine and repeat bacteriological samples, assessments.\n• **Ground Water Rule** — sanitary surveys, source sampling after a coliform positive, fixing significant deficiencies.\n• **Surface Water Treatment Rules** — filtration, disinfection, turbidity limits, and CT for surface water and GWUDI.\n• **Lead and Copper Rule** — tap sampling, corrosion control, service line inventory.\n• **Disinfectants and Disinfection Byproducts Rules** — TTHM, HAA5, and MRDLs.\n• **Chemical and radionuclide rules** — nitrate, arsenic, and other contaminants on MSDH's schedule.",
+      rel: ["rtcr", "swtr", "lead-copper"] },
+    { id: "mcl-list", q: "Which MCLs should I know?",
+      k: ["mcls to know:7", "important mcls:7", "what mcls:7", "mcls should i know:7", "list of mcl*:7", "which mcl*:7", "mcl list:7", "common mcl*:7", "limits to know:6", "contaminant limits:6", "maximum contaminant levels:5"],
+      a: "The ones that come up most:\n• **Nitrate 10 mg/L** (as N) and **nitrite 1 mg/L** (as N)\n• **Arsenic 0.010 mg/L** · **Fluoride 4.0 mg/L** (secondary 2.0)\n• **TTHM 0.080 mg/L** · **HAA5 0.060 mg/L** (locational running annual averages)\n• **Bromate 0.010 mg/L** · **Chlorite 1.0 mg/L**\n• **MRDL**: chlorine and chloramines **4.0 mg/L**, chlorine dioxide **0.8 mg/L**\n• Action levels (not MCLs): **lead 15 µg/L** (10 µg/L under the LCRI), **copper 1.3 mg/L**",
+      rel: ["mcl", "nitrate", "dbps"] },
+    { id: "cert-history", q: "Why do water operators have to be certified?",
+      k: ["why be certified:7", "why certification:7", "why do operators need:7", "certification program*:6", "1996 amendments:7", "operator certification program:7", "epa guidelines:5", "srf:5", "revolving fund:6"],
+      a: "The **1996 SDWA amendments** made operator certification a national requirement, and EPA published guidelines for state programs in **1999**. A state without an adequate program can lose **20%** of its Drinking Water State Revolving Fund money. The point is simple: the person running the system has proven they know how to keep the water safe.",
+      rel: ["who-needs-operator", "responsible-charge", "system-classes"] },
+    { id: "responsible-charge", q: "What is an operator in responsible charge?",
+      k: ["responsible charge:7", "operator in responsible charge:7", "orc:6", "backup operator*:7", "back-up operator*:7", "shift operator*:6", "designated operator:6"],
+      a: "The **operator in responsible charge** is the certified person who makes the process-control decisions for the system, and their certificate must match the system's class. Larger systems add **shift operators**, and every system should have a certified **backup operator** for vacations, illness, and emergencies. If a system loses its certified operator, the manual gives it **180 days** to replace that person.",
+      rel: ["who-needs-operator", "cert-history", "cert-revocation"] },
+    { id: "cert-revocation", q: "Can I lose my operator certificate?",
+      k: ["lose my certificate:7", "lose my license:7", "revoke*:7", "revocation:7", "suspend*:6", "falsif*:7", "fake records:7", "ethics:6", "misconduct:6"],
+      a: "Yes. MSDH can **suspend or revoke** a certificate for **fraud, falsified reports, or gross negligence**. Falsifying sample results or operating records can also lead to criminal charges. Record every reading honestly as it happens, report problems to MSDH right away, and operate only systems at or below your certificate class.",
+      rel: ["responsible-charge", "records", "renewal"] },
+    { id: "exam-format", q: "What is the operator exam like?",
+      k: ["exam like:7", "exam format:7", "test format:7", "what is on the exam:7", "whats on the test:6", "exam cover*:6", "how many questions on the exam:6", "multiple choice:5", "calculator:4"],
+      a: "Each class exam is a written test on that class's material **and every class below it**, and every class includes **math**. Expect vocabulary, regulations, process questions, and formula problems (pounds, area and volume, detention time, specific capacity, pressure conversions). Check your MSDH exam notice for the time, place, fees, and which **calculators and references** are allowed.",
+      rel: ["exam-tips", "study-plan", "math-tips"] },
+    { id: "dilution", q: "How do I dilute a chemical solution?",
+      k: ["dilut*:7", "c1v1:7", "c1 v1:7", "make a solution:7", "mix a solution:7", "percent solution:5", "solution strength:6", "stronger solution:5"],
+      a: "Use **C₁ × V₁ = C₂ × V₂** (strength × volume before = strength × volume after).\nExample: 50 gallons of **2%** solution from **12.5%** bleach → V₁ = (2 × 50) ÷ 12.5 = **8 gallons** of bleach, plus 42 gallons of water.\nRemember **1% = 10,000 mg/L**, and dilute with soft or treated water so hypochlorite doesn't form scale.",
+      rel: ["hypochlorite-math", "chlorine-forms", "percent-math"] },
+    { id: "airline", q: "How do I measure the water level in a well?",
+      k: ["airline:7", "air line:7", "well water level:7", "water level in a well:7", "measure water level:7", "depth to water:7", "sounder:6", "well sounder:7", "e-tape:6", "electric tape:6"],
+      a: "With an **airline**: pump air into the tube until the gauge stops rising, then\n**Depth to water = airline length − (psi × 2.31)**.\nExample: 250-ft airline reading 60 psi → 250 − 138.6 = **111.4 ft** to water.\nAn **electric sounder** (e-tape) lowered down an access pipe works too. Measure with the pump off for the **static** level and after steady pumping for the **pumping** level; the difference is the **drawdown**.",
+      rel: ["drawdown", "specific-capacity", "well-problems"] },
+    { id: "ground-water-rule", q: "What does the Ground Water Rule require?",
+      k: ["ground water rule:7", "groundwater rule:7", "gwr:7", "triggered monitoring:7", "triggered source:7", "source water sample*:6", "4-log virus:6", "4 log treatment:6", "fecal indicator*:6"],
+      a: "The **Ground Water Rule** (2006) protects wells from fecal contamination:\n• **Sanitary surveys** find weaknesses; a **significant deficiency** must be discussed with the state within **30 days** and corrected (or on an approved schedule) within **120 days**.\n• **Triggered source monitoring**: after a coliform-positive routine sample, collect a **raw sample from each well in use within 24 hours**. A fecal-positive source means **5 more samples** within 24 hours (unless corrective action is required right away) and **Tier 1** notice.\n• Systems providing **4-log virus treatment** with compliance monitoring are exempt from triggered sampling.",
+      rel: ["sanitary-survey", "repeat-samples", "wellhead-protection"] },
+    { id: "outbreaks", q: "What happened in Milwaukee and Walkerton?",
+      k: ["milwaukee:7", "walkerton:7", "outbreak*:6", "waterborne outbreak*:7", "famous outbreak*:7", "1993:5"],
+      a: "• **Milwaukee, 1993** — *Cryptosporidium* got through a treatment plant during high turbidity and sickened an estimated **400,000 people**. It drove tighter turbidity and Crypto rules.\n• **Walkerton, Ontario, 2000** — *E. coli* O157:H7 from farm runoff reached a shallow well while chlorination was inadequate: **7 deaths**, about **2,300 ill**. The operators had also falsified records.\nThe lesson is the **multiple-barrier approach**: protect the source, treat, disinfect, keep a residual, and monitor honestly.",
+      rel: ["pathogens", "swtr", "cert-revocation"] },
+    { id: "emergency-disinfection", q: "How do people disinfect water in an emergency?",
+      k: ["emergency disinfection:7", "disinfect drinking water:6", "bleach per gallon:7", "drops of bleach:7", "how to purify water:6", "make water safe:6", "rolling boil:7", "boil for:6"],
+      a: "The standard public advice:\n• **Boil**: bring water to a **rolling boil for 1 minute**, then let it cool.\n• **Bleach** (if boiling isn't possible): **8 drops (about 1/8 teaspoon) of unscented 6% bleach per gallon**, or 6 drops of 8.25% bleach. Stir and wait **30 minutes**; it should smell slightly of chlorine.\nBoiling does **not** remove nitrate or chemicals, so follow MSDH's notice for what applies.",
+      rel: ["boil-water", "nitrate", "main-breaks"] },
+    { id: "oxidant-demand", q: "How much chlorine does it take to oxidize iron and manganese?",
+      k: ["oxidant demand:7", "oxidize iron:7", "oxidize manganese:7", "chlorine for iron:7", "permanganate dose:7", "how much permanganate:7", "kmno4 dose:7", "stoichiometr*:6"],
+      a: "Rules of thumb per **1 mg/L** of metal:\n• **Chlorine**: about **0.6 mg/L** for iron, **1.3 mg/L** for manganese\n• **Potassium permanganate**: about **0.9 mg/L** for iron, **1.9 mg/L** for manganese\nAdd that to any other demand (like H₂S at about **2.1 mg/L** chlorine per mg/L), then confirm with jar tests or plant results. Chlorine oxidizes manganese slowly unless the pH is high, which is why permanganate or greensand is common for manganese.",
+      rel: ["iron-manganese", "greensand", "chlorine-demand"] },
+    { id: "lab-tests", q: "How are the common water tests done?",
+      k: ["lab test*:7", "water test*:6", "how to test:6", "titration:6", "titrate:6", "edta:7", "calibrate ph:7", "ph meter:7", "ph buffer*:6", "spadns:7", "colorimeter:6"],
+      a: "• **pH** — meter with a glass electrode; calibrate daily with fresh buffers (pH 7 plus 4 or 10).\n• **Chlorine** — DPD test; read free chlorine within about a minute.\n• **Alkalinity** — titrate with sulfuric acid to about **pH 4.5**.\n• **Hardness** — EDTA titration; the indicator turns **wine-red to blue**.\n• **Fluoride** — ion-selective electrode or SPADNS.\n• **Turbidity** — turbidimeter with clean, unscratched cells.\nRinse glassware with sample water, check reagent dates, and log every result with the time and place.",
+      rel: ["ph", "alkalinity", "hardness"] },
+    { id: "combined-chlorine", q: "How do I figure combined chlorine?",
+      k: ["combined chlorine:7", "combined residual:7", "total chlorine:6", "total minus free:7", "free vs total:7", "free and total:6", "chloramine residual:5"],
+      a: "**Combined chlorine = total chlorine − free chlorine.** Run DPD free and DPD total on the same sample.\nExample: total 1.2 mg/L, free 0.9 mg/L → **0.3 mg/L combined**.\nIn a free-chlorine system, a large combined share means you haven't reached the **breakpoint**, often because ammonia or organic nitrogen is in the water. Chloramine systems run on combined chlorine on purpose.",
+      rel: ["chlorine-curve", "free-residual", "nitrification"] },
+    { id: "fluoride-saturator", q: "How does a fluoride saturator work?",
+      k: ["saturator*:7", "fluoride saturator*:7", "18,000:7", "18000:7", "saturated solution:6", "fluoride overfeed:7", "too much fluoride:7", "upflow saturator:7"],
+      a: "Water flows up through a bed of **sodium fluoride** crystals and comes out saturated at about **18,000 mg/L fluoride**, so:\n**Gallons of solution = dose (mg/L) × gallons treated ÷ 18,000**.\nExample: 0.7 mg/L to 500,000 gal → **19.4 gallons**. Subtract natural fluoride from the target first.\n**Overfeed?** Stop the feed, find the cause, **notify MSDH**, and follow its instructions on flushing and notice. Never let a fluoride feeder run while the well pump is off.",
+      rel: ["fluoride-math", "fluoride-chemicals", "fluoridation"] },
+    { id: "air-binding", q: "What is air binding in a filter?",
+      k: ["air binding:7", "air bound:7", "negative head:7", "air in filter:6", "bubbles in filter:6", "filter cracks:5", "cracked filter:5"],
+      a: "When head loss gets high, pressure inside the filter bed can drop **below atmospheric** (negative head). Dissolved air comes out of solution and collects in the media, blocking flow and disturbing the bed when it escapes during backwash. Prevent it by **backwashing before head loss gets too high** and keeping enough water depth over the filter.",
+      rel: ["backwash", "filtration", "filter-rates"] },
+    { id: "cylinder-change", q: "How do I change a chlorine cylinder?",
+      k: ["change* cylinder*:7", "chang* a cylinder:7", "cylinder change*:7", "connect* cylinder*:7", "swap* cylinder*:7", "hook up cylinder:7", "lead gasket:7", "lead washer:7", "gasket*:5", "chang*:4"],
+      a: "1. Have **SCBA** ready and a coworker present; confirm the fan works.\n2. Close the empty cylinder valve and let the chlorinator pull the line empty.\n3. Disconnect the yoke and **cap the empty valve**; mark it empty.\n4. Chain the full cylinder, remove its cap, and inspect the valve.\n5. Connect with a **new lead gasket** every time.\n6. Open the valve slowly, **no more than one full turn**, and leave the wrench on it.\n7. **Leak-check with ammonia vapor**, then log the date and weights.",
+      rel: ["cylinders", "leak-detection", "chlorine-gas-safety"] },
+    { id: "chlorine-health", q: "What does chlorine gas do to the body?",
+      k: ["chlorine symptom*:7", "chlorine exposure symptom*:7", "breathed chlorine:7", "inhaled chlorine:7", "exposed to chlorine:7", "chlorine poison*:7", "chlorine first aid:7", "ppm effect*:6"],
+      a: "Rough effects of chlorine in air:\n• about **0.3 ppm** — most people smell it\n• **1–3 ppm** — irritated eyes, nose, and throat (OSHA ceiling is **1 ppm**)\n• **10 ppm** — immediately dangerous to life and health\n• **30 ppm** — chest pain, coughing, vomiting, trouble breathing\n• about **1,000 ppm** — can kill within minutes\n**First aid:** fresh air (don't expose yourself), keep the person calm and at rest, call 911, give oxygen only if trained, flush eyes and skin **15 minutes**. Fluid can build up in the lungs hours later, so get a medical check.",
+      rel: ["chlorine-gas-safety", "first-aid", "leak-detection"] },
+    { id: "chlorine-room", q: "How should a chlorine room be set up?",
+      k: ["chlorine room*:7", "chlorine building:7", "chlorinator room:7", "exhaust fan*:6", "fan switch:6", "risk management program:7", "rmp:7", "2,500:5", "2500 lb:6"],
+      a: "• Separate room with a door that **opens outward to the outside** and a **window** to look in first.\n• **Exhaust fan pulling from near the floor**, switch **outside** the door.\n• A **chlorine gas detector** with an alarm.\n• **SCBA stored outside** the room.\n• Cylinders chained, out of direct sun and heat.\n• Chlorine Institute **Kit A** (100/150-lb cylinders) or **Kit B** (ton containers) with trained people.\nFacilities that keep more than **2,500 lb** of chlorine in a process also fall under EPA's **Risk Management Program**.",
+      rel: ["chlorine-gas-safety", "cylinders", "emergency-plan"] },
+    { id: "work-zone", q: "How do I set up a safe work zone in the street?",
+      k: ["work zone*:7", "traffic control:7", "mutcd:7", "flagger*:7", "cones:6", "high visibility:6", "hi-vis:7", "safety vest*:6", "working in the street:7", "road work:6"],
+      a: "Follow the **MUTCD** (Manual on Uniform Traffic Control Devices): advance warning signs, a taper of cones to guide traffic around you, a buffer space, and **flaggers** when traffic has to alternate. Everyone wears **high-visibility** clothing, trucks use warning lights, and the setup comes down in reverse order. **Call 811** before you dig, and protect trenches 5 feet or deeper.",
+      rel: ["trench", "ppe", "main-breaks"] },
+    { id: "thermal-expansion", q: "Why did pressure rise after a backflow device went in?",
+      k: ["thermal expansion:7", "expansion tank*:7", "closed system:7", "water heater pressure:7", "t&p valve:6", "water heater relief:6"],
+      a: "A backflow assembly or check valve at the meter makes a **closed system**. When the water heater warms water, it **expands** with nowhere to go, so pressure climbs, and the heater's relief valve may drip. A **thermal expansion tank** on the cold line absorbs the extra volume. Explain this to customers when you require containment.",
+      rel: ["ccc-program", "device-selection", "rpz"] },
+    { id: "backflow-examples", q: "What backflow protection does irrigation or a boiler need?",
+      k: ["boiler*:7", "fire sprinkler*:7", "fire line*:7", "car wash*:7", "hospital*:6", "mortuar*:7", "lawn irrigation:7", "chemical injector*:7", "cooling tower*:7"],
+      a: "Typical choices (local codes and MSDH decide):\n• **Lawn irrigation** — PVB or RPZ; **RPZ if chemicals are injected**\n• **Boilers and cooling towers** — RPZ\n• **Hospitals, labs, mortuaries** — RPZ at the service (containment)\n• **Car washes, chemical plants** — RPZ or air gap\n• **Fire sprinklers** — double check assembly; RPZ if antifreeze or chemicals are added\n• **Hoses** — hose bib vacuum breaker\n• **Tanks and chemical feed** — air gap",
+      rel: ["device-selection", "rpz", "vacuum-breakers"] },
+    { id: "pump-care", q: "How do I take care of pumps?",
+      k: ["pump maintenance:7", "pump care:7", "maintain* pump*:7", "pump checks:7", "pump log:6", "amps:5", "vibration:6", "bearing*:5", "hot bearing*:6", "pump noise:6"],
+      a: "Daily and weekly habits:\n• **Log** run hours, amps, discharge pressure, and flow. Less flow at the same pressure hints at a worn impeller or clogged screen.\n• **Listen and feel** — gravel noise means cavitation; rising vibration or **hot bearings** mean wear or misalignment.\n• **Packing** should drip slowly; mechanical seals shouldn't leak.\n• **Lubricate** on schedule, don't over-grease, and keep couplings aligned.\n• Never run a centrifugal pump dry, and never dead-head a positive displacement pump.",
+      rel: ["packing-seals", "cavitation", "maintenance-types"] },
+    { id: "daily-rounds", q: "What should I check every day at a small water system?",
+      k: ["daily rounds:7", "daily check*:7", "check every day:7", "checklist:6", "routine duties:6", "what do operators do:6", "daily log:7", "operator duties:6"],
+      a: "A solid daily round for a well system:\n• **Pumps** — running normally? Check sound, vibration, packing, and amps.\n• **Meters** — record readings and gallons pumped.\n• **Chemicals** — tank levels, feed rates, and how much was used.\n• **Chlorine residual** at the entry point and somewhere in the system (at least **0.2 mg/L** free).\n• **Pressures and tank levels**.\n• **Security** — locks, fences, hatches, and anything out of place.\nWrite it all down as you go; your logs are your proof.",
+      rel: ["free-residual", "hypochlorinator", "records"] }
   ];
 
   /* ==========================================================
@@ -1051,17 +1153,119 @@
     return null;
   }
 
+
+  /* ==========================================================
+     Glossary — 400+ definitions from js/glossary-adult.js.
+     Greg answers “define X” and “what does X mean” from it when
+     none of his own answers is about that term, and he checks it
+     once more before giving up on a question.
+     ========================================================== */
+  var CH_NAMES = {
+    ch1: 'Chapter 1 (Safe Drinking Water)', ch2: 'Chapter 2 (Operator Certification)', ch3: 'Chapter 3 (Mathematics)',
+    ch4: 'Chapter 4 (Hydraulics)', ch5: 'Chapter 5 (Ground Water & Wells)', ch6: 'Chapter 6 (Microbiology)',
+    ch7: 'Chapter 7 (Chemistry)', ch8d: 'Chapter 8 D (Class D Treatment)', ch8bc: 'Chapter 8 B&C (Unit Processes)',
+    ch8a: 'Chapter 8 A (Surface Water)', ch9: 'Chapter 9 (Distribution & Storage)', ch10: 'Chapter 10 (Chlorination Equipment & Safety)',
+    ch11: 'Chapter 11 (Administration & Safety)', ch12: 'Chapter 12 (Cross-Connection Control)'
+  };
+  function gNorm(s) {
+    var t = String(s || '').replace(/[₀-₉]/g, function (d) { return String(d.charCodeAt(0) - 0x2080); }).replace(/[µμ]/g, 'u');
+    return global.GregEngine.normalize(t).replace(/^(?:a|an|the)\s+/, '');
+  }
+  function gStem(n) { return n.split(' ').map(global.GregEngine.stem).join(' '); }
+  var GIDX = null;
+  function gIndex() {
+    if (GIDX) return GIDX;
+    GIDX = { exact: {}, stem: {} };
+    (global.LW_GLOSSARY || []).forEach(function (g) {
+      var item = { term: g[0], def: g[1], chs: String(g[2] || '').split(/\s+/).filter(Boolean), keys: [], main: [] };
+      var names = [g[0], g[0].replace(/\s*\([^)]*\)/g, ' ')], abbr = g[0].match(/\(([^)]+)\)/);
+      if (abbr) names.push(abbr[1]);
+      names.forEach(function (nm) { var n = gNorm(nm); if (n && item.main.indexOf(n) === -1) item.main.push(n); });
+      if (g[3]) names = names.concat(g[3].split('|'));
+      names.forEach(function (nm) {
+        var n = gNorm(nm);
+        if (!n || item.keys.indexOf(n) !== -1) return;
+        item.keys.push(n);
+        if (!GIDX.exact[n]) GIDX.exact[n] = item;
+        var st = gStem(n);
+        if (!GIDX.stem[st]) GIDX.stem[st] = item;
+      });
+    });
+    return GIDX;
+  }
+  function gLookup(text) {
+    var ix = gIndex(), n = gNorm(text);
+    return n ? ix.exact[n] || ix.stem[gStem(n)] || null : null;
+  }
+  /* The longest glossary name inside a longer phrase, matched on whole words */
+  function gContained(text, minLen) {
+    var ix = gIndex(), line = ' ' + gStem(gNorm(text)) + ' ', best = null, key = '';
+    Object.keys(ix.stem).forEach(function (k) {
+      if (k.length >= minLen && k.length > key.length && line.indexOf(' ' + k + ' ') !== -1) { best = ix.stem[k]; key = k; }
+    });
+    return best ? { item: best, key: key } : null;
+  }
+  /* A near-miss spelling of a short term: “transmisivity”, “lraa” */
+  function gFuzzy(text) {
+    var ix = gIndex(), n = gNorm(text), best = null, bestD = 9;
+    if (n.length < 4 || n.split(' ').length > 3) return null;
+    var max = n.length >= 8 ? 2 : 1;
+    Object.keys(ix.exact).forEach(function (k) {
+      if (Math.abs(k.length - n.length) > max) return;
+      var d = global.GregEngine.editDistance(n, k, max);
+      if (d <= max && d < bestD) { best = ix.exact[k]; bestD = d; }
+    });
+    return best;
+  }
+  function defTarget(raw) { return global.GregEngine.defTarget(raw); }
+  /* Is one of Greg's own answers written about this term? */
+  function kbAbout(api, text, item) { return api.isAbout(text, [gNorm(text)].concat(item.main)); }
+  function gReply(item, chips, lead) {
+    var chs = item.chs.map(function (c) { return CH_NAMES[c]; }).filter(Boolean);
+    var where = !chs.length ? '' : '\n\nYou\'ll find it in ' + (chs.length > 1 ? chs.slice(0, -1).join(', ') + ' and ' + chs[chs.length - 1] : chs[0]) + '.';
+    return { text: (lead || '') + '**' + item.term + '**: ' + item.def + where, chips: chips.slice(0, 3), id: 'glossary' };
+  }
+  function defineSkill(raw, norm, state, api) {
+    if (!global.LW_GLOSSARY) return null;
+    var t = defTarget(raw), n = gNorm(t.term), words = n.split(' ').filter(Boolean);
+    if (!words.length || words.length > 7) return null;
+    var item = gLookup(t.term);
+    if (!item && !t.bare) {
+      /* “what is a corporation stop valve” → Corporation stop */
+      var c = gContained(t.term, 4);
+      if (c && c.key.split(' ').length >= Math.ceil(words.length * 0.6)) item = c.item;
+    }
+    if (!item) {
+      /* “define love”: don't let a loose match answer a definition request */
+      if (t.explicit && !kbAbout(api, t.term, { main: [n] })) {
+        state.last = null;
+        return { text: "I don't have **" + t.term.replace(/\*/g, '') + "** in my water glossary. Check the spelling, try a related water term, or ask me to **search EPA** for it.", chips: ['Is there a glossary of water terms?'], id: 'glossary-miss' };
+      }
+      return null;
+    }
+    if (kbAbout(api, t.term, item)) return null;
+    state.last = null;
+    var related = api.rank(item.term).filter(function (r) { return r.s >= 12; }).map(function (r) { return r.e.q; });
+    return gReply(item, related.concat(['Is there a glossary of water terms?']));
+  }
+
   global.GREG_ADULT = {
     entries: E,
     skills: [
       global.GregEngine ? global.GregEngine.skills.adultSafety : function () { return null; },
       smallTalk,
       searchSkill,
-      calcSkill
+      calcSkill,
+      defineSkill
     ],
     sources: SOURCES,
     starterChips: ["What is the pounds formula?", "Explain the breakpoint chlorination curve.", "What are the public notification tiers?", "Which backflow device should I use?"],
     fallback: function (raw, sugg) {
+      /* One more look in the glossary, allowing for a near-miss spelling */
+      if (global.LW_GLOSSARY) {
+        var t = defTarget(raw), c = gLookup(t.term) || (gContained(t.term, 6) || {}).item || gFuzzy(t.term);
+        if (c) return gReply(c, sugg.concat(['Is there a glossary of water terms?']), 'Here\'s the closest glossary term I have. ');
+      }
       /* Offer the official sites only when the question touched a water topic */
       return {
         text: "I don't have a solid answer for that one. Try rephrasing with a key term — like **breakpoint**, **specific capacity**, **RPZ**, or **turbidity**" +

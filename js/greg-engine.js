@@ -196,6 +196,42 @@
       return results;
     }
 
+    /* Is the best answer for `text` written about one of `names` (already
+       normalized)? Yes when one of its keywords covers the whole name, or at
+       least half of it, including the name's main (last) word, with a strong
+       score. Used so a glossary definition fills gaps instead of replacing a
+       fuller answer. */
+    var ABOUT_STOP = /^(?:a|an|the|of|in|on|to|for|and|or|by|per|with|at|from|is|are)$/;
+    function content(w) { return w && !ABOUT_STOP.test(w); }
+    function isAbout(text, names) {
+      var ranked = rank(text);
+      if (!ranked.length) return false;
+      var top = ranked[0], e = top.e, q = ' ' + normalize(e.q || '') + ' ';
+      return names.some(function (n) {
+        if (!n) return false;
+        if (q.indexOf(' ' + n + ' ') !== -1) return true;
+        var all = n.split(' ').map(stem), ws = all.filter(content);
+        if (!ws.length) return false;
+        var line = ' ' + all.join(' ') + ' ', last = ws[ws.length - 1];
+        return e._k.some(function (k) {
+          if (k.weight < 4) return false;
+          var t = k.text.trim(), cover = 0, head = false;
+          if (k.type === 'phrase') {
+            if (line.indexOf(k.prefix ? ' ' + t : ' ' + t + ' ') !== -1) {
+              var tw = t.split(' ').filter(content), end = tw[tw.length - 1] || '';
+              cover = tw.length;
+              head = k.prefix ? last.indexOf(end) === 0 : last === end;
+            }
+          } else if (k.type === 'word') {
+            if (ws.indexOf(t) !== -1) { cover = 1; head = last === t; }
+          } else if (t.length >= 5 && ws.some(function (w) { return w.indexOf(t) === 0; })) {
+            cover = 1; head = last.indexOf(t) === 0;
+          }
+          return cover > 0 && (cover >= ws.length || (head && cover * 2 >= ws.length && top.s >= 15));
+        });
+      });
+    }
+
     function chipsFor(entry) {
       return (entry && entry.rel ? entry.rel : [])
         .map(function (id) { return byId[id]; })
@@ -270,9 +306,30 @@
       entries: entries,
       state: state,
       reply: reply,
+      isAbout: isAbout,
       reset: function () { state.last = null; state.memo = {}; }
     };
     return api;
+  }
+
+  /* ---------- “define X”, “what does X mean”, “what is X” ----------
+     Returns { term, explicit } — explicit when the person clearly asked
+     for a definition, bare when the message was just a word or phrase. */
+  var DEF_EXPLICIT = [
+    /^(?:please\s+)?(?:define|definition(?:\s+of)?|meaning\s+of)\s*:?\s+(.+)$/i,
+    /^what(?:'s|\s+is)\s+the\s+(?:meaning|definition)\s+of\s+(.+)$/i,
+    /^what\s+(?:does|do)\s+(?:the\s+(?:term|word)\s+)?(.+?)\s+(?:mean|stand\s+for)$/i,
+    /^what\s+is\s+meant\s+by\s+(.+)$/i
+  ];
+  var DEF_SOFT = /^(?:what(?:'s|\s+is|\s+are|s)|explain|describe|tell\s+me\s+about)\s+(.+)$/i;
+  function defTarget(raw) {
+    var s = String(raw || '').replace(/[“”"«»]/g, '').replace(/[‘’`]/g, "'").replace(/[?.!\s]+$/, '').trim();
+    for (var i = 0; i < DEF_EXPLICIT.length; i++) {
+      var m = s.match(DEF_EXPLICIT[i]);
+      if (m) return { term: m[1], explicit: true };
+    }
+    var soft = s.match(DEF_SOFT);
+    return soft ? { term: soft[1] } : { term: s, bare: true };
   }
 
   /* ---------- Shared small-talk & safety skills ---------- */
@@ -303,6 +360,7 @@
     words: words,
     editDistance: editDistance,
     format: format,
+    defTarget: defTarget,
     skills: skills
   };
 })(window);

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Word Lab — a kid-friendly water dictionary with 150+ words, how to say them, examples, a Word of the Day, and a Word Match game.">
+  <title>Word Lab 📖 — Water Explorer Lab | LearnWater</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/baloo-2-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-normal-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/kids.css">
+</head>
+<body class="kids-body words-page" data-greg-hello="Welcome to the Word Lab! 📖 I can explain any water word. Try asking me **“What does evaporation mean?”**">
+<a class="skip-link" href="#today">Skip to content</a>
+<div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html" aria-current="page">Kids Corner</a></li>
+      <li><a href="adult-learning-center.html">Adult Learning</a></li>
+      <li><a href="updates.html">App Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<nav class="lab-nav" aria-label="Kids Corner">
+  <div class="lab-nav-inner">
+    <a href="kids.html">🏠 Explorer HQ</a>
+    <a href="kids-games.html">🎮 Game Lab</a>
+    <a href="kids-color.html">🎨 Coloring Lab</a>
+    <a href="kids-quiz.html">🧠 Quiz Lab</a>
+    <a href="kids-learn.html">🔬 Discovery Lab</a>
+    <a href="kids-words.html" aria-current="page">📖 Word Lab</a>
+  </div>
+</nav>
+
+<header class="lab-hero">
+  <div class="kids-container">
+    <span class="mascot" aria-hidden="true">📖</span>
+    <h1>Word <span class="hl">Lab</span></h1>
+    <p class="lab-sub">Every water word a young scientist needs, with pictures, how to say it, and an example. Collect the words you know and play Word Match to earn a badge!</p>
+    <div class="lab-chip-row">
+      <a href="#today" class="lab-chip">⭐ Word of the Day</a>
+      <a href="#words" class="lab-chip">🔎 Word Finder</a>
+      <a href="#match" class="lab-chip">🎯 Word Match</a>
+    </div>
+  </div>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f7fcff"/></svg>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ===== WORD OF THE DAY ===== -->
+  <section class="lab-section" id="today">
+    <div class="kids-container">
+      <div class="lab-header">
+        <h2>⭐ Word of the Day</h2>
+        <div class="lab-rule"></div>
+        <p>A new word every day. Can you use it in a sentence at dinner tonight?</p>
+      </div>
+      <div class="wotd" id="wotd" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ===== WORD FINDER ===== -->
+  <section class="lab-section tint" id="words">
+    <div class="kids-container">
+      <div class="lab-header">
+        <h2>🔎 Word Finder</h2>
+        <div class="lab-rule"></div>
+        <p>Search for a word, or tap a group to explore. Tap the ⭐ on every word you know to add it to your collection!</p>
+      </div>
+
+      <div class="lab-panel word-tools">
+        <div class="word-search">
+          <label for="wordQuery" class="sr-only">Search for a word</label>
+          <span class="ws-icon" aria-hidden="true">🔎</span>
+          <input id="wordQuery" type="search" autocomplete="off" spellcheck="false" placeholder="Type a word, like “rain”">
+        </div>
+        <div class="word-groups" id="wordGroups" role="group" aria-label="Word groups"></div>
+        <div class="word-az" id="wordAZ" role="group" aria-label="Words that start with a letter"></div>
+      </div>
+
+      <div class="word-collect">
+        <div class="wc-meter-row">
+          <strong id="knownText">⭐ You know 0 words</strong>
+          <div class="badge-meter" aria-hidden="true"><span id="knownMeter"></span></div>
+        </div>
+        <p class="wc-cheer hand" id="knownCheer">Tap the ⭐ on a word you know to start your collection!</p>
+      </div>
+
+      <p class="word-count" id="wordCount" role="status" aria-live="polite"></p>
+      <div class="word-grid" id="wordGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== WORD MATCH ===== -->
+  <section class="lab-section" id="match">
+    <div class="kids-container">
+      <div class="lab-header">
+        <h2>🎯 Word Match</h2>
+        <div class="lab-rule"></div>
+        <p>Read Greg's clue, then pick the word that matches. Get 4 out of 5 right to earn the <strong>Word Wizard</strong> badge!</p>
+      </div>
+      <div class="lab-panel match-panel" id="matchGame">
+        <div class="match-start" id="matchStart">
+          <span class="match-big" aria-hidden="true">🎯</span>
+          <p>5 clues. 3 choices each. How many can you match?</p>
+          <div class="btn-row">
+            <button class="lab-btn amber" type="button" data-match-start="all">▶ Play with all words</button>
+            <button class="lab-btn ghost" type="button" data-match-start="mine">⭐ Play with my words</button>
+          </div>
+          <p class="match-note hand" id="matchMineNote" hidden>Star at least 5 words in the Word Finder to play with your own words!</p>
+        </div>
+        <div class="match-play" id="matchPlay" hidden>
+          <div class="lab-hud">
+            <span class="hud-pill" id="matchRound">Clue 1 of 5</span>
+            <span class="hud-pill lime" id="matchScore">0 right</span>
+            <span class="hud-pill amber" id="matchStreak" hidden>🔥 0 in a row</span>
+          </div>
+          <div class="match-clue">
+            <span class="mc-label hand">Greg's clue:</span>
+            <p id="matchClue"></p>
+            <button class="wc-btn speak-btn" type="button" id="matchSay">🔊 Read it to me</button>
+          </div>
+          <div class="match-choices" id="matchChoices" role="group" aria-label="Pick the matching word"></div>
+          <p class="game-feedback" id="matchFeedback" role="status" aria-live="polite"></p>
+          <div class="btn-row"><button class="lab-btn" type="button" id="matchNext" hidden>Next clue ➜</button></div>
+        </div>
+        <div class="match-done" id="matchDone" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PARENTS ===== -->
+  <section class="lab-section tint" id="parents">
+    <div class="kids-container">
+      <div class="lab-note note">
+        <h4>👨‍👩‍👧 For parents &amp; teachers</h4>
+        <p>The Word Lab has <span id="wordTotal">150+</span> water words grouped by topic, with a pronunciation guide and an example for each. Stars and badges are saved only on this device. The 🔊 buttons use your device's own built-in voice, and they only appear when one is available. Want a paper copy for class? Print the word list, or use a group button above to print just those words.</p>
+        <div class="btn-row" style="justify-content:flex-start;margin-top:.9rem;">
+          <button class="lab-btn small ghost no-print" type="button" id="printWords">🖨️ Print the word list</button>
+          <a class="lab-btn small ghost no-print" href="adult-learning-center.html#glossary">📘 Operator glossary (grown-ups)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+  </div>
+</footer>
+
+<script src="js/site.js"></script>
+<script src="js/kids-common.js"></script>
+<script src="js/glossary-kids.js"></script>
+<script src="js/greg-engine.js"></script>
+<script src="js/greg-kids-kb.js"></script>
+<script src="js/kids-greg.js"></script>
+<script src="js/kids-words.js"></script>
+</body>
+</html>

@@ -58,7 +58,7 @@
   function heroMeta() {
     var sections = document.querySelectorAll('.lesson-section');
     var words = 0;
-    document.querySelectorAll('.lesson-section, .key-numbers, .rule-note').forEach(function (n) { words += n.textContent.split(/\s+/).length; });
+    document.querySelectorAll('.lesson-section, .key-numbers, .rule-note, .exam-watch').forEach(function (n) { words += n.textContent.split(/\s+/).length; });
     var mins = Math.max(3, Math.round(words / 170));  /* technical reading pace */
     $('heroMeta').innerHTML = '<span>' + sections.length + ' sections</span><span>About ' + mins + ' min read</span>' +
       '<span>' + ch.questions.length + ' practice questions</span><span class="status">Not completed</span>';
@@ -78,7 +78,9 @@
       if (n) n.remove();
       items.push([s.id, label.textContent.trim()]);
     });
-    items.push(['numbers', 'Numbers to memorize', true], ['check', 'Check yourself'], ['cards', 'Flash cards'], ['ask', 'Ask Greg']);
+    items.push(['numbers', 'Numbers to memorize', true]);
+    if ($('terms') && !$('terms').hidden) items.push(['terms', 'Key terms']);
+    items.push(['check', 'Check yourself'], ['cards', 'Flash cards'], ['ask', 'Ask Greg']);
     if (!$('videos').hidden) items.push(['videos', 'Videos']);
     ol.innerHTML = items.map(function (it) {
       return '<li' + (it[2] ? ' class="toc-sep"' : '') + '><a href="#' + it[0] + '">' + esc(it[1]) + '</a></li>';
@@ -188,6 +190,44 @@
     });
   }
 
+  /* ---------- Key terms (from the glossary) ---------- */
+  function keyTerms() {
+    var box = $('keyTerms'), block = $('terms');
+    if (!box || !block) return;
+    /* This chapter's own terms first, then terms it shares with other chapters */
+    var own = [], shared = [];
+    (window.LW_GLOSSARY || []).forEach(function (g) {
+      var chs = String(g[2] || '').split(/\s+/);
+      if (chs[0] === id) own.push(g); else if (chs.indexOf(id) !== -1) shared.push(g);
+    });
+    var list = own.concat(shared);
+    if (!list.length) { block.hidden = true; return; }
+    var SHOW = 10;
+    var dl = LW.el('dl', 'kt-list');
+    list.forEach(function (g) {
+      var item = LW.el('div', 'kt-item');
+      item.appendChild(LW.el('dt', null, g[0]));
+      item.appendChild(LW.el('dd', null, g[1]));
+      dl.appendChild(item);
+    });
+    box.appendChild(dl);
+    if (list.length > SHOW) {
+      box.classList.add('collapsed');
+      dl.id = 'ktList';
+      var more = LW.el('button', 'btn btn-soft btn-sm kt-more', 'Show all ' + list.length + ' terms');
+      more.type = 'button';
+      more.setAttribute('aria-expanded', 'false');
+      more.setAttribute('aria-controls', 'ktList');
+      more.addEventListener('click', function () {
+        var open = box.classList.toggle('collapsed') === false;
+        more.setAttribute('aria-expanded', open ? 'true' : 'false');
+        more.textContent = open ? 'Show fewer terms' : 'Show all ' + list.length + ' terms';
+        if (!open) block.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+      box.appendChild(more);
+    }
+  }
+
   /* ---------- Videos ---------- */
   function videos() {
     var vids = (window.LW_VIDEOS ? LW_VIDEOS.adult : []).filter(function (v) { return v.chapters.indexOf(id) !== -1; });
@@ -213,7 +253,7 @@
   function greg() {
     GregAdultUI.fillAvatars();
     GregAdultUI.mount($('lessonChat'), {
-      intro: 'Ask me anything about Chapter ' + ch.num + ': ' + ch.title + '. I can also work the math with your numbers, or search EPA, NRWA, and MsRWA. Just start with **search**.',
+      intro: 'Ask me anything about Chapter ' + ch.num + ': ' + ch.title + '. I can also work the math with your numbers, define any glossary term, or search EPA, NRWA, and MsRWA. Just start with **search**.',
       chips: window.LESSON_PROMPTS || [],
       placeholder: 'Ask about Chapter ' + ch.num + '…'
     });
@@ -221,6 +261,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     videos();
+    keyTerms();
     heroMeta();
     toc();
     readBar();
