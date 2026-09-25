@@ -141,17 +141,23 @@
 
 /* ---------------- MEMORY MATCH ---------------- */
 (function () {
+  /* Each round deals 8 of these pairs, so the board changes every time */
   var PAIRS = [
     ['💧 Water', 'H₂O'], ['☀️ Evaporation', 'Liquid → vapor'], ['☁️ Cloud', 'Condensation'], ['🌧️ Rain', 'Precipitation'],
-    ['🏞️ Lake', 'Collection'], ['🌫️ Turbidity', 'Cloudiness'], ['🧪 Chlorine', 'Kills germs'], ['🌿 Leaves', 'Transpiration']
+    ['🏞️ Lake', 'Collection'], ['🌫️ Turbidity', 'Cloudiness'], ['🧪 Chlorine', 'Kills germs'], ['🌿 Leaves', 'Transpiration'],
+    ['🧊 Ice', 'Solid water'], ['🌊 Ocean', 'Salt water'], ['🧽 Filter', 'Catches dirt'], ['🌈 Rainbow', 'Sun + raindrops'],
+    ['🪨 Aquifer', 'Underground water'], ['🦠 Germs', 'Too tiny to see']
   ];
-  var open = [], matched = 0, flips = 0, locked = false;
+  var ROUND = 8;
+  var deal = [], open = [], matched = 0, flips = 0, locked = false, round = 0;
   function start() {
+    round++;
+    deal = shuffle(PAIRS).slice(0, ROUND);
     open = []; matched = 0; flips = 0; locked = false;
     var board = $id('memBoard');
     board.innerHTML = '';
     var cards = [];
-    PAIRS.forEach(function (p, i) { cards.push({ t: p[0], id: i }, { t: p[1], id: i }); });
+    deal.forEach(function (p, i) { cards.push({ t: p[0], id: i }, { t: p[1], id: i }); });
     shuffle(cards).forEach(function (c) {
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'memory-card'; b.dataset.pair = c.id;
@@ -163,7 +169,7 @@
     });
     status();
   }
-  function status(msg) { $id('memStatus').textContent = msg || ('Matches: ' + matched + ' / ' + PAIRS.length + ' · Flips: ' + flips); }
+  function status(msg) { $id('memStatus').textContent = msg || ('Matches: ' + matched + ' / ' + deal.length + ' · Flips: ' + flips); }
   function flip(b, text) {
     if (locked || b.classList.contains('flipped') || b.classList.contains('matched')) return;
     b.classList.add('flipped'); b.setAttribute('aria-label', text);
@@ -173,7 +179,7 @@
       if (open[0].dataset.pair === open[1].dataset.pair) {
         open.forEach(function (c) { c.classList.add('matched'); });
         open = []; matched++; locked = false;
-        if (matched === PAIRS.length) {
+        if (matched === deal.length) {
           var better = Games.best('memory', flips, true);
           status('🏆 All matched in ' + flips + ' flips!' + (better ? ' New best!' : ''));
           Games.finished();
@@ -181,7 +187,9 @@
           return;
         }
       } else {
+        var r = round;
         setTimeout(function () {
+          if (r !== round) return;   /* the board was reshuffled in the meantime */
           open.forEach(function (c) { c.classList.remove('flipped'); c.setAttribute('aria-label', 'Hidden card'); });
           open = []; locked = false; status();
         }, 900);
