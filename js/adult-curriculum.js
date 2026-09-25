@@ -376,7 +376,7 @@ window.LW_CURRICULUM = {
     ch6: {
       num: "6", title: "Microbiology", icon: "🦠",
       page: "lessons/ch06-microbiology.html",
-      theme: { c: "#16a34a", d: "#14532d", t: "#e9f8ee" },
+      theme: { c: "#15803d", d: "#14532d", t: "#e9f8ee" },
       dek: "The organisms that make water unsafe, how coliform testing works, and exactly how bacteriological samples get collected and analyzed.",
       questions: [
         { q: "Why is coliform used as the indicator organism for sewage contamination?",
@@ -445,7 +445,7 @@ window.LW_CURRICULUM = {
     ch7: {
       num: "7", title: "Chemistry of Ground Water", icon: "🧪",
       page: "lessons/ch07-chemistry-ground-water.html",
-      theme: { c: "#0891b2", d: "#155e75", t: "#e5f6fa" },
+      theme: { c: "#0e7490", d: "#155e75", t: "#e5f6fa" },
       dek: "Ions, pH, alkalinity, hardness, and the chemistry behind coagulation — the foundation for every treatment chapter that follows.",
       questions: [
         { q: "As hydrogen ion (H+) concentration increases, pH:",
@@ -727,7 +727,7 @@ window.LW_CURRICULUM = {
     ch9: {
       num: "9", title: "Distribution & Storage", icon: "🚰",
       page: "lessons/ch09-distribution-storage.html",
-      theme: { c: "#ea580c", d: "#9a3412", t: "#fdece0" },
+      theme: { c: "#c2410c", d: "#9a3412", t: "#fdece0" },
       dek: "Designing, building, and maintaining the pipes, valves, and storage tanks that move treated water from the plant to the tap.",
       questions: [
         { q: "What is the recommended minimum size for a water main?",
@@ -798,7 +798,7 @@ window.LW_CURRICULUM = {
     ch10: {
       num: "10", title: "Chlorination Equipment & Safety", icon: "🛢️",
       page: "lessons/ch10-chlorination.html",
-      theme: { c: "#ca8a04", d: "#854d0e", t: "#fdf7e3" },
+      theme: { c: "#a16207", d: "#854d0e", t: "#fdf7e3" },
       dek: "Cylinders, chlorinators, hypochlorinators, and the safety procedures that keep chlorine gas from becoming a hazard.",
       questions: [
         { q: "Chlorine gas is how many times heavier than air?",

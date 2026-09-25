@@ -62,7 +62,7 @@ body.kids-body h1, body.kids-body h2, body.kids-body h3, body.kids-body h4 {
 body.kids-body h2 { font-size: clamp(1.8rem, 4.4vw, 2.6rem); font-weight: 800; }
 body.kids-body h3 { font-size: 1.35rem; font-weight: 800; }
 body.kids-body h4 { font-size: 1.08rem; font-weight: 700; }
-body.kids-body a { color: var(--k-blue); }
+:where(body.kids-body) a { color: #0c6aa6; } /* zero-class specificity so .lab-btn, .lab-chip etc. keep their own colors */
 body.kids-body ::selection { background: var(--k-amber); color: var(--k-ink); }
 body.kids-body :focus-visible { outline: 3px solid var(--k-amber); outline-offset: 3px; }
 
@@ -830,9 +830,10 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
 
 .cycle-scene { width: 100%; display: block; border: 3px solid var(--k-ink); border-radius: var(--k-radius); box-shadow: var(--k-pop); background: #c6ecff; }
 .cycle-hot { cursor: pointer; }
+/* .hit is a bigger invisible touch area around each numbered circle */
 .cycle-hot circle { transition: transform .15s; transform-box: fill-box; transform-origin: center; }
-.cycle-hot:hover circle, .cycle-hot:focus-visible circle, .cycle-hot.active circle { transform: scale(1.18); }
-.cycle-hot.active circle { fill: var(--k-amber); }
+.cycle-hot:hover circle:not(.hit), .cycle-hot:focus-visible circle:not(.hit), .cycle-hot.active circle:not(.hit) { transform: scale(1.18); }
+.cycle-hot.active circle:not(.hit) { fill: var(--k-amber); }
 .cycle-hot:focus { outline: none; }
 .cycle-steps { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin: 1rem 0; }
 .cycle-steps button { font: inherit; font-family: var(--k-display); font-weight: 800; background: #fff; border: var(--k-line); border-radius: 999px; padding: .35rem .95rem; cursor: pointer; box-shadow: var(--k-pop-sm); }
