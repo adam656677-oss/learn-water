@@ -133,6 +133,7 @@
 
     document.body.appendChild(panel);
     document.body.appendChild(fab);
+    document.body.classList.add('has-fab');   /* footer leaves room for the button */
     els = {
       fab: fab, panel: panel,
       log: panel.querySelector('.greg-log'),

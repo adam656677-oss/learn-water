@@ -367,6 +367,9 @@ section { padding: 4.5rem 0; }
 .site-footer a:hover { color: var(--white); }
 .site-footer p { margin: 0; }
 .site-footer p + p { margin-top: .4rem; }
+.site-footer .footer-sign { color: var(--white); font-weight: 700; white-space: nowrap; }
+/* Pages with a floating "Ask Greg" button: keep the last footer line clear of it on phones */
+@media (max-width: 860px) { body.has-fab .site-footer { padding-bottom: 6.5rem; } }
 
 /* ==========================================================
    YOUTUBE VIDEO CARDS (click-to-play, shared by kids + adult)
