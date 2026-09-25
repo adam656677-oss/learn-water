@@ -213,7 +213,7 @@
   function greg() {
     GregAdultUI.fillAvatars();
     GregAdultUI.mount($('lessonChat'), {
-      intro: 'Ask me anything about Chapter ' + ch.num + ': ' + ch.title + '. I can also work the math with your numbers.',
+      intro: 'Ask me anything about Chapter ' + ch.num + ': ' + ch.title + '. I can also work the math with your numbers, or search EPA, NRWA, and MsRWA. Just start with **search**.',
       chips: window.LESSON_PROMPTS || [],
       placeholder: 'Ask about Chapter ' + ch.num + '…'
     });

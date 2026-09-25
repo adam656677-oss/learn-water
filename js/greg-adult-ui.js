@@ -42,6 +42,102 @@
     });
   }
 
+
+  /* ---------- Official sources + site search (EPA, NRWA, MsRWA) ---------- */
+  function outLink(text, href, cls) {
+    var a = LW.el('a', cls || null, text);
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    return a;
+  }
+  function decodeEntities(s) {
+    try { return new DOMParser().parseFromString('<!doctype html><body>' + s, 'text/html').body.textContent || ''; }
+    catch (e) { return String(s).replace(/<[^>]*>/g, ''); }
+  }
+  /* Only link to pages on the site that was searched */
+  function sameSite(url, home) {
+    try {
+      var u = new URL(url), h = new URL(home);
+      return (u.protocol === 'https:' || u.protocol === 'http:') &&
+        u.hostname.replace(/^www\./, '') === h.hostname.replace(/^www\./, '');
+    } catch (e) { return false; }
+  }
+  function sourcesRow(links) {
+    var box = LW.el('div', 'gchat-sources');
+    box.appendChild(LW.el('span', 'gs-label', 'Official sources'));
+    var ul = document.createElement('ul');
+    links.forEach(function (l) {
+      var li = document.createElement('li'), a = outLink('', l[2]);
+      a.appendChild(LW.el('b', null, l[0]));
+      a.appendChild(document.createTextNode(l[1] + ' ↗'));
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    return box;
+  }
+  function note(ul, text) { ul.appendChild(LW.el('li', 'gs-note', text)); }
+
+  /* NRWA and MsRWA run WordPress; its public search API can list matching
+     pages right in the chat. If the site blocks that, the button above the
+     list still opens the site's own search. */
+  function liveResults(src, q, ul, update) {
+    if (!global.fetch) { note(ul, 'Use the button above to see the results on ' + src.name + '.'); return; }
+    var ctrl = global.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 8000);
+    global.fetch(src.live + '?search=' + encodeURIComponent(q) + '&per_page=5&_fields=title,url', { credentials: 'omit', signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (list) {
+        clearTimeout(timer);
+        var items = (Array.isArray(list) ? list : []).filter(function (it) {
+          return it && typeof it.url === 'string' && sameSite(it.url, src.home);
+        }).slice(0, 5);
+        update(function () {
+          ul.innerHTML = '';
+          if (!items.length) note(ul, 'No matching pages on ' + src.name + '. Try other words, or open the full search.');
+          items.forEach(function (it) {
+            var title = typeof it.title === 'string' ? it.title : (it.title && it.title.rendered) || '';
+            var li = document.createElement('li');
+            li.appendChild(outLink(decodeEntities(title).trim() || it.url, it.url));
+            ul.appendChild(li);
+          });
+        });
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        update(function () {
+          ul.innerHTML = '';
+          note(ul, "Couldn't show " + src.name + ' results here. Use the button above to see them on their site.');
+        });
+      });
+  }
+  function searchCard(search, update) {
+    var sources = (global.GREG_ADULT && global.GREG_ADULT.sources) || {};
+    var card = LW.el('div', 'gsearch');
+    card.setAttribute('role', 'group');
+    card.setAttribute('aria-label', 'Official site search for ' + search.q);
+    search.sites.forEach(function (id) {
+      var src = sources[id];
+      if (!src) return;
+      var site = LW.el('div', 'gs-site'), top = LW.el('div', 'gs-top'), name = LW.el('div', 'gs-name');
+      name.appendChild(LW.el('b', null, src.name));
+      name.appendChild(LW.el('span', null, src.full));
+      top.appendChild(name);
+      var showLive = search.live && src.live;
+      top.appendChild(outLink((showLive ? 'All results on ' : 'Search ') + src.name + ' ↗', src.search + encodeURIComponent(search.q), 'gs-open'));
+      site.appendChild(top);
+      if (showLive) {
+        var ul = LW.el('ul', 'gs-results');
+        note(ul, 'Looking for matching pages…');
+        site.appendChild(ul);
+        liveResults(src, search.q, ul, update);
+      }
+      card.appendChild(site);
+    });
+    return card;
+  }
+
   /* Mount a chat into `root`. opts: { intro, chips, placeholder, onReply } */
   function mount(root, opts) {
     opts = opts || {};
@@ -66,7 +162,13 @@
     input.placeholder = opts.placeholder || 'Ask Greg about any chapter, rule, or formula…';
     var busy = false;
 
-    function add(who, text) {
+    /* Keep the newest message in view, unless the reader scrolled up */
+    function update(fn) {
+      var stick = log.scrollHeight - log.scrollTop - log.clientHeight < 80;
+      fn();
+      if (stick) log.scrollTop = log.scrollHeight;
+    }
+    function add(who, text, extra) {
       var row = LW.el('div', 'gchat-msg ' + who);
       if (who === 'greg') {
         var face = LW.el('span', 'gchat-face');
@@ -75,6 +177,8 @@
         row.appendChild(face);
         var b = LW.el('div', 'gchat-bubble');
         b.innerHTML = global.GregEngine.format(text);
+        if (extra && extra.links && extra.links.length) b.appendChild(sourcesRow(extra.links));
+        if (extra && extra.search) b.appendChild(searchCard(extra.search, update));
         row.appendChild(b);
       } else {
         row.appendChild(LW.el('div', 'gchat-bubble', text));
@@ -107,8 +211,9 @@
       log.scrollTop = log.scrollHeight;
       setTimeout(function () {
         typing.remove();
-        add('greg', r.text);
-        setChips(r.chips && r.chips.length ? r.chips : opts.chips);
+        add('greg', r.text, r);
+        /* Leave room for search results; otherwise offer follow-up questions */
+        setChips(r.search && r.search.live ? [] : r.chips && r.chips.length ? r.chips : opts.chips);
         busy = false;
         if (typeof opts.onReply === 'function') opts.onReply(text, r);
       }, reduce ? 0 : Math.min(900, 260 + r.text.length * 1.2));

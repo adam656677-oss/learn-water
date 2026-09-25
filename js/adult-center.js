@@ -780,8 +780,8 @@
     document.body.classList.add('drawer-open');
     if (!chat) {
       chat = GregAdultUI.mount($('gregChat'), {
-        intro: "Hi, I'm Greg. I know all 14 chapters of the operators manual. Ask about a rule, a process, or a number, or give me values and I'll work the formula, like “lbs/day for 2.5 mg/L at 1.2 MGD.”",
-        chips: HERO_CHIPS[st.cls]
+        intro: "Hi, I'm Greg. I know all 14 chapters of the operators manual. Ask about a rule, a process, or a number, or give me values and I'll work the formula, like “lbs/day for 2.5 mg/L at 1.2 MGD.” I can also search EPA, NRWA, and MsRWA for you. Just start with **search**.",
+        chips: HERO_CHIPS[st.cls].concat(['Search MsRWA for certification classes'])
       });
     }
     if (question) chat.ask(question);

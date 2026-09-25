@@ -210,6 +210,7 @@
       return {
         text: useMore && entry.more ? entry.more : entry.a,
         chips: chipsFor(entry).concat(entry.more && !useMore ? [opts.moreLabel || 'Tell me more'] : []).slice(0, 4),
+        links: entry.links || null,
         id: entry.id
       };
     }

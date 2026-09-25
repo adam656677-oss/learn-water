@@ -14,8 +14,8 @@
     /* ---------------- Using the site / studying ---------------- */
     { id: "greg-intro", q: "What can you help me with?",
       k: ["help:2", "what can you do:4", "how do you work", "who are you:3", "what do you know", "topics"],
-      a: "I'm Greg, your LearnWater instructor. I can explain anything in the 14 chapters of the Mississippi Waterworks Operators Manual — regulations, certification, math, hydraulics, wells, microbiology, chemistry, treatment, distribution, chlorination, safety, and cross-connection control.\n\nI also work problems. Try **“lbs/day for 2.5 mg/l at 1.5 mgd”**, **“50 psi in feet”**, **“specific capacity 300 gpm 20 ft drawdown”**, or **“volume of a tank 20 ft diameter 30 ft tall.”**",
-      rel: ["study-plan", "pounds-formula", "exam-tips"] },
+      a: "I'm Greg, your LearnWater instructor. I can explain anything in the 14 chapters of the Mississippi Waterworks Operators Manual — regulations, certification, math, hydraulics, wells, microbiology, chemistry, treatment, distribution, chlorination, safety, and cross-connection control.\n\nI also work problems. Try **“lbs/day for 2.5 mg/l at 1.5 mgd”**, **“50 psi in feet”**, **“specific capacity 300 gpm 20 ft drawdown”**, or **“volume of a tank 20 ft diameter 30 ft tall.”**\n\nI can also **search EPA, NRWA, and MsRWA** for you. Try **“search EPA for lead service lines”** or **“search MsRWA for certification classes.”**",
+      rel: ["study-plan", "site-search", "pounds-formula"] },
     { id: "study-plan", q: "How should I study for my license exam?",
       k: ["study:3", "study plan:4", "prepare:3", "prep", "how to pass:4", "pass the exam:4", "where do i start:4", "start studying"],
       a: "A plan that works:\n• **Read one chapter a day** and learn its “Numbers Greg wants you to memorize” box.\n• **Quiz right after** — use Practice Quiz with that chapter selected.\n• **Do 20 math problems every other day**; math is where most points are lost.\n• **Flash cards** for the numbers you keep missing.\n• Check **My Progress** weekly — it shows your weakest chapters so you know where to go back.\nThe exam covers every class below yours, so Class A candidates still need all the Class D material.",
@@ -44,6 +44,10 @@
       k: ["video*:4", "youtube:4", "watch:2"],
       a: "Open **Videos** in the Learning Center. The videos are matched to your class's chapters and filtered by topic, and each lesson page shows the videos for its chapter. Nothing loads from YouTube until you press play. You can also search YouTube for any topic from the Videos tab.",
       rel: ["study-plan"] },
+    { id: "site-search", q: "Can you search EPA, NRWA, or MsRWA?",
+      k: ["search epa:5", "search nrwa:5", "search msrwa:5", "official source*:4", "official site*:4", "search the web:4", "can you search:4", "look it up:3"],
+      a: "Yes. Type **search** and what you want, and name a site if you like:\n• **“search EPA for lead service line inventory”**\n• **“look up PFAS on NRWA”**\n• **“search MsRWA for certification classes”**\nNRWA and MsRWA results show up right here in the chat when their websites allow it, and every site gets a button that opens its full search in a new tab. Only your search words go to the site you search; everything else I answer stays in your browser.",
+      rel: ["msrwa", "nrwa", "epa-rules"] },
     { id: "math-tips", q: "Tips for solving water math problems?",
       k: ["math tip*:4", "word problem*:4", "hard math", "bad at math:4", "math help:4", "solve math", "math problem*:3"],
       a: "Work every problem the same way:\n1. **What am I solving for?** Write the answer's unit first (lbs/day, gpm, ft).\n2. **List the givens with units.**\n3. **Convert** so the units line up (inches → feet, gpm → MGD).\n4. Pick the formula, plug in, and **cancel units** on paper.\n5. **Sanity-check**: a 1 MGD plant does not need 3,000 lbs/day of chlorine.",
@@ -86,7 +90,7 @@
       rel: ["tier1", "ccr", "records"] },
     { id: "tier1", q: "What is a Tier 1 violation?",
       k: ["tier 1:6", "tier one:6", "acute violation:5", "acute:3", "24 hours notice:4", "24 hour*:2"],
-      a: "Under the **current** rule, **Tier 1** means an immediate health risk. Notice goes out within **24 hours**, you must consult MSDH within 24 hours, and delivery is by broadcast media, posting, or hand delivery. Triggers include an **E. coli MCL violation**, a **nitrate/nitrite MCL violation**, a chlorine dioxide MRDL violation in the distribution system, a waterborne disease outbreak, and other situations the state decides pose an acute risk.\n\nIn the **manual's** older two-tier scheme, Tier 1 meant any MCL, treatment-technique, or variance/exemption-schedule violation. Answer exam questions from the manual.",
+      a: "Under the **current** rule, **Tier 1** means an immediate health risk. Notice goes out within **24 hours**, you must consult MSDH within 24 hours, and delivery is by broadcast media, posting, or hand delivery. Triggers include an **E. coli MCL violation**, a **nitrate/nitrite MCL violation**, a chlorine dioxide MRDL violation in the distribution system, a waterborne disease outbreak, and other situations the state decides pose an acute risk. Since **October 16, 2024**, a **lead action level exceedance** also requires Tier 1 notice within 24 hours.\n\nIn the **manual's** older two-tier scheme, Tier 1 meant any MCL, treatment-technique, or variance/exemption-schedule violation. Answer exam questions from the manual.",
       rel: ["pn-tiers", "e-coli", "nitrate"] },
     { id: "tier2", q: "What is a Tier 2 violation?",
       k: ["tier 2:6", "tier two:6", "30 days notice:4"],
@@ -118,7 +122,7 @@
       rel: ["records", "msdh", "wellhead-protection"] },
     { id: "pfas", q: "What are PFAS and are they regulated?",
       k: ["pfas:6", "pfoa:6", "pfos:6", "forever chemical*:6", "genx:5", "hfpo*:4", "pfna", "pfhxs"],
-      a: "**PFAS** (“forever chemicals”) are man-made compounds from firefighting foam, coatings, and industry. In **April 2024** EPA set the first national limits: **4.0 parts per trillion for PFOA and PFOS**, 10 ppt for PFHxS, PFNA, and HFPO-DA (GenX), and a Hazard Index for certain mixtures. In **May 2025** EPA announced it would keep the PFOA/PFOS limits, move their compliance deadline to **2031**, and reconsider the others. Check MSDH/EPA for the current status before making decisions.",
+      a: "**PFAS** (“forever chemicals”) are man-made compounds from firefighting foam, coatings, and industry. In **April 2024** EPA set the first national limits: **4.0 parts per trillion for PFOA and PFOS**, 10 ppt for PFHxS, PFNA, and HFPO-DA (GenX), and a Hazard Index for certain mixtures. In **May 2025** EPA said it would keep the PFOA and PFOS limits. In **May 2026** it proposed letting systems request until **2031** to meet them, and proposed rescinding the limits for PFHxS, PFNA, HFPO-DA, and the Hazard Index. Check MSDH and EPA for the current status before making decisions.",
       rel: ["mcl", "activated-carbon", "membranes"] },
 
     /* ---------------- Chapter 2: Operator Certification ---------------- */
@@ -159,11 +163,23 @@
       a: "Certificates are valid **3 years**. To renew without retesting, file within **30 days after expiration** and show approved continuing education earned during the 3-year period: **48 CEU hours** if you've been licensed continuously for **less than 9 years**, **24** if longer. Miss the window or the hours and you retake the written exam. You're responsible for keeping your own training records.",
       rel: ["certification-requirements", "training-ms"] },
     { id: "training-ms", q: "Where can I get training or CEUs in Mississippi?",
-      k: ["training:4", "where can i take:4", "ceu class*:5", "workshop*:4", "seminar*:4", "msrwa:6", "rural water:5", "mississippi rural water:6", "awwa:4"],
-      a: "Good places to start: the **MSDH operators short course** that precedes each exam; the **Mississippi Rural Water Association (MsRWA)**, which runs CEU classes and on-site technical help across the state; and the **Mississippi Section of AWWA**. Before signing up, confirm that MSDH approves the course hours for renewal.",
+      k: ["training:4", "where can i take:4", "ceu class*:5", "workshop*:4", "seminar*:4", "msrwa:2", "rural water:2", "mississippi rural water:2", "awwa:4"],
+      a: "Good places to start: the **MSDH operators short course** that precedes each exam; the **Mississippi Rural Water Association (MsRWA)**, which runs CEU classes and on-site technical help across the state; and the **Mississippi Section of AWWA**. The **National Rural Water Association (NRWA)** also runs free monthly webinars with a certificate of completion. Before signing up, confirm that MSDH approves the course hours for renewal.",
       rel: ["renewal", "study-plan"] },
 
     /* ---------------- Chapter 3: Mathematics ---------------- */
+    { id: "msrwa", q: "What is the Mississippi Rural Water Association (MsRWA)?",
+      k: ["msrwa:7", "ms rwa:7", "mississippi rural water:7", "what is msrwa:7", "rural water association:4", "short course:3", "operator expo:4", "backflow certification:3", "certification class*:3", "certification course*:3"],
+      a: "**MsRWA** is Mississippi's largest water and wastewater utility membership association and the state affiliate of the National Rural Water Association. It runs MSDH-approved **water operator certification courses**, wastewater and collection-system courses, **backflow certification and recertification**, hands-on operator training, board member training, and an annual **Operator Expo**, plus on-site technical help for member systems. Its **Training & Events calendar** lists upcoming classes.",
+      rel: ["training-ms", "nrwa", "renewal"] },
+    { id: "nrwa", q: "What is the National Rural Water Association (NRWA)?",
+      k: ["nrwa:5", "national rural water:5", "waterpro:4", "water pro academy:4", "webinar*:3"],
+      a: "**NRWA** is a nonprofit that trains and supports the people who run small water and wastewater systems. It works through **49 affiliated state rural water associations** (MsRWA is Mississippi's). It offers **free monthly webinars** with a certificate of completion, **WaterPro Academy** online courses, a utility management certification, and national conferences. Ask MSDH whether a course counts toward your renewal hours before you rely on it.",
+      rel: ["msrwa", "training-ms", "renewal"] },
+    { id: "epa-rules", q: "Where can I read the official drinking water rules?",
+      k: ["official rule*:5", "federal rule*:4", "cfr:4", "40 cfr:5", "part 141:5", "read the regulation*:4", "epa rule*:4", "epa website:4", "where are the rules:4"],
+      a: "Two official places:\n• **EPA's drinking water regulations pages** explain each rule in plain language, with compliance help for operators.\n• The **eCFR, 40 CFR Part 141**, has the exact legal text of the National Primary Drinking Water Regulations.\nMississippi adopts the federal rules, and **MSDH's Bureau of Public Water Supply** is who enforces them here. You can also ask me to **search EPA** for any topic.",
+      rel: ["sdwa", "msdh", "site-search"] },
     { id: "pounds-formula", q: "What is the pounds formula?",
       k: ["pounds formula:6", "lbs day:5", "lb day:5", "lbs per day:5", "pounds per day:5", "dosage:4", "dose calculation:5", "feed rate:4", "8.34:5", "chemical feed:4", "how many pounds:5"],
       a: "**lbs/day = dose (mg/L) × flow (MGD) × 8.34**\nExample: 2.5 mg/L at 1.5 MGD → 2.5 × 1.5 × 8.34 = **31.3 lbs/day**.\nFor a product that isn't 100% pure, divide by its strength: 31.3 ÷ 0.65 (65% HTH) = **48.1 lbs/day of HTH**.\nThe same formula works for a one-time dose — use the **volume in million gallons** instead of MGD.",
@@ -443,7 +459,7 @@
       rel: ["pounds-formula", "chlorinator"] },
     { id: "fluoridation", q: "What should I know about fluoridation?",
       k: ["fluorid*:5", "fluoride:5", "fluoride level*:6", "optimal fluoride:6", "tooth:4", "teeth:4", "dental:5", "cavit*:3"],
-      a: "Fluoride at the right level reduces tooth decay. **Manual:** ideal range **0.8–1.2 mg/L**. **Current U.S. Public Health Service recommendation (2015): 0.7 mg/L.** Federal limits: **MCL 4.0 mg/L** (skeletal fluorosis) and **secondary 2.0 mg/L** (dental fluorosis). Fluoridation policy is decided by states and communities and has been changing, so follow MSDH's current guidance. For the exam, use the manual's numbers.",
+      a: "Fluoride at the right level reduces tooth decay. **Manual:** ideal range **0.8–1.2 mg/L**. **Current U.S. Public Health Service recommendation (2015): 0.7 mg/L.** Federal limits: **MCL 4.0 mg/L** (skeletal fluorosis) and **secondary 2.0 mg/L** (dental fluorosis). In **April 2025** EPA began an expedited review of new fluoride science, and its health assessment is under way in 2026; the MCL stays 4.0 mg/L unless EPA changes it. Fluoridation policy is decided by states and communities and has been changing, so follow MSDH's current guidance. For the exam, use the manual's numbers.",
       rel: ["fluoride-chemicals", "fluoride-math", "mcl"] },
     { id: "fluoride-chemicals", q: "Which chemicals are used for fluoridation?",
       k: ["sodium fluoride:7", "hydrofluosilicic:7", "fluorosilicic:7", "fluosilicic:7", "sodium silicofluoride:7", "sodium fluorosilicate:7", "saturator:7"],
@@ -902,6 +918,123 @@
     return null;
   }
 
+
+  /* ---------- Official sources shown under Greg's answers ----------
+     Every URL was checked against the site's public index (Sept 2026).
+     Format: [site, page title, url] */
+  var EPA = 'https://www.epa.gov/';
+  var MSDH_CERT = ['MSDH', 'Water Supply Operator Training and Certification', 'https://msdh.ms.gov/page/30,0,76,138.html'];
+  var SRC = {
+    sdwaOverview: ['EPA', 'Overview of the Safe Drinking Water Act', EPA + 'sdwa/overview-safe-drinking-water-act'],
+    regs:         ['EPA', 'Drinking Water Regulations', EPA + 'dwreginfo/drinking-water-regulations'],
+    npdwr:        ['EPA', 'National Primary Drinking Water Regulations', EPA + 'ground-water-and-drinking-water/national-primary-drinking-water-regulations'],
+    secondary:    ['EPA', 'Secondary Drinking Water Standards', EPA + 'sdwa/secondary-drinking-water-standards-guidance-nuisance-chemicals'],
+    pn:           ['EPA', 'Public Notification Rule', EPA + 'dwreginfo/public-notification-rule'],
+    ccr:          ['EPA', 'Consumer Confidence Reports', EPA + 'ccr'],
+    records:      ['eCFR', '40 CFR 141.33 — Record maintenance', 'https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-141/subpart-D/section-141.33'],
+    part141:      ['eCFR', '40 CFR Part 141 — full rule text', 'https://www.ecfr.gov/current/title-40/chapter-I/subchapter-D/part-141'],
+    pfas:         ['EPA', 'PFAS in drinking water', EPA + 'sdwa/and-polyfluoroalkyl-substances-pfas'],
+    opcert:       ['EPA', 'About Operator Certification', EPA + 'dwcapacity/about-operator-certification'],
+    msdhCert:     MSDH_CERT,
+    msdhBureau:   ['MSDH', 'Bureau of Public Water Supply', 'https://msdh.ms.gov/msdhsite/_static/30,0,76.html'],
+    msdhClasses:  ['MSDH', 'Classification of Public Water Systems (PDF)', 'https://msdh.ms.gov/page/resources/20537.pdf'],
+    msdhProviders:['MSDH', 'Approved training providers', 'https://msdh.ms.gov/msdhsite/index.cfm/30,23365,76,138,html'],
+    rtcr:         ['EPA', 'Revised Total Coliform Rule', EPA + 'dwreginfo/revised-total-coliform-rule-and-total-coliform-rule'],
+    lcri:         ['EPA', 'Lead and Copper Rule Improvements', EPA + 'ground-water-and-drinking-water/lead-and-copper-rule-improvements'],
+    dbp:          ['EPA', 'Stage 1 and Stage 2 DBP Rules', EPA + 'dwreginfo/stage-1-and-stage-2-disinfectants-and-disinfection-byproducts-rules'],
+    swtr:         ['EPA', 'Surface Water Treatment Rules', EPA + 'dwreginfo/surface-water-treatment-rules'],
+    gwr:          ['EPA', 'Ground Water Rule', EPA + 'dwreginfo/ground-water-rule'],
+    chem:         ['EPA', 'Chemical Contaminant Rules', EPA + 'dwreginfo/chemical-contaminant-rules'],
+    fluoride:     ['EPA', 'Fluoride in Drinking Water', EPA + 'sdwa/fluoride-drinking-water'],
+    ccc:          ['EPA', 'Cross-Connection Control Manual (PDF)', EPA + 'sites/default/files/2015-09/documents/epa816r03002_0.pdf'],
+    awia:         ['EPA', 'Risk and Resilience Assessments and ERPs', EPA + 'waterresilience/awia-section-2013'],
+    cyber:        ['EPA', 'Cybersecurity for the Water Sector', EPA + 'cyberwater/epa-cybersecurity-water-sector'],
+    msrwaTraining:['MsRWA', 'Training & Events', 'https://msrwa.org/training/'],
+    msrwaCourse:  ['MsRWA', 'Water Certification Course', 'https://msrwa.org/training/short-course/'],
+    msrwaCerts:   ['MsRWA', 'Certifications', 'https://msrwa.org/training/certifications/'],
+    msrwaCal:     ['MsRWA', 'Training & event calendar', 'https://msrwa.org/calendar/'],
+    nrwaWebinars: ['NRWA', 'Training webinars', 'https://nrwa.org/training/'],
+    nrwaAcademy:  ['NRWA', 'WaterPro Academy', 'https://nrwa.org/waterproacademy/'],
+    nrwaEpaCal:   ['NRWA', 'EPA water training calendar', 'https://nrwa.org/epa-water-training-calendar/']
+  };
+  var LINKS = {
+    'sdwa': ['sdwaOverview'], 'primacy': ['sdwaOverview'], 'enforcement': ['sdwaOverview'],
+    'msdh': ['msdhBureau'], 'epa-rules': ['regs', 'part141', 'msdhBureau'],
+    'mcl': ['npdwr'], 'treatment-technique': ['npdwr'], 'secondary-standards': ['secondary'],
+    'pn-tiers': ['pn'], 'tier1': ['pn'], 'tier2': ['pn'], 'tier3': ['pn'],
+    'ccr': ['ccr'], 'records': ['records'], 'pfas': ['pfas'],
+    'who-needs-operator': ['opcert', 'msdhCert'], 'system-classes': ['msdhClasses', 'msdhCert'],
+    'class-e': ['msdhClasses'], 'certification-requirements': ['msdhCert', 'msrwaCourse'],
+    'renewal': ['msdhCert', 'msdhProviders'], 'study-plan': ['msdhCert', 'msrwaCourse'],
+    'training-ms': ['msrwaTraining', 'msdhProviders', 'nrwaWebinars'],
+    'msrwa': ['msrwaTraining', 'msrwaCerts', 'msrwaCal'], 'nrwa': ['nrwaWebinars', 'nrwaAcademy', 'nrwaEpaCal'],
+    'rtcr': ['rtcr'], 'repeat-samples': ['rtcr'], 'e-coli': ['rtcr'], 'coliform': ['rtcr'], 'sample-sites': ['rtcr'],
+    'lead-copper': ['lcri'], 'corrosion-control': ['lcri'],
+    'dbps': ['dbp'], 'toc': ['dbp'], 'alt-disinfectants': ['dbp'],
+    'swtr': ['swtr'], 'surface-water': ['swtr'], 'turbidity': ['swtr'],
+    'sanitary-survey': ['gwr'], 'wellhead-protection': ['gwr'],
+    'nitrate': ['chem'], 'arsenic': ['chem'], 'fluoridation': ['fluoride'],
+    'cross-connection': ['ccc'], 'backflow': ['ccc'], 'device-selection': ['ccc'], 'ccc-program': ['ccc'], 'backflow-testing': ['ccc'],
+    'emergency-plan': ['awia'], 'cybersecurity': ['cyber']
+  };
+  E.forEach(function (e) {
+    if (LINKS[e.id]) e.links = LINKS[e.id].map(function (k) { return SRC[k]; });
+  });
+
+  /* ---------- Site search: EPA, NRWA, MsRWA ----------
+     Greg's answers come from this file. Only when someone asks him to
+     search does anything leave the browser: the search words go to the
+     site being searched. NRWA and MsRWA run WordPress, whose public
+     search API can return results straight into the chat; every site
+     also gets a link to its own search page. */
+  var SOURCES = {
+    epa:   { name: 'EPA.gov', full: 'U.S. Environmental Protection Agency', home: 'https://www.epa.gov/', search: 'https://search.epa.gov/epasearch/?typeofsearch=epa&querytext=' },
+    nrwa:  { name: 'NRWA', full: 'National Rural Water Association', home: 'https://nrwa.org/', search: 'https://nrwa.org/?s=', live: 'https://nrwa.org/wp-json/wp/v2/search' },
+    msrwa: { name: 'MsRWA', full: 'Mississippi Rural Water Association', home: 'https://msrwa.org/', search: 'https://msrwa.org/?s=', live: 'https://msrwa.org/wp-json/wp/v2/search' }
+  };
+  var ORDER = ['epa', 'nrwa', 'msrwa'];
+  var SITE_PAT = [
+    [['msrwa'], 'ms ?rwa(?:[ .]org)?|mississippi rural water(?: association)?'],
+    [['nrwa'], 'nrwa(?:[ .]org)?|national rural water(?: association)?'],
+    [['epa'], '(?:u\\.? ?s\\.? )?epa(?:[ .]gov)?|environmental protection agency'],
+    [['nrwa', 'msrwa'], 'rural water(?: associations?)?']
+  ];
+  var VERBS = 'search|look up|lookup|look for|google|find|check|browse';
+  var QUERY_STOP = /\b(?:what|whats|is|are|was|were|the|a|an|of|to|for|in|on|at|how|do|does|did|i|you|we|my|our|can|could|should|would|will|about|with|and|or|from|by|be|it|its|this|that|there|when|where|why|which|who|me|please|tell|know|need|want)\b/g;
+
+  function searchSkill(raw) {
+    /* Work on what was typed (lightly cleaned, case kept) so "141.33" or "E. coli" survive */
+    var s = String(raw || '').replace(/[‘’`]/g, "'").replace(/[^A-Za-z0-9%\s.'&-]/g, ' ').replace(/\s+/g, ' ').trim()
+      .replace(/^(?:(?:please|hey|ok|okay|greg|can you|could you|would you|will you|i want to|i need to|help me|go)\s+)+/i, '');
+    var strong = /^(?:search|look up|lookup|google)\b/i.test(s);
+    var anyVerb = new RegExp('\\b(?:' + VERBS + ')\\b', 'i').test(s);
+    var sites = [], rest = ' ' + s + ' ';
+    SITE_PAT.forEach(function (sp) {
+      if (!new RegExp('\\b(?:' + sp[1] + ')\\b', 'i').test(rest)) return;
+      sp[0].forEach(function (id) { if (sites.indexOf(id) === -1) sites.push(id); });
+      rest = rest.replace(new RegExp('\\s(?:(?:on|at|from|in|to|using|via|with|of|and|or)\\s+)*(?:the\\s+)?(?:' + sp[1] + ')(?:\\s+(?:website|web site|site|sites|page|pages|homepage))?(?=[\\s.]|$)', 'gi'), ' ');
+    });
+    if (!(strong || (sites.length && anyVerb))) return null;
+    var q = rest.replace(new RegExp('\\b(?:' + VERBS + ')\\b', 'i'), ' ')
+      .replace(/\s+/g, ' ').trim()
+      .replace(/^(?:(?:the|for|about|on|up|me|and|or|information|info|site|sites|website|websites)\s+)+/i, '')
+      .replace(/(?:\s+(?:for me|please|thanks|thank you|and|or))+$/i, '')
+      .replace(/^[.\s]+|[.\s]+$/g, '')
+      .slice(0, 120);
+    sites = sites.length ? ORDER.filter(function (id) { return sites.indexOf(id) !== -1; }) : ORDER.slice();
+    var names = sites.map(function (id) { return SOURCES[id].name; });
+    var list = names.length > 2 ? names.slice(0, -1).join(', ') + ', and ' + names[names.length - 1]
+      : names.join(' and ');
+    if (!q) {
+      return { text: "Sure. What should I search " + list + " for? Type it like **“search " + names[0] + " for lead service line inventory.”**", chips: ["Search EPA for lead service lines", "Search MsRWA for certification classes", "Search NRWA for PFAS"] };
+    }
+    return { text: "Searching **" + list + "** for **“" + q + "”**:", chips: [], search: { q: q, sites: sites, live: true } };
+  }
+  function fallbackQuery(raw) {
+    var q = String(raw || '').toLowerCase().replace(/[^a-z0-9%\s.-]/g, ' ').replace(QUERY_STOP, ' ').replace(/\s+/g, ' ').trim();
+    return (q || String(raw || '').trim()).slice(0, 120);
+  }
+
   function smallTalk(raw, norm) {
     if (/^(hi|hello|hey|howdy|good (morning|afternoon|evening)|yo|greetings)\b/.test(norm) && norm.split(' ').length <= 4) {
       return { text: "Hi! What are you working on today? Ask me about any chapter, or give me numbers and I'll work the formula.", chips: ["How should I study for my license exam?", "What is the pounds formula?", "Explain the breakpoint chlorination curve."] };
@@ -913,7 +1046,7 @@
       return { text: "Good luck studying! Come back anytime.", chips: [] };
     }
     if (/\b(are you (real|human|a person|ai|a bot|a robot))\b/.test(norm)) {
-      return { text: "I'm a built-in study assistant — a knowledge base that runs entirely in your browser. I'm not a live person, and I don't send your questions anywhere. For official rulings, always check with MSDH.", chips: ["What can you help me with?"] };
+      return { text: "I'm a built-in study assistant — a knowledge base that runs in your browser. I'm not a live person, and your questions stay on your device. The one exception: when you ask me to **search EPA, NRWA, or MsRWA**, your search words go to that website. For official rulings, always check with MSDH.", chips: ["What can you help me with?", "Can you search EPA, NRWA, or MsRWA?"] };
     }
     return null;
   }
@@ -923,13 +1056,18 @@
     skills: [
       global.GregEngine ? global.GregEngine.skills.adultSafety : function () { return null; },
       smallTalk,
+      searchSkill,
       calcSkill
     ],
+    sources: SOURCES,
     starterChips: ["What is the pounds formula?", "Explain the breakpoint chlorination curve.", "What are the public notification tiers?", "Which backflow device should I use?"],
     fallback: function (raw, sugg) {
+      /* Offer the official sites only when the question touched a water topic */
       return {
-        text: "I don't have a solid answer for that one. Try rephrasing with a key term — like **breakpoint**, **specific capacity**, **RPZ**, or **turbidity** — or give me numbers with units and I'll work the formula." + (sugg.length ? " These might be close:" : ""),
-        chips: sugg
+        text: "I don't have a solid answer for that one. Try rephrasing with a key term — like **breakpoint**, **specific capacity**, **RPZ**, or **turbidity**" +
+          (sugg.length ? " — or check the official sites below. These topics might be close:" : "."),
+        chips: sugg,
+        search: sugg.length ? { q: fallbackQuery(raw), sites: ORDER.slice(), live: false } : null
       };
     },
     create: function () {

@@ -398,6 +398,23 @@ body.academy { background: var(--mist); }
 .gchat-send { width: 46px; height: 46px; flex-shrink: 0; border: 0; border-radius: 50%; background: var(--grad-bright); color: #fff; cursor: pointer; display: grid; place-items: center; }
 .gchat-send svg { width: 20px; height: 20px; }
 
+/* Official sources + site search inside Greg's answers */
+.gchat-sources { margin-top: .8rem; padding-top: .65rem; border-top: 1px dashed var(--line); }
+.gs-label { display: block; font-family: var(--font-mono); font-size: .64rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
+.gchat-bubble .gchat-sources ul, .gchat-bubble .gs-results { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+.gchat-sources a { font-size: .86rem; font-weight: 600; line-height: 1.35; }
+.gchat-sources a b { font-family: var(--font-mono); font-size: .64rem; font-weight: 700; letter-spacing: .06em; color: var(--white); background: var(--ocean); border-radius: 5px; padding: .08rem .38rem; margin-right: .45rem; vertical-align: 1px; }
+.gsearch { margin-top: .8rem; display: grid; gap: .55rem; }
+.gs-site { border: 1px solid var(--line); border-radius: 12px; padding: .65rem .8rem; background: var(--mist); }
+.gs-top { display: flex; align-items: center; justify-content: space-between; gap: .5rem .75rem; flex-wrap: wrap; }
+.gs-name b { display: block; font-family: var(--font-display); font-size: .95rem; color: var(--abyss); line-height: 1.2; }
+.gs-name span { font-size: .74rem; color: var(--muted); }
+.gs-open { flex-shrink: 0; font-size: .78rem; font-weight: 700; white-space: nowrap; background: var(--white); border: 1px solid var(--line); border-radius: 999px; padding: .32rem .75rem; }
+.gs-open:hover { border-color: var(--tide); text-decoration: none; }
+.gchat-bubble .gs-results { margin-top: .55rem; }
+.gs-results a { font-size: .86rem; line-height: 1.35; }
+.gs-note { font-size: .8rem; color: var(--muted); }
+
 /* Drawer (Adult Learning Center) */
 .greg-drawer { position: fixed; inset: 0; z-index: 500; }
 .greg-drawer[hidden] { display: none; }
