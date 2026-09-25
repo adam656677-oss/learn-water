@@ -1,78 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Aeration, coagulation/flocculation, sedimentation, filtration, ion exchange, iron/manganese control, and stabilization — the core Class B and C treatment train." />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Aeration, coagulation/flocculation, sedimentation, filtration, ion exchange, iron/manganese control, and stabilization — the core Class B and C treatment train.">
 <title>Chapter 8 (B&C) — Water Treatment — Unit Processes | LearnWater Adult Learning Center</title>
-<link rel="stylesheet" href="../css/style.css" />
-<link rel="stylesheet" href="../css/lessons.css" />
-<style>
-  body { --theme:#4f46e5; --theme-dark:#312e81; --theme-tint:#edecfd; }
-</style>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/public-sans-normal-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/adult.css">
+<link rel="stylesheet" href="../css/lessons.css">
 </head>
-<body>
+<body class="lesson-page" style="--theme:#4f46e5; --theme-dark:#312e81; --theme-tint:#edecfd;">
+<a class="skip-link" href="#lesson">Skip to the lesson</a>
 
-<header class="site-head">
-  <a href="../index.html" class="brand">💧 LearnWater</a>
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="../kids.html">Kids Corner</a>
-    <a href="../updates.html">Updates</a>
-    <a href="mailto:learnwatertoday@gmail.com">Contact</a>
-  </nav>
-</header>
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="../index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater<span class="brand-tag">Operator Study</span></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../kids.html">Kids Corner</a></li>
+      <li><a href="../adult-learning-center.html" aria-current="page">Adult Learning</a></li>
+      <li><a href="../updates.html">App Updates</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="read-progress" aria-hidden="true"><i id="readBar"></i></div>
 
-<section class="lesson-hero">
-  <div class="motif"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="100" width="140" height="75" fill="none" stroke="white" stroke-width="6"/>
+<header class="lesson-hero">
+  <div class="motif" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="100" width="140" height="75" fill="none" stroke="white" stroke-width="6"/>
 <path d="M45 100 L45 65 L75 88 L75 60 L105 85 L105 100" fill="none" stroke="white" stroke-width="6" stroke-linejoin="round"/>
 <rect x="130" y="40" width="16" height="60" fill="none" stroke="white" stroke-width="5"/>
 <circle cx="60" cy="140" r="14" fill="none" stroke="white" stroke-width="5"/>
 <circle cx="105" cy="140" r="14" fill="none" stroke="white" stroke-width="5"/>
 <circle cx="150" cy="140" r="14" fill="none" stroke="white" stroke-width="5"/></svg></div>
   <div class="container lesson-hero-inner">
-    <a class="back-link" href="../adult-learning-center.html">&larr; Back to Adult Learning Center</a>
-    <div class="chapter-kicker">Chapter 8 (B&C) &middot; Mississippi Waterworks Operators Manual</div>
-    <h1><span class="hero-icon">🏭</span> Water Treatment — Unit Processes</h1>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../adult-learning-center.html">Adult Learning Center</a><span aria-hidden="true">/</span><a href="../adult-learning-center.html#lessons" id="crumbClass">Lessons</a></nav>
+    <div class="chapter-kicker">Chapter 8 (B&amp;C) &middot; Mississippi Waterworks Operators Manual</div>
+    <h1><span class="hero-icon" aria-hidden="true">🏭</span><span>Water Treatment — Unit Processes</span></h1>
     <p class="dek">Aeration, coagulation/flocculation, sedimentation, filtration, ion exchange, iron/manganese control, and stabilization — the core Class B and C treatment train.</p>
-  </div>
-</section>
-
-<main class="container">
-
-  <div class="greg-card">
-    <div class="greg-avatar">🧑‍🏫</div>
-    <div>
-      <h3>Greg's take on this chapter</h3>
-      <p>This is the longest, densest chapter in the whole book — take it one unit process at a time. Notice how the processes chain together: aeration removes gases and oxidizes iron/manganese, coagulation/flocculation clumps particles, sedimentation settles the heavy floc out, and filtration polishes what's left. Learn the numbers for each stage and you'll be able to answer almost anything thrown at you.</p>
+    <div class="hero-meta" id="heroMeta"></div>
+    <div class="hero-cta">
+      <a class="btn btn-white" href="#s1">Start reading</a>
+      <a class="btn btn-light-outline" href="../adult-learning-center.html#quiz:ch8bc">Quiz this chapter</a>
     </div>
   </div>
+  <div class="hero-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 45 C240 85 480 5 720 45 C960 85 1200 5 1440 45 C1680 85 1920 5 2160 45 C2400 85 2640 5 2880 45 L2880 90 L0 90 Z" fill="#8fe3ee"/></svg>
+    <svg class="w2" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 55 C240 25 480 85 720 55 C960 25 1200 85 1440 55 C1680 25 1920 85 2160 55 C2400 25 2640 85 2880 55 L2880 90 L0 90 Z" fill="#27c1d4"/></svg>
+    <svg class="w3" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 64 C240 82 480 46 720 64 C960 82 1200 46 1440 64 C1680 82 1920 46 2160 64 C2400 82 2640 46 2880 64 L2880 90 L0 90 Z" fill="#f3f7fa"/></svg>
+  </div>
+</header>
 
-  <div class="lesson-section">
-    <h2><span class="num">1</span> Aeration</h2>
+<div class="container lesson-layout">
+  <aside class="lesson-toc" aria-label="On this page">
+    <span class="toc-title">On this page</span>
+    <ol id="toc"></ol>
+    <button class="toc-done" type="button" data-complete aria-pressed="false">Mark complete</button>
+  </aside>
+
+  <main class="lesson-main" id="lesson">
+    <div class="greg-take">
+      <span class="greg-avatar" data-greg-avatar></span>
+      <div><h2>Greg's take on this chapter</h2><p>This is the longest, densest chapter in the whole book — take it one unit process at a time. Notice how the processes chain together: aeration removes gases and oxidizes iron/manganese, coagulation/flocculation clumps particles, sedimentation settles the heavy floc out, and filtration polishes what's left. Learn the numbers for each stage and you'll be able to answer almost anything thrown at you.</p></div>
+    </div>
+
+    <section class="lesson-section" id="s1" aria-labelledby="s1h">
+      <h2 id="s1h"><span class="num">1</span> Aeration</h2>
 <p>Aeration mixes air into water to remove troublesome gases (carbon dioxide, hydrogen sulfide, methane), oxidize iron and manganese into a removable insoluble form, reduce certain tastes and odors, and add oxygen. Water containing more than <strong>0.3 mg/l iron</strong> stains fixtures and clothing yellowish-brown; manganese above <strong>0.05 mg/l</strong> can produce black stains. Aeration followed by 30 minutes of detention time oxidizes these metals, and filtration then removes the precipitate. Loading rates for gravity aerators run <strong>10-30 gpm/ft²</strong>. Hydrogen sulfide is dangerous in enclosed spaces — concentrations of just 0.1% gas-to-air can be fatal within 30 minutes — so adequate ventilation is essential.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">2</span> Coagulation and flocculation</h2>
+    </section>
+    <section class="lesson-section" id="s2" aria-labelledby="s2h">
+      <h2 id="s2h"><span class="num">2</span> Coagulation and flocculation</h2>
 <p>Most particles causing turbidity carry a negative charge and repel each other (the <strong>zeta potential</strong>). <strong>Coagulation</strong> is the rapid mixing of a positively-charged coagulant into the water to neutralize that charge — this reaction happens in <strong>one to two seconds</strong>, which is exactly why rapid mixing is so critical. <strong>Flocculation</strong> is the gentle mixing afterward that lets neutralized micro-floc collide and grow into larger, settleable floc.</p><p>Coagulants are classified by charge: monovalent (1+), bivalent (2+), and trivalent (3+, like aluminum and iron) — trivalent coagulants are <strong>700 to 1,000 times more effective</strong> than monovalent ones at neutralizing negative particles. <strong>Alum</strong> (aluminum sulfate) is the most common coagulant.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">3</span> Sedimentation</h2>
+    </section>
+    <section class="lesson-section" id="s3" aria-labelledby="s3h">
+      <h2 id="s3h"><span class="num">3</span> Sedimentation</h2>
 <p>Sedimentation settles out the heavier floc before filtration, ideally leaving effluent turbidity <strong>under 10 NTU</strong>. Every settling basin has four zones — inlet, settling, outlet, and sludge. Design criteria call for a minimum of <strong>four hours detention time</strong> (reduced to two hours for lime-soda softening treating only ground water), settling velocity under <strong>0.5 ft/min</strong>, and a weir overflow rate not exceeding <strong>20,000 gallons per day per foot</strong> of weir length. A typical overflow rate for alum floc is about <strong>500 gpd/ft²</strong>.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">4</span> Filtration</h2>
+    </section>
+    <section class="lesson-section" id="s4" aria-labelledby="s4h">
+      <h2 id="s4h"><span class="num">4</span> Filtration</h2>
 <p>Filtration is the last polishing step before water reaches customers. Most Mississippi plants use gravity, downflow rapid sand or dual-media (sand + anthracite) filters. Typical loading rates: about <strong>2 gpm/ft²</strong> for single-media, <strong>3 gpm/ft²</strong> for dual-media filters. Backwash when head loss reaches <strong>7 to 10 feet</strong>, at rates of <strong>15-20 gpm/ft²</strong> for sand filters or <strong>10-15 gpm/ft²</strong> for dual media, typically for 3-20 minutes until the wash water runs clear.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">5</span> Ion exchange, iron/manganese control, and stabilization</h2>
+    </section>
+    <section class="lesson-section" id="s5" aria-labelledby="s5h">
+      <h2 id="s5h"><span class="num">5</span> Ion exchange, iron/manganese control, and stabilization</h2>
 <p><strong>Ion exchange</strong> swaps one ion for another — usually sodium for calcium/magnesium (softening). It works best for low-hardness, low-TDS water (under 2,000 mg/l) and isn't suitable above 0.3 mg/l iron or manganese combined. Regeneration uses a strong salt (brine) solution over <strong>20-35 minutes</strong> of contact time.</p><p><strong>Iron and manganese control</strong> methods include oxidation/detention/filtration, water softening, manganese greensand filtration, ion exchange, and polyphosphate sequestration. Potassium permanganate oxidizes manganese faster than chlorine and works across pH 5-9.</p><p><strong>Stabilization</strong> keeps finished water from being corrosive or scale-forming — the <strong>Langelier Saturation Index</strong> predicts which way a given water will go, valid within a pH range of 6.5-9.5. A slightly positive index deposits a thin, protective calcium carbonate coating on pipe walls; a negative index means corrosive water.</p>
-  </div>
+    </section>
 
-
-  <div class="key-numbers">
-    <h2>📌 Numbers Greg wants you to memorize</h2>
+    <section class="key-numbers" id="numbers" aria-labelledby="numbersh">
+      <h2 id="numbersh">📌 Numbers Greg wants you to memorize</h2>
     <ul>
       <li>Iron over <strong>0.3 mg/l</strong> stains; manganese over <strong>0.05 mg/l</strong> stains black.</li>
       <li>Coagulation reaction time: <strong>1-2 seconds</strong> — rapid mixing is critical.</li>
@@ -81,33 +99,56 @@
       <li>Filter backwash trigger: head loss of <strong>7-10 feet</strong>.</li>
       <li>Filtration rates: <strong>~2 gpm/ft²</strong> single media, <strong>~3 gpm/ft²</strong> dual media.</li>
     </ul>
-  </div>
+    </section>
 
-  <div class="greg-mini">
-    <h2>🧑‍🏫 Ask Greg about this chapter</h2>
-    <div class="greg-mini-row" id="greg-mini-prompts"></div>
-    <div class="greg-mini-history" id="greg-mini-history"></div>
-    <div class="greg-mini-input">
-      <input type="text" id="greg-mini-input" placeholder="Ask Greg anything about Chapter 8 (B&C)..." />
-      <button id="greg-mini-send">Send</button>
+    <section class="lesson-block" id="check" aria-labelledby="checkh">
+      <div class="block-head"><span class="overline">Check yourself</span><h2 id="checkh">Quick check: 5 questions</h2><p>Random questions from this chapter's bank. Your answers count toward your progress in the Learning Center.</p></div>
+      <div id="checkQuiz"></div>
+    </section>
+
+    <section class="lesson-block" id="cards" aria-labelledby="cardsh">
+      <div class="block-head"><span class="overline">Flash cards</span><h2 id="cardsh">Tap a card to flip it</h2></div>
+      <div class="lc-grid" id="lessonCards"></div>
+      <p class="block-foot"><a href="../adult-learning-center.html#cards:ch8bc">Study these in the flash card trainer →</a></p>
+    </section>
+
+    <section class="lesson-block" id="ask" aria-labelledby="askh">
+      <div class="block-head"><span class="overline">Ask Greg</span><h2 id="askh">Questions about Chapter 8 (B&amp;C)?</h2><p>Greg answers from the operators manual and works formulas. He runs in your browser and doesn't send your questions anywhere.</p></div>
+      <div class="lesson-chat" id="lessonChat"></div>
+    </section>
+
+    <section class="lesson-block" id="videos" aria-labelledby="vidh" hidden>
+      <div class="block-head"><span class="overline">Watch</span><h2 id="vidh">Videos for this chapter</h2></div>
+      <div class="video-grid" id="lessonVideos"></div>
+    </section>
+
+    <div class="complete-bar">
+      <div><strong id="completeText">Finished this chapter?</strong><span id="completeSub">Mark it complete to update your progress.</span></div>
+      <button class="btn btn-primary" type="button" data-complete aria-pressed="false">Mark chapter complete</button>
     </div>
+
+    <nav class="chapter-pager" id="pager" aria-label="Previous and next chapter"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH). Rules change, so confirm current requirements with MSDH.</p>
+    <p>A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
   </div>
-
-  <div class="lesson-actions">
-    <a class="btn btn-outline" href="../adult-learning-center.html">&larr; Back to Adult Learning Center</a>
-    <button class="btn btn-complete" id="complete-btn"></button>
-  </div>
-
-</main>
-
-<footer class="site-foot">
-  <p>💧 <strong>LearnWater</strong> &middot; A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> &middot; Companion to the WaterOps App</p>
 </footer>
 
 <script>
-  const LESSON_ID = "ch8bc";
-  const LESSON_PROMPTS = ["What does aeration remove from water?", "What's the difference between coagulation and flocculation?", "When do I backwash a filter?"];
+  var LESSON_ID = "ch8bc";
+  var LESSON_PROMPTS = ["What does aeration remove from water?", "What's the difference between coagulation and flocculation?", "When do I backwash a filter?"];
 </script>
+<script src="../js/site.js"></script>
+<script src="../js/greg-engine.js"></script>
+<script src="../js/greg-adult-kb.js"></script>
+<script src="../js/greg-adult-ui.js"></script>
+<script src="../js/video-library.js"></script>
+<script src="../js/adult-curriculum.js"></script>
 <script src="../js/lesson-common.js"></script>
 </body>
 </html>

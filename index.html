@@ -3,288 +3,186 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="LearnWater — free water education for kids and adults. Discover how water works, where it comes from, and how we keep it safe.">
+  <meta name="description" content="LearnWater: free water education. The Water Explorer Lab for kids, and a Mississippi water operator license study center (Class D–A) for adults, with Greg, your study guide.">
   <title>LearnWater — Discover the World of Water</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/public-sans-normal-400-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Homepage extras */
-    .home-hero { padding: 6rem 0 5rem; }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(144,224,239,0.2);
-      color: var(--accent);
-      border: 1px solid rgba(144,224,239,0.4);
-      border-radius: 20px;
-      padding: 0.3rem 1rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 1.25rem;
-    }
-    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .home-hero { padding: 6.5rem 0 8rem; }
+    .home-hero h1 { max-width: 820px; margin-left: auto; margin-right: auto; }
+    .home-hero h1 .accent { background: linear-gradient(90deg, var(--spray), var(--aqua)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-btns { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+    .hero-notes { display: flex; justify-content: center; flex-wrap: wrap; gap: .5rem 1.5rem; margin-top: 2rem; font-size: .88rem; color: rgba(232,246,250,.75); }
+    .hero-notes span::before { content: '✓'; color: var(--aqua); font-weight: 800; margin-right: .4rem; }
 
-    .section-nav-cards { padding: 4rem 0; }
-    .nav-card {
-      display: flex;
-      flex-direction: column;
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      color: inherit;
+    .explore { background: var(--mist); }
+    .about-cols { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3.5rem; align-items: center; }
+    .about-cols h2 { margin: .5rem 0 1rem; }
+    .about-cols p { color: var(--ink-2); }
+    .inside {
+      background: var(--grad-deep); color: var(--white); border-radius: var(--radius-lg); padding: 2rem;
+      box-shadow: var(--shadow-lg); position: relative; overflow: hidden;
     }
-    .nav-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); text-decoration: none; }
-
-    .nav-card-top {
-      padding: 2rem 1.5rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
-    }
-    .nav-card-emoji { font-size: 3rem; }
-    .nav-card-top h3 { color: var(--dark); margin: 0; }
-    .nav-card-top p  { color: var(--muted); margin: 0; font-size: 0.95rem; line-height: 1.5; }
-
-    .nav-card-footer {
-      padding: 1rem 1.5rem;
-      border-top: 1px solid var(--light);
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .nav-card-kids   .nav-card-top { background: linear-gradient(135deg, #fff9e6, #ffeeba); }
-    .nav-card-kids   .nav-card-footer { color: #e67e00; }
-
-    .nav-card-learn  .nav-card-top { background: linear-gradient(135deg, #e8f4fd, #cae8f8); }
-    .nav-card-learn  .nav-card-footer { color: var(--primary); }
-
-    .nav-card-updates .nav-card-top { background: linear-gradient(135deg, #eef9f1, #c8efd4); }
-    .nav-card-updates .nav-card-footer { color: #2a8c4e; }
-
-    .nav-card-support .nav-card-top { background: linear-gradient(135deg, #f3eeff, #ddd5ff); }
-    .nav-card-support .nav-card-footer { color: #6741d9; }
-
-    /* Stats strip */
-    .stats-strip {
-      background: var(--primary);
-      color: var(--white);
-      padding: 2.5rem 0;
-    }
-    .stats-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 2rem 4rem;
-      text-align: center;
-    }
-    .stat-item span { display: block; }
-    .stat-num  { font-size: 2.25rem; font-weight: 800; line-height: 1; }
-    .stat-label{ font-size: 0.9rem; opacity: 0.85; margin-top: 0.25rem; }
-
-    /* About strip */
-    .about-strip { background: var(--gray); padding: 4rem 0; }
-    .about-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-    .about-cols .icon-stack {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-    .icon-bubble {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-    @media (max-width: 768px) {
-      .about-cols { grid-template-columns: 1fr; gap: 2rem; }
-    }
+    .inside::before { content: ''; position: absolute; right: -120px; top: -120px; width: 360px; height: 360px; background: url(img/contours.svg) center / contain no-repeat; opacity: .8; }
+    .inside h3 { color: var(--white); position: relative; margin-bottom: 1.1rem; }
+    .inside ul { list-style: none; position: relative; display: grid; gap: .8rem; }
+    .inside li { display: flex; gap: .8rem; align-items: flex-start; color: rgba(232,246,250,.9); font-size: .96rem; line-height: 1.5; }
+    .inside li b { color: var(--white); }
+    .inside .ic { flex-shrink: 0; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: rgba(255,255,255,.1); border: 1px solid rgba(143,227,238,.3); font-size: 1.05rem; }
+    @media (max-width: 860px) { .about-cols { grid-template-columns: 1fr; gap: 2rem; } }
   </style>
 </head>
 <body>
+<a class="skip-link" href="#explore">Skip to content</a>
 
-<!-- Navigation -->
-<nav class="site-nav">
-  <div class="container">
-    <a href="index.html" class="nav-brand">
-      <span class="drop">💧</span> LearnWater
-    </a>
-    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
-      <span></span><span></span><span></span>
-    </button>
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html" aria-current="page">Home</a></li>
       <li><a href="kids.html">Kids Corner</a></li>
-      <li><a href="adult-learning-center.html">Learn</a></li>
-      <li><a href="updates.html">Updates</a></li>
+      <li><a href="adult-learning-center.html">Adult Learning</a></li>
+      <li><a href="updates.html">App Updates</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero home-hero">
+<header class="hero home-hero">
   <div class="container hero-content">
-    <div class="hero-badge">🌊 Free Water Education</div>
-    <h1>Discover the World of Water</h1>
-    <p>Your guide to understanding water — from the water cycle in your backyard to the pumps and wells that power your community.</p>
+    <span class="overline">Free water education</span>
+    <h1>Discover the World of <span class="accent">Water</span></h1>
+    <p>From the water cycle in your backyard to the wells, pumps, and treatment plants that serve your community, and the license exam for the people who run them.</p>
     <div class="hero-btns">
       <a href="kids.html" class="btn btn-white">🥽 Kids Corner</a>
-      <a href="adult-learning-center.html" class="btn btn-outline" style="border-color:var(--accent);color:var(--accent);">📚 Adult Learning</a>
+      <a href="adult-learning-center.html" class="btn btn-light-outline">📘 Adult Learning Center</a>
     </div>
+    <div class="hero-notes"><span>Always free</span><span>No sign-up</span><span>Works on phones, tablets, and computers</span></div>
   </div>
-  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="white"/>
-  </svg>
-</section>
+  <div class="hero-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 45 C240 85 480 5 720 45 C960 85 1200 5 1440 45 C1680 85 1920 5 2160 45 C2400 85 2640 5 2880 45 L2880 90 L0 90 Z" fill="#8fe3ee"/></svg>
+    <svg class="w2" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 55 C240 25 480 85 720 55 C960 25 1200 85 1440 55 C1680 25 1920 85 2160 55 C2400 25 2640 85 2880 55 L2880 90 L0 90 Z" fill="#27c1d4"/></svg>
+    <svg class="w3" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 64 C240 82 480 46 720 64 C960 82 1200 46 1440 64 C1680 82 1920 46 2160 64 C2400 82 2640 46 2880 64 L2880 90 L0 90 Z" fill="#031a2e"/></svg>
+  </div>
+</header>
 
-<!-- Quick Stats -->
 <div class="stats-strip">
   <div class="container">
     <div class="stats-row">
       <div class="stat-item">
         <span class="stat-num">71%</span>
-        <span class="stat-label">of Earth is covered by water</span>
+        <span class="stat-label">of Earth's surface is covered by water</span>
+        <span class="stat-source">USGS Water Science School</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">3%</span>
-        <span class="stat-label">is freshwater we can use</span>
+        <span class="stat-num">&lt;1%</span>
+        <span class="stat-label">of Earth's water is fresh water we can readily use</span>
+        <span class="stat-source">USGS Water Science School</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">2.5B</span>
-        <span class="stat-label">gallons treated daily in the US</span>
+        <span class="stat-num">39B</span>
+        <span class="stat-label">gallons a day withdrawn for U.S. public water supply</span>
+        <span class="stat-source">USGS, 2015 estimate</span>
       </div>
       <div class="stat-item">
-        <span class="stat-num">A–D</span>
-        <span class="stat-label">operator license classes, with Greg as your AI instructor</span>
+        <span class="stat-num">~50,000</span>
+        <span class="stat-label">community water systems in the United States</span>
+        <span class="stat-source">U.S. EPA</span>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Section Navigation Cards -->
-<section class="section-nav-cards">
-  <div class="container">
-    <div class="section-header">
-      <h2>What Would You Like to Explore?</h2>
-      <div class="section-divider"></div>
-      <p>Choose a section below — whether you're a curious kid or a water industry professional, there's something here for you.</p>
+<main>
+  <section class="explore" id="explore">
+    <div class="container">
+      <div class="section-header">
+        <span class="overline">Start here</span>
+        <h2>What would you like to explore?</h2>
+        <p>Whether you're a curious kid or a water operator studying for your license, there's something here for you.</p>
+      </div>
+
+      <div class="card-grid">
+        <a href="kids.html" class="nav-card nav-card-kids">
+          <div class="nav-card-top">
+            <span class="nav-card-icon" aria-hidden="true">🥽</span>
+            <h3>Kids Corner</h3>
+            <p>The Water Explorer Lab: 11 games, a coloring studio with printable pages, a 91-question quiz, real experiments, and Greg, a kid scientist who answers questions.</p>
+          </div>
+          <div class="nav-card-footer">Let's explore <span class="arrow" aria-hidden="true">→</span></div>
+        </a>
+
+        <a href="adult-learning-center.html" class="nav-card">
+          <div class="nav-card-top">
+            <span class="nav-card-icon" aria-hidden="true">📘</span>
+            <h3>Adult Learning Center</h3>
+            <p>Study for your Mississippi Class D–A operator license: 14 chapter lessons, 182 practice questions, math drills with worked solutions, flash cards, and Greg, your study coach.</p>
+          </div>
+          <div class="nav-card-footer">Start studying <span class="arrow" aria-hidden="true">→</span></div>
+        </a>
+
+        <a href="updates.html" class="nav-card nav-card-updates">
+          <div class="nav-card-top">
+            <span class="nav-card-icon" aria-hidden="true">📱</span>
+            <h3>App Updates</h3>
+            <p>Release notes for the WaterOps app: new features, fixes, and improvements for water operations management.</p>
+          </div>
+          <div class="nav-card-footer">See what's new <span class="arrow" aria-hidden="true">→</span></div>
+        </a>
+
+        <a href="#contact" class="nav-card nav-card-support">
+          <div class="nav-card-top">
+            <span class="nav-card-icon" aria-hidden="true">🤝</span>
+            <h3>Support &amp; Contact</h3>
+            <p>Questions about the WaterOps app or this website? Reach out anytime. We're happy to help.</p>
+          </div>
+          <div class="nav-card-footer">Get in touch <span class="arrow" aria-hidden="true">→</span></div>
+        </a>
+      </div>
     </div>
+  </section>
 
-    <div class="card-grid">
-
-      <!-- Kids Corner -->
-      <a href="kids.html" class="nav-card nav-card-kids">
-        <div class="nav-card-top">
-          <div class="nav-card-emoji">🥽</div>
-          <h3>Kids Corner</h3>
-          <p>The Water Explorer Lab — five playable games, an online coloring studio you can print from, a 45-question quiz, experiments, and more.</p>
-        </div>
-        <div class="nav-card-footer">Let's explore! →</div>
-      </a>
-
-      <!-- Adult Learning -->
-      <a href="adult-learning-center.html" class="nav-card nav-card-learn">
-        <div class="nav-card-top">
-          <div class="nav-card-emoji">🎓</div>
-          <h3>Adult Learning Center</h3>
-          <p>Study for your Class A–D water operator license with Greg, your AI instructor — lessons, quizzes, math practice, and flashcards.</p>
-        </div>
-        <div class="nav-card-footer">Start studying →</div>
-      </a>
-
-      <!-- App Updates -->
-      <a href="updates.html" class="nav-card nav-card-updates">
-        <div class="nav-card-top">
-          <div class="nav-card-emoji">📱</div>
-          <h3>App Updates</h3>
-          <p>Stay current with the latest WaterOps app news, feature releases, and improvements for your water operations management.</p>
-        </div>
-        <div class="nav-card-footer">See what's new →</div>
-      </a>
-
-      <!-- Support -->
-      <a href="#contact" class="nav-card nav-card-support">
-        <div class="nav-card-top">
-          <div class="nav-card-emoji">🤝</div>
-          <h3>Support &amp; Contact</h3>
-          <p>Have a question about the WaterOps app or this website? Reach out directly — we're happy to help.</p>
-        </div>
-        <div class="nav-card-footer">Get in touch →</div>
-      </a>
-
-    </div>
-  </div>
-</section>
-
-<!-- About -->
-<section class="about-strip">
-  <div class="container">
-    <div class="about-cols">
+  <section>
+    <div class="container about-cols">
       <div>
-        <h2>Why Water Education Matters</h2>
-        <div class="section-divider" style="display:block;margin:0.75rem 0;"></div>
-        <p>Water is our most essential resource, yet most people know very little about where it comes from, how it's treated, or the infrastructure that delivers it every day.</p>
-        <p>LearnWater is a free resource created alongside the <strong>WaterOps</strong> app — designed to help communities, professionals, and curious learners understand and appreciate water systems.</p>
-        <a href="adult-learning-center.html" class="btn btn-primary mt-1">Start Learning Free</a>
+        <span class="overline">Why it matters</span>
+        <h2>Water education for everyone</h2>
+        <p>Water is our most essential resource, yet most people know very little about where it comes from, how it's treated, or the pipes, pumps, and people that deliver it every day.</p>
+        <p>LearnWater is a free resource created alongside the <strong>WaterOps</strong> app. It's built to help kids get curious, help communities understand their water system, and help operators earn and keep their licenses.</p>
+        <a href="adult-learning-center.html" class="btn btn-primary mt-1">Start learning free</a>
       </div>
-      <div class="icon-stack">
-        <div class="icon-bubble">💧</div>
-        <div class="icon-bubble">🏗️</div>
-        <div class="icon-bubble">🔬</div>
-        <div class="icon-bubble">⚙️</div>
-        <div class="icon-bubble">🌱</div>
-        <div class="icon-bubble">📊</div>
-        <div class="icon-bubble">🏠</div>
-        <div class="icon-bubble">🌊</div>
-        <div class="icon-bubble">🔩</div>
+      <div class="inside">
+        <h3>What's inside</h3>
+        <ul>
+          <li><span class="ic" aria-hidden="true">📖</span><span><b>14 study lessons</b> that follow the Mississippi Waterworks Operators Manual, with notes wherever current federal rules have changed</span></li>
+          <li><span class="ic" aria-hidden="true">🧮</span><span><b>Operator math drills</b> with fresh numbers every time and step-by-step solutions</span></li>
+          <li><span class="ic" aria-hidden="true">🎮</span><span><b>Kids games</b> like Build-a-Filter, Water Plant Tycoon, and Drop's Journey</span></li>
+          <li><span class="ic" aria-hidden="true">💬</span><span><b>Greg</b>, a built-in guide who answers questions right in your browser. Nothing you type is sent anywhere.</span></li>
+        </ul>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Contact -->
-<section class="contact-section" id="contact">
-  <div class="container">
-    <h2>Questions or App Support?</h2>
-    <p>Whether it's a question about this site, the WaterOps app, or water education content — send us a message anytime.</p>
-    <a class="contact-email" href="mailto:learnwatertoday@gmail.com">
-      ✉️ learnwatertoday@gmail.com
-    </a>
-    <br><br>
-    <p style="color:var(--muted);font-size:0.9rem;">We'll do our best to respond within 1–2 business days.</p>
-  </div>
-</section>
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <h2>Questions or app support?</h2>
+      <p>Whether it's about this site, the WaterOps app, or water education content, send us a message anytime.</p>
+      <a class="contact-email" href="mailto:learnwatertoday@gmail.com">✉️ learnwatertoday@gmail.com</a>
+      <p style="color:var(--muted);font-size:.9rem;margin-top:1.25rem;">We'll do our best to respond within 1–2 business days.</p>
+    </div>
+  </section>
+</main>
 
-<!-- Footer -->
 <footer class="site-footer">
   <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
-    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
   </div>
 </footer>
 
-<script>
-  function toggleNav() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
-</script>
-
+<script src="js/site.js"></script>
 </body>
 </html>

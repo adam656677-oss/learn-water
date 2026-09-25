@@ -1,4 +1,12 @@
+# Files Cloudflare must never serve as website assets.
+# Workers static assets (unlike Pages) do not skip these automatically.
+.git
+.github
 .gitignore
 .assetsignore
+.claude
+.wrangler
+node_modules
 wrangler.jsonc
+*.md
 .DS_Store

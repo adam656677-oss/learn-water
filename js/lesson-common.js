@@ -1,129 +1,237 @@
-/* =================================================================
-   lesson-common.js
-   Shared behavior for Study Lesson chapter pages: Greg mini-chat and
-   chapter-complete tracking. Each page defines LESSON_ID (e.g. "ch1")
-   and optionally LESSON_PROMPTS (array of quick-ask strings) before
-   loading this file.
-================================================================= */
+/* ==========================================================
+   LearnWater — lesson page behavior (every lessons/*.html)
+   Each page sets LESSON_ID (e.g. "ch1") and LESSON_PROMPTS,
+   then loads site.js, greg-engine.js, greg-adult-kb.js,
+   greg-adult-ui.js, video-library.js, adult-curriculum.js.
+   Progress is shared with the Adult Learning Center through
+   localStorage: lw_lessonDone and lw_chapter_stats.
+   ========================================================== */
+(function () {
+  'use strict';
 
-/* -----------------------------------------------------------------
-   CHAPTER-COMPLETE TRACKING
-   Shared with adult-learning-center.js via the same localStorage key.
-   Shape: { ch1:true, ch2:false, ... } — flat, since a chapter is the
-   same lesson no matter which class is currently studying it.
------------------------------------------------------------------ */
-function lw_loadDone() {
-  try { return JSON.parse(localStorage.getItem("lw_lessonDone") || "{}"); }
-  catch (e) { return {}; }
-}
-function lw_saveDone(done) {
-  try { localStorage.setItem("lw_lessonDone", JSON.stringify(done)); } catch (e) {}
-}
-
-function initCompleteButton() {
-  const btn = document.getElementById("complete-btn");
-  if (!btn || typeof LESSON_ID === "undefined") return;
-  const render = () => {
-    const done = lw_loadDone();
-    if (done[LESSON_ID]) {
-      btn.textContent = "✅ Completed — mark incomplete";
-      btn.classList.add("done");
-    } else {
-      btn.textContent = "☐ Mark this chapter complete";
-      btn.classList.remove("done");
-    }
-  };
-  btn.addEventListener("click", () => {
-    const done = lw_loadDone();
-    done[LESSON_ID] = !done[LESSON_ID];
-    lw_saveDone(done);
-    render();
-  });
-  render();
-}
-
-/* -----------------------------------------------------------------
-   GREG MINI-CHAT
-   Same lightweight keyword-matching engine as the main Adult Learning
-   Center, so Greg answers consistently everywhere he appears.
------------------------------------------------------------------ */
-const GREG_KB = {
-  "public water system": "Three types: community (year-round residents, 15+ connections or 25+ people), nontransient noncommunity (same 25+ people, 6+ months/year — schools, factories), and transient noncommunity (different people — rest stops, restaurants, parks).",
-  "mcl": "An MCL (Maximum Contaminant Level) is the enforceable limit — water samples must meet it. An MCLG (MCL Goal) is a non-enforceable health-based goal, set at zero for carcinogens. A treatment technique is required instead of an MCL when a contaminant is hard or costly to measure directly.",
-  "variance": "A variance or exemption lets a system with real technical or financial trouble keep supplying water for a limited time, as long as it proves there's no threat to public health. They're rare and hard to get.",
-  "tier 1": "Tier 1 violations are the serious kind — failing to meet an MCL, a treatment technique, or a variance/exemption schedule. They require the most urgent, most extensive public notification.",
-  "aquifer": "A confined aquifer has an impervious layer above and below, so the water is under pressure. If water rises above the top of the aquifer when a well taps it, that's artesian; if it overflows the casing, that's a flowing artesian well. An unconfined (water table) aquifer has no impervious cap and is more exposed to surface contamination.",
-  "specific capacity": "Specific capacity = pumping rate (gpm) ÷ drawdown (ft). It tells you how many gallons per minute a well produces for each foot the water level drops.",
-  "class d": "Class D is entry-level! You'll focus on daily operations, record-keeping, distribution basics, and safety. The exam covers system types, pressure requirements, chlorine residuals, and proper documentation.",
-  "class c": "Class C plants add aeration, pH adjustment, corrosion control, and closed-pressure treatment on top of everything Class D covers.",
-  "class b": "Class B plants use two or more treatment types, or iron/manganese removal facilities that break pressure or need flocculation and sedimentation — the same Chapter 8 B&C material as Class C, plus more field experience.",
-  "class a": "Class A is the top tier — surface water treatment, lime softening, coagulation and filtration for full treatment. Master everything from D, C, and B first.",
-  "chlorine": "Free chlorine residual should be at least 0.2 mg/l through the distribution system — that's the point where you'd collect a coliform sample within 24 hours if you ever read zero. Chlorine demand must be satisfied, then combined residual (chloramines) forms, then breakpoint chlorination gives you a clean free residual.",
-  "pressure": "Keep at least 20 psi everywhere in the distribution system, all the time. Drop below that and you're looking at a boil-water notice.",
-  "turbidity": "Turbidity shields microorganisms from disinfection and interferes with coliform testing. Settling-basin effluent shouldn't exceed 10 NTU, and filtered water should stay at or below 0.3 NTU 95% of the time.",
-  "coliform": "Total coliform is the indicator organism — always present when sewage is present, always absent when it isn't, and easy to test for. A positive sample gets checked for E. coli, which is a Tier 1 acute violation if confirmed.",
-  "math": "Key formulas: lbs/day = mg/l x MGD x 8.34 | Area = L x W (rectangle) or 0.785 x D² (circle) | Volume = L x W x H, or 0.785 x D² x H for a cylinder | 1 mg/l = 1 ppm = 8.34 lbs per million gallons.",
-  "records": "Chemical analyses and sanitary survey reports: keep for at least 10 years after they're superseded or the report is completed. Variance/exemption records: keep 5 years after expiration.",
-  "well": "A confined aquifer has an impervious layer above and below it. If water rises above the top of the aquifer when tapped, that's an artesian aquifer — if it overflows the casing, that's a flowing artesian well.",
-  "hardness": "Hardness under 75 mg/l as CaCO3 is soft, 75-150 is moderately hard, 150-200 is hard, and over 200 is very hard. Calcium and magnesium ions cause almost all of it in Mississippi ground water.",
-  "alkalinity": "Alkalinity is the water's ability to neutralize acid — mostly from bicarbonate, carbonate, and hydroxide ions. It's essential for good coagulation; low-alkalinity water often needs lime added before the coagulant.",
-  "aeration": "Aeration removes carbon dioxide, hydrogen sulfide, and methane, and oxidizes iron and manganese so they can be filtered out. Give it about 30 minutes of detention time for iron/manganese oxidation to finish.",
-  "coagulation": "Alum reacts with alkalinity to form aluminum hydroxide floc in one to two seconds — that's why rapid mixing right after dosing is so critical. Trivalent coagulants like alum and ferric sulfate are 700-1000 times more effective than monovalent ones.",
-  "filtration": "Rapid sand filters typically run 2 gpm/ft² (single media) to 3 gpm/ft² (dual media). Backwash when head loss hits 7-10 feet, at 15-20 gpm/ft² for sand or 10-15 gpm/ft² for dual media.",
-  "fluoride": "The ideal natural fluoride range is 0.8 to 1.2 mg/l. Sodium fluoride, hydrofluosilicic acid, and sodium silicofluoride are the three chemicals used to adjust it.",
-  "flashcard": "Head over to the Flash Cards tool on the main Adult Learning Center page — you can add your own or load a curated set for your class.",
-  "quiz": "Take the Practice Quiz back on the main Adult Learning Center page for 10-15 randomized questions pulled from every chapter you've unlocked.",
-  "boil water": "Issue a boil-water notice when pressure drops below 20 psi, after a main break, or if coliform shows up. Rescind only after two consecutive absent-coliform samples and restored pressure.",
-  "cross connection": "A cross-connection links potable and non-potable water. Match the device to the hazard: air gap for the worst hazards, then RPZ, double-check assembly, or a vacuum breaker for lower-hazard, non-continuous-pressure uses.",
-  "backflow": "Backflow happens two ways: back-pressure (non-potable pressure exceeds the potable line) or back-siphonage (a vacuum pulls contaminated water in). All prevention devices need annual testing.",
-  "safety": "About 88% of workplace accidents come down to a specific unsafe act by an employee — that's why training and a clear safety policy matter more than almost anything else.",
-  "default": "Good question! Ask me about chlorine, pressure, turbidity, math formulas, wells, hardness, coagulation, filtration, fluoride, safety, or cross-connections — or anything else from this chapter."
-};
-
-function gregResponse(msg) {
-  const lower = msg.toLowerCase();
-  for (const [key, resp] of Object.entries(GREG_KB)) {
-    if (lower.includes(key)) return resp;
+  var CUR = window.LW_CURRICULUM, S = LW.store, esc = LW.esc;
+  var id = window.LESSON_ID, ch = CUR && CUR.chapters[id];
+  if (!ch) return;
+  var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function $(x) { return document.getElementById(x); }
+  function obj(v) { return v && typeof v === 'object' && !Array.isArray(v) ? v : {}; }
+  function shuffle(a) {
+    a = a.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
   }
-  return GREG_KB.default;
-}
+  function page(c) { return c.page.split('/').pop(); }
 
-function initGregMini() {
-  const history = document.getElementById("greg-mini-history");
-  const input = document.getElementById("greg-mini-input");
-  const sendBtn = document.getElementById("greg-mini-send");
-  const promptsRow = document.getElementById("greg-mini-prompts");
-  if (!history || !input || !sendBtn) return;
+  /* Which class's chapter order to follow: the one you're studying,
+     or the first class that includes this chapter */
+  var cls = (function () {
+    var c = S.getRaw('lw_currentClass');
+    if (CUR.classes[c] && CUR.classChapters[c].indexOf(id) !== -1) return c;
+    var order = ['D', 'C', 'B', 'A'];
+    for (var i = 0; i < order.length; i++) if (CUR.classChapters[order[i]].indexOf(id) !== -1) return order[i];
+    return 'A';
+  })();
+  var list = CUR.classChapters[cls], pos = list.indexOf(id);
 
-  const append = (text, who) => {
-    const div = document.createElement("div");
-    div.className = "chat-msg " + who;
-    div.textContent = (who === "greg" ? "🧑‍🏫 " : "") + text;
-    history.appendChild(div);
-    history.scrollTop = history.scrollHeight;
-  };
+  /* ---------- Completion ---------- */
+  function isDone() { return !!obj(S.get('lw_lessonDone', {}))[id]; }
+  function setDone(v) {
+    var d = obj(S.get('lw_lessonDone', {}));
+    if (v) d[id] = true; else delete d[id];
+    S.set('lw_lessonDone', d);
+    paintDone();
+  }
+  function paintDone() {
+    var done = isDone();
+    document.querySelectorAll('[data-complete]').forEach(function (b) {
+      b.setAttribute('aria-pressed', done ? 'true' : 'false');
+      b.textContent = done ? '✓ Completed' : (b.classList.contains('toc-done') ? 'Mark complete' : 'Mark chapter complete');
+    });
+    var t = $('completeText'), sub = $('completeSub');
+    if (t) t.textContent = done ? 'Chapter complete. Nice work.' : 'Finished this chapter?';
+    if (sub) sub.textContent = done ? 'It counts toward your progress in the Learning Center. Tap again to undo.' : 'Mark it complete to update your progress.';
+    var st = document.querySelector('#heroMeta .status');
+    if (st) { st.textContent = done ? '✓ Completed' : 'Not completed'; st.classList.toggle('done', done); }
+  }
 
-  const ask = (msg) => {
-    if (!msg.trim()) return;
-    append(msg, "user");
-    input.value = "";
-    setTimeout(() => append(gregResponse(msg), "greg"), 400);
-  };
+  /* ---------- Hero meta, breadcrumb ---------- */
+  function heroMeta() {
+    var sections = document.querySelectorAll('.lesson-section');
+    var words = 0;
+    document.querySelectorAll('.lesson-section, .key-numbers, .rule-note').forEach(function (n) { words += n.textContent.split(/\s+/).length; });
+    var mins = Math.max(3, Math.round(words / 170));  /* technical reading pace */
+    $('heroMeta').innerHTML = '<span>' + sections.length + ' sections</span><span>About ' + mins + ' min read</span>' +
+      '<span>' + ch.questions.length + ' practice questions</span><span class="status">Not completed</span>';
+    var crumb = $('crumbClass');
+    if (crumb) crumb.textContent = CUR.classes[cls].name + ' · chapter ' + (pos + 1) + ' of ' + list.length;
+  }
 
-  sendBtn.addEventListener("click", () => ask(input.value));
-  input.addEventListener("keydown", e => { if (e.key === "Enter") ask(input.value); });
+  /* ---------- Table of contents + scroll spy + reading bar ---------- */
+  function toc() {
+    var ol = $('toc');
+    if (!ol) return;
+    var items = [];
+    document.querySelectorAll('.lesson-section').forEach(function (s) {
+      var h = s.querySelector('h2');
+      var label = h.cloneNode(true);
+      var n = label.querySelector('.num');
+      if (n) n.remove();
+      items.push([s.id, label.textContent.trim()]);
+    });
+    items.push(['numbers', 'Numbers to memorize', true], ['check', 'Check yourself'], ['cards', 'Flash cards'], ['ask', 'Ask Greg']);
+    if (!$('videos').hidden) items.push(['videos', 'Videos']);
+    ol.innerHTML = items.map(function (it) {
+      return '<li' + (it[2] ? ' class="toc-sep"' : '') + '><a href="#' + it[0] + '">' + esc(it[1]) + '</a></li>';
+    }).join('');
+    var links = [].slice.call(ol.querySelectorAll('a'));
+    if (!('IntersectionObserver' in window)) return;
+    var visible = {};
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+      var first = null;
+      for (var i = 0; i < items.length; i++) if (visible[items[i][0]]) { first = items[i][0]; break; }
+      if (!first) return;
+      links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + first); });
+    }, { rootMargin: '-120px 0px -55% 0px' });
+    items.forEach(function (it) { var n = $(it[0]); if (n) io.observe(n); });
+  }
+  function readBar() {
+    var bar = $('readBar'), main = $('lesson');
+    if (!bar || !main) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var r = main.getBoundingClientRect(), total = r.height - window.innerHeight * 0.6;
+      var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+      bar.style.width = (p * 100).toFixed(1) + '%';
+    }
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+  }
 
-  if (promptsRow && typeof LESSON_PROMPTS !== "undefined") {
-    LESSON_PROMPTS.forEach(p => {
-      const b = document.createElement("button");
-      b.textContent = p;
-      b.addEventListener("click", () => ask(p));
-      promptsRow.appendChild(b);
+  /* ---------- Check yourself (5 questions) ---------- */
+  var check = null;
+  function record(ok) {
+    var stats = obj(S.get('lw_chapter_stats', {})), s = obj(stats[id]);
+    s.n = (+s.n || 0) + 1; s.c = (+s.c || 0) + (ok ? 1 : 0);
+    stats[id] = s;
+    S.set('lw_chapter_stats', stats);
+  }
+  function startCheck() {
+    check = { qs: shuffle(ch.questions).slice(0, 5), i: 0, correct: 0 };
+    renderCheck();
+  }
+  function renderCheck() {
+    var box = $('checkQuiz'), q = check.qs[check.i];
+    var order = [0, 1, 2, 3];
+    if (!q.choices.some(function (c) { return /\babove\b/i.test(c); })) order = shuffle(order);
+    box.innerHTML = '<div class="q-head"><span class="q-count">Question ' + (check.i + 1) + ' of ' + check.qs.length + '</span><span class="q-score">' + check.correct + ' correct</span></div>' +
+      '<div class="meter thin" aria-hidden="true"><i style="width:' + (check.i / check.qs.length * 100) + '%"></i></div>' +
+      '<h3 class="q-text" tabindex="-1"></h3><div class="q-choices" role="group" aria-label="Answer choices"></div>' +
+      '<div class="feedback" aria-live="polite"></div><div class="q-actions"><button class="btn btn-primary" type="button" hidden>Next question</button></div>';
+    box.querySelector('.q-text').textContent = q.q;
+    var wrap = box.querySelector('.q-choices'), fb = box.querySelector('.feedback'), next = box.querySelector('.q-actions .btn');
+    order.forEach(function (ci, n) {
+      var b = LW.el('button', 'choice');
+      b.type = 'button';
+      b.innerHTML = '<span class="key" aria-hidden="true">' + 'ABCD'[n] + '</span><span class="txt"></span>';
+      b.querySelector('.txt').textContent = q.choices[ci];
+      b.addEventListener('click', function () {
+        var ok = ci === q.correct;
+        wrap.querySelectorAll('.choice').forEach(function (x, k) {
+          x.disabled = true;
+          var xi = order[k];
+          if (xi === q.correct) x.classList.add('correct'); else if (x === b) x.classList.add('wrong'); else x.classList.add('dim');
+        });
+        if (ok) check.correct++;
+        record(ok);
+        fb.className = 'feedback show ' + (ok ? 'good' : 'bad');
+        fb.innerHTML = '<strong>' + (ok ? 'Correct.' : 'Not quite. The answer is “' + esc(q.choices[q.correct]) + '.”') + '</strong><span></span>';
+        fb.querySelector('span').textContent = q.explain;
+        box.querySelector('.q-score').textContent = check.correct + ' correct';
+        next.hidden = false;
+        next.textContent = check.i === check.qs.length - 1 ? 'See my score' : 'Next question';
+        next.focus({ preventScroll: true });
+      });
+      wrap.appendChild(b);
+    });
+    next.addEventListener('click', function () {
+      check.i++;
+      if (check.i >= check.qs.length) doneCheck(); else { renderCheck(); box.querySelector('.q-text').focus({ preventScroll: true }); }
     });
   }
-}
+  function doneCheck() {
+    var n = check.qs.length, c = check.correct, box = $('checkQuiz');
+    var msg = c === n ? 'Perfect score. You own this chapter.' : c >= 4 ? 'Strong. Review the one you missed and you’re set.' : c >= 3 ? 'Getting there. Re-read the numbers box above, then try again.' : 'Worth another read. Go back through the sections, then try again.';
+    box.innerHTML = '<div class="check-done"><div class="cd-score"><b>' + c + '/' + n + '</b><span>correct</span></div><div><p>' + esc(msg) + '</p>' +
+      '<div class="result-actions"><button class="btn btn-primary" type="button" id="checkAgain">Try 5 more</button>' +
+      '<a class="btn btn-soft" href="../adult-learning-center.html#quiz:' + id + '">Full chapter quiz (' + ch.questions.length + ')</a></div></div></div>';
+    $('checkAgain').addEventListener('click', startCheck);
+  }
 
-document.addEventListener("DOMContentLoaded", () => {
-  initCompleteButton();
-  initGregMini();
-});
+  /* ---------- Flash cards ---------- */
+  function cards() {
+    var grid = $('lessonCards');
+    if (!grid) return;
+    ch.cards.forEach(function (c) {
+      var b = LW.el('button', 'lc-card');
+      b.type = 'button';
+      b.setAttribute('aria-label', c[0] + '. Press to reveal the answer.');
+      b.innerHTML = '<span class="lc-inner"><span class="lc-face lc-front"></span><span class="lc-face lc-back"></span></span>';
+      b.querySelector('.lc-front').textContent = c[0];
+      b.querySelector('.lc-back').textContent = c[1];
+      b.addEventListener('click', function () {
+        var open = b.classList.toggle('flipped');
+        b.setAttribute('aria-label', open ? c[0] + ': ' + c[1] : c[0] + '. Press to reveal the answer.');
+      });
+      grid.appendChild(b);
+    });
+  }
+
+  /* ---------- Videos ---------- */
+  function videos() {
+    var vids = (window.LW_VIDEOS ? LW_VIDEOS.adult : []).filter(function (v) { return v.chapters.indexOf(id) !== -1; });
+    if (!vids.length) return;
+    $('videos').hidden = false;
+    LW.renderVideos('lessonVideos', vids);
+  }
+
+  /* ---------- Previous / next chapter ---------- */
+  function pager() {
+    var nav = $('pager');
+    if (!nav) return;
+    function card(cid, dir) {
+      if (!cid) return '<span></span>';
+      var c = CUR.chapters[cid];
+      return '<a class="pg-' + dir + '" href="' + page(c) + '" style="--c:' + c.theme.c + '"><span class="pg-dir">' + (dir === 'prev' ? '← Previous chapter' : 'Next chapter →') + '</span>' +
+        '<span class="pg-title"><span aria-hidden="true">' + c.icon + '</span> Ch ' + esc(c.num) + ': ' + esc(c.title) + '</span></a>';
+    }
+    nav.innerHTML = card(list[pos - 1], 'prev') + card(list[pos + 1], 'next');
+  }
+
+  /* ---------- Greg ---------- */
+  function greg() {
+    GregAdultUI.fillAvatars();
+    GregAdultUI.mount($('lessonChat'), {
+      intro: 'Ask me anything about Chapter ' + ch.num + ': ' + ch.title + '. I can also work the math with your numbers.',
+      chips: window.LESSON_PROMPTS || [],
+      placeholder: 'Ask about Chapter ' + ch.num + '…'
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    videos();
+    heroMeta();
+    toc();
+    readBar();
+    cards();
+    pager();
+    greg();
+    startCheck();
+    paintDone();
+    document.querySelectorAll('[data-complete]').forEach(function (b) {
+      b.addEventListener('click', function () { setDone(!isDone()); });
+    });
+    if (reduceMotion) document.documentElement.style.scrollBehavior = 'auto';
+  });
+})();

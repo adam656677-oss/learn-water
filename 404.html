@@ -5,24 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Page not found — LearnWater">
   <meta name="robots" content="noindex">
-  <title>Page Not Found 💧 — LearnWater</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+  <title>Page Not Found — LearnWater</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/fonts/baloo-2-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/kids.css">
 </head>
 <body class="kids-body">
-
+<a class="skip-link" href="#main">Skip to content</a>
 <div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
 
-<nav class="site-nav">
-  <div class="container">
-    <a href="/index.html" class="nav-brand"><span class="drop">💧</span> LearnWater</a>
-    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button>
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="/" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="/index.html">Home</a></li>
+      <li><a href="/">Home</a></li>
       <li><a href="/kids.html">Kids Corner</a></li>
-      <li><a href="/adult-learning-center.html">Learn</a></li>
-      <li><a href="/updates.html">Updates</a></li>
+      <li><a href="/adult-learning-center.html">Adult Learning</a></li>
+      <li><a href="/updates.html">App Updates</a></li>
       <li><a href="/index.html#contact">Contact</a></li>
     </ul>
   </div>
@@ -30,18 +31,16 @@
 
 <header class="lab-hero">
   <div class="kids-container">
-    <span class="mascot">🕳️</span>
-    <h1>Uh oh — this page sprang a leak!</h1>
+    <span class="mascot" aria-hidden="true">🕳️</span>
+    <h1>Uh oh — this page <span class="hl">sprang a leak!</span></h1>
     <p class="lab-sub">We couldn't find the page you were looking for. It might have evaporated, or the address might have a typo in it.</p>
   </div>
-  <div class="wave-divider">
-    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f2fbff"/>
-    </svg>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f7fcff"/></svg>
   </div>
 </header>
 
-<section class="lab-section">
+<main class="lab-section" id="main">
   <div class="kids-container">
     <div class="lab-header">
       <h2>🧭 Where would you like to go?</h2>
@@ -50,50 +49,50 @@
     </div>
 
     <div class="mission-grid">
-      <a href="/index.html" class="mission-card">
-        <span class="m-emoji">🏠</span>
+      <a href="/" class="mission-card">
+        <span class="m-emoji" aria-hidden="true">🏠</span>
         <h3>Home</h3>
         <p>Back to the LearnWater front page.</p>
         <span class="mission-go">Go home →</span>
       </a>
       <a href="/kids.html" class="mission-card tint-amber">
-        <span class="m-emoji">🥽</span>
+        <span class="m-emoji" aria-hidden="true">🥽</span>
         <h3>Kids Corner</h3>
         <p>Games, coloring, quizzes, and water science for young explorers.</p>
         <span class="mission-go">Let's explore →</span>
       </a>
       <a href="/adult-learning-center.html" class="mission-card tint-lime">
-        <span class="m-emoji">🔬</span>
-        <h3>Adult Learning</h3>
-        <p>Wells, pumps, aquifers, treatment chemicals, and EPA resources.</p>
-        <span class="mission-go">Start learning →</span>
+        <span class="m-emoji" aria-hidden="true">📘</span>
+        <h3>Adult Learning Center</h3>
+        <p>Mississippi operator certification study: lessons, quizzes, math practice, and Greg.</p>
+        <span class="mission-go">Start studying →</span>
       </a>
       <a href="/updates.html" class="mission-card tint-purple">
-        <span class="m-emoji">📱</span>
+        <span class="m-emoji" aria-hidden="true">📱</span>
         <h3>App Updates</h3>
         <p>The latest WaterOps app releases and improvements.</p>
         <span class="mission-go">See what's new →</span>
       </a>
     </div>
 
-    <div class="lab-note amber">
+    <div class="lab-note amber" style="margin-top:2rem;">
       <h4>🔧 Think something's broken?</h4>
       <p>If you followed a link here from somewhere on this site, we'd love to know so we can fix it. Email <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a>.</p>
     </div>
   </div>
-</section>
+</main>
 
 <footer class="site-footer">
   <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
-    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
   </div>
 </footer>
 
+<script src="/js/site.js"></script>
 <script src="/js/kids-common.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () { buildBackdrop(); });
 </script>
-
 </body>
 </html>

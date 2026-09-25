@@ -1,71 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="How Mississippi classifies water systems, and exactly what it takes for you to get — and keep — your certificate." />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="How Mississippi classifies water systems, and exactly what it takes for you to get — and keep — your certificate.">
 <title>Chapter 2 — Operator Certification | LearnWater Adult Learning Center</title>
-<link rel="stylesheet" href="../css/style.css" />
-<link rel="stylesheet" href="../css/lessons.css" />
-<style>
-  body { --theme:#b45309; --theme-dark:#78350f; --theme-tint:#fdf3e7; }
-</style>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/public-sans-normal-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/adult.css">
+<link rel="stylesheet" href="../css/lessons.css">
 </head>
-<body>
+<body class="lesson-page" style="--theme:#b45309; --theme-dark:#78350f; --theme-tint:#fdf3e7;">
+<a class="skip-link" href="#lesson">Skip to the lesson</a>
 
-<header class="site-head">
-  <a href="../index.html" class="brand">💧 LearnWater</a>
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="../kids.html">Kids Corner</a>
-    <a href="../updates.html">Updates</a>
-    <a href="mailto:learnwatertoday@gmail.com">Contact</a>
-  </nav>
-</header>
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="../index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater<span class="brand-tag">Operator Study</span></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../kids.html">Kids Corner</a></li>
+      <li><a href="../adult-learning-center.html" aria-current="page">Adult Learning</a></li>
+      <li><a href="../updates.html">App Updates</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="read-progress" aria-hidden="true"><i id="readBar"></i></div>
 
-<section class="lesson-hero">
-  <div class="motif"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="85" r="55" fill="none" stroke="white" stroke-width="8"/>
+<header class="lesson-hero">
+  <div class="motif" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="85" r="55" fill="none" stroke="white" stroke-width="8"/>
 <path d="M100 55 l10 22 24 3 -17 17 4 24 -21 -11 -21 11 4 -24 -17 -17 24 -3 z" fill="white"/>
 <path d="M75 130 L60 185 L100 165 L140 185 L125 130" fill="none" stroke="white" stroke-width="6"/></svg></div>
   <div class="container lesson-hero-inner">
-    <a class="back-link" href="../adult-learning-center.html">&larr; Back to Adult Learning Center</a>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../adult-learning-center.html">Adult Learning Center</a><span aria-hidden="true">/</span><a href="../adult-learning-center.html#lessons" id="crumbClass">Lessons</a></nav>
     <div class="chapter-kicker">Chapter 2 &middot; Mississippi Waterworks Operators Manual</div>
-    <h1><span class="hero-icon">🎓</span> Operator Certification</h1>
+    <h1><span class="hero-icon" aria-hidden="true">🎓</span><span>Operator Certification</span></h1>
     <p class="dek">How Mississippi classifies water systems, and exactly what it takes for you to get — and keep — your certificate.</p>
-  </div>
-</section>
-
-<main class="container">
-
-  <div class="greg-card">
-    <div class="greg-avatar">🧑‍🏫</div>
-    <div>
-      <h3>Greg's take on this chapter</h3>
-      <p>This is the chapter that's literally about you. Memorize Table 2-1 — what makes a system Class A vs B vs C vs D — because it's the backbone of the whole licensing system. Then nail the renewal numbers: 48 hours vs 24 hours of continuing education, and the 30-day grace window.</p>
+    <div class="hero-meta" id="heroMeta"></div>
+    <div class="hero-cta">
+      <a class="btn btn-white" href="#s1">Start reading</a>
+      <a class="btn btn-light-outline" href="../adult-learning-center.html#quiz:ch2">Quiz this chapter</a>
     </div>
   </div>
+  <div class="hero-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 45 C240 85 480 5 720 45 C960 85 1200 5 1440 45 C1680 85 1920 5 2160 45 C2400 85 2640 5 2880 45 L2880 90 L0 90 Z" fill="#8fe3ee"/></svg>
+    <svg class="w2" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 55 C240 25 480 85 720 55 C960 25 1200 85 1440 55 C1680 25 1920 85 2160 55 C2400 25 2640 85 2880 55 L2880 90 L0 90 Z" fill="#27c1d4"/></svg>
+    <svg class="w3" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 64 C240 82 480 46 720 64 C960 82 1200 46 1440 64 C1680 82 1920 46 2160 64 C2400 82 2640 46 2880 64 L2880 90 L0 90 Z" fill="#f3f7fa"/></svg>
+  </div>
+</header>
 
-  <div class="lesson-section">
-    <h2><span class="num">1</span> Who needs a certified operator</h2>
+<div class="container lesson-layout">
+  <aside class="lesson-toc" aria-label="On this page">
+    <span class="toc-title">On this page</span>
+    <ol id="toc"></ol>
+    <button class="toc-done" type="button" data-complete aria-pressed="false">Mark complete</button>
+  </aside>
+
+  <main class="lesson-main" id="lesson">
+    <div class="greg-take">
+      <span class="greg-avatar" data-greg-avatar></span>
+      <div><h2>Greg's take on this chapter</h2><p>This is the chapter that's literally about you. Memorize Table 2-1 — what makes a system Class A vs B vs C vs D — because it's the backbone of the whole licensing system. Then nail the renewal numbers: 48 hours vs 24 hours of continuing education, and the 30-day grace window.</p></div>
+    </div>
+
+    <section class="lesson-section" id="s1" aria-labelledby="s1h">
+      <h2 id="s1h"><span class="num">1</span> Who needs a certified operator</h2>
 <p>Every community and nontransient noncommunity public water supply in Mississippi must have a certified waterworks operator — defined as "the person who directly supervises and is personally responsible for the daily operation and maintenance" of the system. MSDH has legal authority to certify operators; the <strong>Certification, Training and Monitoring Branch</strong> of the Division of Water Supply administers it. A waterworks operator's certificate must at least equal the system's classification, and any system that loses its certified operator must replace that person within <strong>180 days</strong>.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">2</span> How systems are classified (Table 2-1)</h2>
+    </section>
+    <section class="lesson-section" id="s2" aria-labelledby="s2h">
+      <h2 id="s2h"><span class="num">2</span> How systems are classified (Table 2-1)</h2>
 <p>Every public water system is classified by the type of treatment it uses, from simplest to most complex:</p><ul><li><strong>Class D</strong> — one or more wells, no treatment beyond chlorination, fluoridation, and phosphate addition.</li><li><strong>Class C</strong> — aeration, pH adjustment, corrosion control, or closed-pressure treatment including zeolite softening or iron removal.</li><li><strong>Class B</strong> — two or more treatment facilities of different types, or iron/manganese removal facilities that break pressure or need flocculation and/or sedimentation.</li><li><strong>Class A</strong> — surface water treatment, lime softening, or coagulation and filtration to remove constituents other than iron or manganese.</li><li><strong>Class E</strong> — systems that purchase water only, or operators whose only job is running a distribution system.</li></ul><p>Notice the classes build on each other: Class A is the most demanding, Class D is entry-level. That's why every higher class's certification exam still covers the D-level material underneath it.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">3</span> Getting certified</h2>
+    </section>
+    <section class="lesson-section" id="s3" aria-labelledby="s3h">
+      <h2 id="s3h"><span class="num">3</span> Getting certified</h2>
 <p>Every class requires the applicant to have graduated an accredited high school (or GED) at minimum, with Class A also accepting a bachelor's degree in engineering/applied science plus one year of Class A plant experience in place of the experience-ladder path. Every candidate needs <strong>at least one year of supervised experience</strong>, under a supervisor holding a certificate equal to or higher than the one being sought — and that supervisor must endorse the application. Two additional MSDH-certified operators must also recommend the applicant. The written exam is offered three times a year, after a four-day waterworks operators short course, and requires an exam fee.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">4</span> Renewal and continuing education</h2>
+    </section>
+    <section class="lesson-section" id="s4" aria-labelledby="s4h">
+      <h2 id="s4h"><span class="num">4</span> Renewal and continuing education</h2>
 <p>Certificates are valid for <strong>three years</strong>. To renew without re-testing:</p><ul><li>File the renewal application within <strong>30 days</strong> after the existing certificate expires.</li><li>If continuously licensed <strong>less than 9 years</strong>: show proof of <strong>48 approved continuing education units</strong> within the three-year certificate period.</li><li>If continuously licensed <strong>more than 9 years</strong>: only <strong>24 units</strong> are required.</li></ul><p>Miss the 30-day window, or fail to get the required continuing education hours, and you must pass the written exam again to renew. Operators are responsible for keeping their own education records.</p>
-  </div>
+    </section>
 
-
-  <div class="key-numbers">
-    <h2>📌 Numbers Greg wants you to memorize</h2>
+    <section class="key-numbers" id="numbers" aria-labelledby="numbersh">
+      <h2 id="numbersh">📌 Numbers Greg wants you to memorize</h2>
     <ul>
       <li><strong>180 days</strong> — deadline to replace a lost certified operator.</li>
       <li><strong>1 year</strong> minimum supervised experience required for any certification.</li>
@@ -74,33 +92,56 @@
       <li><strong>30 days</strong> — grace window to file for renewal after expiration without re-testing.</li>
       <li><strong>2 additional certified operators</strong> must recommend a new applicant, plus 1 supervising operator's endorsement.</li>
     </ul>
-  </div>
+    </section>
 
-  <div class="greg-mini">
-    <h2>🧑‍🏫 Ask Greg about this chapter</h2>
-    <div class="greg-mini-row" id="greg-mini-prompts"></div>
-    <div class="greg-mini-history" id="greg-mini-history"></div>
-    <div class="greg-mini-input">
-      <input type="text" id="greg-mini-input" placeholder="Ask Greg anything about Chapter 2..." />
-      <button id="greg-mini-send">Send</button>
+    <section class="lesson-block" id="check" aria-labelledby="checkh">
+      <div class="block-head"><span class="overline">Check yourself</span><h2 id="checkh">Quick check: 5 questions</h2><p>Random questions from this chapter's bank. Your answers count toward your progress in the Learning Center.</p></div>
+      <div id="checkQuiz"></div>
+    </section>
+
+    <section class="lesson-block" id="cards" aria-labelledby="cardsh">
+      <div class="block-head"><span class="overline">Flash cards</span><h2 id="cardsh">Tap a card to flip it</h2></div>
+      <div class="lc-grid" id="lessonCards"></div>
+      <p class="block-foot"><a href="../adult-learning-center.html#cards:ch2">Study these in the flash card trainer →</a></p>
+    </section>
+
+    <section class="lesson-block" id="ask" aria-labelledby="askh">
+      <div class="block-head"><span class="overline">Ask Greg</span><h2 id="askh">Questions about Chapter 2?</h2><p>Greg answers from the operators manual and works formulas. He runs in your browser and doesn't send your questions anywhere.</p></div>
+      <div class="lesson-chat" id="lessonChat"></div>
+    </section>
+
+    <section class="lesson-block" id="videos" aria-labelledby="vidh" hidden>
+      <div class="block-head"><span class="overline">Watch</span><h2 id="vidh">Videos for this chapter</h2></div>
+      <div class="video-grid" id="lessonVideos"></div>
+    </section>
+
+    <div class="complete-bar">
+      <div><strong id="completeText">Finished this chapter?</strong><span id="completeSub">Mark it complete to update your progress.</span></div>
+      <button class="btn btn-primary" type="button" data-complete aria-pressed="false">Mark chapter complete</button>
     </div>
+
+    <nav class="chapter-pager" id="pager" aria-label="Previous and next chapter"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH). Rules change, so confirm current requirements with MSDH.</p>
+    <p>A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
   </div>
-
-  <div class="lesson-actions">
-    <a class="btn btn-outline" href="../adult-learning-center.html">&larr; Back to Adult Learning Center</a>
-    <button class="btn btn-complete" id="complete-btn"></button>
-  </div>
-
-</main>
-
-<footer class="site-foot">
-  <p>💧 <strong>LearnWater</strong> &middot; A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> &middot; Companion to the WaterOps App</p>
 </footer>
 
 <script>
-  const LESSON_ID = "ch2";
-  const LESSON_PROMPTS = ["What makes a system Class A instead of Class D?", "How many continuing education hours do I need to renew?", "How long is a certificate valid?"];
+  var LESSON_ID = "ch2";
+  var LESSON_PROMPTS = ["What makes a system Class A instead of Class D?", "How many continuing education hours do I need to renew?", "How long is a certificate valid?"];
 </script>
+<script src="../js/site.js"></script>
+<script src="../js/greg-engine.js"></script>
+<script src="../js/greg-adult-kb.js"></script>
+<script src="../js/greg-adult-ui.js"></script>
+<script src="../js/video-library.js"></script>
+<script src="../js/adult-curriculum.js"></script>
 <script src="../js/lesson-common.js"></script>
 </body>
 </html>

@@ -1,81 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="The federal and Mississippi law behind everything else you'll study — who regulates what, what a water system owes its customers, and how violations get reported." />
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The federal and Mississippi law behind everything else you'll study — who regulates what, what a water system owes its customers, and how violations get reported.">
 <title>Chapter 1 — Safe Drinking Water | LearnWater Adult Learning Center</title>
-<link rel="stylesheet" href="../css/style.css" />
-<link rel="stylesheet" href="../css/lessons.css" />
-<style>
-  body { --theme:#1d4ed8; --theme-dark:#1e3a8a; --theme-tint:#e8eefd; }
-</style>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/public-sans-normal-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/adult.css">
+<link rel="stylesheet" href="../css/lessons.css">
 </head>
-<body>
+<body class="lesson-page" style="--theme:#1d4ed8; --theme-dark:#1e3a8a; --theme-tint:#e8eefd;">
+<a class="skip-link" href="#lesson">Skip to the lesson</a>
 
-<header class="site-head">
-  <a href="../index.html" class="brand">💧 LearnWater</a>
-  <nav>
-    <a href="../index.html">Home</a>
-    <a href="../kids.html">Kids Corner</a>
-    <a href="../updates.html">Updates</a>
-    <a href="mailto:learnwatertoday@gmail.com">Contact</a>
-  </nav>
-</header>
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="../index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater<span class="brand-tag">Operator Study</span></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../kids.html">Kids Corner</a></li>
+      <li><a href="../adult-learning-center.html" aria-current="page">Adult Learning</a></li>
+      <li><a href="../updates.html">App Updates</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="read-progress" aria-hidden="true"><i id="readBar"></i></div>
 
-<section class="lesson-hero">
-  <div class="motif"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="30" r="8" fill="white"/><line x1="100" y1="38" x2="100" y2="150" stroke="white" stroke-width="6"/>
+<header class="lesson-hero">
+  <div class="motif" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><circle cx="100" cy="30" r="8" fill="white"/><line x1="100" y1="38" x2="100" y2="150" stroke="white" stroke-width="6"/>
 <line x1="40" y1="60" x2="160" y2="60" stroke="white" stroke-width="6"/>
 <path d="M40 60 L20 110 A24 24 0 0 0 60 110 Z" fill="none" stroke="white" stroke-width="6"/>
 <path d="M160 60 L140 110 A24 24 0 0 0 180 110 Z" fill="none" stroke="white" stroke-width="6"/>
 <rect x="70" y="150" width="60" height="12" rx="4" fill="white"/></svg></div>
   <div class="container lesson-hero-inner">
-    <a class="back-link" href="../adult-learning-center.html">&larr; Back to Adult Learning Center</a>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="../adult-learning-center.html">Adult Learning Center</a><span aria-hidden="true">/</span><a href="../adult-learning-center.html#lessons" id="crumbClass">Lessons</a></nav>
     <div class="chapter-kicker">Chapter 1 &middot; Mississippi Waterworks Operators Manual</div>
-    <h1><span class="hero-icon">⚖️</span> Safe Drinking Water</h1>
+    <h1><span class="hero-icon" aria-hidden="true">⚖️</span><span>Safe Drinking Water</span></h1>
     <p class="dek">The federal and Mississippi law behind everything else you'll study — who regulates what, what a water system owes its customers, and how violations get reported.</p>
-  </div>
-</section>
-
-<main class="container">
-
-  <div class="greg-card">
-    <div class="greg-avatar">🧑‍🏫</div>
-    <div>
-      <h3>Greg's take on this chapter</h3>
-      <p>This chapter is pure rulebook, and it shows up on every exam no matter what class you're testing for. Learn the three system types cold, know the three big duties the law imposes on a water system, and understand the difference between an MCL and a treatment technique. That's 90% of the questions right there.</p>
+    <div class="hero-meta" id="heroMeta"></div>
+    <div class="hero-cta">
+      <a class="btn btn-white" href="#s1">Start reading</a>
+      <a class="btn btn-light-outline" href="../adult-learning-center.html#quiz:ch1">Quiz this chapter</a>
     </div>
   </div>
+  <div class="hero-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 45 C240 85 480 5 720 45 C960 85 1200 5 1440 45 C1680 85 1920 5 2160 45 C2400 85 2640 5 2880 45 L2880 90 L0 90 Z" fill="#8fe3ee"/></svg>
+    <svg class="w2" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 55 C240 25 480 85 720 55 C960 25 1200 85 1440 55 C1680 25 1920 85 2160 55 C2400 25 2640 85 2880 55 L2880 90 L0 90 Z" fill="#27c1d4"/></svg>
+    <svg class="w3" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 64 C240 82 480 46 720 64 C960 82 1200 46 1440 64 C1680 82 1920 46 2160 64 C2400 82 2640 46 2880 64 L2880 90 L0 90 Z" fill="#f3f7fa"/></svg>
+  </div>
+</header>
 
-  <div class="lesson-section">
-    <h2><span class="num">1</span> The Safe Drinking Water Act</h2>
+<div class="container lesson-layout">
+  <aside class="lesson-toc" aria-label="On this page">
+    <span class="toc-title">On this page</span>
+    <ol id="toc"></ol>
+    <button class="toc-done" type="button" data-complete aria-pressed="false">Mark complete</button>
+  </aside>
+
+  <main class="lesson-main" id="lesson">
+    <div class="greg-take">
+      <span class="greg-avatar" data-greg-avatar></span>
+      <div><h2>Greg's take on this chapter</h2><p>This chapter is pure rulebook, and it shows up on every exam no matter what class you're testing for. Learn the three system types cold, know the three big duties the law imposes on a water system, and understand the difference between an MCL and a treatment technique. That's 90% of the questions right there.</p></div>
+    </div>
+
+    <section class="lesson-section" id="s1" aria-labelledby="s1h">
+      <h2 id="s1h"><span class="num">1</span> The Safe Drinking Water Act</h2>
 <p>Congress passed the original federal <strong>Safe Drinking Water Act (SDWA)</strong> in 1974, amending it in 1986 and 1996. It set up a partnership between the states and the EPA: a state can take on <strong>primacy</strong> — primary enforcement authority — as long as its own rules are no less strict than the federal ones. Every state except Wyoming has assumed primacy.</p><p>Mississippi adopted the SDWA in 1975, with the rule that Mississippi's regulations would be <strong>no more strict</strong> than federal law. So in practice, Mississippi's drinking water rules are exactly as strict as the federal requirements — no looser, no tighter.</p><p>The <strong>Mississippi State Department of Health (MSDH)</strong> is the primacy agency. Its <strong>Division of Water Supply (DWS)</strong> administers the program day to day. The owner or operator of the water system is the one responsible for meeting the SDWA's requirements — not MSDH.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">2</span> The three types of public water systems</h2>
+    </section>
+    <section class="lesson-section" id="s2" aria-labelledby="s2h">
+      <h2 id="s2h"><span class="num">2</span> The three types of public water systems</h2>
 <p>All publicly and privately owned public water supplies fall under the law. There are three major types, and telling them apart is one of the most common exam questions in the whole book:</p><ul><li><strong>Community water system</strong> — serves a year-round residential population. Needs at least 15 service connections or 25 residents. Examples: municipal, subdivision, mobile home park, and rural water systems.</li><li><strong>Nontransient noncommunity system</strong> — serves at least 25 of the <em>same</em> people for at least six months a year. Examples: schools, factories, hospitals. These must meet the same requirements as community systems.</li><li><strong>Transient noncommunity system</strong> — serves <em>different</em> people who don't live there. Examples: highway rest stops, restaurants, motels, golf courses, parks.</li></ul>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">3</span> Three requirements the law imposes</h2>
+    </section>
+    <section class="lesson-section" id="s3" aria-labelledby="s3h">
+      <h2 id="s3h"><span class="num">3</span> Three requirements the law imposes</h2>
 <p>The SDWA imposes three major duties on every water system:</p><ul><li><strong>Sampling and reporting</strong> — the system is directly responsible for monitoring microbiological and radiological contaminants, turbidity, and unregulated chemicals. In Mississippi, the Mississippi Public Health Laboratory does the actual analysis; MSDH supplies containers, transports samples, and reports results back.</li><li><strong>Record keeping</strong> — copies of lab results (with who collected the sample), dates and locations of sampling points, records of violations and corrective steps, sanitary survey reports, and all other water-quality information. These records are public — a customer has the right to inspect them.</li><li><strong>Public notification</strong> — the system must notify the public of any regulation violation.</li></ul>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">4</span> Violation tiers and public notification</h2>
+    </section>
+    <section class="lesson-section" id="s4" aria-labelledby="s4h">
+      <h2 id="s4h"><span class="num">4</span> Violation tiers and public notification</h2>
 <p>Violations are classed by seriousness. <strong>Tier 1</strong> violations — the more serious kind — include failing to comply with a maximum contaminant level (MCL), a treatment technique, or a variance/exemption schedule. <strong>Tier 2</strong> violations include failing to meet a monitoring requirement, a testing procedure, or a variance/exemption. An MCL violation means actual contamination and demands far more extensive public notification than, say, missing a sampling schedule.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">5</span> MCLs, MCLGs, and treatment techniques</h2>
+    </section>
+    <aside class="rule-note" aria-label="Current rule check: Public notification">
+      <span class="rn-icon" aria-hidden="true">i</span>
+      <div><strong>Current rule check · Public notification</strong><p>The manual describes an older tier system. Under EPA's current Public Notification Rule (40 CFR 141, Subpart Q), <strong>Tier 1</strong> covers acute risks, such as an <em>E. coli</em> or nitrate MCL violation, with notice within <strong>24 hours</strong>. <strong>Tier 2</strong> covers other MCL, MRDL, and treatment technique violations, with notice within <strong>30 days</strong>. <strong>Tier 3</strong> covers monitoring and reporting violations, with notice within <strong>one year</strong> (often in the Consumer Confidence Report). Answer exam questions from the manual, and follow MSDH's instructions on the job.</p></div>
+    </aside>
+    <section class="lesson-section" id="s5" aria-labelledby="s5h">
+      <h2 id="s5h"><span class="num">5</span> MCLs, MCLGs, and treatment techniques</h2>
 <p><strong>Primary standards</strong> protect public health and are enforceable — they're either a <strong>maximum contaminant level (MCL)</strong> or a treatment technique requirement. The MCL is the enforceable number a water sample must meet. An <strong>MCL goal (MCLG)</strong> is the level associated with zero health effects — for cancer-causing chemicals, that goal is set at zero. The MCLG is a goal, not an enforceable standard. Some contaminants are hard or costly to measure directly, so EPA instead requires a specific <strong>treatment technique</strong> — the Lead and Copper Rule and the Surface Water Treatment Rule are examples.</p><p><strong>Secondary standards</strong> cover aesthetic quality — taste, odor, color. They're not enforceable, but most customer complaints trace back to them anyway.</p>
-  </div>
-  <div class="lesson-section">
-    <h2><span class="num">6</span> Enforcement, variances, and emergency powers</h2>
+    </section>
+    <aside class="rule-note" aria-label="Current rule check: Lead and PFAS">
+      <span class="rn-icon" aria-hidden="true">i</span>
+      <div><strong>Current rule check · Lead and PFAS</strong><p>EPA's 2024 Lead and Copper Rule Improvements lower the lead action level from 15 to <strong>10 µg/L</strong> and require most lead service lines to be replaced within 10 years, with compliance starting <strong>November 1, 2027</strong>. EPA's first PFAS drinking water standards (2024) set enforceable limits of <strong>4.0 ng/L</strong> for PFOA and PFOS; in 2025 EPA announced it would extend that compliance date and reconsider the other PFAS limits. Check with MSDH for what applies to your system.</p></div>
+    </aside>
+    <section class="lesson-section" id="s6" aria-labelledby="s6h">
+      <h2 id="s6h"><span class="num">6</span> Enforcement, variances, and emergency powers</h2>
 <p>A system with genuine technical or financial trouble can seek a <strong>variance or exemption</strong> — but these are rare and hard to get, and the supplier has to prove there's no threat to public health. If a state fails to enforce the SDWA, the EPA can step in, and citizens can sue after giving 60 days' notice (class-action suits aren't allowed). In a true emergency posing an "imminent and substantial" danger, the EPA can issue orders directly; violating an EPA emergency order carries a fine of up to $25,000 per day, per violation.</p>
-  </div>
+    </section>
 
-
-  <div class="key-numbers">
-    <h2>📌 Numbers Greg wants you to memorize</h2>
+    <section class="key-numbers" id="numbers" aria-labelledby="numbersh">
+      <h2 id="numbersh">📌 Numbers Greg wants you to memorize</h2>
     <ul>
       <li><strong>15 connections / 25 residents</strong> — minimum size to count as a community water system.</li>
       <li><strong>6+ months/year, same people</strong> — nontransient noncommunity system.</li>
@@ -84,33 +110,56 @@
       <li><strong>$25,000/day/violation</strong> — maximum fine for violating an EPA emergency order.</li>
       <li><strong>60 days</strong> notice required before a citizen lawsuit against a water system, state, or EPA.</li>
     </ul>
-  </div>
+    </section>
 
-  <div class="greg-mini">
-    <h2>🧑‍🏫 Ask Greg about this chapter</h2>
-    <div class="greg-mini-row" id="greg-mini-prompts"></div>
-    <div class="greg-mini-history" id="greg-mini-history"></div>
-    <div class="greg-mini-input">
-      <input type="text" id="greg-mini-input" placeholder="Ask Greg anything about Chapter 1..." />
-      <button id="greg-mini-send">Send</button>
+    <section class="lesson-block" id="check" aria-labelledby="checkh">
+      <div class="block-head"><span class="overline">Check yourself</span><h2 id="checkh">Quick check: 5 questions</h2><p>Random questions from this chapter's bank. Your answers count toward your progress in the Learning Center.</p></div>
+      <div id="checkQuiz"></div>
+    </section>
+
+    <section class="lesson-block" id="cards" aria-labelledby="cardsh">
+      <div class="block-head"><span class="overline">Flash cards</span><h2 id="cardsh">Tap a card to flip it</h2></div>
+      <div class="lc-grid" id="lessonCards"></div>
+      <p class="block-foot"><a href="../adult-learning-center.html#cards:ch1">Study these in the flash card trainer →</a></p>
+    </section>
+
+    <section class="lesson-block" id="ask" aria-labelledby="askh">
+      <div class="block-head"><span class="overline">Ask Greg</span><h2 id="askh">Questions about Chapter 1?</h2><p>Greg answers from the operators manual and works formulas. He runs in your browser and doesn't send your questions anywhere.</p></div>
+      <div class="lesson-chat" id="lessonChat"></div>
+    </section>
+
+    <section class="lesson-block" id="videos" aria-labelledby="vidh" hidden>
+      <div class="block-head"><span class="overline">Watch</span><h2 id="vidh">Videos for this chapter</h2></div>
+      <div class="video-grid" id="lessonVideos"></div>
+    </section>
+
+    <div class="complete-bar">
+      <div><strong id="completeText">Finished this chapter?</strong><span id="completeSub">Mark it complete to update your progress.</span></div>
+      <button class="btn btn-primary" type="button" data-complete aria-pressed="false">Mark chapter complete</button>
     </div>
+
+    <nav class="chapter-pager" id="pager" aria-label="Previous and next chapter"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH). Rules change, so confirm current requirements with MSDH.</p>
+    <p>A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
   </div>
-
-  <div class="lesson-actions">
-    <a class="btn btn-outline" href="../adult-learning-center.html">&larr; Back to Adult Learning Center</a>
-    <button class="btn btn-complete" id="complete-btn"></button>
-  </div>
-
-</main>
-
-<footer class="site-foot">
-  <p>💧 <strong>LearnWater</strong> &middot; A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> &middot; Companion to the WaterOps App</p>
 </footer>
 
 <script>
-  const LESSON_ID = "ch1";
-  const LESSON_PROMPTS = ["What are the 3 types of public water systems?", "What's the difference between an MCL and MCLG?", "What's a Tier 1 violation?"];
+  var LESSON_ID = "ch1";
+  var LESSON_PROMPTS = ["What are the 3 types of public water systems?", "What's the difference between an MCL and MCLG?", "What's a Tier 1 violation?"];
 </script>
+<script src="../js/site.js"></script>
+<script src="../js/greg-engine.js"></script>
+<script src="../js/greg-adult-kb.js"></script>
+<script src="../js/greg-adult-ui.js"></script>
+<script src="../js/video-library.js"></script>
+<script src="../js/adult-curriculum.js"></script>
 <script src="../js/lesson-common.js"></script>
 </body>
 </html>

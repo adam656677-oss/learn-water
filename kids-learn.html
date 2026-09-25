@@ -3,45 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Discovery Lab — the water cycle, amazing facts, at-home experiments, kid-friendly videos, and Bible verses about water.">
-  <title>Discovery Lab 🔬 — Water Explorer Lab</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+  <meta name="description" content="Discovery Lab — explore the water cycle, amazing water facts, real experiments to try at home, kid-friendly videos, and Bible verses about water.">
+  <title>Discovery Lab 🔬 — Water Explorer Lab | LearnWater</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/baloo-2-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/atkinson-normal-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/kids.css">
 </head>
-<body class="kids-body">
-
+<body class="kids-body" data-greg-hello="Welcome to the Discovery Lab! 🔬 Want to know how clouds work, why ice floats, or where your water comes from? Just ask!">
+<a class="skip-link" href="#cycle">Skip to content</a>
 <div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
 
-<nav class="site-nav">
-  <div class="container">
-    <a href="index.html" class="nav-brand"><span class="drop">💧</span> LearnWater</a>
-    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()"><span></span><span></span><span></span></button>
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
-      <li><a href="kids.html" class="active">Kids Corner</a></li>
-      <li><a href="adult-learning-center.html">Learn</a></li>
-      <li><a href="updates.html">Updates</a></li>
+      <li><a href="kids.html" aria-current="page">Kids Corner</a></li>
+      <li><a href="adult-learning-center.html">Adult Learning</a></li>
+      <li><a href="updates.html">App Updates</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
 
-<nav class="lab-nav">
+<nav class="lab-nav" aria-label="Kids Corner">
   <div class="lab-nav-inner">
     <a href="kids.html">🏠 Explorer HQ</a>
     <a href="kids-games.html">🎮 Game Lab</a>
     <a href="kids-color.html">🎨 Coloring Lab</a>
     <a href="kids-quiz.html">🧠 Quiz Lab</a>
-    <a href="kids-learn.html" class="current">🔬 Discovery Lab</a>
+    <a href="kids-learn.html" aria-current="page">🔬 Discovery Lab</a>
   </div>
 </nav>
 
 <header class="lab-hero">
   <div class="kids-container">
-    <span class="mascot">🔬</span>
-    <h1>Discovery Lab</h1>
-    <p class="lab-sub">Everything a water explorer needs to know — the water cycle, mind-blowing facts, experiments you can do at home, videos, and verses about water.</p>
+    <span class="mascot" aria-hidden="true">🔬</span>
+    <h1>Discovery <span class="hl">Lab</span></h1>
+    <p class="lab-sub">Everything a water explorer needs — the water cycle, mind-blowing facts, experiments you can do at home, videos, and verses about water.</p>
     <div class="lab-chip-row">
       <a href="#cycle" class="lab-chip">🌍 Water Cycle</a>
       <a href="#facts" class="lab-chip">⭐ Amazing Facts</a>
@@ -50,373 +52,313 @@
       <a href="#verses" class="lab-chip">📖 Bible Verses</a>
     </div>
   </div>
-  <div class="wave-divider">
-    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-      <path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f2fbff"/>
-    </svg>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f7fcff"/></svg>
   </div>
 </header>
 
-<!-- ===== WATER CYCLE ===== -->
-<section class="lab-section" id="cycle">
-  <div class="kids-container">
-    <div class="lab-header">
-      <h2>🌍 The Water Cycle</h2>
-      <div class="lab-rule"></div>
-      <p>Water never stops moving. Tap each step to learn more about where water goes on its endless journey.</p>
-    </div>
-
-    <div class="cycle-track">
-      <div class="cycle-node" onclick="showCycleDetail(0)">
-        <span class="c-num">1</span><span class="c-emoji">☀️</span>
-        <h4>Evaporation</h4>
-        <p>The sun heats oceans and lakes until water rises as invisible vapor.</p>
-      </div>
-      <div class="cycle-node" onclick="showCycleDetail(1)">
-        <span class="c-num">2</span><span class="c-emoji">☁️</span>
-        <h4>Condensation</h4>
-        <p>High in the sky the vapor cools and turns into droplets that form clouds.</p>
-      </div>
-      <div class="cycle-node" onclick="showCycleDetail(2)">
-        <span class="c-num">3</span><span class="c-emoji">🌧️</span>
-        <h4>Precipitation</h4>
-        <p>Clouds get heavy and water falls back down as rain, snow, sleet, or hail.</p>
-      </div>
-      <div class="cycle-node" onclick="showCycleDetail(3)">
-        <span class="c-num">4</span><span class="c-emoji">🏔️</span>
-        <h4>Collection</h4>
-        <p>Water gathers in oceans, rivers, and lakes — or soaks down into the ground.</p>
-      </div>
-      <div class="cycle-node" onclick="showCycleDetail(4)">
-        <span class="c-num">5</span><span class="c-emoji">🌱</span>
-        <h4>Transpiration</h4>
-        <p>Plants drink water through roots and breathe vapor out through their leaves.</p>
-      </div>
-    </div>
-
-    <div class="lab-note" id="cycleDetail">
-      <h4>👆 Tap a step above</h4>
-      <p>Each step of the water cycle has its own story. Tap any card to read a deeper explanation right here.</p>
-    </div>
-
-    <div class="lab-note amber">
-      <h4>🦕 Mind-Blowing Thought</h4>
-      <p>Because water keeps cycling forever, the water in your glass right now has been around for billions of years. Some of it fell as rain on dinosaurs. Some of it was once in a cloud over the ocean. There is no such thing as brand-new water!</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== AMAZING FACTS ===== -->
-<section class="lab-section tint" id="facts">
-  <div class="kids-container">
-    <div class="lab-header">
-      <h2>⭐ Amazing Water Facts</h2>
-      <div class="lab-rule"></div>
-      <p>Tap a card to flip it over and reveal the fact hiding underneath!</p>
-    </div>
-
-    <div class="fact-flip-grid" id="factGrid"></div>
-
-    <div class="discover-grid" style="margin-top:2.5rem;">
-      <div class="discover-card">
-        <span class="d-emoji">🧊</span>
-        <h3>Ice Is a Weirdo</h3>
-        <p>Almost every substance gets denser when it freezes — but water gets LESS dense. That's why ice floats, and why fish can survive under a frozen pond.</p>
-      </div>
-      <div class="discover-card">
-        <span class="d-emoji">🫧</span>
-        <h3>Water Sticks to Itself</h3>
-        <p>Water molecules grip each other so tightly it creates "surface tension" — strong enough for some insects to walk right across a pond.</p>
-      </div>
-      <div class="discover-card">
-        <span class="d-emoji">🌡️</span>
-        <h3>Water Holds Heat</h3>
-        <p>Water warms up and cools down slowly. That's why oceans keep coastal towns milder, and why a pool stays cold long after a hot day starts.</p>
-      </div>
-      <div class="discover-card">
-        <span class="d-emoji">🚀</span>
-        <h3>Water Is in Space</h3>
-        <p>Scientists have found frozen water on Mars, on moons like Europa and Enceladus, and even inside comets zooming through space.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== EXPERIMENTS ===== -->
-<section class="lab-section" id="experiments">
-  <div class="kids-container">
-    <div class="lab-header">
-      <h2>🧪 Try It Yourself: Real Experiments</h2>
-      <div class="lab-rule"></div>
-      <p>Grab a grown-up and some kitchen supplies. These are real science experiments you can do today.</p>
-    </div>
-
-    <div class="discover-grid">
-      <div class="discover-card">
-        <span class="d-emoji">🛍️</span>
-        <h3>Water Cycle in a Bag</h3>
-        <p><strong>You need:</strong> a zip-top bag, water, blue food coloring, tape, a sunny window.</p>
-        <ol class="exp-steps">
-          <li>Pour about a quarter cup of water into the bag and add a drop of food coloring.</li>
-          <li>Seal it tightly and draw a sun, clouds, and waves on the bag with a marker.</li>
-          <li>Tape it to a sunny window and wait a few hours.</li>
-          <li>Watch droplets form at the top and "rain" back down — that's the whole water cycle!</li>
-        </ol>
-      </div>
-
-      <div class="discover-card">
-        <span class="d-emoji">🧫</span>
-        <h3>Build a Water Filter</h3>
-        <p><strong>You need:</strong> an empty bottle, coffee filter, sand, small gravel, cotton, muddy water.</p>
-        <ol class="exp-steps">
-          <li>Have an adult cut the bottom off the bottle and flip it upside down.</li>
-          <li>Layer inside: coffee filter, then cotton, then sand, then gravel on top.</li>
-          <li>Slowly pour muddy water through and catch it in a cup below.</li>
-          <li>Compare before and after! <strong>Do not drink it</strong> — filtering removes dirt, not germs.</li>
-        </ol>
-      </div>
-
-      <div class="discover-card">
-        <span class="d-emoji">🌸</span>
-        <h3>Color-Changing Flowers</h3>
-        <p><strong>You need:</strong> white carnations or celery, cups, water, food coloring.</p>
-        <ol class="exp-steps">
-          <li>Fill cups with water and add lots of food coloring to each.</li>
-          <li>Put a white flower or celery stalk in each cup.</li>
-          <li>Check back every few hours for two days.</li>
-          <li>The petals change color — you're watching plants drink water and transpire!</li>
-        </ol>
-      </div>
-
-      <div class="discover-card">
-        <span class="d-emoji">🪙</span>
-        <h3>How Many Drops on a Penny?</h3>
-        <p><strong>You need:</strong> a penny, an eyedropper or straw, water, dish soap.</p>
-        <ol class="exp-steps">
-          <li>Guess how many water drops will fit on a penny. Write your guess down.</li>
-          <li>Add drops one at a time and count until the water spills.</li>
-          <li>Most people are shocked — it's usually 20 or more!</li>
-          <li>Now try again with soapy water. Fewer drops fit, because soap breaks surface tension.</li>
-        </ol>
-      </div>
-
-      <div class="discover-card">
-        <span class="d-emoji">☀️</span>
-        <h3>Sun vs. Shade Race</h3>
-        <p><strong>You need:</strong> two identical cups, water, a marker.</p>
-        <ol class="exp-steps">
-          <li>Fill both cups with the same amount of water and mark the level.</li>
-          <li>Put one in bright sun and one in the shade.</li>
-          <li>Check the levels after a full day.</li>
-          <li>The sunny cup lost more water — that's evaporation powered by the sun!</li>
-        </ol>
-      </div>
-
-      <div class="discover-card">
-        <span class="d-emoji">🕵️</span>
-        <h3>Home Water Detective</h3>
-        <p><strong>You need:</strong> paper, pencil, and sharp eyes.</p>
-        <ol class="exp-steps">
-          <li>Walk through your home and list every place water is used.</li>
-          <li>Check each faucet and toilet for drips or running water.</li>
-          <li>Time how long your shower takes for one week.</li>
-          <li>Pick ONE change to try — shorter showers, or turning off the tap — and track how it goes.</li>
-        </ol>
-      </div>
-    </div>
-
-    <div class="lab-note coral">
-      <h4>⚠️ Safety First, Scientist!</h4>
-      <p>Always have an adult help with cutting, hot water, or anything involving glass. Never drink water used in an experiment — even if it looks clean, filtering does not remove germs.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== VIDEOS ===== -->
-<section class="lab-section tint" id="videos">
-  <div class="kids-container">
-    <div class="lab-header">
-      <h2>🎬 Watch &amp; Learn</h2>
-      <div class="lab-rule"></div>
-      <p>Short, kid-friendly videos from trusted science sources. Watch them with a grown-up!</p>
-    </div>
-
-    <div class="discover-grid">
-      <div class="discover-card">
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/oaDkph9yQBs" title="NASA: Earth's Water Cycle" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🌍 Earth's Water Cycle</h3>
-        <p>An official NASA animation showing exactly how water moves around our planet. Source: NASA.</p>
-      </div>
-
-      <div class="discover-card">
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/6yCAPAqXodc" title="How Can I Save Water? - SciShow Kids" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🚰 How Can I Save Water?</h3>
-        <p>SciShow Kids shows simple, real ways to save water every day. Source: SciShow Kids.</p>
-      </div>
-
-      <div class="discover-card">
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/5Ssty1ejoek" title="Where Can We Find Water? - SciShow Kids" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🔎 Where Can We Find Water?</h3>
-        <p>Discover all the hidden places water lives on Earth. Source: SciShow Kids.</p>
-      </div>
-
-      <div class="discover-card">
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/qXYbLIEspqE" title="Meet the Ocean's Wildest Animals - Nat Geo Kids" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🐋 The Ocean's Wildest Animals</h3>
-        <p>Amazing creatures that depend on clean water to survive. Source: Nat Geo Kids.</p>
-      </div>
-
-      <div class="discover-card">
-        <div class="video-frame">
-          <iframe src="https://www.youtube.com/embed/WxJoUnK3mVE" title="How Do Water Treatment Plants Work?" loading="lazy" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        </div>
-        <h3>🏭 How Treatment Plants Work</h3>
-        <p>See how dirty water becomes clean, safe drinking water step by step.</p>
-      </div>
-
-      <div class="discover-card">
-        <span class="d-emoji">🔭</span>
-        <h3>Want More?</h3>
-        <p>Search for more water science videos together with an adult. Good searches: "water cycle for kids", "ocean animals for kids", "water conservation for kids".</p>
-        <a class="lab-btn small ghost" style="margin-top:0.75rem;" href="https://www.youtube.com/results?search_query=water+science+for+kids" target="_blank" rel="noopener noreferrer">Find More Videos ↗</a>
-      </div>
-    </div>
-
-    <div class="lab-note">
-      <h4>👪 Watch Together</h4>
-      <p>Pause often and ask questions like "What did you notice?" or "How could we do that at our house?" Talking about it is how the science really sticks.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===== BIBLE VERSES ===== -->
-<section class="lab-section" id="verses">
-  <div class="kids-container">
-    <div class="verse-wrap">
+<main>
+  <!-- ===== WATER CYCLE ===== -->
+  <section class="lab-section" id="cycle">
+    <div class="kids-container">
       <div class="lab-header">
-        <h2>📖 Words About Water</h2>
+        <h2>🌍 The Water Cycle</h2>
         <div class="lab-rule"></div>
-        <p>Water shows up all through the Bible — as a gift, a promise, and a picture of life itself.</p>
+        <p>Water never stops moving. Tap the numbers on the picture to follow water on its endless journey!</p>
       </div>
 
-      <div class="verse-grid2">
-        <div class="verse-card2">
-          <span class="v-emoji">🌊</span>
-          <p class="v-text">"Come, everyone who thirsts, come to the waters..."</p>
-          <span class="v-ref">Isaiah 55:1 (ESV)</span>
-          <p class="v-note">Just like a cold drink on a hot day, God invites everyone to come and be filled up.</p>
-        </div>
-        <div class="verse-card2">
-          <span class="v-emoji">💧</span>
-          <p class="v-text">"...whoever drinks of the water that I will give him will never be thirsty again."</p>
-          <span class="v-ref">John 4:14 (ESV)</span>
-          <p class="v-note">Jesus talked about a special kind of "water" that fills your heart forever — not just your cup!</p>
-        </div>
-        <div class="verse-card2">
-          <span class="v-emoji">🐑</span>
-          <p class="v-text">"He makes me lie down in green pastures. He leads me beside still waters."</p>
-          <span class="v-ref">Psalm 23:2 (ESV)</span>
-          <p class="v-note">A calm, quiet river or pond can remind us that we're cared for and safe.</p>
-        </div>
-        <div class="verse-card2">
-          <span class="v-emoji">🌍</span>
-          <p class="v-text">"And God said, 'Let the waters under the heavens be gathered together into one place, and let the dry land appear.'"</p>
-          <span class="v-ref">Genesis 1:9 (ESV)</span>
-          <p class="v-note">On Day 3 of creation, God made oceans, lakes, and rivers — water has been part of the plan from the very beginning!</p>
-        </div>
-        <div class="verse-card2">
-          <span class="v-emoji">✨</span>
-          <p class="v-text">"Then the angel showed me the river of the water of life, bright as crystal, flowing from the throne of God and of the Lamb."</p>
-          <span class="v-ref">Revelation 22:1 (ESV)</span>
-          <p class="v-note">The Bible ends with a picture of the cleanest, brightest river ever — sparkling like crystal!</p>
-        </div>
-        <div class="verse-card2">
-          <span class="v-emoji">⛰️</span>
-          <p class="v-text">"...and water shall come out of it, and the people will drink."</p>
-          <span class="v-ref">Exodus 17:6 (ESV)</span>
-          <p class="v-note">When people in the desert were thirsty, God provided water right out of a rock — a good reminder that water is a gift, not something to waste.</p>
-        </div>
-        <div class="verse-card2">
-          <span class="v-emoji">🌱</span>
-          <p class="v-text">"He is like a tree planted by streams of water that yields its fruit in its season, and its leaf does not wither."</p>
-          <span class="v-ref">Psalm 1:3 (ESV)</span>
-          <p class="v-note">Plants near water grow strong and healthy — a picture of what happens when we stay close to good things.</p>
-        </div>
-        <div class="verse-card2">
-          <span class="v-emoji">🕊️</span>
-          <p class="v-text">"...the waters subsided from the earth continually..."</p>
-          <span class="v-ref">Genesis 8:3 (ESV)</span>
-          <p class="v-note">After the flood, the waters went back down and life started fresh — water can reshape the whole world.</p>
-        </div>
+      <svg class="cycle-scene" id="cycleScene" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" role="group" aria-label="Water cycle picture with five steps to explore">
+        <defs>
+          <linearGradient id="csSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fdcfa"/><stop offset="1" stop-color="#e9f8ff"/></linearGradient>
+          <marker id="csArrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#0b2a4a"/></marker>
+        </defs>
+        <rect width="800" height="400" fill="url(#csSky)"/>
+        <g stroke="#f5a300" stroke-width="5" stroke-linecap="round"><line x1="80" y1="14" x2="80" y2="30"/><line x1="126" y1="34" x2="114" y2="46"/><line x1="142" y1="80" x2="126" y2="80"/><line x1="34" y1="34" x2="46" y2="46"/><line x1="18" y1="80" x2="34" y2="80"/></g>
+        <circle cx="80" cy="80" r="34" fill="#ffd23f" stroke="#0b2a4a" stroke-width="3"/>
+        <path d="M430 300 L610 70 L800 300 Z" fill="#8e9dab" stroke="#0b2a4a" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M610 70 L580 110 L596 104 L610 118 L626 102 L642 110 Z" fill="#fff" stroke="#0b2a4a" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M250 312 C360 290 470 304 560 296 C660 288 740 300 800 294 L800 400 L250 400 Z" fill="#8ed36d" stroke="#0b2a4a" stroke-width="3"/>
+        <path d="M0 300 Q70 284 140 300 T280 300 L300 400 L0 400 Z" fill="#3aa7de" stroke="#0b2a4a" stroke-width="3"/>
+        <path d="M30 340 q14 -9 28 0 t28 0 M150 366 q14 -9 28 0 t28 0" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round" opacity=".8"/>
+        <path d="M560 300 C520 330 460 322 420 344 C380 366 330 360 290 352" fill="none" stroke="#0b2a4a" stroke-width="18" stroke-linecap="round"/>
+        <path d="M560 300 C520 330 460 322 420 344 C380 366 330 360 290 352" fill="none" stroke="#49b5e6" stroke-width="12" stroke-linecap="round"/>
+        <rect x="712" y="238" width="14" height="62" fill="#8b5e3c" stroke="#0b2a4a" stroke-width="3"/>
+        <circle cx="719" cy="222" r="32" fill="#5fbf4a" stroke="#0b2a4a" stroke-width="3"/>
+        <g fill="#fff" stroke="#0b2a4a" stroke-width="3"><ellipse cx="350" cy="96" rx="44" ry="26"/><ellipse cx="410" cy="92" rx="48" ry="32"/><ellipse cx="380" cy="72" rx="36" ry="28"/></g>
+        <g fill="#fff"><ellipse cx="352" cy="100" rx="40" ry="20"/><ellipse cx="410" cy="96" rx="44" ry="26"/></g>
+        <g fill="#dfe8ef" stroke="#0b2a4a" stroke-width="3"><ellipse cx="560" cy="120" rx="44" ry="24"/><ellipse cx="612" cy="116" rx="42" ry="28"/></g>
+        <g stroke="#1176bd" stroke-width="4" stroke-linecap="round"><line x1="540" y1="152" x2="532" y2="172"/><line x1="566" y1="156" x2="558" y2="176"/><line x1="592" y1="152" x2="584" y2="172"/><line x1="618" y1="156" x2="610" y2="176"/><line x1="552" y1="188" x2="544" y2="208"/><line x1="606" y1="188" x2="598" y2="208"/></g>
+        <g fill="none" stroke="#0b2a4a" stroke-width="3" stroke-dasharray="8 7" marker-end="url(#csArrow)">
+          <path d="M150 280 C150 220 200 150 300 110"/>
+          <path d="M460 90 C490 80 505 90 515 102"/>
+          <path d="M600 214 C600 250 575 280 560 292"/>
+          <path d="M300 356 C270 358 240 350 214 338"/>
+          <path d="M740 196 C760 150 720 118 660 112"/>
+        </g>
+        <g class="cycle-hot" data-step="0" tabindex="0" role="button" aria-label="Step 1: Evaporation"><circle cx="190" cy="236" r="21" fill="#fff" stroke="#0b2a4a" stroke-width="3"/><text x="190" y="243" text-anchor="middle" font-size="20" font-weight="800" fill="#0b2a4a">1</text></g>
+        <g class="cycle-hot" data-step="1" tabindex="0" role="button" aria-label="Step 2: Condensation"><circle cx="380" cy="136" r="21" fill="#fff" stroke="#0b2a4a" stroke-width="3"/><text x="380" y="143" text-anchor="middle" font-size="20" font-weight="800" fill="#0b2a4a">2</text></g>
+        <g class="cycle-hot" data-step="2" tabindex="0" role="button" aria-label="Step 3: Precipitation"><circle cx="648" cy="186" r="21" fill="#fff" stroke="#0b2a4a" stroke-width="3"/><text x="648" y="193" text-anchor="middle" font-size="20" font-weight="800" fill="#0b2a4a">3</text></g>
+        <g class="cycle-hot" data-step="3" tabindex="0" role="button" aria-label="Step 4: Collection"><circle cx="360" cy="372" r="21" fill="#fff" stroke="#0b2a4a" stroke-width="3"/><text x="360" y="379" text-anchor="middle" font-size="20" font-weight="800" fill="#0b2a4a">4</text></g>
+        <g class="cycle-hot" data-step="4" tabindex="0" role="button" aria-label="Step 5: Transpiration"><circle cx="765" cy="262" r="21" fill="#fff" stroke="#0b2a4a" stroke-width="3"/><text x="765" y="269" text-anchor="middle" font-size="20" font-weight="800" fill="#0b2a4a">5</text></g>
+      </svg>
+
+      <div class="cycle-steps" id="cycleSteps">
+        <button type="button" data-step="0" aria-pressed="false">☀️ Evaporation</button>
+        <button type="button" data-step="1" aria-pressed="false">☁️ Condensation</button>
+        <button type="button" data-step="2" aria-pressed="false">🌧️ Precipitation</button>
+        <button type="button" data-step="3" aria-pressed="false">🏞️ Collection</button>
+        <button type="button" data-step="4" aria-pressed="false">🌱 Transpiration</button>
       </div>
 
-      <p class="verse-fineprint">Scripture quotations are from The ESV® Bible (The Holy Bible, English Standard Version®), copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.</p>
+      <div class="lab-note" id="cycleDetail" aria-live="polite">
+        <h4>👆 Tap a step to explore</h4>
+        <p>Each part of the water cycle has its own story. Tap a number on the picture or a button above.</p>
+      </div>
+
+      <div class="lab-note amber">
+        <h4>🦕 Mind-blowing thought</h4>
+        <p>Because water keeps cycling forever, the water in your glass has been around for billions of years. Some of it might have fallen as rain on a dinosaur! There's no such thing as brand-new water.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="lab-section tint">
-  <div class="kids-container" style="text-align:center;">
-    <h2>Ready to test what you learned? 🧠</h2>
-    <p style="color:#3d6a86;max-width:540px;margin:0.5rem auto 1.5rem;">You've got the facts now — go earn your Water Scientist rank in the Quiz Lab!</p>
-    <a href="kids-quiz.html" class="lab-btn lime">🧠 Take the Quiz</a>
-    <a href="kids-games.html" class="lab-btn amber" style="margin-left:0.5rem;">🎮 Play Games</a>
-    <a href="kids.html" class="lab-btn ghost" style="margin-left:0.5rem;">🏠 Back to HQ</a>
-  </div>
-</section>
+  <!-- ===== AMAZING FACTS ===== -->
+  <section class="lab-section tint" id="facts">
+    <div class="kids-container">
+      <div class="lab-header">
+        <h2>⭐ Amazing Water Facts</h2>
+        <div class="lab-rule"></div>
+        <p>Tap a card to flip it over and reveal the fact hiding underneath!</p>
+      </div>
+      <div class="fact-flip-grid" id="factGrid"></div>
+      <div class="discover-grid" style="margin-top:2.5rem;">
+        <div class="discover-card"><span class="d-emoji" aria-hidden="true">🧊</span><h3>Ice is a weirdo</h3><p>Almost everything gets denser when it freezes — but water gets LESS dense. That's why ice floats, and why fish can survive under a frozen pond.</p></div>
+        <div class="discover-card"><span class="d-emoji" aria-hidden="true">🫧</span><h3>Water sticks to itself</h3><p>Water molecules grip each other so tightly they make “surface tension” — strong enough for some insects to walk right across a pond.</p></div>
+        <div class="discover-card"><span class="d-emoji" aria-hidden="true">🌡️</span><h3>Water holds heat</h3><p>Water warms up and cools down slowly. That's why oceans keep coastal towns milder, and a pool stays cool on a hot morning.</p></div>
+        <div class="discover-card"><span class="d-emoji" aria-hidden="true">🚀</span><h3>Water is in space</h3><p>Scientists have found frozen water on Mars and the Moon, oceans hidden under the ice of moons like Europa and Enceladus, and ice inside comets.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EXPERIMENTS ===== -->
+  <section class="lab-section" id="experiments">
+    <div class="kids-container">
+      <div class="lab-header">
+        <h2>🧪 Try It Yourself: Real Experiments</h2>
+        <div class="lab-rule"></div>
+        <p>Grab a grown-up and some kitchen supplies. When you finish one, tap <strong>We did it!</strong> to earn your Experimenter badge.</p>
+      </div>
+      <div class="discover-grid" id="expGrid">
+        <div class="discover-card" data-exp="bag">
+          <span class="d-emoji" aria-hidden="true">🛍️</span><h3>Water Cycle in a Bag</h3>
+          <p class="exp-need"><strong>You need:</strong> a zip-top bag, water, blue food coloring, tape, a sunny window.</p>
+          <ol class="exp-steps">
+            <li>Pour about a quarter cup of water into the bag and add a drop of food coloring.</li>
+            <li>Seal it tight and draw a sun, clouds, and waves on the bag with a marker.</li>
+            <li>Tape it to a sunny window and wait a few hours.</li>
+            <li>Watch droplets form at the top and “rain” back down — the whole water cycle!</li>
+          </ol>
+          <button class="lab-btn small ghost done-btn" type="button" aria-pressed="false">✅ We did it!</button>
+        </div>
+        <div class="discover-card" data-exp="filter">
+          <span class="d-emoji" aria-hidden="true">🧫</span><h3>Build a Water Filter</h3>
+          <p class="exp-need"><strong>You need:</strong> a plastic bottle, coffee filter or cotton, charcoal, sand, gravel, muddy water.</p>
+          <ol class="exp-steps">
+            <li>Have a grown-up cut the bottom off the bottle and flip it upside down.</li>
+            <li>From the neck up, layer: cotton, charcoal, sand, then gravel on top.</li>
+            <li>Slowly pour muddy water in and catch it in a cup below.</li>
+            <li>Compare before and after! <strong>Don't drink it</strong> — filters remove dirt, not all germs.</li>
+          </ol>
+          <button class="lab-btn small ghost done-btn" type="button" aria-pressed="false">✅ We did it!</button>
+        </div>
+        <div class="discover-card" data-exp="flowers">
+          <span class="d-emoji" aria-hidden="true">🌸</span><h3>Color-Changing Flowers</h3>
+          <p class="exp-need"><strong>You need:</strong> white carnations or celery, cups, water, food coloring.</p>
+          <ol class="exp-steps">
+            <li>Fill cups with water and add lots of food coloring to each.</li>
+            <li>Put a white flower or celery stalk in each cup.</li>
+            <li>Check back every few hours for two days.</li>
+            <li>The petals change color — you're watching plants drink and transpire!</li>
+          </ol>
+          <button class="lab-btn small ghost done-btn" type="button" aria-pressed="false">✅ We did it!</button>
+        </div>
+        <div class="discover-card" data-exp="penny">
+          <span class="d-emoji" aria-hidden="true">🪙</span><h3>How Many Drops on a Penny?</h3>
+          <p class="exp-need"><strong>You need:</strong> a penny, an eyedropper or straw, water, dish soap.</p>
+          <ol class="exp-steps">
+            <li>Guess how many drops will fit on a penny. Write your guess down.</li>
+            <li>Add drops one at a time and count until the water spills.</li>
+            <li>Most people are shocked — it's often 20 or more!</li>
+            <li>Try soapy water. Fewer drops fit, because soap breaks surface tension.</li>
+          </ol>
+          <button class="lab-btn small ghost done-btn" type="button" aria-pressed="false">✅ We did it!</button>
+        </div>
+        <div class="discover-card" data-exp="sun">
+          <span class="d-emoji" aria-hidden="true">☀️</span><h3>Sun vs. Shade Race</h3>
+          <p class="exp-need"><strong>You need:</strong> two identical cups, water, a marker.</p>
+          <ol class="exp-steps">
+            <li>Fill both cups with the same amount of water and mark the level.</li>
+            <li>Put one in bright sun and one in the shade.</li>
+            <li>Check the levels after a full day.</li>
+            <li>The sunny cup lost more — that's evaporation powered by the sun!</li>
+          </ol>
+          <button class="lab-btn small ghost done-btn" type="button" aria-pressed="false">✅ We did it!</button>
+        </div>
+        <div class="discover-card" data-exp="detective">
+          <span class="d-emoji" aria-hidden="true">🕵️</span><h3>Home Water Detective</h3>
+          <p class="exp-need"><strong>You need:</strong> paper, a pencil, food coloring, and sharp eyes.</p>
+          <ol class="exp-steps">
+            <li>Walk through your home and list every place water is used.</li>
+            <li>Check faucets for drips. Put a few drops of food coloring in the toilet tank — if color shows up in the bowl within 10 minutes without flushing, it's leaking!</li>
+            <li>Time your showers for one week.</li>
+            <li>Pick ONE water-saving change and track how it goes.</li>
+          </ol>
+          <button class="lab-btn small ghost done-btn" type="button" aria-pressed="false">✅ We did it!</button>
+        </div>
+      </div>
+      <div class="lab-note coral">
+        <h4>⚠️ Safety first, scientist!</h4>
+        <p>Always have a grown-up help with cutting, hot water, or anything glass. Never drink water from an experiment — even if it looks clean, filtering doesn't remove germs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEOS ===== -->
+  <section class="lab-section tint" id="videos">
+    <div class="kids-container">
+      <div class="lab-header">
+        <h2>🎬 Watch &amp; Learn</h2>
+        <div class="lab-rule"></div>
+        <p>Short, kid-friendly videos from trusted science sources. Tap a video to play it — and watch with a grown-up!</p>
+      </div>
+      <div class="video-grid" id="kidVideos"></div>
+      <div class="lab-note">
+        <h4>👪 For grown-ups: more to explore</h4>
+        <p>Pause and ask “What did you notice?” — talking about it makes the science stick. Great free sites for more: <a href="https://www.epa.gov/watersense/watersense-kids" target="_blank" rel="noopener">EPA WaterSense Kids</a>, the <a href="https://www.usgs.gov/special-topics/water-science-school" target="_blank" rel="noopener">USGS Water Science School</a>, and <a href="https://climatekids.nasa.gov/" target="_blank" rel="noopener">NASA Climate Kids</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BIBLE VERSES ===== -->
+  <section class="lab-section" id="verses">
+    <div class="kids-container">
+      <div class="verse-wrap">
+        <div class="lab-header">
+          <h2>📖 Words About Water</h2>
+          <div class="lab-rule"></div>
+          <p>Water shows up all through the Bible — as a gift, a promise, and a picture of life itself.</p>
+        </div>
+        <div class="verse-grid2">
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">🌊</span><p class="v-text">“Come, everyone who thirsts, come to the waters...”</p><span class="v-ref">Isaiah 55:1 (ESV)</span><p class="v-note">Just like a cold drink on a hot day, God invites everyone to come and be filled up.</p></div>
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">💧</span><p class="v-text">“...whoever drinks of the water that I will give him will never be thirsty again.”</p><span class="v-ref">John 4:14 (ESV)</span><p class="v-note">Jesus talked about a special kind of “water” that fills your heart forever — not just your cup!</p></div>
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">🐑</span><p class="v-text">“He makes me lie down in green pastures. He leads me beside still waters.”</p><span class="v-ref">Psalm 23:2 (ESV)</span><p class="v-note">A calm, quiet river or pond can remind us that we're cared for and safe.</p></div>
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">🌍</span><p class="v-text">“And God said, ‘Let the waters under the heavens be gathered together into one place, and let the dry land appear.’”</p><span class="v-ref">Genesis 1:9 (ESV)</span><p class="v-note">On Day 3 of creation, God made oceans, lakes, and rivers — water has been part of the plan from the very beginning!</p></div>
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">✨</span><p class="v-text">“Then the angel showed me the river of the water of life, bright as crystal, flowing from the throne of God and of the Lamb.”</p><span class="v-ref">Revelation 22:1 (ESV)</span><p class="v-note">The Bible ends with a picture of the cleanest, brightest river ever — sparkling like crystal!</p></div>
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">⛰️</span><p class="v-text">“...and water shall come out of it, and the people will drink.”</p><span class="v-ref">Exodus 17:6 (ESV)</span><p class="v-note">When people in the desert were thirsty, God provided water right out of a rock — a reminder that water is a gift, not something to waste.</p></div>
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">🌱</span><p class="v-text">“He is like a tree planted by streams of water that yields its fruit in its season, and its leaf does not wither.”</p><span class="v-ref">Psalm 1:3 (ESV)</span><p class="v-note">Plants near water grow strong and healthy — a picture of what happens when we stay close to good things.</p></div>
+          <div class="verse-card2"><span class="v-emoji" aria-hidden="true">🕊️</span><p class="v-text">“...the waters receded from the earth continually.”</p><span class="v-ref">Genesis 8:3 (ESV)</span><p class="v-note">After the flood, the waters went back down and life started fresh — water can reshape the whole world.</p></div>
+        </div>
+        <p class="verse-fineprint">Scripture quotations are from The ESV® Bible (The Holy Bible, English Standard Version®), copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. Used by permission. All rights reserved.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lab-section tint">
+    <div class="kids-container" style="text-align:center;">
+      <h2>Ready to test what you learned? 🧠</h2>
+      <p style="color:#2d4f6e;max-width:540px;margin:.5rem auto 1.5rem;">You've got the facts — now go earn your Water Scientist rank in the Quiz Lab!</p>
+      <div class="btn-row">
+        <a href="kids-quiz.html" class="lab-btn lime">🧠 Take the Quiz</a>
+        <a href="kids-games.html" class="lab-btn amber">🎮 Play Games</a>
+        <a href="kids.html" class="lab-btn ghost">🏠 Back to HQ</a>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer class="site-footer">
   <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
-    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
   </div>
 </footer>
 
+<script src="js/site.js"></script>
 <script src="js/kids-common.js"></script>
+<script src="js/greg-engine.js"></script>
+<script src="js/greg-kids-kb.js"></script>
+<script src="js/kids-greg.js"></script>
+<script src="js/video-library.js"></script>
 <script>
-  var cycleDetails = [
-    { title: '☀️ Step 1: Evaporation', body: 'The sun is the engine of the whole water cycle. Its heat gives water molecules enough energy to break away from the surface of oceans, lakes, and even puddles, floating up into the air as invisible water vapor. Warmer water and more sunlight mean faster evaporation — that\'s why a puddle disappears faster on a hot sunny day than a cool cloudy one.' },
-    { title: '☁️ Step 2: Condensation', body: 'The higher water vapor rises, the colder the air gets. Cold air can\'t hold as much vapor, so the vapor turns back into tiny liquid droplets — usually by sticking to specks of dust or pollen floating in the sky. Billions of these tiny droplets together are what you see as a cloud. The same thing happens on a cold glass of lemonade on a hot day!' },
-    { title: '🌧️ Step 3: Precipitation', body: 'Droplets inside a cloud bump into each other and combine into bigger and bigger drops. Eventually they get too heavy for the air to hold up, and gravity pulls them down. Depending on the temperature, they fall as rain, snow, sleet, or hail. A single raindrop can contain a million or more of those tiny cloud droplets.' },
-    { title: '🏔️ Step 4: Collection', body: 'Water that lands on Earth has two paths. Some runs downhill across the surface into streams, rivers, lakes, and eventually the ocean — that\'s called runoff. The rest soaks down through soil and rock and becomes groundwater, filling underground layers called aquifers. Wells are drilled down into those aquifers to reach that stored water.' },
-    { title: '🌱 Step 5: Transpiration', body: 'Plants are a hidden part of the water cycle. Roots pull water up out of the soil, the plant uses what it needs, and the rest evaporates out through tiny holes in the leaves called stomata. A single large tree can release hundreds of gallons of water into the air in one day. Scientists often combine this with evaporation and call the whole thing "evapotranspiration."' }
+(function () {
+  var CYCLE = [
+    { title: '☀️ Step 1: Evaporation', body: "The sun is the engine of the whole water cycle. Its heat gives water molecules enough energy to break away from oceans, lakes, and even puddles, floating up into the air as invisible water vapor. Warmer water and more sunlight mean faster evaporation — that's why a puddle disappears faster on a hot, sunny day." },
+    { title: '☁️ Step 2: Condensation', body: "The higher water vapor rises, the colder the air gets. Cold air can't hold as much vapor, so it turns back into tiny liquid droplets — usually by sticking to specks of dust floating in the sky. Billions of these droplets together make a cloud. The same thing happens on a cold glass of lemonade on a hot day!" },
+    { title: '🌧️ Step 3: Precipitation', body: 'Droplets inside a cloud bump into each other and join into bigger and bigger drops. When they get too heavy for the air to hold up, gravity pulls them down as rain, snow, sleet, or hail. A single raindrop can be made of a million tiny cloud droplets!' },
+    { title: '🏞️ Step 4: Collection', body: "Water that lands on Earth takes two main paths. Some runs downhill over the ground into streams, rivers, lakes, and the ocean — that's runoff. The rest soaks into soil and rock and becomes groundwater, filling underground layers called aquifers. Here in Mississippi, most of our drinking water is pumped up from aquifers!" },
+    { title: '🌱 Step 5: Transpiration', body: 'Plants are a hidden part of the water cycle. Roots pull water out of the soil, and some of it escapes as vapor through tiny holes in the leaves called stomata. A big tree can release hundreds of gallons of water into the air in one day! Scientists often combine this with evaporation and call it “evapotranspiration.”' }
   ];
+  var seen = {};
 
-  function showCycleDetail(i) {
-    var d = cycleDetails[i];
-    var box = document.getElementById('cycleDetail');
-    box.innerHTML = '<h4>' + d.title + '</h4><p>' + d.body + '</p>';
-    box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  function showStep(i) {
+    var d = CYCLE[i], box = document.getElementById('cycleDetail');
+    box.innerHTML = '<h4></h4><p></p>';
+    box.querySelector('h4').textContent = d.title;
+    box.querySelector('p').textContent = d.body;
+    document.querySelectorAll('#cycleSteps button').forEach(function (b) { b.setAttribute('aria-pressed', +b.dataset.step === i ? 'true' : 'false'); });
+    document.querySelectorAll('#cycleScene .cycle-hot').forEach(function (g) { g.classList.toggle('active', +g.dataset.step === i); });
+    seen[i] = true;
+    if (Object.keys(seen).length === CYCLE.length && !seen.done) {
+      seen.done = true;
+      kidsToast('🌍', 'You explored the whole water cycle!', 'Try Drop’s Journey in the Game Lab next.');
+    }
   }
 
-  var facts = [
-    { front: '71%', back: 'About 71% of Earth\'s surface is covered by water.' },
-    { front: '97%', back: 'About 97% of all Earth\'s water is salty ocean water.' },
-    { front: '<1%', back: 'Less than 1% of Earth\'s water is freshwater we can easily use.' },
+  var FACTS = [
+    { front: '71%', back: "About 71% of Earth's surface is covered by water." },
+    { front: '97%', back: "About 97% of all Earth's water is salty ocean water." },
+    { front: '<1%', back: "Less than 1% of Earth's water is fresh water we can easily use." },
     { front: '60%', back: 'Your body is roughly 60% water — and your brain is about 73%!' },
     { front: '3,000', back: 'One dripping faucet can waste over 3,000 gallons of water in a year.' },
     { front: '200', back: 'A running toilet can waste around 200 gallons in a single day.' },
-    { front: '8 gal', back: 'Turning off the tap while brushing your teeth saves about 8 gallons a day.' },
+    { front: '8 gal', back: 'Turning off the tap while brushing your teeth can save up to 8 gallons a day.' },
     { front: '🦕', back: 'The water you drink today is the same water dinosaurs drank millions of years ago.' },
-    { front: '2%', back: 'About 2% of Earth\'s water is frozen in glaciers and ice caps.' },
+    { front: '69%', back: "About 69% of Earth's fresh water is frozen in glaciers and ice caps." },
     { front: '🌡️', back: 'Water freezes at 32°F (0°C) and boils at 212°F (100°C) at sea level.' },
     { front: '🚿', back: 'A 10-minute shower can use 20 or more gallons of water.' },
-    { front: '💧', back: 'One gallon of water weighs about 8.34 pounds.' }
+    { front: '8.34', back: 'One gallon of water weighs about 8.34 pounds.' }
   ];
+
+  function initExperiments() {
+    var done = LW.store.get('lw_experiments_done', {});
+    document.querySelectorAll('[data-exp]').forEach(function (card) {
+      var id = card.dataset.exp, btn = card.querySelector('.done-btn');
+      function paint() {
+        btn.setAttribute('aria-pressed', done[id] ? 'true' : 'false');
+        btn.textContent = done[id] ? '🎉 Done! (tap to undo)' : '✅ We did it!';
+      }
+      btn.addEventListener('click', function () {
+        done[id] = !done[id];
+        LW.store.set('lw_experiments_done', done);
+        paint();
+        if (done[id]) KidsBadges.earn('learn');
+      });
+      paint();
+    });
+  }
 
   document.addEventListener('DOMContentLoaded', function () {
     buildBackdrop();
-    buildFlipCards('factGrid', facts);
+    buildFlipCards('factGrid', FACTS);
+    document.querySelectorAll('#cycleSteps button').forEach(function (b) { b.addEventListener('click', function () { showStep(+b.dataset.step); }); });
+    document.querySelectorAll('#cycleScene .cycle-hot').forEach(function (g) {
+      g.addEventListener('click', function () { showStep(+g.dataset.step); });
+      g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showStep(+g.dataset.step); } });
+    });
+    initExperiments();
+    LW.renderVideos('kidVideos', LW_VIDEOS.kids);
   });
+})();
 </script>
-
 </body>
 </html>

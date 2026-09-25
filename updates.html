@@ -4,144 +4,99 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="WaterOps app updates, release notes, and news. Stay current with the latest features for water operations management.">
-  <title>App Updates — LearnWater</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%A7%3C/text%3E%3C/svg%3E">
+  <title>App Updates — WaterOps Release Notes | LearnWater</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/public-sans-normal-400-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .updates-hero { padding: 5rem 0 4.5rem; }
-
-    .updates-layout {
-      display: grid;
-      grid-template-columns: 1fr 280px;
-      gap: 3rem;
-      align-items: start;
-      padding: 3rem 0 5rem;
+    .updates-hero { padding: 4.5rem 0 7rem; }
+    .updates-layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 3rem; align-items: start; padding: 1rem 0 5rem; }
+    .updates-page { background: var(--mist); }
+    .filter-row { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.5rem; }
+    .filter-row button {
+      border: 1.5px solid var(--line); background: var(--white); color: var(--ink-2); cursor: pointer;
+      border-radius: 999px; padding: .42rem .95rem; font-weight: 700; font-size: .85rem; min-height: 38px;
     }
-    @media (max-width: 768px) {
-      .updates-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .filter-row button:hover { border-color: var(--tide); color: var(--ocean); }
+    .filter-row button[aria-pressed="true"] { background: var(--deep); border-color: var(--deep); color: var(--white); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 7px; top: .5rem; bottom: .5rem; width: 2px; background: linear-gradient(var(--aqua), var(--line)); border-radius: 2px; }
+    .timeline .update-post::after {
+      content: ''; position: absolute; left: calc(-2rem + 1px); top: 1.9rem; width: 14px; height: 14px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--tide); box-shadow: 0 0 0 4px var(--mist);
     }
-
-    /* Sidebar */
-    .sidebar { position: sticky; top: 80px; }
-    .sidebar-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
-    }
-    .sidebar-card h3 { font-size: 1rem; color: var(--dark); margin-bottom: 1rem; border-bottom: 2px solid var(--light); padding-bottom: 0.6rem; }
-    .sidebar-card ul { list-style: none; }
-    .sidebar-card ul li { margin-bottom: 0.4rem; font-size: 0.9rem; }
-    .sidebar-card ul li a { color: var(--muted); display: flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.5rem; border-radius: 6px; transition: color 0.2s, background 0.2s; }
-    .sidebar-card ul li a:hover { color: var(--primary); background: var(--gray); text-decoration: none; }
-
-    .version-badge {
-      display: inline-block;
-      background: var(--primary);
-      color: #fff;
-      border-radius: 6px;
-      padding: 0.1rem 0.5rem;
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin-left: 0.4rem;
-      vertical-align: middle;
-    }
-
-    /* Tags */
+    .timeline .update-post { overflow: visible; }
+    .timeline .update-post::before { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+    .version-badge { font-family: var(--font-mono); background: var(--deep); color: #fff; border-radius: 6px; padding: .15rem .5rem; font-size: .76rem; font-weight: 700; }
     .tag-new     { background: #d1fae5; color: #065f46; }
     .tag-fix     { background: #fee2e2; color: #991b1b; }
     .tag-improve { background: #ede9fe; color: #4c1d95; }
     .tag-update  { background: #fef3c7; color: #92400e; }
     .tag-feature { background: #dbeafe; color: #1e40af; }
-
-    /* Individual update entries inside a post */
-    .change-list { margin: 1rem 0; list-style: none; }
-    .change-list li {
-      display: flex;
-      gap: 0.65rem;
-      align-items: flex-start;
-      margin-bottom: 0.65rem;
-      font-size: 0.93rem;
-      color: var(--text);
-    }
-    .change-list li::before {
-      content: '→';
-      color: var(--secondary);
-      flex-shrink: 0;
-      font-weight: 700;
-      margin-top: 0.05rem;
-    }
-
-    /* App-download CTA */
-    .app-cta {
-      background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      color: #fff;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .app-cta h3 { color: #fff; margin-bottom: 0.5rem; font-size: 1.1rem; }
-    .app-cta p  { font-size: 0.9rem; opacity: 0.85; margin-bottom: 1rem; }
-
-    /* Post header */
-    .update-post h3 a { color: var(--dark); }
-    .update-post h3 a:hover { color: var(--primary); text-decoration: none; }
-
-    /* Inline highlight box inside a post */
-    .highlight-note {
-      background: var(--gray);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin: 1rem 0 0;
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-    .highlight-note strong { color: var(--dark); }
+    .change-list { margin: 1rem 0 0; list-style: none; }
+    .change-list li { display: flex; gap: .65rem; align-items: flex-start; margin-bottom: .6rem; font-size: .94rem; color: var(--ink); line-height: 1.55; }
+    .change-list li::before { content: '→'; color: var(--tide); flex-shrink: 0; font-weight: 700; }
+    .highlight-note { background: var(--foam); border: 1px solid var(--line-2); border-radius: 12px; padding: 1rem 1.2rem; margin: 1rem 0 0; font-size: .9rem; color: var(--ink-2); }
+    .highlight-note strong { color: var(--abyss); }
+    .update-post p { color: var(--ink-2); }
+    .sidebar { position: sticky; top: calc(var(--nav-h) + 1.5rem); display: grid; gap: 1.25rem; }
+    .app-cta { background: var(--grad-deep); border-radius: var(--radius-lg); padding: 1.6rem; color: #fff; text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+    .app-cta h3 { color: #fff; margin-bottom: .45rem; font-size: 1.15rem; }
+    .app-cta p { font-size: .9rem; color: rgba(232,246,250,.85); margin-bottom: 1rem; }
+    .sidebar-card { background: var(--white); border: 1px solid var(--line-2); border-radius: var(--radius); box-shadow: var(--shadow-sm); padding: 1.3rem 1.4rem; }
+    .sidebar-card h3 { font-size: .98rem; margin-bottom: .75rem; }
+    .sidebar-card ul { list-style: none; }
+    .sidebar-card li a { display: flex; justify-content: space-between; gap: .5rem; padding: .4rem .55rem; border-radius: 8px; color: var(--ink-2); font-size: .9rem; }
+    .sidebar-card li a:hover { background: var(--mist); color: var(--ocean); text-decoration: none; }
+    .sidebar-card li a span { font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }
+    .empty-filter { color: var(--muted); padding: 1rem 0; }
+    @media (max-width: 900px) { .updates-layout { grid-template-columns: 1fr; gap: 2rem; } .sidebar { position: static; } }
   </style>
 </head>
-<body>
+<body class="updates-page">
+<a class="skip-link" href="#releases">Skip to release notes</a>
 
-<!-- Navigation -->
-<nav class="site-nav">
-  <div class="container">
-    <a href="index.html" class="nav-brand">
-      <span class="drop">💧</span> LearnWater
-    </a>
-    <button class="nav-toggle" aria-label="Menu" onclick="toggleNav()">
-      <span></span><span></span><span></span>
-    </button>
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="kids.html">Kids Corner</a></li>
-      <li><a href="adult-learning-center.html">Learn</a></li>
-      <li><a href="updates.html" class="active">Updates</a></li>
+      <li><a href="adult-learning-center.html">Adult Learning</a></li>
+      <li><a href="updates.html" aria-current="page">App Updates</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero updates-hero">
+<header class="hero updates-hero">
   <div class="container hero-content">
-    <h1>📱 WaterOps App Updates</h1>
-    <p>Stay current with the latest releases, features, and improvements to the WaterOps water operations management app.</p>
+    <span class="overline">Release notes</span>
+    <h1>WaterOps App Updates</h1>
+    <p>The latest releases, features, and fixes for the WaterOps water operations management app.</p>
   </div>
-  <svg class="hero-wave" viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-    <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="white"/>
-  </svg>
-</section>
+  <div class="hero-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 45 C240 85 480 5 720 45 C960 85 1200 5 1440 45 C1680 85 1920 5 2160 45 C2400 85 2640 5 2880 45 L2880 90 L0 90 Z" fill="#8fe3ee"/></svg>
+    <svg class="w2" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 55 C240 25 480 85 720 55 C960 25 1200 85 1440 55 C1680 25 1920 85 2160 55 C2400 25 2640 85 2880 55 L2880 90 L0 90 Z" fill="#27c1d4"/></svg>
+    <svg class="w3" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 64 C240 82 480 46 720 64 C960 82 1200 46 1440 64 C1680 82 1920 46 2160 64 C2400 82 2640 46 2880 64 L2880 90 L0 90 Z" fill="#f3f7fa"/></svg>
+  </div>
+</header>
 
-<!-- Main Content -->
 <div class="container">
   <div class="updates-layout">
-
-    <!-- Posts column -->
-    <main>
-
-      <!-- ======= v2.4 ======= -->
-      <article class="update-post" id="v2-4">
+    <main id="releases">
+      <div class="filter-row" role="group" aria-label="Filter releases by type">
+        <button type="button" aria-pressed="true" data-filter="all">All releases</button>
+        <button type="button" aria-pressed="false" data-filter="feature">New features</button>
+        <button type="button" aria-pressed="false" data-filter="improve">Improvements</button>
+        <button type="button" aria-pressed="false" data-filter="fix">Bug fixes</button>
+        <button type="button" aria-pressed="false" data-filter="major">Major releases</button>
+      </div>
+      <p class="sr-only" id="filterStatus" aria-live="polite"></p>
+      <div class="timeline" id="timeline">
+      <article class="update-post" data-tags="feature" id="v2-4">
         <div class="post-meta">
           <span class="post-tag tag-feature">Feature</span>
           <span class="post-tag tag-new">New</span>
@@ -163,8 +118,7 @@
         </div>
       </article>
 
-      <!-- ======= v2.3 ======= -->
-      <article class="update-post" id="v2-3">
+      <article class="update-post" data-tags="fix improve" id="v2-3">
         <div class="post-meta">
           <span class="post-tag tag-improve">Improvement</span>
           <span class="post-tag tag-fix">Fix</span>
@@ -184,8 +138,7 @@
         </ul>
       </article>
 
-      <!-- ======= v2.2 ======= -->
-      <article class="update-post" id="v2-2">
+      <article class="update-post" data-tags="feature" id="v2-2">
         <div class="post-meta">
           <span class="post-tag tag-feature">Feature</span>
           <span class="post-date">March 2026</span>
@@ -203,8 +156,7 @@
         </ul>
       </article>
 
-      <!-- ======= v2.1 ======= -->
-      <article class="update-post" id="v2-1">
+      <article class="update-post" data-tags="fix improve" id="v2-1">
         <div class="post-meta">
           <span class="post-tag tag-improve">Improvement</span>
           <span class="post-tag tag-fix">Fix</span>
@@ -223,8 +175,7 @@
         </ul>
       </article>
 
-      <!-- ======= v2.0 ======= -->
-      <article class="update-post" id="v2-0">
+      <article class="update-post" data-tags="feature major" id="v2-0">
         <div class="post-meta">
           <span class="post-tag tag-new">Major Release</span>
           <span class="post-date">November 2025</span>
@@ -247,8 +198,7 @@
         </div>
       </article>
 
-      <!-- ======= v1.x ======= -->
-      <article class="update-post" id="v1-x">
+      <article class="update-post" data-tags="archive" id="v1-x">
         <div class="post-meta">
           <span class="post-tag tag-update">Archive</span>
           <span class="post-date">2024 – 2025</span>
@@ -265,73 +215,71 @@
           <li>v1.0: Initial release — basic daily log, pump status tracking, and contact list.</li>
         </ul>
       </article>
-
+      </div>
     </main>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="app-cta">
         <h3>📱 Get WaterOps</h3>
-        <p>Available on the App Store for iPhone and iPad. Free to download.</p>
-        <a href="mailto:learnwatertoday@gmail.com" class="btn btn-white" style="font-size:0.85rem;padding:0.6rem 1.25rem;">Contact for Access</a>
+        <p>WaterOps runs on iPhone and iPad. To get the app or ask about access for your water system, contact us.</p>
+        <a href="mailto:learnwatertoday@gmail.com?subject=WaterOps%20access" class="btn btn-white btn-sm">Contact for access</a>
       </div>
-
       <div class="sidebar-card">
-        <h3>📋 Release History</h3>
+        <h3>Release history</h3>
         <ul>
-          <li><a href="#v2-4">v2.4 — July 2026 ★</a></li>
-          <li><a href="#v2-3">v2.3 — May 2026</a></li>
-          <li><a href="#v2-2">v2.2 — March 2026</a></li>
-          <li><a href="#v2-1">v2.1 — January 2026</a></li>
-          <li><a href="#v2-0">v2.0 — November 2025</a></li>
-          <li><a href="#v1-x">v1.x — 2024–2025</a></li>
+          <li><a href="#v2-4">v2.4 · Latest <span>Jul 2026</span></a></li>
+          <li><a href="#v2-3">v2.3 <span>May 2026</span></a></li>
+          <li><a href="#v2-2">v2.2 <span>Mar 2026</span></a></li>
+          <li><a href="#v2-1">v2.1 <span>Jan 2026</span></a></li>
+          <li><a href="#v2-0">v2.0 <span>Nov 2025</span></a></li>
+          <li><a href="#v1-x">v1.x <span>2024–25</span></a></li>
         </ul>
       </div>
-
       <div class="sidebar-card">
-        <h3>🔖 Browse by Type</h3>
-        <ul>
-          <li><a href="#v2-4">🆕 New Features</a></li>
-          <li><a href="#v2-3">🔧 Bug Fixes</a></li>
-          <li><a href="#v2-2">⬆️ Improvements</a></li>
-          <li><a href="#v2-0">🚀 Major Releases</a></li>
-        </ul>
-      </div>
-
-      <div class="sidebar-card">
-        <h3>📬 Questions?</h3>
-        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:0.75rem;">Found a bug or have a feature request? Contact us directly.</p>
-        <a href="mailto:learnwatertoday@gmail.com" style="font-size:0.9rem;font-weight:600;">learnwatertoday@gmail.com</a>
+        <h3>Found a bug?</h3>
+        <p style="font-size:.88rem;color:var(--muted);margin-bottom:.6rem;">Send bug reports and feature requests straight to us.</p>
+        <a href="mailto:learnwatertoday@gmail.com" style="font-size:.9rem;font-weight:700;">learnwatertoday@gmail.com</a>
       </div>
     </aside>
-
   </div>
 </div>
 
-<!-- Contact / Footer -->
 <section class="contact-section" id="contact">
   <div class="container">
-    <h2>App Support &amp; Feedback</h2>
+    <h2>App support &amp; feedback</h2>
     <p>Have a question about WaterOps, or want to report an issue? Reach out and we'll get back to you.</p>
     <a href="mailto:learnwatertoday@gmail.com" class="contact-email">✉️ learnwatertoday@gmail.com</a>
-    <br><br>
-    <a href="adult-learning-center.html" class="btn btn-primary" style="margin-right:0.75rem;">Adult Learning 🔬</a>
-    <a href="kids.html" class="btn btn-outline">Kids Corner 🎈</a>
+    <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem;">
+      <a href="adult-learning-center.html" class="btn btn-primary">Adult Learning Center</a>
+      <a href="kids.html" class="btn btn-outline">Kids Corner</a>
+    </div>
   </div>
 </section>
 
 <footer class="site-footer">
   <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water | <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
-    <p style="margin-top:0.4rem;">A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>A resource from <a href="https://cofwater.org" target="_blank" rel="noopener">cofwater.org</a> · Companion to the WaterOps App</p>
   </div>
 </footer>
 
+<script src="js/site.js"></script>
 <script>
-  function toggleNav() {
-    document.getElementById('navLinks').classList.toggle('open');
-  }
+  (function () {
+    var btns = document.querySelectorAll('[data-filter]'), posts = document.querySelectorAll('#timeline .update-post');
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var f = b.dataset.filter, shown = 0;
+        btns.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+        posts.forEach(function (p) {
+          var on = f === 'all' || (' ' + p.dataset.tags + ' ').indexOf(' ' + f + ' ') !== -1;
+          p.hidden = !on;
+          if (on) shown++;
+        });
+        document.getElementById('filterStatus').textContent = shown + (shown === 1 ? ' release' : ' releases') + ' shown';
+      });
+    });
+  })();
 </script>
-
 </body>
 </html>
