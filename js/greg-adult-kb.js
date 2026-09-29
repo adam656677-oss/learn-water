@@ -737,7 +737,7 @@
     /* ---------------- Added with the expanded lessons ---------------- */
     { id: "site-glossary", q: "Is there a glossary of water terms?",
       k: ["glossary:7", "dictionary:6", "definitions:6", "all the terms:6", "vocabulary:6", "terms list:6", "word list:5", "key terms:5"],
-      a: "Yes. Open the **Glossary** tab in the Learning Center for **400+ terms** from all 14 chapters, in plain language. Search a word or an abbreviation, filter to one chapter, jump by letter, or add a term to your flash cards. Every lesson also lists its **key terms** near the end.\n\nYou can ask me too: **“define turbidity”** or **“what does RPZ mean?”**",
+      a: "Yes. Open the **Glossary** tab in the Learning Center for nearly **500 terms** from all 14 chapters and the deep dives on regulations, aquifers, and hydraulic modeling, in plain language. Search a word or an abbreviation, filter to one chapter, jump by letter, or add a term to your flash cards. Every lesson also lists its **key terms** near the end.\n\nYou can ask me too: **“define turbidity”** or **“what does RPZ mean?”**",
       rel: ["site-cards", "study-plan", "greg-intro"] },
     { id: "rules-overview", q: "Which federal rules does my water system follow?",
       k: ["which rules:7", "what rules:6", "rules apply:7", "federal rules:6", "drinking water rules:6", "list of rules:7", "major rules:7", "regulations apply:6"],
@@ -1155,7 +1155,7 @@
 
 
   /* ==========================================================
-     Glossary — 400+ definitions from js/glossary-adult.js.
+     Glossary — nearly 500 definitions from js/glossary-adult.js.
      Greg answers “define X” and “what does X mean” from it when
      none of his own answers is about that term, and he checks it
      once more before giving up on a question.
@@ -1167,6 +1167,7 @@
     ch8a: 'Chapter 8 A (Surface Water)', ch9: 'Chapter 9 (Distribution & Storage)', ch10: 'Chapter 10 (Chlorination Equipment & Safety)',
     ch11: 'Chapter 11 (Administration & Safety)', ch12: 'Chapter 12 (Cross-Connection Control)'
   };
+  var PAGE_NAMES = { reg: 'the Water Regulations page', aq: "the Mississippi's Aquifers page", hm: 'the Hydraulic Modeling page' };
   function gNorm(s) {
     var t = String(s || '').replace(/[₀-₉]/g, function (d) { return String(d.charCodeAt(0) - 0x2080); }).replace(/[µμ]/g, 'u');
     return global.GregEngine.normalize(t).replace(/^(?:a|an|the)\s+/, '');
@@ -1222,7 +1223,10 @@
   function kbAbout(api, text, item) { return api.isAbout(text, [gNorm(text)].concat(item.main)); }
   function gReply(item, chips, lead) {
     var chs = item.chs.map(function (c) { return CH_NAMES[c]; }).filter(Boolean);
-    var where = !chs.length ? '' : '\n\nYou\'ll find it in ' + (chs.length > 1 ? chs.slice(0, -1).join(', ') + ' and ' + chs[chs.length - 1] : chs[0]) + '.';
+    var pages = item.chs.map(function (c) { return PAGE_NAMES[c]; }).filter(Boolean);
+    function list(a) { return a.length > 1 ? a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1] : a[0]; }
+    var parts = (chs.length ? ['in ' + list(chs)] : []).concat(pages.length ? ['on ' + list(pages)] : []);
+    var where = parts.length ? '\n\nYou\'ll find it ' + parts.join(' and ') + '.' : '';
     return { text: (lead || '') + '**' + item.term + '**: ' + item.def + where, chips: chips.slice(0, 3), id: 'glossary' };
   }
   function defineSkill(raw, norm, state, api) {

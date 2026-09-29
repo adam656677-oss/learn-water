@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mississippi's aquifers in depth: the 16 major aquifers from the Delta's alluvial aquifer to the Miocene sands of the Gulf Coast, with an interactive aquifer stack, a virtual well you can drill, a map of where each aquifer is used, water-level trends, and a cone of depression calculator.">
+<title>Mississippi's Aquifers — Interactive Guide | LearnWater</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/public-sans-normal-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/adult.css">
+<link rel="stylesheet" href="css/lessons.css">
+<link rel="stylesheet" href="css/deep.css">
+</head>
+<body class="lesson-page deep-page" style="--theme:#0f766e; --theme-dark:#134e4a; --theme-tint:#e6f4f1;">
+<a class="skip-link" href="#lesson">Skip to the content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater<span class="brand-tag">Operator Study</span></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html">Kids Corner</a></li>
+      <li><a href="adult-learning-center.html" aria-current="page">Adult Learning</a></li>
+      <li><a href="regulations.html">Regulations</a></li>
+      <li><a href="updates.html">App Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="read-progress" aria-hidden="true"><i id="readBar"></i></div>
+
+<header class="lesson-hero">
+  <div class="motif" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M10 60 Q100 40 190 80" fill="none" stroke="white" stroke-width="6"/><path d="M10 95 Q100 75 190 115" fill="none" stroke="white" stroke-width="6"/><path d="M10 130 Q100 110 190 150" fill="none" stroke="white" stroke-width="6"/><path d="M10 165 Q100 145 190 185" fill="none" stroke="white" stroke-width="6"/><line x1="120" y1="10" x2="120" y2="175" stroke="white" stroke-width="7"/><path d="M104 10 H136" stroke="white" stroke-width="7" stroke-linecap="round"/></svg></div>
+  <div class="container lesson-hero-inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="adult-learning-center.html">Adult Learning Center</a><span aria-hidden="true">/</span><span>Deep dive</span></nav>
+    <div class="chapter-kicker">Ground water in depth · Mississippi</div>
+    <h1><span class="hero-icon" aria-hidden="true">🪨</span><span>Mississippi's Aquifers</span></h1>
+    <p class="dek">Mississippi drinks ground water. Sixteen major aquifers lie stacked like layers of a cake under the state. Here's where each one is, how it works, how much water it gives, and what's happening to its water levels.</p>
+    <div class="hero-meta"><span>16 major aquifers</span><span>About 90% of the state's drinking water</span><span>Drill a virtual well</span><span>Cone of depression lab</span></div>
+    <div class="hero-cta">
+      <a class="btn btn-white" href="#stack">Explore the aquifer stack</a>
+      <a class="btn btn-light-outline" href="#map">Which aquifers are under my area?</a>
+    </div>
+  </div>
+  <div class="hero-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 45 C240 85 480 5 720 45 C960 85 1200 5 1440 45 C1680 85 1920 5 2160 45 C2400 85 2640 5 2880 45 L2880 90 L0 90 Z" fill="#8fe3ee"/></svg>
+    <svg class="w2" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 55 C240 25 480 85 720 55 C960 25 1200 85 1440 55 C1680 25 1920 85 2160 55 C2400 25 2640 85 2880 55 L2880 90 L0 90 Z" fill="#27c1d4"/></svg>
+    <svg class="w3" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 64 C240 82 480 46 720 64 C960 82 1200 46 1440 64 C1680 82 1920 46 2160 64 C2400 82 2640 46 2880 64 L2880 90 L0 90 Z" fill="#f3f7fa"/></svg>
+  </div>
+</header>
+
+<div class="container lesson-layout">
+  <aside class="lesson-toc" aria-label="On this page">
+    <span class="toc-title">On this page</span>
+    <ol id="toc"></ol>
+  </aside>
+
+  <main class="lesson-main" id="lesson">
+    <div class="greg-take">
+      <span class="greg-avatar" data-greg-avatar></span>
+      <div><h2>Greg's take on Mississippi's aquifers</h2><p>Picture a stack of tilted layers, sand on clay on sand, with the oldest layers coming to the surface in northeast Mississippi and dipping down toward the southwest and the Gulf. Each sand is an aquifer. It fills where it reaches the surface and is under pressure where it dips under clay. Once you see that, well depths, artesian pressure, and why one town's water tastes different from the next all start to make sense.</p></div>
+    </div>
+
+    <section class="lesson-section" id="s1" aria-labelledby="s1h">
+      <h2 id="s1h"><span class="num">1</span> Why ground water matters here</h2>
+      <div class="stat-row">
+        <div class="stat-box"><b>90%+</b><span>of Mississippi's drinking water comes from ground water</span><small>MSU Extension</small></div>
+        <div class="stat-box"><b>16</b><span>major aquifers, plus many minor ones</span><small>MDEQ</small></div>
+        <div class="stat-box"><b>7,000 mi²</b><span>of Delta alluvial plain over the state's most heavily pumped aquifer</span><small>USGS</small></div>
+        <div class="stat-box"><b>3rd</b><span>The Mississippi River Valley alluvial aquifer ranks third in the U.S. for total withdrawals</span><small>USGS research</small></div>
+      </div>
+      <p>Most Mississippi towns, rural water associations, schools, and farms pump their water from wells. The operators manual puts it at about <strong>88 percent</strong> of the water used by public water systems, and USGS estimated about 87 percent of public-supply withdrawals in 2015. A few larger cities use surface water, including Jackson, which draws from the Ross Barnett Reservoir and the Pearl River.</p>
+      <p>State law treats all of it as a shared resource. Mississippi Code §51-3-1 declares that all water, “whether occurring on the surface of the ground or underneath the surface of the ground,” belongs to the people of the state and is subject to regulation. MDEQ issues the withdrawal permits and studies the aquifers.</p>
+      <p class="fine">How many aquifers? MDEQ describes 16 major aquifers and numerous minor ones. The operators manual counts 15 principal freshwater aquifers. The difference comes from how some units are grouped: several are really systems of related sands.</p>
+    </section>
+
+    <section class="lesson-section" id="s2" aria-labelledby="s2h">
+      <h2 id="s2h"><span class="num">2</span> The layer cake: how the aquifers are arranged</h2>
+      <p>Mississippi sits on the <strong>Mississippi Embayment</strong>, a huge trough that runs roughly along the Mississippi River and opens south toward the Gulf of Mexico. For about 100 million years, rivers and seas filled it with layers of sand, clay, chalk, and gravel. Those layers tilt, or <strong>dip</strong>, toward the axis of the embayment in the west and toward the Gulf in the south, and most of them get thicker as they go down-dip.</p>
+      <ul>
+        <li><strong>Oldest in the northeast.</strong> Paleozoic limestone and chert crop out in Tishomingo County. Next come the Cretaceous sands and chalk of northeast Mississippi.</li>
+        <li><strong>Youngest in the south and the Delta.</strong> Miocene and younger sands and gravels lie near the coast, and river-laid sand and gravel underlie the Delta.</li>
+        <li><strong>Outcrop = recharge area.</strong> Where a layer reaches the surface, rain soaks into it. That belt is the aquifer's recharge area, and the aquifer is unconfined there.</li>
+        <li><strong>Down-dip = confined.</strong> Where the same sand dips under a clay layer, the water is under pressure. A well drilled into it is artesian: the water rises above the top of the aquifer, and sometimes flows at the surface.</li>
+        <li><strong>Fresh water has a limit.</strong> Deep enough down-dip, water becomes too mineralized to drink. Dissolved solids above about 1,000 mg/L generally mark the edge of fresh water. On the coast, fresh water reaches about 1,200 feet deep east of Pascagoula and more than 3,000 feet in western Hancock County.</li>
+      </ul>
+      <p>Between the sands are <strong>confining units</strong>, clays and chalks that slow water down. The Yazoo Clay, the Cook Mountain Formation, the Zilpha Clay, the Porters Creek Clay of the Flatwoods, and the Selma chalk of the Black Prairie are the big ones. They're why a single drill hole can pass through several separate aquifers, each with its own water level and chemistry.</p>
+    </section>
+
+    <section class="tool" id="stack" data-toc="Aquifer stack" aria-labelledby="stackh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">🥞</span><div><span class="overline">Interactive</span><h2 id="stackh">The aquifer stack</h2><p>Youngest on top, oldest at the bottom. Sand-colored bars are aquifers; hatched gray bars are confining units. Pick one to learn about it.</p></div></div>
+      <div class="aq-explorer">
+        <ul class="aq-stack" id="aqStack" aria-label="Mississippi hydrogeologic units, youngest to oldest"></ul>
+        <div class="aq-detail" id="aqDetail" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="tool" id="section-lab" data-toc="Drill a virtual well" aria-labelledby="xsh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">⛏️</span><div><span class="overline">Interactive</span><h2 id="xsh">Drill a virtual well</h2><p>A schematic cross-section from the Gulf Coast to the northeast corner of the state. Tap or drag anywhere on it, or use the slider, to drill a well and see which layers it passes through.</p></div></div>
+      <div class="xsec-wrap"><svg id="xsec" viewBox="0 0 1000 470" role="img" aria-labelledby="xsecTitle"><title id="xsecTitle">Schematic cross-section of Mississippi's aquifers from the Gulf Coast to Tishomingo County</title></svg></div>
+      <div class="range-row" style="margin-top:.8rem"><label for="wellX" class="sr-only">Well location</label><span aria-hidden="true" class="fine">Coast</span><input type="range" id="wellX" min="20" max="990" value="470"><span aria-hidden="true" class="fine">NE corner</span></div>
+      <p class="fine" id="wellWhere" aria-live="polite" style="margin:.5rem 0 0"></p>
+      <ol class="well-log" id="wellLog" aria-label="Layers the well passes through, top to bottom"></ol>
+      <p class="tool-note">Schematic: the drawing shows roughly the upper 3,500 feet, and the vertical scale is stretched about 200 times. The real layers are far thinner compared with their length, dip only a few tens of feet per mile, and pinch out, split, and change sand content from place to place. The Delta's alluvial aquifer lies west of this line and isn't shown. For real depths at a real location, MDEQ's Office of Land and Water Resources and USGS well records are the sources.</p>
+      <div class="ask-row"><button class="ask-chip" type="button" data-ask="Why are wells deeper in south Mississippi?">Why are wells deeper to the south?</button><button class="ask-chip" type="button" data-ask="What is an artesian well?">What is an artesian well?</button></div>
+    </section>
+
+    <section class="tool" id="map" data-toc="Which aquifers are under my area?" aria-labelledby="maph">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">🗺️</span><div><span class="overline">Interactive</span><h2 id="maph">Which aquifers are under my area?</h2><p>Pick a place on the map. The shaded area is the Delta (the Mississippi alluvial plain). Buttons jump to each aquifer's profile.</p></div></div>
+      <div class="map-layout">
+        <div class="map-box"><svg id="msMap" viewBox="0 0 340 520" role="group" aria-label="Simplified map of Mississippi with selectable places"></svg></div>
+        <div class="map-panel" id="mapPanel" aria-live="polite"></div>
+      </div>
+      <p class="tool-note">Simplified map; locations are approximate. Which aquifer a particular well uses depends on its exact location and depth, so check with MDEQ or your water system.</p>
+    </section>
+
+    <section class="tool" id="profiles" data-toc="Aquifer profiles" aria-labelledby="profh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">📇</span><div><span class="overline">Reference</span><h2 id="profh">Aquifer profiles</h2><p>The major aquifers, from youngest to oldest, with what USGS and MDEQ studies report about each one.</p></div></div>
+      <div class="filter-bar">
+        <label class="sr-only" for="aqSearch">Search the aquifers</label>
+        <input class="input" type="search" id="aqSearch" placeholder="Search, like “Delta”, “Tupelo”, “iron”, or “Sparta”" autocomplete="off">
+        <div class="chip-row" id="aqRegions" role="group" aria-label="Filter by region"></div>
+      </div>
+      <p class="filter-count" id="aqCount" aria-live="polite"></p>
+      <div class="aq-cards" id="aqCards"></div>
+    </section>
+
+    <section class="lesson-section" id="s3" aria-labelledby="s3h">
+      <h2 id="s3h"><span class="num">3</span> Water levels: what the records show</h2>
+      <p>When wells pump more than an aquifer receives, water levels fall. In a confined aquifer that shows up as a drop in pressure, and the effect spreads for miles. These are declines documented in USGS studies of Mississippi aquifers. They come from different decades, so treat them as snapshots, not current rates.</p>
+      <div class="table-wrap"><table class="data-table trend-table">
+        <thead><tr><th scope="col">Aquifer and area</th><th scope="col">What was measured</th><th scope="col">Rate</th></tr></thead>
+        <tbody id="trendBody"></tbody>
+      </table></div>
+      <p>The best-documented recovery is in <strong>Tupelo</strong>. Water levels in the Eutaw-McShan beneath Tupelo and West Point had fallen about 200 feet below early-1900s levels. After Tupelo began using water from the Tombigbee River, the water level beneath the city rose nearly 100 feet within about five years. Cutting pumping works, and a confined aquifer's pressure can come back relatively fast.</p>
+      <aside class="exam-watch" aria-label="Exam watch: static and pumping levels">
+        <span class="ew-icon" aria-hidden="true">!</span>
+        <div><strong>Exam watch · Reading water levels</strong><p>Static water level is measured with the pump off; pumping level is measured with it running. <strong>Drawdown = pumping level − static level</strong>. A long-term drop in the <em>static</em> level means the aquifer is declining; a drop in <em>specific capacity</em> (gpm per foot of drawdown) with a steady static level points to a clogging well.</p></div>
+      </aside>
+    </section>
+
+    <section class="tool" id="cone" data-toc="Cone of depression lab" aria-labelledby="coneh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">🌀</span><div><span class="overline">Interactive</span><h2 id="coneh">Cone of depression lab</h2><p>Pump a well and watch the drawdown spread. The calculation uses the Theis equation (1935), the standard solution for a well pumping a confined aquifer. Try a neighbor well to see interference.</p></div></div>
+      <div class="chip-row" id="conePresets" role="group" aria-label="Aquifer presets" style="margin-bottom:.9rem"></div>
+      <div class="tool-grid">
+        <div class="field"><label for="cQ">Pumping rate</label><div class="range-row"><input type="range" id="cQ" min="50" max="3000" step="50" value="600"><output id="cQo" for="cQ"></output></div></div>
+        <div class="field"><label for="cT">Transmissivity (ft²/day)</label><div class="range-row"><input type="range" id="cT" min="0" max="100" step="1" value="60"><output id="cTo" for="cT"></output></div><span class="hint">Mississippi aquifers range from about 5 to more than 84,000 ft²/day.</span></div>
+        <div class="field"><label for="cS">Storativity</label><div class="range-row"><input type="range" id="cS" min="0" max="100" step="1" value="30"><output id="cSo" for="cS"></output></div><span class="hint">Confined: about 0.00005–0.005. Unconfined (specific yield): about 0.05–0.3.</span></div>
+        <div class="field"><label for="cDays">Time pumping</label><div class="range-row"><input type="range" id="cDays" min="0" max="100" step="1" value="50"><output id="cDayso" for="cDays"></output></div></div>
+        <div class="field"><label for="cR">Distance to look at</label><div class="range-row"><input type="range" id="cR" min="0" max="100" step="1" value="40"><output id="cRo" for="cR"></output></div></div>
+        <div class="field"><label for="cN">Neighbor well at</label><div class="range-row"><input type="range" id="cN" min="0" max="100" step="1" value="0"><output id="cNo" for="cN"></output></div><span class="hint">0 = no neighbor. The neighbor pumps at the same rate.</span></div>
+      </div>
+      <div class="out-grid" id="coneOut" aria-live="polite"></div>
+      <div class="chart-box"><svg id="coneChart" viewBox="0 0 700 280" role="img" aria-label="Drawdown versus distance from the pumping well"></svg><div class="chart-legend"><span><i style="--c:#0f766e"></i>Your well</span><span><i style="--c:#c2410c"></i>With the neighbor well</span></div></div>
+      <div class="work" id="coneWork"></div>
+      <p class="tool-note">Theis assumes an aquifer that is uniform, infinite, and fully penetrated by the well, with no recharge during pumping. Real aquifers have boundaries and leakage, and the pumping well itself adds “well loss,” so the drawdown in the well is larger than the aquifer drawdown shown here.</p>
+    </section>
+
+    <section class="tool" id="velocity" data-toc="How fast does ground water move?" aria-labelledby="velh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">🐢</span><div><span class="overline">Interactive</span><h2 id="velh">How fast does ground water move?</h2><p>Darcy's law gives the flow; dividing by the effective porosity gives how fast the water itself travels. That speed sets wellhead protection zones: how long a spill takes to reach a well.</p></div></div>
+      <div class="chip-row" id="velPresets" role="group" aria-label="Material presets" style="margin-bottom:.9rem"></div>
+      <div class="tool-grid">
+        <div class="field"><label for="vK">Hydraulic conductivity K (ft/day)</label><input class="input" id="vK" type="number" min="0" step="any" value="50" inputmode="decimal"></div>
+        <div class="field"><label for="vI">Hydraulic gradient (ft per ft)</label><input class="input" id="vI" type="number" min="0" step="any" value="0.002" inputmode="decimal"><span class="hint">Water-level drop ÷ distance. 2 ft per 1,000 ft = 0.002.</span></div>
+        <div class="field"><label for="vN">Effective porosity</label><input class="input" id="vN" type="number" min="0.01" max="0.6" step="0.01" value="0.25" inputmode="decimal"></div>
+        <div class="field"><label for="vD">Distance to the well (ft)</label><input class="input" id="vD" type="number" min="1" step="any" value="1000" inputmode="decimal"></div>
+      </div>
+      <div class="out-grid" id="velOut" aria-live="polite"></div>
+      <div class="work" id="velWork"></div>
+    </section>
+
+    <section class="lesson-section" id="s4" aria-labelledby="s4h">
+      <h2 id="s4h"><span class="num">4</span> The Delta's alluvial aquifer: pressure and solutions</h2>
+      <p>The <strong>Mississippi River Valley alluvial aquifer</strong> (MRVA) underlies the whole Mississippi Alluvial Plain, which covers parts of seven states. In Mississippi that's the Delta: about <strong>7,000 square miles</strong> in all or parts of <strong>17 counties</strong>. It's sand and gravel laid down by the river, usually more than 75 feet thick, and capped by a layer of silt and clay.</p>
+      <p>It is the state's most heavily pumped aquifer, and about <strong>98 percent</strong> of what's pumped from it goes to agriculture: irrigating corn, soybeans, cotton, and rice, and filling catfish ponds. Across the whole alluvial plain, more than <strong>12 billion gallons a day</strong> are withdrawn on average.</p>
+      <p>Pumping has outpaced recharge in the central Delta, where a long-term cone of depression has formed. In the USGS spring 2024 water-level map, the lowest water-level altitude was about <strong>60 feet above sea level, in Sunflower County</strong>. Wet years in the mid-to-late 2010s slowed declines, and levels even rose in some areas, but the long-term trend there has been down.</p>
+      <h3>What's being done</h3>
+      <ul>
+        <li><strong>YMD</strong>, the Yazoo Mississippi Delta Joint Water Management District, was created in <strong>1989</strong> after the 1988 drought. It processes agricultural water-use permits (more than 25,000 of them), measures water levels, and promotes water-saving practices.</li>
+        <li><strong>The Delta Sustainable Water Resources Task Force</strong>, started by MDEQ in 2011 and formalized by executive order in 2014, brings together YMD, farm groups, the Army Corps, USGS, NRCS, and MDEQ.</li>
+        <li><strong>Farm practices</strong>: irrigation scheduling with soil moisture sensors, tailwater recovery ditches, on-farm storage reservoirs that catch runoff for later use (the first was installed in the Delta in 2010), land forming, and low-grade weirs.</li>
+        <li><strong>Managed aquifer recharge</strong>: near Shellmound, in Leflore County, a pilot study pumps water from wells beside the Tallahatchie River (bank filtration) and uses it to recharge the alluvial aquifer where levels have dropped.</li>
+        <li><strong>Mapping from the air</strong>: USGS flew airborne electromagnetic surveys over the Shellmound area in 2018 and over the whole alluvial plain in 2021–2022. The largest such survey ever flown in the U.S., it maps the sand, gravel, and clay underground so groundwater models are more accurate.</li>
+      </ul>
+      <p>The alluvial aquifer's water is usually <strong>hard to very hard</strong> and often high in <strong>iron and manganese</strong>, which limits its use for drinking water. Many Delta towns drill past it into deeper sands for their public supply.</p>
+    </section>
+
+    <section class="lesson-section" id="s5" aria-labelledby="s5h">
+      <h2 id="s5h"><span class="num">5</span> Mississippi v. Tennessee: who owns an aquifer?</h2>
+      <p>The <strong>Middle Claiborne aquifer</strong>, called the Sparta Sand in Mississippi and the Memphis Sand in Tennessee, lies under both states. Memphis's utility, Memphis Light, Gas and Water, pumps about <strong>120 million gallons a day</strong> from it, from wells entirely inside Tennessee. Mississippi sued, arguing the pumping pulled Mississippi-owned water across the state line and was a taking of state property.</p>
+      <p>On <strong>November 22, 2021</strong>, the U.S. Supreme Court ruled unanimously against Mississippi. Chief Justice Roberts wrote that the aquifer has a “multistate character.” Its water flows naturally between the states, and pumping in one state affects the aquifer in the other. So its water is subject to <strong>equitable apportionment</strong>, the same doctrine the Court uses to divide interstate rivers. A state doesn't own the part of an aquifer under its borders outright. Mississippi's complaint was dismissed without leave to amend. It was the first time the Court had applied equitable apportionment to ground water.</p>
+    </section>
+
+    <section class="lesson-section" id="s6" aria-labelledby="s6h">
+      <h2 id="s6h"><span class="num">6</span> Water quality in Mississippi's aquifers</h2>
+      <p>MDEQ's ground water assessments describe the overall quality of Mississippi's ground water as very good. The most notable natural issue is <strong>color</strong>: tea-colored water from dissolved organic matter in some aquifers. Common natural issues:</p>
+      <table>
+        <tr><th>Issue</th><th>Where it shows up</th><th>Typical treatment</th></tr>
+        <tr><td>Iron and manganese</td><td>The alluvial aquifer, the Meridian-upper Wilcox, and many others</td><td>Aeration or chemical oxidation, then filtration (such as greensand)</td></tr>
+        <tr><td>Hardness</td><td>The alluvial aquifer (often hard to very hard), and the Coffee Sand and Ripley in the northeast</td><td>Ion exchange or lime softening where needed</td></tr>
+        <tr><td>Color (tannins, humic material)</td><td>Some aquifers and parts of aquifers, especially sands near lignite or other buried plant material</td><td>Coagulation and filtration, oxidation, or anion exchange; watch DBP formation</td></tr>
+        <tr><td>Corrosiveness</td><td>Soft, low-pH, or low-alkalinity water, such as some Meridian-upper Wilcox supplies</td><td>pH and alkalinity adjustment, corrosion inhibitors</td></tr>
+        <tr><td>Hydrogen sulfide</td><td>Scattered deeper wells</td><td>Aeration, oxidation</td></tr>
+        <tr><td>Salty (mineralized) water</td><td>Down-dip, beyond the fresh water limit; chloride in the Sparta increases down-dip</td><td>Stay in the fresh zone; watch chloride trends</td></tr>
+      </table>
+      <p>Ground water also warms with depth, about 1°F per 100 feet in the operators manual's rule of thumb, so deep wells deliver noticeably warm water.</p>
+    </section>
+
+    <section class="lesson-section" id="s7" aria-labelledby="s7h">
+      <h2 id="s7h"><span class="num">7</span> Who manages and protects ground water</h2>
+      <table>
+        <tr><th>Who</th><th>What they do</th></tr>
+        <tr><td><strong>MDEQ Office of Land and Water Resources</strong></td><td>Issues ground water and surface water withdrawal permits (required for wells with a surface casing 6 inches or larger; a single household's domestic well is exempt), licenses water well contractors, maps aquifers, and tracks water levels.</td></tr>
+        <tr><td><strong>MSDH Bureau of Public Water Supply</strong></td><td>Approves public supply wells, sets construction and disinfection requirements, and runs source water protection.</td></tr>
+        <tr><td><strong>YMD</strong></td><td>Agricultural water permits and water-level monitoring in the Delta.</td></tr>
+        <tr><td><strong>USGS Lower Mississippi-Gulf Water Science Center</strong></td><td>Long-term water-level networks, aquifer studies, and groundwater models such as the Mississippi Embayment Regional Aquifer Study (MERAS) model.</td></tr>
+      </table>
+      <p><strong>What operators can do:</strong> measure static and pumping levels on a schedule; track specific capacity; keep wellheads sealed and the ground around them clean; plug abandoned wells properly, since an open old well is a direct pipe into the aquifer; and support wellhead protection with local officials.</p>
+    </section>
+
+    <section class="key-numbers" id="numbers" data-toc="Numbers to memorize" aria-labelledby="numbersh">
+      <h2 id="numbersh">📌 Numbers Greg wants you to memorize</h2>
+      <ul>
+        <li>About <strong>88%</strong> of the water used by Mississippi public water systems is ground water (operators manual).</li>
+        <li><strong>16</strong> major aquifers (MDEQ); the manual counts <strong>15</strong> principal freshwater aquifers.</li>
+        <li>Fresh water generally ends where dissolved solids pass about <strong>1,000 mg/L</strong>.</li>
+        <li>Permit needed for wells with a surface casing of <strong>6 inches</strong> or more.</li>
+        <li>The Delta alluvial plain is about <strong>7,000 mi²</strong>; about <strong>98%</strong> of alluvial-aquifer pumping goes to agriculture.</li>
+        <li><em>Mississippi v. Tennessee</em>, <strong>November 22, 2021</strong>: aquifers are subject to equitable apportionment.</li>
+        <li>Darcy velocity <strong>v = K × i</strong>; the water's actual speed is <strong>K × i ÷ porosity</strong>.</li>
+        <li>Theis: <strong>s = Q ÷ (4πT) × W(u)</strong>, with <strong>u = r²S ÷ (4Tt)</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="lesson-block" id="terms" data-toc="Key terms" aria-labelledby="termsh">
+      <div class="block-head"><span class="overline">Key terms</span><h2 id="termsh">Words to know</h2><p>Plain-language definitions from the LearnWater glossary.</p></div>
+      <div class="kt" id="keyTerms"></div>
+      <p class="block-foot"><a href="adult-learning-center.html#glossary:aq">Open these terms in the full glossary →</a></p>
+    </section>
+
+    <section class="lesson-block" id="check" data-toc="Check yourself" aria-labelledby="checkh">
+      <div class="block-head"><span class="overline">Check yourself</span><h2 id="checkh">Quick check: 5 questions</h2><p>Random questions about Mississippi's aquifers. Each round draws a new set.</p></div>
+      <div id="checkQuiz"></div>
+    </section>
+
+    <section class="lesson-block" id="ask" data-toc="Ask Greg" aria-labelledby="askh">
+      <div class="block-head"><span class="overline">Ask Greg</span><h2 id="askh">Questions about aquifers?</h2><p>Greg knows every aquifer on this page and the groundwater science behind them. He answers right in your browser.</p></div>
+      <div class="lesson-chat" id="deepChat"></div>
+    </section>
+
+    <section class="lesson-block" id="sources" data-toc="Sources" aria-labelledby="srch">
+      <div class="block-head"><span class="overline">Sources</span><h2 id="srch">Where this comes from</h2><p>USGS and MDEQ reports, plus the court's opinion. Many USGS aquifer reports are decades old; newer data may differ.</p></div>
+      <ul class="sources">
+        <li><a href="https://www.mdeq.ms.gov/wp-content/uploads/2025/04/305b_report_2025_final.pdf" target="_blank" rel="noopener">MDEQ — State of Mississippi Ground Water Quality Assessment (2025)</a></li>
+        <li><a href="https://www.mdeq.ms.gov/water/water-availability-and-use/water-resource-management/" target="_blank" rel="noopener">MDEQ — Water Resources Management</a> and <a href="https://www.mdeq.ms.gov/permits/water-availability-and-use/forms/groundwater-permit-guidance/" target="_blank" rel="noopener">groundwater permit guidance</a></li>
+        <li><a href="https://www.mdeq.ms.gov/water/water-availability-and-use/delta-sustainable-water-resources-task-force/" target="_blank" rel="noopener">MDEQ — Delta Sustainable Water Resources Task Force</a></li>
+        <li><a href="https://pubs.usgs.gov/ha/ha730/ch_f/F-text4.html" target="_blank" rel="noopener">USGS — Ground Water Atlas, Mississippi embayment aquifer system</a></li>
+        <li><a href="https://pubs.usgs.gov/publication/sim3555/full" target="_blank" rel="noopener">USGS — Potentiometric surface of the alluvial aquifer, spring 2024 (SIM 3555)</a></li>
+        <li><a href="https://pubs.usgs.gov/publication/sir20235100/full" target="_blank" rel="noopener">USGS — Simulating groundwater flow in the Mississippi Alluvial Plain (SIR 2023-5100)</a></li>
+        <li><a href="https://www.usgs.gov/centers/lower-mississippi-gulf-water-science-center/science/mississippi-alluvial-plain-map-water-0" target="_blank" rel="noopener">USGS — Mississippi Alluvial Plain water availability project</a></li>
+        <li><a href="https://pubs.usgs.gov/publication/wri874172" target="_blank" rel="noopener">USGS — Miocene aquifer system in the Mississippi Gulf Coast area</a></li>
+        <li><a href="https://www.usgs.gov/publications/hydrogeology-and-simulation-ground-water-flow-eutaw-mcshan-aquifer-and-tuscaloosa" target="_blank" rel="noopener">USGS — Eutaw-McShan aquifer and Tuscaloosa aquifer system in northeastern Mississippi</a></li>
+        <li><a href="https://www.ymd.org/history" target="_blank" rel="noopener">YMD — History</a></li>
+        <li><a href="https://www.scotusblog.com/cases/case-files/mississippi-v-tennessee" target="_blank" rel="noopener">SCOTUSblog — Mississippi v. Tennessee case file</a></li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>Figures come from published USGS, MDEQ, and MSDH sources; many are from older studies. Check current data with MDEQ and USGS.</p>
+    <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+  </div>
+</footer>
+
+<script>
+  var DEEP_TAG = 'aq';
+  var DEEP_PROMPTS = ["What is the Mississippi River Valley alluvial aquifer?", "Tell me about the Sparta aquifer", "What was Mississippi v. Tennessee about?"];
+  var DEEP_INTRO = "Ask me about any Mississippi aquifer, from the Delta's alluvial aquifer to the Miocene sands on the coast, or about groundwater science like transmissivity, Darcy's law, and the Theis equation.";
+</script>
+<script src="js/site.js"></script>
+<script src="js/greg-engine.js"></script>
+<script src="js/glossary-adult.js"></script>
+<script src="js/greg-adult-kb.js"></script>
+<script src="js/greg-adult-brain.js"></script>
+<script src="js/greg-adult-ui.js"></script>
+<script src="js/aquifers.js"></script>
+<script src="js/deep-common.js"></script>
+</body>
+</html>

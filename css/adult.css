@@ -166,6 +166,27 @@ body.academy { background: var(--mist); }
 .next-up .nu-text span { color: var(--muted); font-size: .92rem; }
 
 .ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.25rem; }
+
+/* Deep dives: aquifers, modeling, regulations */
+.deep-dives { margin-top: 2.25rem; }
+.dd-head { margin-bottom: 1rem; }
+.dd-head h3 { font-size: 1.35rem; margin: .15rem 0 .3rem; color: var(--abyss); }
+.dd-head p { margin: 0; color: var(--muted); }
+.dd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1rem; }
+.dd-card {
+  position: relative; display: flex; align-items: flex-start; gap: .9rem;
+  background: var(--white); border: 1px solid var(--line-2); border-left: 5px solid var(--c, var(--tide));
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 1.1rem 1.15rem;
+  color: inherit; text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.dd-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); text-decoration: none; }
+.dd-card:focus-visible { outline: 3px solid var(--c, var(--tide)); outline-offset: 2px; }
+.dd-icon { width: 46px; height: 46px; flex-shrink: 0; display: grid; place-items: center; font-size: 1.45rem; border-radius: 12px; background: var(--t, var(--foam)); }
+.dd-text { flex: 1; display: flex; flex-direction: column; gap: .25rem; min-width: 0; }
+.dd-text strong { font-family: var(--font-display); font-size: 1.08rem; color: var(--abyss); }
+.dd-text span { color: var(--muted); font-size: .9rem; line-height: 1.5; }
+.dd-arrow { font-weight: 700; color: var(--c, var(--tide)); align-self: center; transition: transform .2s; }
+.dd-card:hover .dd-arrow { transform: translateX(4px); }
 .ch-card {
   position: relative; display: flex; flex-direction: column; gap: .7rem;
   background: var(--white); border: 1px solid var(--line-2); border-radius: var(--radius-lg);

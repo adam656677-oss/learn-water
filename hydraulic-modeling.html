@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Hydraulic modeling of water distribution systems: how models are built, how the solver works, demands and patterns, pumps and tanks, water quality, calibration, fire flow, and water hammer. Includes a live network model you can run in your browser.">
+<title>Hydraulic Modeling of Water Systems | LearnWater</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/public-sans-normal-400-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/adult.css">
+<link rel="stylesheet" href="css/lessons.css">
+<link rel="stylesheet" href="css/deep.css">
+</head>
+<body class="lesson-page deep-page" style="--theme:#6d28d9; --theme-dark:#3b0764; --theme-tint:#f1ebfd;">
+<a class="skip-link" href="#lesson">Skip to the content</a>
+
+<nav class="site-nav" aria-label="Main">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater<span class="brand-tag">Operator Study</span></a>
+    <button class="nav-toggle" type="button" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="kids.html">Kids Corner</a></li>
+      <li><a href="adult-learning-center.html" aria-current="page">Adult Learning</a></li>
+      <li><a href="regulations.html">Regulations</a></li>
+      <li><a href="updates.html">App Updates</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="read-progress" aria-hidden="true"><i id="readBar"></i></div>
+
+<header class="lesson-hero">
+  <div class="motif" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="white" stroke-width="6"><path d="M30 50 H100 V150 H170 M100 50 H170 V150 M30 50 V150 H100"/></g><g fill="white"><circle cx="30" cy="50" r="12"/><circle cx="100" cy="50" r="12"/><circle cx="170" cy="50" r="12"/><circle cx="30" cy="150" r="12"/><circle cx="100" cy="150" r="12"/><circle cx="170" cy="150" r="12"/></g></svg></div>
+  <div class="container lesson-hero-inner">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="adult-learning-center.html">Adult Learning Center</a><span aria-hidden="true">/</span><span>Deep dive</span></nav>
+    <div class="chapter-kicker">Distribution system engineering</div>
+    <h1><span class="hero-icon" aria-hidden="true">🕸️</span><span>Hydraulic Modeling</span></h1>
+    <p class="dek">How engineers build computer models of water distribution systems, and a working model you can run right here. Change the demand, open a hydrant, upsize a pipe, close a valve, and watch the pressures respond.</p>
+    <div class="hero-meta"><span>Live network solver</span><span>Fire flow at 20 psi</span><span>Pumps, tanks &amp; 24-hour simulation</span><span>Calibration &amp; field tests</span></div>
+    <div class="hero-cta">
+      <a class="btn btn-white" href="#lab">Open the model lab</a>
+      <a class="btn btn-light-outline" href="#pipe">Pipe calculator</a>
+    </div>
+  </div>
+  <div class="hero-waves" aria-hidden="true">
+    <svg class="w1" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 45 C240 85 480 5 720 45 C960 85 1200 5 1440 45 C1680 85 1920 5 2160 45 C2400 85 2640 5 2880 45 L2880 90 L0 90 Z" fill="#8fe3ee"/></svg>
+    <svg class="w2" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 55 C240 25 480 85 720 55 C960 25 1200 85 1440 55 C1680 25 1920 85 2160 55 C2400 25 2640 85 2880 55 L2880 90 L0 90 Z" fill="#27c1d4"/></svg>
+    <svg class="w3" viewBox="0 0 2880 90" preserveAspectRatio="none"><path d="M0 64 C240 82 480 46 720 64 C960 82 1200 46 1440 64 C1680 82 1920 46 2160 64 C2400 82 2640 46 2880 64 L2880 90 L0 90 Z" fill="#f3f7fa"/></svg>
+  </div>
+</header>
+
+<div class="container lesson-layout">
+  <aside class="lesson-toc" aria-label="On this page">
+    <span class="toc-title">On this page</span>
+    <ol id="toc"></ol>
+  </aside>
+
+  <main class="lesson-main" id="lesson">
+    <div class="greg-take">
+      <span class="greg-avatar" data-greg-avatar></span>
+      <div><h2>Greg's take on hydraulic modeling</h2><p>A hydraulic model is your distribution system on a computer: every pipe, pump, valve, and tank, plus the demands on them. It answers “what if” questions you can't safely test on the real system. Will a new subdivision have enough pressure? Can this hydrant deliver fire flow? What happens if this main breaks? The math is two ideas repeated thousands of times: water in equals water out at every junction, and energy is lost to friction in every pipe.</p></div>
+    </div>
+
+    <section class="lesson-section" id="s1" aria-labelledby="s1h">
+      <h2 id="s1h"><span class="num">1</span> What a hydraulic model is, and why utilities use one</h2>
+      <p>A distribution system model calculates the <strong>flow in every pipe</strong> and the <strong>pressure at every junction</strong> for a given set of demands, tank levels, pump settings, and valve positions. Utilities use models to:</p>
+      <ul>
+        <li><strong>Plan:</strong> size new mains, tanks, and pump stations; check whether the system can serve growth (master planning).</li>
+        <li><strong>Protect against fire:</strong> find how much fire flow each hydrant can deliver while pressures stay at or above 20 psi.</li>
+        <li><strong>Operate:</strong> set pump schedules, tank levels, and pressure zone boundaries; save energy.</li>
+        <li><strong>Prepare for emergencies:</strong> simulate a main break, a pump failure, or a tank out of service, and plan valve isolations.</li>
+        <li><strong>Protect water quality:</strong> estimate water age, chlorine decay, and where each source's water goes.</li>
+        <li><strong>Prioritize replacement:</strong> find the undersized, rough, or critical mains that matter most.</li>
+      </ul>
+      <p>The most widely used engine is <strong>EPANET</strong>, free public-domain software from the U.S. EPA, first released in 1993. EPANET 2.2 (2020) added pressure-driven analysis, and EPANET 2.3 (July 2025) added a positional control valve, a pressure-dependent leakage model, and the ability to turn controls on and off. Commercial packages add GIS tools, scenario managers, and optimization on top of the same basic hydraulic equations.</p>
+    </section>
+
+    <section class="lesson-section" id="s2" aria-labelledby="s2h">
+      <h2 id="s2h"><span class="num">2</span> The building blocks: nodes and links</h2>
+      <table>
+        <tr><th>Component</th><th>What it represents</th><th>Key data</th></tr>
+        <tr><td><strong>Junction</strong> (node)</td><td>A point where pipes meet or water is used</td><td>Elevation, demand, demand pattern</td></tr>
+        <tr><td><strong>Reservoir</strong> (node)</td><td>A fixed-head source: a lake, a well field treated as infinite, or a connection to another system</td><td>Hydraulic grade (head)</td></tr>
+        <tr><td><strong>Tank</strong> (node)</td><td>Storage whose level rises and falls over time</td><td>Bottom elevation, diameter or volume curve, minimum, maximum, and starting levels</td></tr>
+        <tr><td><strong>Pipe</strong> (link)</td><td>A main, service, or transmission line</td><td>Length, diameter, roughness (C factor), minor loss, status (open, closed, check valve)</td></tr>
+        <tr><td><strong>Pump</strong> (link)</td><td>Adds energy (head) to the water</td><td>Head-flow curve, efficiency curve, speed, on/off controls</td></tr>
+        <tr><td><strong>Valve</strong> (link)</td><td>Controls pressure or flow</td><td>Type and setting: PRV (pressure reducing), PSV (pressure sustaining), PBV (pressure breaker), FCV (flow control), TCV (throttle control), GPV (general purpose)</td></tr>
+      </table>
+      <p>Two numbers describe the water's energy at any point. <strong>Hydraulic grade</strong> (head) is the elevation plus the pressure head, the level water would rise to in a standpipe. <strong>Pressure</strong> is the difference between the hydraulic grade and the ground elevation: <strong>psi = (HGL − elevation) × 0.433</strong>. A junction on a hill has less pressure than one in a valley, even with the same hydraulic grade.</p>
+      <aside class="exam-watch" aria-label="Exam watch: head and pressure">
+        <span class="ew-icon" aria-hidden="true">!</span>
+        <div><strong>Exam watch · Head and pressure</strong><p>1 psi = <strong>2.31 ft</strong> of water; 1 ft of water = <strong>0.433 psi</strong>. A tank whose water surface is 150 ft above a house gives about 150 × 0.433 = <strong>65 psi</strong> at that house, before friction losses.</p></div>
+      </aside>
+    </section>
+
+    <section class="lesson-section" id="s3" aria-labelledby="s3h">
+      <h2 id="s3h"><span class="num">3</span> Demands and patterns</h2>
+      <p>Getting demand right matters as much as getting the pipes right. Modelers usually start from <strong>billing or meter data</strong>, assign each customer's use to the nearest junction (demand allocation), and add non-revenue water such as leakage. Then they apply multipliers:</p>
+      <dl class="facts">
+        <dt>ADD</dt><dd>Average day demand: total annual production ÷ 365.</dd>
+        <dt>MDD</dt><dd>Maximum day demand: the highest single day of the year, often summer. It's typically expressed as a multiple of ADD, and fire flow is usually analyzed on top of it.</dd>
+        <dt>PHD</dt><dd>Peak hour demand: the highest hour, usually on the maximum day. It controls minimum pressures in normal operation.</dd>
+        <dt>Diurnal pattern</dt><dd>Hourly multipliers that shape demand through a day: low overnight, a morning peak, and an evening peak.</dd>
+      </dl>
+      <p>Peaking factors vary widely. Small systems and residential areas usually have sharper peaks than large systems with industry. The best factors come from your own production records and SCADA data. For fire protection, many communities use the International Fire Code's Appendix B, which sets fire flow by building size and construction. For one- and two-family homes up to 3,600 square feet, it's 1,000 gpm for one hour.</p>
+    </section>
+
+    <section class="lesson-section" id="s4" aria-labelledby="s4h">
+      <h2 id="s4h"><span class="num">4</span> The physics: mass, energy, and friction</h2>
+      <p>Every hydraulic model solves two sets of equations at once:</p>
+      <ol>
+        <li><strong>Conservation of mass at each junction:</strong> flow in − flow out = demand.</li>
+        <li><strong>Conservation of energy along each pipe:</strong> the head at one end minus the head at the other equals the head lost to friction (plus minor losses, minus any pump head).</li>
+      </ol>
+      <h3>Head loss equations</h3>
+      <table>
+        <tr><th>Equation</th><th>Form (US units)</th><th>Notes</th></tr>
+        <tr><td><strong>Hazen-Williams</strong> (1905)</td><td>h<sub>f</sub> = 10.44 × L × Q<sup>1.852</sup> ÷ (C<sup>1.852</sup> × d<sup>4.87</sup>)<br><span class="fine">h<sub>f</sub> and L in ft, Q in gpm, d in inches</span></td><td>The standard in U.S. water distribution. C is a roughness factor: about 150 for new PVC, 130–140 for new cement-lined ductile iron, and much lower for old unlined cast iron.</td></tr>
+        <tr><td><strong>Darcy-Weisbach</strong></td><td>h<sub>f</sub> = f × (L ÷ D) × V² ÷ 2g</td><td>Physically based and valid for any fluid and temperature. The friction factor f depends on Reynolds number and relative roughness (Moody diagram, Colebrook equation, or the Swamee-Jain approximation).</td></tr>
+        <tr><td><strong>Minor losses</strong></td><td>h<sub>m</sub> = K × V² ÷ 2g</td><td>Bends, tees, valves, meters. Small in long mains, but important in pump stations.</td></tr>
+      </table>
+      <p>Notice the exponents. Head loss rises with flow to the <strong>1.85 power</strong>, so doubling the flow multiplies the head loss by about 3.6. It falls with diameter to the <strong>4.87 power</strong>, so going from a 6-inch to a 12-inch main cuts head loss at the same flow by about 29 times. That's why small, old mains are where pressure problems start.</p>
+      <p>The <strong>Reynolds number</strong>, Re = V × D ÷ ν, tells whether flow is laminar (below about 2,000) or turbulent (above about 4,000). Flow in distribution mains is almost always turbulent.</p>
+    </section>
+
+    <section class="tool" id="pipe" data-toc="Pipe calculator" aria-labelledby="pipeh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">📏</span><div><span class="overline">Interactive</span><h2 id="pipeh">Pipe calculator</h2><p>Velocity, head loss, and pressure drop for one pipe, by both Hazen-Williams and Darcy-Weisbach. Or enter a measured head loss to back-calculate the C factor, the way a field C-factor test does.</p></div></div>
+      <div class="chip-row" id="pipeMat" role="group" aria-label="Pipe material presets" style="margin-bottom:.9rem"></div>
+      <div class="tool-grid">
+        <div class="field"><label for="pQ">Flow (gpm)</label><input class="input" id="pQ" type="number" min="0" step="any" value="500" inputmode="decimal"></div>
+        <div class="field"><label for="pD">Inside diameter (in)</label><input class="input" id="pD" type="number" min="0.5" step="any" value="8" inputmode="decimal"></div>
+        <div class="field"><label for="pL">Length (ft)</label><input class="input" id="pL" type="number" min="1" step="any" value="1000" inputmode="decimal"></div>
+        <div class="field"><label for="pC">Hazen-Williams C</label><input class="input" id="pC" type="number" min="20" max="160" step="any" value="130" inputmode="decimal"></div>
+        <div class="field"><label for="pE">Roughness ε (ft)</label><input class="input" id="pE" type="number" min="0" step="any" value="0.00085" inputmode="decimal"></div>
+        <div class="field"><label for="pT">Water temperature (°F)</label><input class="input" id="pT" type="number" min="33" max="100" step="1" value="65" inputmode="decimal"></div>
+        <div class="field"><label for="pK">Sum of minor-loss K</label><input class="input" id="pK" type="number" min="0" step="any" value="0" inputmode="decimal"><span class="hint">e.g., open gate valve ≈ 0.2, 90° elbow ≈ 0.3–0.9</span></div>
+        <div class="field"><label for="pH">Measured head loss (ft), optional</label><input class="input" id="pH" type="number" min="0" step="any" value="" placeholder="to solve for C" inputmode="decimal"></div>
+      </div>
+      <div class="out-grid" id="pipeOut" aria-live="polite"></div>
+      <div class="work" id="pipeWork"></div>
+      <div class="ask-row"><button class="ask-chip" type="button" data-ask="Why use Darcy-Weisbach instead of Hazen-Williams?">Hazen-Williams or Darcy-Weisbach?</button><button class="ask-chip" type="button" data-ask="How do you run a C-factor test?">How is a C-factor test done?</button></div>
+    </section>
+
+    <section class="lesson-section" id="s5" aria-labelledby="s5h">
+      <h2 id="s5h"><span class="num">5</span> How the solver works</h2>
+      <p>A network with loops can't be solved one pipe at a time: the flow in each pipe depends on the heads at its ends, and the heads depend on all the flows. Engineers first solved looped networks by hand with the <strong>Hardy Cross method</strong> (1936): guess the flows, correct each loop until the head losses around it add to zero, and repeat.</p>
+      <p>Modern software uses Newton-type methods that solve for every flow and head at once. EPANET uses the <strong>gradient method</strong> of Todini and Pilati (late 1980s):</p>
+      <ol>
+        <li>Guess a flow in every pipe.</li>
+        <li>Straighten (linearize) each pipe's head-loss curve at the current flow.</li>
+        <li>Solve one sparse linear system for all junction heads at once.</li>
+        <li>Update every pipe's flow from the new heads, and repeat until the changes are tiny (usually a handful of iterations).</li>
+      </ol>
+      <p>The model lab below runs this same method in your browser: every time you change something, it solves the network from scratch.</p>
+    </section>
+
+    <section class="tool" id="lab" data-toc="Model lab" aria-labelledby="labh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">🧪</span><div><span class="overline">Interactive · live solver</span><h2 id="labh">Model lab: a small town's water system</h2><p>An elevated tank feeds eight junctions through eleven pipes. Tap a junction to put a fire hydrant there, or tap a pipe to resize, roughen, or close it. The model re-solves instantly.</p></div></div>
+      <div class="lab-layout">
+        <div>
+          <div class="net-box"><svg id="net" viewBox="0 0 640 400" role="group" aria-label="Network diagram: tap junctions and pipes to select them"></svg>
+            <div class="net-legend"><span><i style="background:#16a34a"></i>35+ psi</span><span><i style="background:#f59e0b"></i>20–35 psi</span><span><i style="background:#dc2626"></i>under 20 psi</span><span><i style="background:#9ca3af"></i>no water</span><span>Pipe color = velocity</span></div>
+          </div>
+          <ul class="lab-issues" id="labIssues" aria-live="polite" style="margin-top:.8rem"></ul>
+        </div>
+        <div class="lab-controls">
+          <div class="lab-card"><h3>Demand condition</h3><div class="seg" role="radiogroup" aria-label="Demand condition" id="labDemand">
+            <button type="button" role="radio" aria-checked="false" data-m="1">Average day</button>
+            <button type="button" role="radio" aria-checked="true" data-m="1.8">Max day ×1.8</button>
+            <button type="button" role="radio" aria-checked="false" data-m="3">Peak hour ×3</button></div>
+            <p class="fine" style="margin:.5rem 0 0">Base demand is 520 gpm. The multipliers are examples; every system has its own.</p></div>
+          <div class="lab-card"><h3>Fire flow at <span id="labFireNode">J8</span></h3>
+            <div class="range-row"><label for="labFire" class="sr-only">Fire flow</label><input type="range" id="labFire" min="0" max="3000" step="50" value="750"><output id="labFireO" for="labFire"></output></div>
+            <p class="fine" id="labAvail" style="margin:.4rem 0 0" aria-live="polite"></p></div>
+          <div class="lab-card"><h3>Tank water level (HGL)</h3>
+            <div class="range-row"><label for="labTank" class="sr-only">Tank water level</label><input type="range" id="labTank" min="330" max="400" step="1" value="390"><output id="labTankO" for="labTank"></output></div></div>
+          <div class="lab-card" id="labPipeCard"><h3>Selected pipe: <span id="labPipeName">P11</span></h3>
+            <div class="tool-grid" style="margin:0;grid-template-columns:1fr 1fr">
+              <div class="field"><label for="labDia">Diameter</label><select class="select" id="labDia"><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option><option>16</option></select></div>
+              <div class="field"><label for="labStatus">Status</label><select class="select" id="labStatus"><option value="open">Open</option><option value="closed">Closed (valve shut)</option></select></div>
+            </div>
+            <div class="field" style="margin-top:.6rem"><label for="labC">C factor</label><div class="range-row"><input type="range" id="labC" min="40" max="150" step="5" value="70"><output id="labCO" for="labC"></output></div></div>
+          </div>
+          <button class="btn btn-soft btn-sm" type="button" id="labReset">Reset the model</button>
+        </div>
+      </div>
+      <details style="margin-top:1rem"><summary class="fine" style="cursor:pointer;font-weight:700">Show the full results tables</summary>
+        <div class="table-wrap"><table class="data-table lab-table"><thead><tr><th>Junction</th><th>Elev (ft)</th><th>Demand (gpm)</th><th>Head (ft)</th><th>Pressure (psi)</th></tr></thead><tbody id="labNodes"></tbody></table></div>
+        <div class="table-wrap"><table class="data-table lab-table"><thead><tr><th>Pipe</th><th>Dia (in)</th><th>C</th><th>Flow (gpm)</th><th>Velocity (ft/s)</th><th>Loss (ft/1,000 ft)</th></tr></thead><tbody id="labPipes"></tbody></table></div>
+      </details>
+      <p class="tool-note" id="labSolve"></p>
+      <div class="ask-row"><button class="ask-chip" type="button" data-ask="What pressure is required during fire flow?">What pressure is required during fire flow?</button><button class="ask-chip" type="button" data-ask="Why does a 4-inch main limit fire flow?">Why do small mains limit fire flow?</button></div>
+    </section>
+
+    <section class="lesson-section" id="s6" aria-labelledby="s6h">
+      <h2 id="s6h"><span class="num">6</span> Pumps, system curves, and energy</h2>
+      <p>A <strong>pump curve</strong> shows the head a pump adds at each flow: highest at shutoff and falling as flow increases. A <strong>system curve</strong> shows the head the system needs: the static lift (the elevation difference the pump must overcome) plus friction, which rises with flow to about the 1.85 power. The pump runs where the two curves cross, the <strong>operating point</strong>.</p>
+      <ul>
+        <li><strong>Affinity laws</strong> for a change in speed: flow changes with speed, head with speed squared, and power with speed cubed. Slowing a pump 20% cuts its power by nearly half (0.8³ = 0.51).</li>
+        <li><strong>Parallel pumps</strong> add flow at the same head; <strong>series pumps</strong> add head at the same flow. A second pump in parallel rarely doubles the flow, because the system curve rises.</li>
+        <li>Pumps are most efficient near their <strong>best efficiency point (BEP)</strong>. Running far to the left or right of it wastes energy and wears the pump.</li>
+        <li><strong>Wire-to-water efficiency</strong> is the pump efficiency times the motor efficiency (and the drive efficiency with a variable speed drive).</li>
+      </ul>
+    </section>
+
+    <section class="tool" id="pump" data-toc="Pump & system curve lab" aria-labelledby="pumph">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">⚙️</span><div><span class="overline">Interactive</span><h2 id="pumph">Pump and system curve lab</h2><p>Find the operating point, then change the speed or add a second pump in parallel. The efficiency curve here is a simple illustrative shape, not a real pump's.</p></div></div>
+      <div class="tool-grid">
+        <div class="field"><label for="uHs">Static lift (ft)</label><input class="input" id="uHs" type="number" step="any" value="120" inputmode="decimal"></div>
+        <div class="field"><label for="uL">Discharge main length (ft)</label><input class="input" id="uL" type="number" min="1" step="any" value="4000" inputmode="decimal"></div>
+        <div class="field"><label for="uD">Main diameter (in)</label><input class="input" id="uD" type="number" min="1" step="any" value="10" inputmode="decimal"></div>
+        <div class="field"><label for="uC">Main C factor</label><input class="input" id="uC" type="number" min="20" max="160" step="any" value="120" inputmode="decimal"></div>
+        <div class="field"><label for="uH0">Pump shutoff head (ft)</label><input class="input" id="uH0" type="number" min="1" step="any" value="230" inputmode="decimal"></div>
+        <div class="field"><label for="uQd">Rated flow (gpm)</label><input class="input" id="uQd" type="number" min="1" step="any" value="1000" inputmode="decimal"></div>
+        <div class="field"><label for="uHd">Rated head (ft)</label><input class="input" id="uHd" type="number" min="1" step="any" value="185" inputmode="decimal"></div>
+        <div class="field"><label for="uEff">Best efficiency (%)</label><input class="input" id="uEff" type="number" min="10" max="95" step="any" value="78" inputmode="decimal"></div>
+        <div class="field"><label for="uCost">Power cost ($/kWh)</label><input class="input" id="uCost" type="number" min="0" step="any" value="0.12" inputmode="decimal"></div>
+      </div>
+      <div class="tool-grid" style="grid-template-columns:minmax(0,2fr) minmax(0,1fr)">
+        <div class="field"><label for="uS">Pump speed (variable speed drive)</label><div class="range-row"><input type="range" id="uS" min="50" max="100" step="1" value="100"><output id="uSo" for="uS"></output></div></div>
+        <div class="field"><span class="label" id="uNl">Pumps running</span><div class="seg" role="radiogroup" aria-labelledby="uNl" id="uN"><button type="button" role="radio" aria-checked="true" data-n="1">1</button><button type="button" role="radio" aria-checked="false" data-n="2">2 parallel</button></div></div>
+      </div>
+      <div class="out-grid" id="pumpOut" aria-live="polite"></div>
+      <div class="chart-box"><svg id="pumpChart" viewBox="0 0 700 300" role="img" aria-label="Pump curve, system curve, and operating point"></svg><div class="chart-legend"><span><i style="--c:#6d28d9"></i>Pump curve</span><span><i style="--c:#0e7490"></i>System curve</span><span><i style="--c:#d97706"></i>Efficiency (illustrative)</span></div></div>
+      <div class="work" id="pumpWork"></div>
+    </section>
+
+    <section class="lesson-section" id="s7" aria-labelledby="s7h">
+      <h2 id="s7h"><span class="num">7</span> Extended period simulation: tanks and controls over time</h2>
+      <p>A <strong>steady-state</strong> run is a snapshot: one set of demands and tank levels. An <strong>extended period simulation (EPS)</strong> runs a series of snapshots, often every hour for 24 hours to a week. Between steps, each tank's level changes by the net flow in or out, and <strong>controls</strong> switch pumps and valves (“start Pump 1 when Tank A drops below 18 ft”).</p>
+      <p>EPS answers questions a snapshot can't: Do the tanks refill overnight? How many times a day does each pump start? Is a tank turning over enough to keep its water fresh? What will the energy bill be? Storage is usually sized for three jobs: <strong>equalization</strong> (covering peak hours so the plant and wells can run steadily), <strong>fire reserve</strong>, and <strong>emergency</strong> supply.</p>
+    </section>
+
+    <section class="tool" id="eps" data-toc="24-hour tank simulator" aria-labelledby="epsh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">⏱️</span><div><span class="overline">Interactive · EPS</span><h2 id="epsh">48-hour tank and well simulator</h2><p>A well pump fills an elevated tank that serves a town with a typical daily demand pattern. The pump starts and stops on tank level. Change the settings and watch two days play out.</p></div></div>
+      <div class="tool-grid">
+        <div class="field"><label for="eQ">Average demand (gpm)</label><input class="input" id="eQ" type="number" min="1" step="any" value="350" inputmode="decimal"></div>
+        <div class="field"><label for="eP">Well pump rate (gpm)</label><input class="input" id="eP" type="number" min="1" step="any" value="700" inputmode="decimal"></div>
+        <div class="field"><label for="eD">Tank diameter (ft)</label><input class="input" id="eD" type="number" min="5" step="any" value="40" inputmode="decimal"></div>
+        <div class="field"><label for="eMax">Overflow level (ft)</label><input class="input" id="eMax" type="number" min="5" step="any" value="35" inputmode="decimal"></div>
+        <div class="field"><label for="eOn">Pump ON below (ft)</label><input class="input" id="eOn" type="number" min="0" step="any" value="18" inputmode="decimal"></div>
+        <div class="field"><label for="eOff">Pump OFF above (ft)</label><input class="input" id="eOff" type="number" min="0" step="any" value="30" inputmode="decimal"></div>
+      </div>
+      <p class="fine" style="margin:0 0 .3rem">Demand pattern (hourly multipliers, midnight to midnight):</p>
+      <div class="pattern-bars" id="ePattern" aria-hidden="true"></div>
+      <div class="out-grid" id="epsOut" aria-live="polite"></div>
+      <div class="chart-box"><svg id="epsChart" viewBox="0 0 700 280" role="img" aria-label="Tank level and pump status over 48 hours"></svg><div class="chart-legend"><span><i style="--c:#0e7490"></i>Tank level</span><span><i style="--c:#c4b5fd"></i>Pump running</span></div></div>
+    </section>
+
+    <section class="lesson-section" id="s8" aria-labelledby="s8h">
+      <h2 id="s8h"><span class="num">8</span> Water quality modeling</h2>
+      <p>Once the flows are known, a model can track what the water carries:</p>
+      <ul>
+        <li><strong>Water age:</strong> how long water has been in the system since it left the source. Old water loses its disinfectant residual and forms more disinfection byproducts. Dead ends and oversized or poorly mixed tanks are the usual culprits.</li>
+        <li><strong>Source trace:</strong> what percent of the water at each node came from each well or plant, which is useful when sources have different chemistry.</li>
+        <li><strong>Chlorine decay:</strong> usually modeled as first-order, C = C₀ × e<sup>−kt</sup>. EPANET splits the rate into a <strong>bulk</strong> coefficient (reactions in the water itself, measured in a bottle test) and a <strong>wall</strong> coefficient (reactions with pipe walls and biofilm, which are faster in old unlined pipe).</li>
+      </ul>
+      <p>Tank mixing matters too. A tank that fills and draws from the same pipe near the bottom can short-circuit, leaving old water stratified at the top, especially in tall standpipes. Models can represent a tank as completely mixed, plug flow, or two compartments.</p>
+    </section>
+
+    <section class="lesson-section" id="s9" aria-labelledby="s9h">
+      <h2 id="s9h"><span class="num">9</span> Field data and calibration</h2>
+      <p>A model is only as good as its match to the real system. <strong>Calibration</strong> means adjusting the model until it reproduces field measurements, and <strong>validation</strong> means checking it against a different set of data it wasn't tuned to.</p>
+      <ul>
+        <li><strong>Field data:</strong> hydrant flow tests (static and residual pressures), pressure loggers, SCADA records of tank levels, pump flows, and pressures, and C-factor tests on individual mains.</li>
+        <li><strong>What gets adjusted:</strong> pipe roughness, demands and their locations, and pump curves. But first check the things that are simply wrong: ground elevations (use survey or LiDAR data), <strong>closed or partly closed valves</strong> nobody knew about, pipes connected in the model that aren't in the ground, and outdated pump curves.</li>
+        <li><strong>How close is close enough</strong> depends on the model's purpose. Published guidelines (for example, from AWWA and the UK's WRc) set tighter targets for operational models than for long-range planning.</li>
+      </ul>
+      <p>A hydrant flow test is the workhorse. With one hydrant flowing and another nearby reading pressure, you get the static pressure, the residual pressure during flow, and the flow itself. From those, the standard formula projects how much the system could deliver at 20 psi:</p>
+      <p><strong>Q<sub>20</sub> = Q<sub>flow</sub> × [(static − 20) ÷ (static − residual)]<sup>0.54</sup></strong></p>
+    </section>
+
+    <section class="tool" id="hydrant" data-toc="Hydrant flow test calculator" aria-labelledby="hydh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">🚒</span><div><span class="overline">Interactive</span><h2 id="hydh">Hydrant flow test calculator</h2><p>Enter your test readings. The calculator follows NFPA 291: flow from the pitot reading, then available flow at 20 psi residual (or any residual you choose).</p></div></div>
+      <div class="tool-grid">
+        <div class="field"><label for="hS">Static pressure (psi)</label><input class="input" id="hS" type="number" min="0" step="any" value="72" inputmode="decimal"></div>
+        <div class="field"><label for="hR">Residual pressure during flow (psi)</label><input class="input" id="hR" type="number" min="0" step="any" value="55" inputmode="decimal"></div>
+        <div class="field"><label for="hP">Pitot pressure (psi)</label><input class="input" id="hP" type="number" min="0" step="any" value="16" inputmode="decimal"></div>
+        <div class="field"><label for="hD">Outlet diameter (in)</label><input class="input" id="hD" type="number" min="0.5" step="any" value="2.5" inputmode="decimal"></div>
+        <div class="field"><label for="hC">Outlet coefficient</label><select class="select" id="hC"><option value="0.9">0.90: smooth, well-rounded</option><option value="0.8">0.80: square and sharp</option><option value="0.7">0.70: square, projecting into barrel</option></select></div>
+        <div class="field"><label for="hQ">Or measured flow (gpm)</label><input class="input" id="hQ" type="number" min="0" step="any" value="" placeholder="uses pitot if blank" inputmode="decimal"></div>
+        <div class="field"><label for="hT">Target residual (psi)</label><input class="input" id="hT" type="number" min="0" step="any" value="20" inputmode="decimal"></div>
+      </div>
+      <div class="out-grid" id="hydOut" aria-live="polite"></div>
+      <div class="work" id="hydWork"></div>
+      <p class="tool-note">A bigger pressure drop during the test gives a more reliable projection. If the residual barely moves from the static reading, open more outlets or a second hydrant. The 0.54 exponent comes from the Hazen-Williams flow exponent (1 ÷ 1.85).</p>
+    </section>
+
+    <section class="lesson-section" id="s10" aria-labelledby="s10h">
+      <h2 id="s10h"><span class="num">10</span> Transients: water hammer and surge</h2>
+      <p>Ordinary models assume flows change slowly. When a valve slams shut or a pump trips off, the water column stops suddenly and a pressure wave races up and down the pipe at the speed of sound in the water-filled pipe. That's <strong>water hammer</strong>. The sudden-stop pressure rise is given by the <strong>Joukowsky equation</strong>:</p>
+      <p><strong>ΔH = a × ΔV ÷ g</strong> (feet of head), where a is the wave speed (about 4,000 ft/s in ductile iron, much less in PVC and HDPE), ΔV is the change in velocity, and g = 32.2 ft/s². In metal pipe, each 1 ft/s of sudden velocity change adds roughly <strong>50–60 psi</strong>.</p>
+      <p>If a valve closes more slowly than the <strong>critical time</strong>, 2L ÷ a (the time for the wave to travel to the far end and back), the surge is much smaller. Transient models use the <strong>method of characteristics</strong> to simulate these waves. Protection includes slow-closing valves, surge tanks and hydropneumatic tanks, surge anticipator and relief valves, air/vacuum valves, and pump controls with soft starts and stops.</p>
+    </section>
+
+    <section class="tool" id="surge" data-toc="Water hammer calculator" aria-labelledby="surgeh">
+      <div class="tool-head"><span class="tool-icon" aria-hidden="true">🔨</span><div><span class="overline">Interactive</span><h2 id="surgeh">Water hammer calculator</h2><p>Estimate the pressure surge from a velocity change, and see how much a slower valve closure helps.</p></div></div>
+      <div class="chip-row" id="surgeMat" role="group" aria-label="Pipe material wave speed presets" style="margin-bottom:.9rem"></div>
+      <div class="tool-grid">
+        <div class="field"><label for="sA">Wave speed a (ft/s)</label><input class="input" id="sA" type="number" min="100" step="any" value="4000" inputmode="decimal"></div>
+        <div class="field"><label for="sV">Velocity change (ft/s)</label><input class="input" id="sV" type="number" min="0" step="any" value="3" inputmode="decimal"></div>
+        <div class="field"><label for="sL">Pipe length to the reflection point (ft)</label><input class="input" id="sL" type="number" min="1" step="any" value="2000" inputmode="decimal"></div>
+        <div class="field"><label for="sT">Valve closure time (s)</label><input class="input" id="sT" type="number" min="0" step="any" value="0.5" inputmode="decimal"></div>
+        <div class="field"><label for="sP">Normal operating pressure (psi)</label><input class="input" id="sP" type="number" min="0" step="any" value="70" inputmode="decimal"></div>
+        <div class="field"><label for="sR">Pipe pressure rating (psi)</label><input class="input" id="sR" type="number" min="0" step="any" value="235" inputmode="decimal"></div>
+      </div>
+      <div class="out-grid" id="surgeOut" aria-live="polite"></div>
+      <div class="work" id="surgeWork"></div>
+      <p class="tool-note">Wave speeds are typical values; the real speed depends on the pipe's wall thickness and pressure class, and trapped air lowers it. The slow-closure estimate uses the simple Michaud formula (ΔH ≈ 2LΔV ÷ g·t). A transient model is the right tool for design decisions.</p>
+    </section>
+
+    <section class="lesson-section" id="s11" aria-labelledby="s11h">
+      <h2 id="s11h"><span class="num">11</span> Using models well</h2>
+      <ul>
+        <li><strong>Skeletonization:</strong> leaving out or combining small pipes to simplify a model. It's fine for transmission planning, but fire flow and water quality studies usually need an <strong>all-mains</strong> model. Most utilities now build directly from GIS.</li>
+        <li><strong>Pressure standards:</strong> the Recommended Standards for Water Works (Ten States Standards) call for at least <strong>20 psi</strong> at ground level everywhere under all flow conditions, including fire flow, and a normal working pressure of about <strong>60–80 psi</strong> and not less than <strong>35 psi</strong>. Mains that provide fire protection should be at least <strong>6 inches</strong>.</li>
+        <li><strong>Velocity:</strong> high velocities mean high head loss and bigger surges. Many utilities flag mains running faster than about 5 ft/s in normal operation.</li>
+        <li><strong>Demand-driven vs. pressure-driven:</strong> a classic model always delivers the full demand, even at impossible pressures. Pressure-driven analysis (in EPANET 2.2 and later) reduces delivery when pressure falls, which is more realistic for main breaks and outages.</li>
+        <li><strong>Scenarios:</strong> keep separate, named scenarios for existing and future demands, fire flows, and outages, so results can be compared and repeated.</li>
+        <li><strong>Maintenance:</strong> a model goes stale as the system changes. Update it from GIS and re-check calibration after big projects.</li>
+        <li><strong>Security:</strong> a detailed model and its GIS are sensitive infrastructure information. Share them carefully.</li>
+      </ul>
+      <aside class="rule-note" aria-label="Current rule check: models and state approval">
+        <span class="rn-icon" aria-hidden="true">i</span>
+        <div><strong>Current rule check · Plans and standards</strong><p>Mississippi requires MSDH approval of plans for new and modified public water systems, and engineers often support designs with model results. Check MSDH's current design criteria; the pressure and size figures above are from the Ten States Standards, which many states reference.</p></div>
+      </aside>
+    </section>
+
+    <section class="key-numbers" id="numbers" data-toc="Numbers to memorize" aria-labelledby="numbersh">
+      <h2 id="numbersh">📌 Numbers Greg wants you to memorize</h2>
+      <ul>
+        <li><strong>psi = ft × 0.433</strong> and <strong>ft = psi × 2.31</strong>.</li>
+        <li>Minimum <strong>20 psi</strong> everywhere under all conditions; normal <strong>60–80 psi</strong>, not below <strong>35 psi</strong> (Ten States Standards).</li>
+        <li>Hazen-Williams: head loss ∝ Q<sup>1.852</sup> and ∝ 1 ÷ d<sup>4.87</sup>. C ≈ <strong>150</strong> for new PVC.</li>
+        <li>Velocity (ft/s) = <strong>0.4085 × gpm ÷ d²</strong> (d in inches).</li>
+        <li>Hydrant test: Q<sub>20</sub> = Q × [(S − 20) ÷ (S − R)]<sup><strong>0.54</strong></sup>; pitot flow = <strong>29.84 × c × d² × √p</strong>.</li>
+        <li>Joukowsky: ΔH = <strong>a × ΔV ÷ g</strong>; about <strong>50–60 psi per 1 ft/s</strong> in metal pipe.</li>
+        <li>Affinity laws: Q ∝ N, H ∝ N², <strong>power ∝ N³</strong>.</li>
+        <li>Fire flow is usually analyzed on top of <strong>maximum day demand</strong>.</li>
+      </ul>
+    </section>
+
+    <section class="lesson-block" id="terms" data-toc="Key terms" aria-labelledby="termsh">
+      <div class="block-head"><span class="overline">Key terms</span><h2 id="termsh">Words to know</h2><p>Plain-language definitions from the LearnWater glossary.</p></div>
+      <div class="kt" id="keyTerms"></div>
+      <p class="block-foot"><a href="adult-learning-center.html#glossary:hm">Open these terms in the full glossary →</a></p>
+    </section>
+
+    <section class="lesson-block" id="check" data-toc="Check yourself" aria-labelledby="checkh">
+      <div class="block-head"><span class="overline">Check yourself</span><h2 id="checkh">Quick check: 5 questions</h2><p>Random questions about hydraulic modeling. Each round draws a new set.</p></div>
+      <div id="checkQuiz"></div>
+    </section>
+
+    <section class="lesson-block" id="ask" data-toc="Ask Greg" aria-labelledby="askh">
+      <div class="block-head"><span class="overline">Ask Greg</span><h2 id="askh">Questions about modeling?</h2><p>Greg can explain any term here, or work numbers like “head loss for 500 gpm in 1,000 ft of 8-inch pipe, C 130.”</p></div>
+      <div class="lesson-chat" id="deepChat"></div>
+    </section>
+
+    <section class="lesson-block" id="sources" data-toc="Sources" aria-labelledby="srch">
+      <div class="block-head"><span class="overline">Sources</span><h2 id="srch">Further reading</h2><p>Where the methods and numbers on this page come from.</p></div>
+      <ul class="sources">
+        <li><a href="https://www.epa.gov/water-research/epanet" target="_blank" rel="noopener">EPA — EPANET: application for modeling drinking water distribution systems</a></li>
+        <li><a href="https://github.com/OpenWaterAnalytics/EPANET" target="_blank" rel="noopener">OpenWaterAnalytics — EPANET source code and release notes</a></li>
+        <li>AWWA Manual M32, <i>Computer Modeling of Water Distribution Systems</i>; M31, <i>Distribution System Requirements for Fire Protection</i>; M17, <i>Fire Hydrants</i></li>
+        <li>NFPA 291, <i>Recommended Practice for Water Flow Testing and Marking of Hydrants</i></li>
+        <li>Recommended Standards for Water Works (Ten States Standards), distribution system chapter</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+    <p>The tools on this page are for learning. Engineering decisions need a calibrated model and a licensed engineer.</p>
+    <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+  </div>
+</footer>
+
+<script>
+  var DEEP_TAG = 'hm';
+  var DEEP_PROMPTS = ["What is extended period simulation?", "How do you calibrate a hydraulic model?", "What is the Hazen-Williams equation?"];
+  var DEEP_INTRO = "Ask me about hydraulic modeling: nodes and links, head loss, the gradient solver, EPS, calibration, fire flow, or water hammer. Give me numbers and I'll work head loss, velocity, hydrant tests, or surge.";
+</script>
+<script src="js/site.js"></script>
+<script src="js/greg-engine.js"></script>
+<script src="js/glossary-adult.js"></script>
+<script src="js/greg-adult-kb.js"></script>
+<script src="js/greg-adult-brain.js"></script>
+<script src="js/greg-adult-ui.js"></script>
+<script src="js/hydraulic-model.js"></script>
+<script src="js/deep-common.js"></script>
+</body>
+</html>

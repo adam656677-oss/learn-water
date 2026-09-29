@@ -188,7 +188,7 @@
     if (TABS.indexOf(parts[0]) === -1) return false;
     if (parts[0] === 'quiz' && parts[1] && CUR.chapters[parts[1]]) { quizChapter(parts[1]); return true; }
     if (parts[0] === 'glossary' && parts[1] && window.LW_GLOSSARY) {
-      if (CUR.chapters[parts[1]]) {
+      if (CUR.chapters[parts[1]] || DEEP[parts[1]]) {
         /* #glossary:ch5 opens the glossary filtered to one chapter */
         gl.ch = parts[1]; gl.q = ''; $('glQuery').value = '';
         showTab('glossary', { keepHash: true, scroll: true });
@@ -704,6 +704,12 @@
 
   /* ================= GLOSSARY ================= */
   var gl = { q: '', ch: 'all', items: null, bySlug: {}, timer: 0 };
+  /* Terms tagged for the deep-dive pages (glossary-adult.js tags reg, aq, hm) */
+  var DEEP = {
+    reg: { name: 'Water Regulations', short: 'Regulations', page: 'regulations.html', c: '#1e40af', t: '#e8eefc' },
+    aq: { name: "Mississippi's Aquifers", short: 'Aquifers', page: 'ms-aquifers.html', c: '#0f766e', t: '#e6f4f1' },
+    hm: { name: 'Hydraulic Modeling', short: 'Modeling', page: 'hydraulic-modeling.html', c: '#6d28d9', t: '#f1ebfd' }
+  };
   var FOLD = { '₀': '0', '₁': '1', '₂': '2', '₃': '3', '₄': '4', '₅': '5', '₆': '6', '₇': '7', '₈': '8', '₉': '9', '²': '2', '³': '3',
     '⁺': '+', '⁻': '-', 'µ': 'u', 'μ': 'u', '‘': "'", '’': "'", '“': '"', '”': '"', '–': '-', '—': '-', '×': 'x' };
   /* Lowercase and plain-ASCII the text one character at a time, so a match
@@ -724,6 +730,7 @@
       return {
         i: i, term: g[0], def: g[1], key: key,
         chs: String(g[2] || '').split(/\s+/).filter(function (c) { return CUR.chapters[c]; }),
+        deep: String(g[2] || '').split(/\s+/).filter(function (c) { return DEEP[c]; }),
         fTerm: fold(g[0]), fDef: fold(g[1]), fAka: g[3] ? fold(g[3]).split('|') : [],
         letter: /^[a-z]/.test(key) ? key.charAt(0).toUpperCase() : '#'
       };
@@ -738,6 +745,7 @@
   }
   function glInChapter(it) {
     if (gl.ch === 'all') return true;
+    if (DEEP[gl.ch]) return it.deep.indexOf(gl.ch) !== -1;
     var ids = gl.ch === 'class' ? CUR.classChapters[st.cls] : [gl.ch];
     return it.chs.some(function (c) { return ids.indexOf(c) !== -1; });
   }
@@ -771,6 +779,9 @@
     var tags = it.chs.map(function (id) {
       var c = CUR.chapters[id];
       return '<a class="gl-ch" href="' + esc(c.page) + '" style="--c:' + c.theme.c + ';--t:' + c.theme.t + '" aria-label="' + esc(chName(c)) + ' lesson">Ch ' + esc(c.num) + '</a>';
+    }).join('') + it.deep.map(function (id) {
+      var d = DEEP[id];
+      return '<a class="gl-ch" href="' + d.page + '" style="--c:' + d.c + ';--t:' + d.t + '" aria-label="' + esc(d.name) + ' page">' + esc(d.short) + '</a>';
     }).join('');
     return '<div class="gl-item" id="term-' + it.slug + '" tabindex="-1">' +
       '<dt><span class="gl-term">' + glMark(it.term, it.fTerm, needles) + '</span><span class="gl-tags">' + tags + '</span></dt>' +
@@ -786,13 +797,17 @@
     var html = '<option value="all">All ' + allIds.length + ' chapters (' + items.length + ' terms)</option>';
     if (classIds.length < allIds.length) html += '<option value="class">' + esc(CUR.classes[st.cls].name) + ' chapters (' + count(classIds) + ')</option>';
     html += allIds.map(function (id) { return '<option value="' + id + '">' + esc(chShort(CUR.chapters[id])) + ' (' + count([id]) + ')</option>'; }).join('');
+    html += '<optgroup label="Deep dives">' + Object.keys(DEEP).map(function (id) {
+      var n = items.filter(function (it) { return it.deep.indexOf(id) !== -1; }).length;
+      return '<option value="' + id + '">' + esc(DEEP[id].name) + ' (' + n + ')</option>';
+    }).join('') + '</optgroup>';
     sel.innerHTML = html;
     if (![].some.call(sel.options, function (o) { return o.value === gl.ch; })) gl.ch = 'all';
     sel.value = gl.ch;
   }
   function renderGlossary() {
     var items = glItems().filter(glInChapter), q = fold(gl.q.trim()).replace(/\s+/g, ' ');
-    var box = $('glResults'), az = $('glAZ'), count = $('glCount'), scope = gl.ch === 'all' ? '' : gl.ch === 'class' ? ' in ' + CUR.classes[st.cls].name + ' chapters' : ' in ' + chName(CUR.chapters[gl.ch]);
+    var box = $('glResults'), az = $('glAZ'), count = $('glCount'), scope = gl.ch === 'all' ? '' : gl.ch === 'class' ? ' in ' + CUR.classes[st.cls].name + ' chapters' : DEEP[gl.ch] ? ' for ' + DEEP[gl.ch].name : ' in ' + chName(CUR.chapters[gl.ch]);
     if (!q) {
       var groups = {}, letters = [];
       items.forEach(function (it) { if (!groups[it.letter]) { groups[it.letter] = []; letters.push(it.letter); } groups[it.letter].push(it); });
@@ -969,7 +984,7 @@
     document.body.classList.add('drawer-open');
     if (!chat) {
       chat = GregAdultUI.mount($('gregChat'), {
-        intro: "Hi, I'm Greg. I know all 14 chapters of the operators manual. Ask about a rule, a process, or a number, or give me values and I'll work the formula, like “lbs/day for 2.5 mg/L at 1.2 MGD.” I can define any of 400+ glossary terms, and I can search EPA, NRWA, and MsRWA for you. Just start with **define** or **search**.",
+        intro: "Hi, I'm Greg. I know all 14 chapters of the operators manual. Ask about a rule, a process, or a number, or give me values and I'll work the formula, like “lbs/day for 2.5 mg/L at 1.2 MGD.” I also know water regulations, Mississippi's aquifers, hydraulic modeling, treatment and wastewater engineering, and water science. I can define nearly 500 glossary terms, and I can search EPA, NRWA, and MsRWA for you. Just start with **define** or **search**.",
         chips: HERO_CHIPS[st.cls].concat(['Search MsRWA for certification classes'])
       });
     }

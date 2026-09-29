@@ -40,7 +40,7 @@
       .replace(/[‘’`]/g, "'")
       .replace(/[“”]/g, '"')
       .replace(/h₂o/g, 'h2o')
-      .replace(/[^a-z0-9%\s'-]/g, ' ')
+      .replace(/[^a-z0-9%\s']/g, ' ')
       .replace(/(^|\s)'+|'+(\s|$)/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
@@ -126,7 +126,16 @@
     var df = {};
 
     entries.forEach(function (e) {
-      e._k = (e.k || []).map(parseKeyword).filter(function (k) { return k.text.trim(); });
+      /* Hyphens read as spaces, so “c-factor” and “c factor” can land on the
+         same keyword; keep one copy (the heavier) so neither counts twice. */
+      var kseen = {};
+      e._k = (e.k || []).map(parseKeyword).filter(function (k) {
+        if (!k.text.trim()) return false;
+        var key = k.type + (k.prefix ? '*' : '') + k.text;
+        if (kseen[key]) { kseen[key].weight = Math.max(kseen[key].weight, k.weight); return false; }
+        kseen[key] = k;
+        return true;
+      });
       byId[e.id] = e;
       if (e.q) byQ[normalize(e.q)] = e;
       var seen = {};

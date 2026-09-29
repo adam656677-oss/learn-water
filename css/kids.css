@@ -640,9 +640,12 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
 }
 .memory-card-front { background: repeating-linear-gradient(45deg, var(--k-cyan) 0 10px, #45c9ef 10px 20px); font-size: 1.6rem; }
 .memory-card-back {
-  background: #fff; transform: rotateY(180deg); font-weight: 700; font-size: clamp(.68rem, 2.4vw, .85rem); line-height: 1.2;
+  background: #fff; transform: rotateY(180deg); font-weight: 700; font-size: clamp(.62rem, 2.3vw, .8rem); line-height: 1.1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15rem;
   overflow-wrap: anywhere; -webkit-hyphens: auto; hyphens: auto;
 }
+.mc-emoji { display: block; font-size: clamp(1.5rem, 7vw, 2.2rem); line-height: 1; }
+.mc-word { display: block; }
 .memory-card.matched .memory-card-back { background: var(--k-lime-w); }
 .memory-card.matched { cursor: default; }
 
@@ -1135,7 +1138,7 @@ body.kids-body .site-footer a { color: var(--k-amber); }
 @media (max-width: 420px) {
   .touch-btn { width: 64px; height: 54px; }
   .memory-board { gap: .4rem; }
-  .memory-card-back { font-size: .64rem; padding: .15rem; line-height: 1.1; }
+  .memory-card-back { font-size: .6rem; padding: .15rem; line-height: 1.05; }
 }
 @media (prefers-reduced-motion: reduce) {
   .lab-backdrop { display: none; }

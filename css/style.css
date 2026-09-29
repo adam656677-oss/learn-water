@@ -8,6 +8,9 @@
 /* ---- Self-hosted fonts (SIL OFL — see /fonts/LICENSES.txt) ---- */
 @font-face{font-family:'Overpass';font-style:normal;font-weight:600 800;font-display:swap;src:url(../fonts/overpass-normal-600-800.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 @font-face{font-family:'Overpass Mono';font-style:normal;font-weight:500 700;font-display:swap;src:url(../fonts/overpass-mono-normal-500-700.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+/* Overpass Mono's ÷ is nearly indistinguishable from a minus sign, so
+   monospace text borrows just that one character from Public Sans */
+@font-face{font-family:'LW Math';font-style:normal;font-weight:400 800;font-display:swap;src:url(../fonts/public-sans-normal-400-700.woff2) format('woff2');unicode-range:U+00F7;}
 @font-face{font-family:'Public Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(../fonts/public-sans-normal-400-700.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 @font-face{font-family:'Public Sans';font-style:italic;font-weight:400 700;font-display:swap;src:url(../fonts/public-sans-italic-400-700.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 
@@ -44,7 +47,7 @@
 
   --font-display: 'Overpass', 'Public Sans', system-ui, sans-serif;
   --font-body:    'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono:    'Overpass Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-mono:    'LW Math', 'Overpass Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
 
   --grad-deep:   linear-gradient(160deg, var(--abyss) 0%, var(--deep) 42%, var(--ocean) 100%);
   --grad-bright: linear-gradient(135deg, var(--ocean) 0%, var(--tide) 55%, var(--aqua) 100%);
@@ -305,6 +308,21 @@ section { padding: 4.5rem 0; }
 .nav-card-kids .nav-card-icon { background: #fff6e0; }
 .nav-card-updates::before { background: linear-gradient(90deg, #11855f, #27c1d4); }
 .nav-card-support::before { background: linear-gradient(90deg, #062f52, #0e7fc0); }
+.nav-card-regs::before    { background: linear-gradient(90deg, #8a5a00, #e0a526, #0e7fc0); }
+.nav-card-regs .nav-card-icon { background: #fff4e0; }
+/* Home: five cards as three over two */
+.explore-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.explore-grid > .nav-card { grid-column: span 2; }
+.explore-grid > .nav-card:nth-child(n+4) { grid-column: span 3; }
+@media (max-width: 900px) {
+  .explore-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .explore-grid > .nav-card, .explore-grid > .nav-card:nth-child(n+4) { grid-column: auto; }
+  .explore-grid > .nav-card:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  .explore-grid { grid-template-columns: 1fr; }
+  .explore-grid > .nav-card:last-child { grid-column: auto; }
+}
 
 /* Stats strip */
 .stats-strip { background: var(--abyss); color: var(--white); padding: 2.75rem 0; position: relative; }

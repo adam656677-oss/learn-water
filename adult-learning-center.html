@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free study center for the Mississippi water operator license, Class D through Class A: 14 chapter lessons, a 224-question practice quiz, operator math drills, flash cards, a 400-term glossary, videos, and Greg, your study coach.">
+  <meta name="description" content="Free study center for the Mississippi water operator license, Class D through Class A: 14 chapter lessons, a 224-question practice quiz, operator math drills, flash cards, a nearly 500-term glossary, videos, deep dives on regulations, aquifers, and hydraulic modeling, and Greg, your study coach.">
   <title>Adult Learning Center — Mississippi Water Operator Study | LearnWater</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
@@ -26,6 +26,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="kids.html">Kids Corner</a></li>
       <li><a href="adult-learning-center.html" aria-current="page">Adult Learning</a></li>
+      <li><a href="regulations.html">Regulations</a></li>
       <li><a href="updates.html">App Updates</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
@@ -111,6 +112,31 @@
       </div>
       <div id="nextUp"></div>
       <div class="ch-grid" id="chapterGrid"></div>
+
+      <section class="deep-dives" aria-labelledby="deepTitle">
+        <div class="dd-head">
+          <span class="overline">Go deeper</span>
+          <h3 id="deepTitle">Beyond the exam</h3>
+          <p>Interactive deep dives for when you want the whole picture. Greg knows all of it too.</p>
+        </div>
+        <div class="dd-grid">
+          <a class="dd-card" href="ms-aquifers.html" style="--c:#0f766e;--t:#e6f4f1">
+            <span class="dd-icon" aria-hidden="true">🪨</span>
+            <span class="dd-text"><strong>Mississippi's Aquifers</strong><span>All 16 major aquifers, a virtual well you can drill anywhere in the state, the Delta's water levels, and a cone of depression lab.</span></span>
+            <span class="dd-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="dd-card" href="hydraulic-modeling.html" style="--c:#6d28d9;--t:#f1ebfd">
+            <span class="dd-icon" aria-hidden="true">🧮</span>
+            <span class="dd-text"><strong>Hydraulic Modeling</strong><span>How distribution models are built, solved, and calibrated, with a live model lab, pump curves, a 48-hour tank simulator, and fire flow and water hammer calculators.</span></span>
+            <span class="dd-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="dd-card" href="regulations.html" style="--c:#1e40af;--t:#e8eefc">
+            <span class="dd-icon" aria-hidden="true">⚖️</span>
+            <span class="dd-text"><strong>Water Regulations</strong><span>The Safe Drinking Water Act and Clean Water Act, a rule finder for your system, every MCL, UCMR 5 results, and the proposed UCMR 6.</span></span>
+            <span class="dd-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
     </section>
 
     <!-- ================= QUIZ ================= -->
@@ -385,6 +411,7 @@
 <script src="js/greg-engine.js"></script>
 <script src="js/glossary-adult.js"></script>
 <script src="js/greg-adult-kb.js"></script>
+<script src="js/greg-adult-brain.js"></script>
 <script src="js/greg-adult-ui.js"></script>
 <script src="js/video-library.js"></script>
 <script src="js/adult-curriculum.js"></script>

@@ -141,12 +141,25 @@
 
 /* ---------------- MEMORY MATCH ---------------- */
 (function () {
-  /* Each round deals 8 of these pairs, so the board changes every time */
+  /* Classic memory: every pair is two identical cards. Each round deals 8 of
+     these, so the board changes every time, and each match shows a fact. */
   var PAIRS = [
-    ['💧 Water', 'H₂O'], ['☀️ Evaporation', 'Liquid → vapor'], ['☁️ Cloud', 'Condensation'], ['🌧️ Rain', 'Precipitation'],
-    ['🏞️ Lake', 'Collection'], ['🌫️ Turbidity', 'Cloudiness'], ['🧪 Chlorine', 'Kills germs'], ['🌿 Leaves', 'Transpiration'],
-    ['🧊 Ice', 'Solid water'], ['🌊 Ocean', 'Salt water'], ['🧽 Filter', 'Catches dirt'], ['🌈 Rainbow', 'Sun + raindrops'],
-    ['🪨 Aquifer', 'Underground water'], ['🦠 Germs', 'Too tiny to see']
+    { e: '💧', w: 'Water drop', f: 'Every water molecule is H₂O — two hydrogen atoms and one oxygen atom.' },
+    { e: '☀️', w: 'Sun', f: 'The sun\'s heat drives evaporation, the engine of the water cycle.' },
+    { e: '☁️', w: 'Cloud', f: 'A cloud is billions of tiny droplets that condensed around specks of dust.' },
+    { e: '🌧️', w: 'Rain', f: 'Rain is one kind of precipitation — water falling back to Earth.' },
+    { e: '❄️', w: 'Snowflake', f: 'Snowflakes usually have six sides because of the way water molecules link up.' },
+    { e: '🧊', w: 'Ice', f: 'Ice floats because water expands when it freezes.' },
+    { e: '🌊', w: 'Ocean', f: 'About 97% of Earth\'s water is salty ocean water.' },
+    { e: '🏞️', w: 'Lake', f: 'Lakes and rivers hold only a tiny part of Earth\'s fresh water — most is ice or underground.' },
+    { e: '🪨', w: 'Aquifer', f: 'An aquifer is underground sand or rock that holds water. Many Mississippi towns pump their water from aquifers.' },
+    { e: '🌿', w: 'Plant', f: 'Plants give off water vapor through tiny holes in their leaves. That\'s transpiration.' },
+    { e: '🐟', w: 'Fish', f: 'Fish use their gills to breathe the oxygen that is dissolved in water.' },
+    { e: '🐸', w: 'Frog', f: 'Frogs don\'t drink with their mouths — they soak up water through their skin.' },
+    { e: '🚰', w: 'Faucet', f: 'Water is cleaned at a treatment plant before it reaches your faucet.' },
+    { e: '🧪', w: 'Test tube', f: 'Water scientists test water samples to make sure the water is safe to drink.' },
+    { e: '🌈', w: 'Rainbow', f: 'A rainbow appears when sunlight bends and bounces inside raindrops.' },
+    { e: '🚿', w: 'Shower', f: 'A short shower usually uses much less water than a full bathtub.' }
   ];
   var ROUND = 8;
   var deal = [], open = [], matched = 0, flips = 0, locked = false, round = 0;
@@ -157,35 +170,39 @@
     var board = $id('memBoard');
     board.innerHTML = '';
     var cards = [];
-    deal.forEach(function (p, i) { cards.push({ t: p[0], id: i }, { t: p[1], id: i }); });
+    deal.forEach(function (p, i) { cards.push({ p: p, id: i }, { p: p, id: i }); });
     shuffle(cards).forEach(function (c) {
       var b = document.createElement('button');
       b.type = 'button'; b.className = 'memory-card'; b.dataset.pair = c.id;
       b.setAttribute('aria-label', 'Hidden card');
-      b.innerHTML = '<span class="memory-card-inner"><span class="memory-card-front" aria-hidden="true">💦</span><span class="memory-card-back"></span></span>';
-      b.querySelector('.memory-card-back').textContent = c.t;
-      b.addEventListener('click', function () { flip(b, c.t); });
+      b.innerHTML = '<span class="memory-card-inner"><span class="memory-card-front" aria-hidden="true">💦</span>' +
+        '<span class="memory-card-back"><span class="mc-emoji" aria-hidden="true"></span><span class="mc-word"></span></span></span>';
+      b.querySelector('.mc-emoji').textContent = c.p.e;
+      b.querySelector('.mc-word').textContent = c.p.w;
+      b.addEventListener('click', function () { flip(b, c.p); });
       board.appendChild(b);
     });
     status();
   }
   function status(msg) { $id('memStatus').textContent = msg || ('Matches: ' + matched + ' / ' + deal.length + ' · Flips: ' + flips); }
-  function flip(b, text) {
+  function flip(b, p) {
     if (locked || b.classList.contains('flipped') || b.classList.contains('matched')) return;
-    b.classList.add('flipped'); b.setAttribute('aria-label', text);
+    b.classList.add('flipped'); b.setAttribute('aria-label', p.w);
     open.push(b); flips++;
     if (open.length === 2) {
       locked = true;
       if (open[0].dataset.pair === open[1].dataset.pair) {
-        open.forEach(function (c) { c.classList.add('matched'); });
+        open.forEach(function (c) { c.classList.add('matched'); c.setAttribute('aria-label', p.w + ' (matched)'); });
         open = []; matched++; locked = false;
         if (matched === deal.length) {
           var better = Games.best('memory', flips, true);
-          status('🏆 All matched in ' + flips + ' flips!' + (better ? ' New best!' : ''));
+          status('🏆 All matched in ' + flips + ' flips!' + (better ? ' New best!' : '') + ' Last fact: ' + p.f);
           Games.finished();
           launchConfetti();
           return;
         }
+        status('✨ ' + p.e + ' ' + p.w + ' match! ' + p.f + ' (Matches: ' + matched + ' / ' + deal.length + ')');
+        return;
       } else {
         var r = round;
         setTimeout(function () {
