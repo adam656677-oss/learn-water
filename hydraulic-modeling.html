@@ -39,7 +39,7 @@
     <div class="chapter-kicker">Distribution system engineering</div>
     <h1><span class="hero-icon" aria-hidden="true">🕸️</span><span>Hydraulic Modeling</span></h1>
     <p class="dek">How engineers build computer models of water distribution systems, and a working model you can run right here. Change the demand, open a hydrant, upsize a pipe, close a valve, and watch the pressures respond.</p>
-    <div class="hero-meta"><span>Live network solver</span><span>Fire flow at 20 psi</span><span>Pumps, tanks &amp; 24-hour simulation</span><span>Calibration &amp; field tests</span></div>
+    <nav class="hero-meta" aria-label="Jump to a topic"><a href="#lab">Live network solver</a><a href="#hydrant">Fire flow at 20 psi</a><a href="#eps">Pumps, tanks &amp; 48-hour simulation</a><a href="#s9">Calibration &amp; field tests</a></nav>
     <div class="hero-cta">
       <a class="btn btn-white" href="#lab">Open the model lab</a>
       <a class="btn btn-light-outline" href="#pipe">Pipe calculator</a>
@@ -234,7 +234,7 @@
       <p>EPS answers questions a snapshot can't: Do the tanks refill overnight? How many times a day does each pump start? Is a tank turning over enough to keep its water fresh? What will the energy bill be? Storage is usually sized for three jobs: <strong>equalization</strong> (covering peak hours so the plant and wells can run steadily), <strong>fire reserve</strong>, and <strong>emergency</strong> supply.</p>
     </section>
 
-    <section class="tool" id="eps" data-toc="24-hour tank simulator" aria-labelledby="epsh">
+    <section class="tool" id="eps" data-toc="48-hour tank simulator" aria-labelledby="epsh">
       <div class="tool-head"><span class="tool-icon" aria-hidden="true">⏱️</span><div><span class="overline">Interactive · EPS</span><h2 id="epsh">48-hour tank and well simulator</h2><p>A well pump fills an elevated tank that serves a town with a typical daily demand pattern. The pump starts and stops on tank level. Change the settings and watch two days play out.</p></div></div>
       <div class="tool-grid">
         <div class="field"><label for="eQ">Average demand (gpm)</label><input class="input" id="eQ" type="number" min="1" step="any" value="350" inputmode="decimal"></div>

@@ -60,8 +60,11 @@
     var words = 0;
     document.querySelectorAll('.lesson-section, .key-numbers, .rule-note, .exam-watch').forEach(function (n) { words += n.textContent.split(/\s+/).length; });
     var mins = Math.max(3, Math.round(words / 170));  /* technical reading pace */
-    $('heroMeta').innerHTML = '<span>' + sections.length + ' sections</span><span>About ' + mins + ' min read</span>' +
-      '<span>' + ch.questions.length + ' practice questions</span><span class="status">Not completed</span>';
+    /* Each chip jumps to its part of the page */
+    var bar = document.querySelector('.complete-bar');
+    if (bar && !bar.id) bar.id = 'complete';
+    $('heroMeta').innerHTML = '<a href="#s1">' + sections.length + ' sections</a><a href="#s1">About ' + mins + ' min read</a>' +
+      '<a href="#check">' + ch.questions.length + ' practice questions</a><a class="status" href="#' + (bar ? bar.id : 'toc') + '">Not completed</a>';
     var crumb = $('crumbClass');
     if (crumb) crumb.textContent = CUR.classes[cls].name + ' · chapter ' + (pos + 1) + ' of ' + list.length;
   }

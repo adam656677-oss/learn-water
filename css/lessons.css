@@ -42,10 +42,20 @@ body.lesson-page { background: var(--mist); --theme: var(--ocean); }
 }
 .lesson-hero .dek { font-size: 1.12rem; color: rgba(232,246,250,.88); max-width: 680px; margin: 0 0 1.2rem; }
 .hero-meta { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 1.5rem; min-height: 1.9rem; }
-.hero-meta span {
+.hero-meta span, .hero-meta a {
   font-size: .8rem; font-weight: 600; padding: .3rem .75rem; border-radius: 999px;
   background: rgba(255,255,255,.08); border: 1px solid rgba(143,227,238,.25); color: rgba(255,255,255,.92);
 }
+/* Hero chips are jump links to their part of the page */
+.hero-meta a {
+  display: inline-flex; align-items: center; gap: .4rem; min-height: 36px; padding: .4rem .85rem;
+  text-decoration: none; cursor: pointer; transition: background .2s, border-color .2s, transform .2s;
+}
+.hero-meta a::after { content: '↓'; font-weight: 800; color: #8fe3ee; transition: transform .2s; }
+.hero-meta a:hover { background: rgba(255,255,255,.18); border-color: rgba(143,227,238,.65); color: #fff; text-decoration: none; }
+.hero-meta a:hover::after { transform: translateY(2px); }
+.hero-meta a:active { transform: scale(.97); }
+.hero-meta a:focus-visible { outline: 3px solid #8fe3ee; outline-offset: 2px; }
 .hero-meta .status.done { background: rgba(17,133,95,.45); border-color: rgba(143,238,190,.5); }
 .hero-cta { display: flex; gap: .6rem; flex-wrap: wrap; }
 
@@ -228,7 +238,8 @@ body.lesson-page { background: var(--mist); --theme: var(--ocean); }
   .deep-link { display: none; }
   .site-nav, .read-progress, .lesson-hero .motif, .hero-waves, .hero-cta, .lesson-toc, #check, #cards, #ask, #videos, .complete-bar, .chapter-pager, .site-footer, .skip-link { display: none !important; }
   .lesson-hero { background: none !important; color: #000; padding: 0 0 1rem; }
-  .lesson-hero h1, .lesson-hero .dek, .chapter-kicker, .crumbs, .hero-meta span { color: #000 !important; background: none !important; border-color: #999 !important; }
+  .lesson-hero h1, .lesson-hero .dek, .chapter-kicker, .crumbs, .hero-meta span, .hero-meta a { color: #000 !important; background: none !important; border-color: #999 !important; }
+  .hero-meta a::after { content: none; }
   .lesson-layout { display: block; padding: 0; }
   .lesson-section, .greg-take, .rule-note { box-shadow: none; break-inside: avoid; }
   .key-numbers { background: #fff !important; color: #000; border: 2px solid #000; }
