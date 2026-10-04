@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/kids.css">
 </head>
-<body class="kids-body words-page" data-greg-hello="Welcome to the Word Lab! 📖 I can explain any water word. Try asking me **“What does evaporation mean?”**">
+<body class="kids-body words-page" data-lab="words" data-greg-hello="Welcome to the Word Lab! 📖 I can explain any water word. Try asking me **“What does evaporation mean?”**">
 <a class="skip-link" href="#today">Skip to content</a>
 <div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
 
@@ -43,15 +43,16 @@
 
 <header class="lab-hero">
   <div class="kids-container">
-    <span class="mascot" aria-hidden="true">📖</span>
-    <h1>Word <span class="hl">Lab</span></h1>
-    <p class="lab-sub">Every water word a young scientist needs, with pictures, how to say it, and an example. Collect the words you know and play Word Match to earn a badge!</p>
-    <div class="lab-chip-row">
+    <span class="mascot reveal reveal-1" aria-hidden="true">📖</span>
+    <h1 class="reveal reveal-2">Word <span class="hl">Lab</span></h1>
+    <p class="lab-sub reveal reveal-3">Every water word a young scientist needs, with pictures, how to say it, and an example. Collect the words you know and play Word Match to earn a badge!</p>
+    <div class="lab-chip-row reveal reveal-4">
       <a href="#today" class="lab-chip">⭐ Word of the Day</a>
       <a href="#words" class="lab-chip">🔎 Word Finder</a>
       <a href="#match" class="lab-chip">🎯 Word Match</a>
     </div>
   </div>
+  <div class="hero-greg" aria-hidden="true"><span class="peek-bubble">Big words? No problem!</span><div class="greg-figure" data-greg-figure></div></div>
   <div class="wave-divider" aria-hidden="true">
     <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f7fcff"/></svg>
   </div>
@@ -156,9 +157,30 @@
 </main>
 
 <footer class="site-footer">
-  <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+      <p>Free water education for Mississippi: a science lab for kids, and a license study center for the operators who keep drinking water safe.</p>
+      <a class="footer-mail" href="mailto:learnwatertoday@gmail.com">✉️ learnwatertoday@gmail.com</a>
+    </div>
+    <nav class="footer-col" aria-label="Site sections">
+      <h4>Explore</h4>
+      <a href="kids.html">Kids Corner</a>
+      <a href="adult-learning-center.html">Adult Learning Center</a>
+      <a href="regulations.html">Water Regulations</a>
+      <a href="ms-aquifers.html">Mississippi's Aquifers</a>
+      <a href="hydraulic-modeling.html">Hydraulic Modeling</a>
+      <a href="updates.html">WaterOps App Updates</a>
+    </nav>
+    <div class="footer-col">
+      <h4>Good to know</h4>
+      <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH), with notes wherever federal rules have changed. Rules change, so confirm current requirements with MSDH, MDEQ, and EPA.</p>
+      <p>No accounts, no ads, and no tracking scripts. Your progress is saved only in your browser.</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
     <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+    <p class="footer-note">A study guide, not legal advice.</p>
   </div>
 </footer>
 

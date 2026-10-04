@@ -34,6 +34,51 @@ function buildBackdrop() {
   backdrop.innerHTML = html;
 }
 
+
+/* ---------- Hero decorations: blueprint doodles + rising bubbles ---------- */
+function buildHeroDecor() {
+  var hero = document.querySelector('.lab-hero');
+  if (!hero || prefersReducedMotion || hero.querySelector('.hero-decor')) return;
+  var ICONS = {
+    drop: '<svg viewBox="0 0 64 64"><path d="M32 6C32 6 12 30 12 42a20 20 0 0 0 40 0C52 30 32 6 32 6Z"/><path d="M23 42a9 9 0 0 0 9 9"/></svg>',
+    beaker: '<svg viewBox="0 0 64 64"><path d="M20 6h24M26 6v16L10 50a6 6 0 0 0 5 9h34a6 6 0 0 0 5-9L38 22V6"/><path d="M17 42h30"/><circle cx="28" cy="50" r="2"/><circle cx="38" cy="47" r="1.5"/></svg>',
+    cloud: '<svg viewBox="0 0 64 64"><path d="M19 42a10 10 0 0 1-1-20 14 14 0 0 1 27-4 9 9 0 0 1 4 24Z"/><path d="M22 50l-3 7M34 50l-3 7M46 50l-3 7"/></svg>',
+    molecule: '<svg viewBox="0 0 64 64"><circle cx="32" cy="24" r="11"/><circle cx="13" cy="44" r="7"/><circle cx="51" cy="44" r="7"/><path d="M24 32l-6 6M40 32l6 6"/></svg>',
+    flask: '<svg viewBox="0 0 64 64"><path d="M25 6h14M28 6v16L12 50a6 6 0 0 0 5 8h30a6 6 0 0 0 5-8L36 22V6"/><path d="M19 44h26"/></svg>',
+    magnifier: '<svg viewBox="0 0 64 64"><circle cx="27" cy="27" r="17"/><path d="M39 39l18 18"/></svg>',
+    bubbles: '<svg viewBox="0 0 64 64"><circle cx="20" cy="40" r="12"/><circle cx="44" cy="22" r="9"/><circle cx="46" cy="48" r="5"/></svg>',
+    fish: '<svg viewBox="0 0 64 64"><path d="M8 32c10-14 30-14 42 0-12 14-32 14-42 0Z"/><path d="M50 32l8-8v16Z"/><circle cx="20" cy="30" r="2"/></svg>',
+    ruler: '<svg viewBox="0 0 64 64"><rect x="6" y="24" width="52" height="16" rx="3"/><path d="M16 24v6M26 24v9M36 24v6M46 24v9"/></svg>',
+    sun: '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="11"/><path d="M32 8v7M32 49v7M8 32h7M49 32h7M15 15l5 5M44 44l5 5M49 15l-5 5M20 44l-5 5"/></svg>'
+  };
+  var spots = [
+    { k: 'drop', x: 5, y: 16, s: 54, r: -12, t: 9 },
+    { k: 'beaker', x: 13, y: 60, s: 64, r: 8, t: 11, wide: true },
+    { k: 'cloud', x: 24, y: 6, s: 72, r: 0, t: 10, wide: true },
+    { k: 'sun', x: 90, y: 10, s: 64, r: 0, t: 12 },
+    { k: 'molecule', x: 80, y: 22, s: 56, r: 14, t: 9, wide: true },
+    { k: 'flask', x: 92, y: 60, s: 58, r: -8, t: 10 },
+    { k: 'magnifier', x: 72, y: 74, s: 48, r: 22, t: 11, wide: true },
+    { k: 'bubbles', x: 36, y: 86, s: 44, r: 0, t: 8, wide: true },
+    { k: 'fish', x: 56, y: 3, s: 54, r: -6, t: 13, wide: true },
+    { k: 'ruler', x: 4, y: 84, s: 60, r: -18, t: 12, wide: true }
+  ];
+  var html = '';
+  spots.forEach(function (d, i) {
+    html += '<span class="doodle' + (d.wide ? ' wide' : '') + '" style="left:' + d.x + '%;top:' + d.y + '%;--s:' + d.s + 'px;--r:' + d.r + 'deg;--t:' + d.t + 's;--d:-' + (i * 1.3).toFixed(1) + 's">' + ICONS[d.k] + '</span>';
+  });
+  for (var b = 0; b < 8; b++) {
+    var size = 8 + Math.random() * 16;
+    html += '<span class="hbub" style="left:' + (4 + Math.random() * 92).toFixed(1) + '%;width:' + size.toFixed(0) + 'px;height:' + size.toFixed(0) +
+      'px;--t:' + (9 + Math.random() * 8).toFixed(1) + 's;--d:-' + (Math.random() * 14).toFixed(1) + 's"></span>';
+  }
+  var layer = document.createElement('div');
+  layer.className = 'hero-decor';
+  layer.setAttribute('aria-hidden', 'true');
+  layer.innerHTML = html;
+  hero.insertBefore(layer, hero.firstChild);
+}
+
 /* ---------- Tap-to-flip fact cards ---------- */
 function buildFlipCards(containerId, facts) {
   var grid = document.getElementById(containerId);
@@ -192,6 +237,7 @@ var KidsBadges = (function () {
 
 /* Keep the current Kids Corner tab visible in the scrolling tab bar on phones */
 document.addEventListener('DOMContentLoaded', function () {
+  buildHeroDecor();
   var cur = document.querySelector('.lab-nav [aria-current="page"]');
   if (!cur) return;
   var bar = cur.parentElement;

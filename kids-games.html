@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/kids.css">
 </head>
-<body class="kids-body" data-greg-hello="Welcome to the Game Lab! 🎮 Stuck on a game? Ask me things like **how do filters work?**, **what is floc?**, or **what is runoff?**">
+<body class="kids-body" data-lab="games" data-greg-hello="Welcome to the Game Lab! 🎮 Stuck on a game? Ask me things like **how do filters work?**, **what is floc?**, or **what is runoff?**">
 <a class="skip-link" href="#arcade">Skip to games</a>
 <div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
 
@@ -43,15 +43,16 @@
 
 <header class="lab-hero">
   <div class="kids-container">
-    <span class="mascot" aria-hidden="true">🎮</span>
-    <h1>Game <span class="hl">Lab</span></h1>
-    <p class="lab-sub">Eleven games that turn water science into play. Build filters, run a treatment plant, travel the water cycle — and learn something real in every one.</p>
-    <div class="lab-chip-row">
+    <span class="mascot reveal reveal-1" aria-hidden="true">🎮</span>
+    <h1 class="reveal reveal-2">Game <span class="hl">Lab</span></h1>
+    <p class="lab-sub reveal reveal-3">Eleven games that turn water science into play. Build filters, run a treatment plant, travel the water cycle — and learn something real in every one.</p>
+    <div class="lab-chip-row reveal reveal-4">
       <span class="lab-chip">🆕 3 brand-new games</span>
       <span class="lab-chip">⭐ Best scores saved</span>
       <span class="lab-chip">🏅 Badges to earn</span>
     </div>
   </div>
+  <div class="hero-greg" aria-hidden="true"><span class="peek-bubble">Pick a game — I'll cheer you on!</span><div class="greg-figure" data-greg-figure></div></div>
   <div class="wave-divider" aria-hidden="true">
     <svg viewBox="0 0 2880 60" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,30 C240,60 480,0 720,30 C960,60 1200,0 1440,30 C1680,60 1920,0 2160,30 C2400,60 2640,0 2880,30 L2880,60 L0,60 Z" fill="#f7fcff"/></svg>
   </div>
@@ -65,7 +66,7 @@
         <div class="lab-rule"></div>
         <p>Tap a game to play it below. Your best scores stay saved on this device.</p>
       </div>
-      <div class="arcade-grid">
+      <div class="arcade-grid" data-stagger>
         <button class="arcade-card" type="button" data-game="filter"><span class="new-ribbon">NEW</span><span class="a-icon" aria-hidden="true">🧫</span><span class="a-name">Build-a-Filter</span><span class="a-learn">Stack gravel, sand &amp; charcoal to clean muddy water.</span><span class="a-best"></span></button>
         <button class="arcade-card" type="button" data-game="tycoon"><span class="new-ribbon">NEW</span><span class="a-icon" aria-hidden="true">🏭</span><span class="a-name">Water Plant Tycoon</span><span class="a-learn">Run a treatment plant for 10 days. Keep the town safe!</span><span class="a-best"></span></button>
         <button class="arcade-card" type="button" data-game="journey"><span class="new-ribbon">NEW</span><span class="a-icon" aria-hidden="true">🌍</span><span class="a-name">Drop's Journey</span><span class="a-learn">Guide Drip around the whole water cycle.</span><span class="a-best"></span></button>
@@ -396,9 +397,30 @@
 </main>
 
 <footer class="site-footer">
-  <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+      <p>Free water education for Mississippi: a science lab for kids, and a license study center for the operators who keep drinking water safe.</p>
+      <a class="footer-mail" href="mailto:learnwatertoday@gmail.com">✉️ learnwatertoday@gmail.com</a>
+    </div>
+    <nav class="footer-col" aria-label="Site sections">
+      <h4>Explore</h4>
+      <a href="kids.html">Kids Corner</a>
+      <a href="adult-learning-center.html">Adult Learning Center</a>
+      <a href="regulations.html">Water Regulations</a>
+      <a href="ms-aquifers.html">Mississippi's Aquifers</a>
+      <a href="hydraulic-modeling.html">Hydraulic Modeling</a>
+      <a href="updates.html">WaterOps App Updates</a>
+    </nav>
+    <div class="footer-col">
+      <h4>Good to know</h4>
+      <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH), with notes wherever federal rules have changed. Rules change, so confirm current requirements with MSDH, MDEQ, and EPA.</p>
+      <p>No accounts, no ads, and no tracking scripts. Your progress is saved only in your browser.</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
     <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+    <p class="footer-note">A study guide, not legal advice.</p>
   </div>
 </footer>
 

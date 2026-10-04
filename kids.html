@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="The Water Explorer Lab — free water science games, experiments, coloring, quizzes, and a water word dictionary for kids ages 6–12, with Greg, your water science buddy.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LearnWater">
+  <meta property="og:title" content="Water Explorer Lab — Kids Corner | LearnWater">
+  <meta property="og:description" content="The Water Explorer Lab — free water science games, experiments, coloring, quizzes, and a water word dictionary for kids ages 6–12, with Greg, your water science buddy.">
+  <meta property="og:url" content="https://learnwater.cofwater.org/kids">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://learnwater.cofwater.org/kids">
   <title>Water Explorer Lab — Kids Corner | LearnWater</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/baloo-2-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
@@ -11,7 +18,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/kids.css">
 </head>
-<body class="kids-body">
+<body class="kids-body" data-lab="hq">
 <a class="skip-link" href="#main">Skip to content</a>
 <div class="lab-backdrop" id="labBackdrop" aria-hidden="true"></div>
 
@@ -44,21 +51,21 @@
 <header class="lab-hero">
   <div class="kids-container hq-hero-grid">
     <div>
-      <span class="lab-kicker">🔬 Water Explorer Lab</span>
-      <h1>Become a <span class="hl">Water Scientist!</span></h1>
-      <p class="lab-sub">Play games, run real experiments, color, learn new words, and quiz yourself about water — with Greg, your water science buddy, cheering you on the whole way.</p>
-      <div class="hero-actions">
+      <span class="lab-kicker reveal reveal-1">🔬 Water Explorer Lab</span>
+      <h1 class="reveal reveal-2">Become a <span class="hl">Water Scientist!</span></h1>
+      <p class="lab-sub reveal reveal-3">Play games, run real experiments, color, learn new words, and quiz yourself about water — with Greg, your water science buddy, cheering you on the whole way.</p>
+      <div class="hero-actions reveal reveal-4">
         <a class="lab-btn amber" href="kids-games.html">🎮 Play the Games</a>
         <button class="lab-btn ghost" type="button" data-ask-greg="What is the water cycle?">💬 Ask Greg a Question</button>
       </div>
-      <div class="lab-chip-row">
+      <div class="lab-chip-row reveal reveal-5">
         <span class="lab-chip">🎓 Free forever</span>
         <span class="lab-chip">🚫 No ads</span>
         <span class="lab-chip">🔒 No sign-up</span>
         <span class="lab-chip">🏅 Earn badges</span>
       </div>
     </div>
-    <div class="hq-greg">
+    <div class="hq-greg reveal reveal-3">
       <div class="speech">Hi, I'm Greg! Let's find out what makes water so AMAZING! 💧</div>
       <div class="greg-figure" data-greg-figure></div>
     </div>
@@ -80,32 +87,37 @@
         <div class="lab-rule"></div>
         <p>Five labs, one big adventure. Start anywhere — each lab has a badge waiting for you!</p>
       </div>
-      <div class="mission-grid">
+      <div class="mission-grid" data-stagger>
         <a href="kids-games.html" class="mission-card tint-amber" data-badge="game">
+          <span class="m-count" aria-hidden="true">11 games</span>
           <span class="m-emoji" aria-hidden="true">🎮</span>
           <h3>Game Lab</h3>
           <p>Build a water filter, run a treatment plant, travel the water cycle, fix pipes, hunt leaks, and more — 11 games!</p>
           <span class="mission-go">Start playing →</span>
         </a>
         <a href="kids-color.html" class="mission-card tint-lime" data-badge="color">
+          <span class="m-count" aria-hidden="true">5 pictures</span>
           <span class="m-emoji" aria-hidden="true">🎨</span>
           <h3>Coloring Lab</h3>
           <p>Color water scenes on the screen, then print your art — or print a blank page for crayons.</p>
           <span class="mission-go">Start coloring →</span>
         </a>
         <a href="kids-quiz.html" class="mission-card tint-purple" data-badge="quiz">
+          <span class="m-count" aria-hidden="true">91 questions</span>
           <span class="m-emoji" aria-hidden="true">🧠</span>
           <h3>Quiz Lab</h3>
           <p>Three levels plus a mixed challenge. Build streaks, earn bonus points, and climb the ranks!</p>
           <span class="mission-go">Take the quiz →</span>
         </a>
         <a href="kids-learn.html" class="mission-card tint-coral" data-badge="learn">
+          <span class="m-count" aria-hidden="true">6 experiments</span>
           <span class="m-emoji" aria-hidden="true">🔬</span>
           <h3>Discovery Lab</h3>
           <p>Explore the water cycle, try real experiments at home, watch videos, and read Bible verses about water.</p>
           <span class="mission-go">Explore now →</span>
         </a>
         <a href="kids-words.html" class="mission-card tint-cyan" data-badge="words">
+          <span class="m-count" aria-hidden="true">153 words</span>
           <span class="m-emoji" aria-hidden="true">📖</span>
           <h3>Word Lab</h3>
           <p>150+ water words with pictures and how to say them, a Word of the Day, and the Word Match game.</p>
@@ -135,7 +147,7 @@
       <div class="lab-panel" style="margin-top:2rem;">
         <h3>🥼 Junior Water Scientist Challenge</h3>
         <p class="panel-desc">Finish all four steps to earn the Jr. Water Scientist badge. Each step checks itself off when you do it!</p>
-        <div class="challenge-steps">
+        <div class="challenge-steps" data-stagger>
           <a class="ch-step" href="kids-games.html" data-badge="game"><span class="ch-emoji" aria-hidden="true">🎮</span><h4>Finish a Game</h4><p>Play any Game Lab game to the end</p></a>
           <a class="ch-step" href="kids-color.html" data-badge="color"><span class="ch-emoji" aria-hidden="true">🎨</span><h4>Color a Picture</h4><p>Paint water art in the Coloring Lab</p></a>
           <a class="ch-step" href="kids-quiz.html" data-badge="quiz"><span class="ch-emoji" aria-hidden="true">🧠</span><h4>Score 8+ on a Quiz</h4><p>Take a round in the Quiz Lab</p></a>
@@ -188,9 +200,30 @@
 </main>
 
 <footer class="site-footer">
-  <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+      <p>Free water education for Mississippi: a science lab for kids, and a license study center for the operators who keep drinking water safe.</p>
+      <a class="footer-mail" href="mailto:learnwatertoday@gmail.com">✉️ learnwatertoday@gmail.com</a>
+    </div>
+    <nav class="footer-col" aria-label="Site sections">
+      <h4>Explore</h4>
+      <a href="kids.html">Kids Corner</a>
+      <a href="adult-learning-center.html">Adult Learning Center</a>
+      <a href="regulations.html">Water Regulations</a>
+      <a href="ms-aquifers.html">Mississippi's Aquifers</a>
+      <a href="hydraulic-modeling.html">Hydraulic Modeling</a>
+      <a href="updates.html">WaterOps App Updates</a>
+    </nav>
+    <div class="footer-col">
+      <h4>Good to know</h4>
+      <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH), with notes wherever federal rules have changed. Rules change, so confirm current requirements with MSDH, MDEQ, and EPA.</p>
+      <p>No accounts, no ads, and no tracking scripts. Your progress is saved only in your browser.</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
     <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+    <p class="footer-note">A study guide, not legal advice.</p>
   </div>
 </footer>
 

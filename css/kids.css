@@ -151,13 +151,29 @@ body.kids-body .nav-toggle span { background: var(--k-ink); }
   position: relative; overflow: hidden; isolation: isolate;
   color: #fff; text-align: center;
   padding: 3.25rem 0 5.25rem;
+  --lab-glow: rgba(255,255,255,0);
+  --lab-ring: rgba(255,255,255,.16);
   background:
     linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px) 0 0 / 32px 32px,
     linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px) 0 0 / 32px 32px,
+    radial-gradient(560px 300px at 50% 0%, var(--lab-glow), transparent 70%),
     radial-gradient(520px 320px at 88% 12%, rgba(37,189,234,.45), transparent 70%),
     radial-gradient(460px 300px at 6% 96%, rgba(126,217,87,.30), transparent 70%),
     linear-gradient(160deg, #0b2a4a 0%, #0f3b66 55%, #145c96 100%);
 }
+/* Each lab has its own color: the hero glow, the mascot ring, and the current tab all match */
+body[data-lab="games"] { --lab-color: var(--k-amber); }
+body[data-lab="color"] { --lab-color: var(--k-lime); }
+body[data-lab="quiz"]  { --lab-color: var(--k-grape-l); }
+body[data-lab="learn"] { --lab-color: var(--k-coral); }
+body[data-lab="words"] { --lab-color: var(--k-cyan); }
+body[data-lab="games"] .lab-hero { --lab-glow: rgba(255,190,46,.28); --lab-ring: rgba(255,190,46,.38); }
+body[data-lab="color"] .lab-hero { --lab-glow: rgba(126,217,87,.28); --lab-ring: rgba(126,217,87,.38); }
+body[data-lab="quiz"]  .lab-hero { --lab-glow: rgba(185,167,247,.30); --lab-ring: rgba(185,167,247,.42); }
+body[data-lab="learn"] .lab-hero { --lab-glow: rgba(255,122,107,.26); --lab-ring: rgba(255,122,107,.38); }
+body[data-lab="words"] .lab-hero { --lab-glow: rgba(37,189,234,.32); --lab-ring: rgba(37,189,234,.42); }
+body[data-lab] .lab-nav a[aria-current="page"] { background: var(--lab-color, var(--k-cyan)); }
+body.kids-body .reveal { animation-timing-function: cubic-bezier(.2,1.05,.35,1); }
 body.kids-body .lab-hero h1 {
   color: #fff; font-size: clamp(2.3rem, 6.5vw, 4rem); font-weight: 800;
   margin: .35rem 0 .6rem; text-shadow: 0 4px 0 rgba(0,0,0,.25);
@@ -186,9 +202,12 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
   width: clamp(84px, 16vw, 112px); height: clamp(84px, 16vw, 112px);
   font-size: clamp(2.8rem, 8vw, 3.8rem);
   background: #fff; border: 3px solid var(--k-ink); border-radius: 50%;
-  box-shadow: 0 6px 0 rgba(0,0,0,.3);
+  box-shadow: 0 0 0 10px var(--lab-ring, rgba(255,255,255,.16)), 0 6px 0 rgba(0,0,0,.3);
   animation: bob 3s ease-in-out infinite;
 }
+/* The mascot both reveals on load and bobs afterwards (a later single animation would cancel the reveal) */
+.mascot.reveal { animation: revealUp .75s cubic-bezier(.2,1.05,.35,1) forwards, bob 3s ease-in-out .9s infinite; }
+.lab-kicker.reveal { --reveal-end: rotate(-2deg); }
 @keyframes bob { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-10px) rotate(3deg); } }
 .wiggle { animation: wiggle 2.2s ease-in-out infinite; display: inline-block; }
 @keyframes wiggle { 0%,100% { transform: rotate(-6deg); } 50% { transform: rotate(6deg); } }
@@ -223,9 +242,52 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
 }
 
 /* Wave divider at the bottom of heroes */
-.wave-divider { position: absolute; left: 0; right: 0; bottom: -1px; height: 60px; overflow: hidden; line-height: 0; }
+.wave-divider { position: absolute; left: 0; right: 0; bottom: -1px; height: 60px; overflow: hidden; line-height: 0; z-index: 2; }
 .wave-divider svg { position: absolute; bottom: 0; left: 0; width: 200%; max-width: none; height: 100%; animation: waveSlide 16s linear infinite; }
 @keyframes waveSlide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+/* Hero decorations: blueprint doodles and rising bubbles (added by kids-common.js) */
+.hero-decor { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.hero-decor .doodle {
+  position: absolute; width: var(--s, 60px); height: var(--s, 60px); color: #fff; opacity: .17;
+  animation: doodleFloat var(--t, 9s) ease-in-out infinite; animation-delay: var(--d, 0s);
+}
+.hero-decor .doodle svg { width: 100%; height: 100%; display: block; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes doodleFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(calc(var(--r, 0deg) + 5deg)); }
+}
+.hero-decor .hbub {
+  position: absolute; bottom: -40px; border-radius: 50%; opacity: 0;
+  border: 2px solid rgba(255,255,255,.4);
+  background: radial-gradient(circle at 35% 30%, rgba(255,255,255,.55), rgba(255,255,255,.04) 62%);
+  animation: hbubRise var(--t, 11s) linear infinite; animation-delay: var(--d, 0s);
+}
+@keyframes hbubRise {
+  0% { transform: translate(0, 0) scale(.6); opacity: 0; }
+  10% { opacity: .75; }
+  55% { transform: translate(14px, -260px) scale(1); }
+  92% { opacity: .5; }
+  100% { transform: translate(-10px, -560px) scale(1.15); opacity: 0; }
+}
+@media (max-width: 640px) { .hero-decor .doodle.wide { display: none; } }
+
+/* Greg peeking over the wave on the lab pages (wide screens only) */
+.hero-greg { display: none; position: absolute; right: 2%; bottom: 6px; z-index: 1; width: 180px; flex-direction: column; align-items: center; pointer-events: none; }
+.hero-greg .greg-figure { width: 100%; filter: drop-shadow(0 8px 0 rgba(0,0,0,.25)); animation: peekUp 1s cubic-bezier(.2,1.1,.4,1) both; animation-delay: .45s; }
+.hero-greg .greg-figure svg { display: block; width: 100%; height: auto; }
+@keyframes peekUp { from { transform: translateY(80%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.peek-bubble {
+  position: relative; margin-bottom: -18px; white-space: nowrap;
+  background: #fff; color: var(--k-ink); border: var(--k-line); border-radius: 16px; box-shadow: var(--k-pop-sm);
+  font-family: var(--k-hand); font-size: 1.15rem; line-height: 1.2; padding: .3rem .8rem;
+  animation: popIn .4s ease both; animation-delay: 1.25s;
+}
+.peek-bubble::after {
+  content: ''; position: absolute; left: 50%; bottom: -9px; width: 14px; height: 14px; background: #fff;
+  border-right: var(--k-line); border-bottom: var(--k-line); transform: translateX(-50%) rotate(45deg);
+}
+@media (min-width: 1000px) { .hero-greg { display: flex; width: 112px; right: 1%; } .peek-bubble { display: none; } }
+@media (min-width: 1140px) { .hero-greg { width: 180px; right: 2.5%; } .peek-bubble { display: block; } }
 
 /* ==========================================================
    SECTIONS
@@ -233,7 +295,13 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
 .lab-section { padding: 3.5rem 0; position: relative; z-index: 2; }
 /* Anchor jumps land below the sticky site nav and lab tabs */
 .lab-section[id] { scroll-margin-top: calc(var(--nav-h, 64px) + 54px); }
-.lab-section.tint { background: rgba(255,255,255,.78); border-top: 2px dashed rgba(11,42,74,.14); border-bottom: 2px dashed rgba(11,42,74,.14); }
+.lab-section.tint {
+  background:
+    radial-gradient(560px 300px at 0% 0%, rgba(255,190,46,.16), transparent 70%),
+    radial-gradient(560px 300px at 100% 100%, rgba(126,217,87,.16), transparent 70%),
+    rgba(255,255,255,.8);
+  border-top: 2px dashed rgba(11,42,74,.14); border-bottom: 2px dashed rgba(11,42,74,.14);
+}
 .lab-header { text-align: center; margin-bottom: 2.25rem; }
 .lab-header h2 { margin-bottom: .35rem; }
 .lab-header p { color: var(--k-ink-2); max-width: 640px; margin: 0 auto; font-size: 1.05rem; }
@@ -276,9 +344,15 @@ a.lab-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-2px
   background: var(--k-ink); color: #fff; border-radius: 999px; padding: .25rem .9rem;
 }
 .mission-card .m-status {
-  position: absolute; top: .9rem; right: .9rem; font-family: var(--k-hand); font-size: 1.05rem;
+  align-self: flex-start; margin-top: .6rem; font-family: var(--k-hand); font-size: 1.05rem;
   background: var(--k-lime-w); border: 2px solid var(--k-ink); border-radius: 999px; padding: 0 .6rem;
 }
+.mission-card .m-count {
+  position: absolute; top: .85rem; right: .85rem; transform: rotate(4deg);
+  font-family: var(--k-hand); font-size: 1.05rem; line-height: 1.2; color: var(--k-ink);
+  background: var(--k-note); border: 2px solid var(--k-ink); border-radius: 8px; padding: .05rem .55rem; box-shadow: 2px 2px 0 var(--k-ink);
+}
+.mission-card:hover .m-count { transform: rotate(-3deg) scale(1.06); }
 .mission-card.tint-amber  .m-emoji { background: var(--k-amber-w); }
 .mission-card.tint-lime   .m-emoji { background: var(--k-lime-w); }
 .mission-card.tint-purple .m-emoji { background: var(--k-grape-w); }
@@ -870,6 +944,16 @@ body.kids-body .video-links a { color: var(--k-blue); }
   backface-visibility: hidden; -webkit-backface-visibility: hidden; border: var(--k-line); border-radius: 18px;
 }
 .fact-front { background: var(--k-amber); font-family: var(--k-display); font-size: 1.8rem; font-weight: 800; box-shadow: var(--k-pop-sm); }
+.fact-front::after {
+  content: 'tap to flip ↻'; position: absolute; left: 0; right: 0; bottom: .55rem;
+  font-family: var(--k-hand); font-size: .95rem; font-weight: 400; opacity: .7;
+}
+.fact-front::before {
+  content: '?'; position: absolute; right: .55rem; top: .2rem; font-family: var(--k-display); font-size: 2.6rem; font-weight: 800; opacity: .18; line-height: 1;
+}
+.fact-flip:nth-child(4n+1) { transform: rotate(-1.2deg); }
+.fact-flip:nth-child(4n+3) { transform: rotate(1.1deg); }
+.fact-flip:hover { transform: rotate(0) translateY(-3px); transition: transform .15s; }
 .fact-flip:nth-child(3n+2) .fact-front { background: var(--k-cyan); }
 .fact-flip:nth-child(3n) .fact-front { background: var(--k-lime); }
 .fact-back { background: #fff; transform: rotateY(180deg); font-size: .9rem; font-weight: 700; line-height: 1.35; }
@@ -1124,6 +1208,13 @@ body.kids-body .wc-word { font-size: 1.3rem; margin: 0; overflow-wrap: anywhere;
    ========================================================== */
 body.kids-body .site-footer { background: var(--k-ink); color: rgba(255,255,255,.85); border-top: var(--k-line); position: relative; z-index: 2; }
 body.kids-body .site-footer a { color: var(--k-amber); }
+body.kids-body .site-footer .nav-brand { color: #fff; }
+body.kids-body .footer-brand p, body.kids-body .footer-col p { color: rgba(255,255,255,.78); }
+body.kids-body .footer-col h4 { font-family: var(--k-hand); font-size: 1.3rem; letter-spacing: 0; text-transform: none; color: var(--k-amber); margin-bottom: .5rem; }
+body.kids-body .footer-col a:not(.btn) { color: #fff; font-weight: 700; }
+body.kids-body .footer-col a:not(.btn):hover { color: var(--k-amber); }
+body.kids-body .footer-bottom { border-top-color: rgba(255,255,255,.18); }
+body.kids-body .footer-bottom .footer-note { color: rgba(255,255,255,.6); }
 
 /* ==========================================================
    RESPONSIVE & MOTION
@@ -1141,6 +1232,7 @@ body.kids-body .site-footer a { color: var(--k-amber); }
   .memory-card-back { font-size: .6rem; padding: .15rem; line-height: 1.05; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .lab-backdrop { display: none; }
+  .lab-backdrop, .hero-decor { display: none; }
+  .hero-greg .greg-figure, .peek-bubble, .mission-card .m-count { animation: none !important; transition: none !important; }
   .mascot, .wiggle, .pulse, .wave-divider svg, .rank-badge, .hq-greg .greg-figure, .wotd-emoji, .wc-star, .match-choice { animation: none !important; }
 }

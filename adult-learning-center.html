@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Free study center for the Mississippi water operator license, Class D through Class A: 14 chapter lessons, a 224-question practice quiz, operator math drills, flash cards, a nearly 500-term glossary, videos, deep dives on regulations, aquifers, and hydraulic modeling, and Greg, your study coach.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LearnWater">
+  <meta property="og:title" content="Adult Learning Center — Mississippi Water Operator Study | LearnWater">
+  <meta property="og:description" content="Free study center for the Mississippi water operator license, Class D through Class A: 14 chapter lessons, a 224-question practice quiz, operator math drills, flash cards, a nearly 500-term glossary, videos, deep dives on regulations, aquifers, and hydraulic modeling, and Greg, your study coach.">
+  <meta property="og:url" content="https://learnwater.cofwater.org/adult-learning-center">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://learnwater.cofwater.org/adult-learning-center">
   <title>Adult Learning Center — Mississippi Water Operator Study | LearnWater</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
@@ -36,20 +43,20 @@
 <header class="hero hero-academy">
   <div class="container academy-hero">
     <div>
-      <span class="overline">Mississippi operator certification</span>
-      <h1>Adult Learning <span class="accent">Center</span></h1>
-      <p class="lead">Study every chapter of the MSDH Waterworks Operators Manual for your license, with lessons, practice quizzes, math drills, flash cards, a full glossary, and videos. It's free, and your progress is saved in this browser.</p>
-      <span class="class-switch-label" id="classSwitchLabel">I'm studying for</span>
-      <div class="class-switch" role="radiogroup" aria-labelledby="classSwitchLabel" id="classSwitch">
+      <span class="overline reveal reveal-1">Mississippi operator certification</span>
+      <h1 class="reveal reveal-2">Adult Learning <span class="accent">Center</span></h1>
+      <p class="lead reveal reveal-3">Study every chapter of the MSDH Waterworks Operators Manual for your license, with lessons, practice quizzes, math drills, flash cards, a full glossary, and videos. It's free, and your progress is saved in this browser.</p>
+      <span class="class-switch-label reveal reveal-4" id="classSwitchLabel">I'm studying for</span>
+      <div class="class-switch reveal reveal-4" role="radiogroup" aria-labelledby="classSwitchLabel" id="classSwitch">
         <button type="button" role="radio" aria-checked="true" data-class="D"><span class="cs-letter">D</span><span class="cs-name">Wells &amp; chlorination</span></button>
         <button type="button" role="radio" aria-checked="false" data-class="C"><span class="cs-letter">C</span><span class="cs-name">Aeration &amp; pH control</span></button>
         <button type="button" role="radio" aria-checked="false" data-class="B"><span class="cs-letter">B</span><span class="cs-name">Multiple processes</span></button>
         <button type="button" role="radio" aria-checked="false" data-class="A"><span class="cs-letter">A</span><span class="cs-name">Surface water</span></button>
       </div>
-      <p class="class-tagline" id="classTagline" aria-live="polite"></p>
+      <p class="class-tagline reveal reveal-5" id="classTagline" aria-live="polite"></p>
     </div>
 
-    <aside class="glass greg-hero" aria-label="Greg, your study coach">
+    <aside class="glass greg-hero reveal reveal-3" aria-label="Greg, your study coach">
       <div class="greg-hero-top">
         <span class="greg-avatar lg" data-greg-avatar></span>
         <div><strong>Greg</strong><span class="role">Your study coach</span></div>
@@ -119,7 +126,7 @@
           <h3 id="deepTitle">Beyond the exam</h3>
           <p>Interactive deep dives for when you want the whole picture. Greg knows all of it too.</p>
         </div>
-        <div class="dd-grid">
+        <div class="dd-grid" data-stagger>
           <a class="dd-card" href="ms-aquifers.html" style="--c:#0f766e;--t:#e6f4f1">
             <span class="dd-icon" aria-hidden="true">🪨</span>
             <span class="dd-text"><strong>Mississippi's Aquifers</strong><span>All 16 major aquifers, a virtual well you can drill anywhere in the state, the Delta's water levels, and a cone of depression lab.</span></span>
@@ -400,10 +407,30 @@
 </div>
 
 <footer class="site-footer">
-  <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
-    <p>Study material follows the Mississippi Waterworks Operators Manual (MSDH). Rules change, so confirm current requirements with MSDH.</p>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+      <p>Free water education for Mississippi: a science lab for kids, and a license study center for the operators who keep drinking water safe.</p>
+      <a class="footer-mail" href="mailto:learnwatertoday@gmail.com">✉️ learnwatertoday@gmail.com</a>
+    </div>
+    <nav class="footer-col" aria-label="Site sections">
+      <h4>Explore</h4>
+      <a href="kids.html">Kids Corner</a>
+      <a href="adult-learning-center.html">Adult Learning Center</a>
+      <a href="regulations.html">Water Regulations</a>
+      <a href="ms-aquifers.html">Mississippi's Aquifers</a>
+      <a href="hydraulic-modeling.html">Hydraulic Modeling</a>
+      <a href="updates.html">WaterOps App Updates</a>
+    </nav>
+    <div class="footer-col">
+      <h4>Good to know</h4>
+      <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH), with notes wherever federal rules have changed. Rules change, so confirm current requirements with MSDH, MDEQ, and EPA.</p>
+      <p>No accounts, no ads, and no tracking scripts. Your progress is saved only in your browser.</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
     <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+    <p class="footer-note">A study guide, not legal advice.</p>
   </div>
 </footer>
 

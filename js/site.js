@@ -147,8 +147,36 @@
     videos.forEach(function (v) { container.appendChild(LW.videoCard(v, opts)); });
   };
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initNav);
-  else initNav();
+
+  /* ---------- Scroll-in stagger for card grids ----------
+     Containers marked data-stagger get their children faded in one after
+     another the first time they scroll into view. Without IntersectionObserver
+     (or with reduced motion) nothing is added, so everything just shows. */
+  function initStagger() {
+    if (!('IntersectionObserver' in global)) return;
+    if (global.matchMedia && global.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var boxes = document.querySelectorAll('[data-stagger]');
+    if (!boxes.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var box = en.target;
+        Array.prototype.forEach.call(box.children, function (c, i) { c.style.setProperty('--i', Math.min(i, 12)); });
+        box.classList.add('stg-in');
+        io.unobserve(box);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    boxes.forEach(function (box) {
+      Array.prototype.forEach.call(box.children, function (c, i) { c.style.setProperty('--i', Math.min(i, 12)); });
+      box.classList.add('stg');
+      io.observe(box);
+    });
+  }
+  LW.initStagger = initStagger;
+
+  function boot() { initNav(); initStagger(); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 
   global.LW = LW;
 })(window);

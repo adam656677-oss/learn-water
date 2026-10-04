@@ -76,7 +76,7 @@ body.lesson-page { background: var(--mist); --theme: var(--ocean); }
 .toc-done[aria-pressed="true"] { background: var(--success-bg); border-color: rgba(17,133,95,.35); color: var(--success); }
 
 .lesson-main { min-width: 0; max-width: 800px; }
-.lesson-main > section, .lesson-main > aside { scroll-margin-top: calc(var(--nav-h) + 18px); }
+.lesson-main > section, .lesson-main > aside, .complete-bar { scroll-margin-top: calc(var(--nav-h) + 18px); }
 
 /* Greg's take */
 .greg-take {

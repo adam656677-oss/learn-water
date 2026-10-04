@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Hydraulic modeling of water distribution systems: how models are built, how the solver works, demands and patterns, pumps and tanks, water quality, calibration, fire flow, and water hammer. Includes a live network model you can run in your browser.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="LearnWater">
+<meta property="og:title" content="Hydraulic Modeling of Water Systems | LearnWater">
+<meta property="og:description" content="Hydraulic modeling of water distribution systems: how models are built, how the solver works, demands and patterns, pumps and tanks, water quality, calibration, fire flow, and water hammer. Includes a live network model you can run in your browser.">
+<meta property="og:url" content="https://learnwater.cofwater.org/hydraulic-modeling">
+<meta name="twitter:card" content="summary">
+<link rel="canonical" href="https://learnwater.cofwater.org/hydraulic-modeling">
 <title>Hydraulic Modeling of Water Systems | LearnWater</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/overpass-normal-600-800.woff2" as="font" type="font/woff2" crossorigin>
@@ -35,12 +42,12 @@
 <header class="lesson-hero">
   <div class="motif" aria-hidden="true"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="white" stroke-width="6"><path d="M30 50 H100 V150 H170 M100 50 H170 V150 M30 50 V150 H100"/></g><g fill="white"><circle cx="30" cy="50" r="12"/><circle cx="100" cy="50" r="12"/><circle cx="170" cy="50" r="12"/><circle cx="30" cy="150" r="12"/><circle cx="100" cy="150" r="12"/><circle cx="170" cy="150" r="12"/></g></svg></div>
   <div class="container lesson-hero-inner">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="adult-learning-center.html">Adult Learning Center</a><span aria-hidden="true">/</span><span>Deep dive</span></nav>
+    <nav class="crumbs reveal reveal-1" aria-label="Breadcrumb"><a href="adult-learning-center.html">Adult Learning Center</a><span aria-hidden="true">/</span><span>Deep dive</span></nav>
     <div class="chapter-kicker">Distribution system engineering</div>
-    <h1><span class="hero-icon" aria-hidden="true">🕸️</span><span>Hydraulic Modeling</span></h1>
-    <p class="dek">How engineers build computer models of water distribution systems, and a working model you can run right here. Change the demand, open a hydrant, upsize a pipe, close a valve, and watch the pressures respond.</p>
-    <nav class="hero-meta" aria-label="Jump to a topic"><a href="#lab">Live network solver</a><a href="#hydrant">Fire flow at 20 psi</a><a href="#eps">Pumps, tanks &amp; 48-hour simulation</a><a href="#s9">Calibration &amp; field tests</a></nav>
-    <div class="hero-cta">
+    <h1 class="reveal reveal-2"><span class="hero-icon" aria-hidden="true">🕸️</span><span>Hydraulic Modeling</span></h1>
+    <p class="dek reveal reveal-3">How engineers build computer models of water distribution systems, and a working model you can run right here. Change the demand, open a hydrant, upsize a pipe, close a valve, and watch the pressures respond.</p>
+    <nav class="hero-meta reveal reveal-4" aria-label="Jump to a topic"><a href="#lab">Live network solver</a><a href="#hydrant">Fire flow at 20 psi</a><a href="#eps">Pumps, tanks &amp; 48-hour simulation</a><a href="#s9">Calibration &amp; field tests</a></nav>
+    <div class="hero-cta reveal reveal-5">
       <a class="btn btn-white" href="#lab">Open the model lab</a>
       <a class="btn btn-light-outline" href="#pipe">Pipe calculator</a>
     </div>
@@ -373,10 +380,30 @@
 </div>
 
 <footer class="site-footer">
-  <div class="container">
-    <p>💧 <strong>LearnWater</strong> — Discover the World of Water · <a href="mailto:learnwatertoday@gmail.com">learnwatertoday@gmail.com</a></p>
-    <p>The tools on this page are for learning. Engineering decisions need a calibrated model and a licensed engineer.</p>
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-brand"><span class="brand-mark" aria-hidden="true"></span>LearnWater</a>
+      <p>Free water education for Mississippi: a science lab for kids, and a license study center for the operators who keep drinking water safe.</p>
+      <a class="footer-mail" href="mailto:learnwatertoday@gmail.com">✉️ learnwatertoday@gmail.com</a>
+    </div>
+    <nav class="footer-col" aria-label="Site sections">
+      <h4>Explore</h4>
+      <a href="kids.html">Kids Corner</a>
+      <a href="adult-learning-center.html">Adult Learning Center</a>
+      <a href="regulations.html">Water Regulations</a>
+      <a href="ms-aquifers.html">Mississippi's Aquifers</a>
+      <a href="hydraulic-modeling.html">Hydraulic Modeling</a>
+      <a href="updates.html">WaterOps App Updates</a>
+    </nav>
+    <div class="footer-col">
+      <h4>Good to know</h4>
+      <p>Lessons follow the Mississippi Waterworks Operators Manual (MSDH), with notes wherever federal rules have changed. Rules change, so confirm current requirements with MSDH, MDEQ, and EPA.</p>
+      <p>No accounts, no ads, and no tracking scripts. Your progress is saved only in your browser.</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
     <p>This is a free resource for everyone. Everyone deserves the opportunity to learn. <span class="footer-sign">— Adam Taylor</span></p>
+    <p class="footer-note">A study guide, not legal advice.</p>
   </div>
 </footer>
 
